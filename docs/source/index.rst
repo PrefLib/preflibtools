@@ -21,7 +21,6 @@ The package provides different modules. The first set of them deal with PrefLib 
 
 * **preflibtools.instances.preflibinstance**: provides the main class used to represent PrefLib instances together with a very basic graph class.
 * **preflibtools.instances.sampling**: provides all kinds of methods to sample preferences using different kinds of Mallows' models and urn model's.
-* **preflibtools.instances.drawing**: provides the function to create images from PrefLib instances. These are used to illustrate the instances in `PrefLib.org <https://www.preflib.org/>`_.
 
 See the documentation of the corresponding :ref:`instances-label`.
 
