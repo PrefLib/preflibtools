@@ -1,0 +1,32 @@
+# This workflow will generate the docs on each push, and publish them on GitHub Pages if the branch is "master".
+
+name: docs
+
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          sudo apt install pandoc
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
+          python setup.py install
+
+      - name: Build Sphinx documentation
+        run: |
+          sphinx-build -a -E -b html docs/source docs/build
