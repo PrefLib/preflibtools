@@ -6,15 +6,15 @@ Preflibtools
         :target: https://pypi.python.org/pypi/preflibtools
         :alt: PyPI Status
 
-.. image:: https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main
-        :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild
+.. image:: https://github.com/PrefLib/preflibtools/workflows/python-package/badge.svg?branch=main
+        :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Apython-package
         :alt: Build Status
 
-.. image:: https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main
-        :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Adocs
+.. image:: https://readthedocs.org/projects/docs/badge/?version=latest
+        :target: https://www.docs.preflib.org/
         :alt: Documentation Status
 
-.. image:: https://codecov.io/gh/Simon-Rey/preflibtools/branch/main/graphs/badge.svg
+.. image:: https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg
         :target: https://codecov.io/gh/PrefLib/preflibtools/tree/main
         :alt: Code Coverage
 
