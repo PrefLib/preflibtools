@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preflibtools &mdash; PrefLib-Tools 2.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> PrefLib-Tools
+          </a>
+              <div class="version">
+                2.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PrefLib-Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Preflibtools</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#preflib-instances">PrefLib Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#ordinal-preferences">Ordinal Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#categorical-preferences">Categorical Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#matching-preferences">Matching Preferences</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/instances/index.html">preflibtools.instances package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/properties/index.html">preflibtools.properties package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+</div>
+<section id="preflibtools">
+<h1>Preflibtools<a class="headerlink" href="#preflibtools" title="Permalink to this heading"></a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/preflibtools"><img alt="PyPI Status" src="https://img.shields.io/pypi/v/preflibtools.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild"><img alt="Build Status" src="https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://www.docs.preflib.org/"><img alt="Documentation Status" src="https://readthedocs.org/projects/docs/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/PrefLib/preflibtools/tree/main"><img alt="Code Coverage" src="https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg" /></a>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>The PrefLib-Tools is a set of Python tools developed to work with preference data from the
+<a class="reference external" href="https://www.preflib.org/">PrefLib.org website</a>.</p>
+<p>This package provides input and output operations on PrefLib instances, together with some additional functionalities
+on the instances: Testing whether a Condorcet winner exists, whether the instance is single-peaked, etc…</p>
+<p>We developed this package in the hope of making the use of PrefLib instances easy. This has been done in the same
+spirit as PrefLib: Providing tools for the community with the help of the community. If you want to contribute, feel
+free to create pull requests. If you have a question, a remark, or encounter a problem, please open an issue, create a
+pull request etc…</p>
+<p>The full documentation of the package can be found there: <a class="reference external" href="http://www.docs.preflib.org/">http://www.docs.preflib.org</a>.</p>
+<p>If, for some reasons, you are looking for the older version of the PrefLib-Tools, it is still available in the GitHub
+repository <a class="reference external" href="https://github.com/PrefLib/Preflib-Tools-Old">Preflib-Tools-Old</a>.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<section id="ordinal-preferences">
+<h3>Ordinal Preferences<a class="headerlink" href="#ordinal-preferences" title="Permalink to this heading"></a></h3>
+</section>
+<section id="categorical-preferences">
+<h3>Categorical Preferences<a class="headerlink" href="#categorical-preferences" title="Permalink to this heading"></a></h3>
+</section>
+<section id="matching-preferences">
+<h3>Matching Preferences<a class="headerlink" href="#matching-preferences" title="Permalink to this heading"></a></h3>
+</section>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>This package relies of the following ones:</p>
+<ul class="simple">
+<li><p><strong>numpy</strong>: to deal with array and math-related functions (random generator, factorial, etc…);</p></li>
+<li><p><strong>mip</strong>: to deal with optimisation problems (for instance closeness to single-peakedness).</p></li>
+</ul>
+</section>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading"></a></h2>
+<p>The package provides different modules. The first set of them deal with PrefLib instances.</p>
+<ul class="simple">
+<li><p><strong>preflibtools.instances.preflibinstance</strong>: provides the main class used to represent PrefLib instances together with a very basic graph class.</p></li>
+<li><p><strong>preflibtools.instances.sampling</strong>: provides all kinds of methods to sample preferences using different kinds of Mallows’ models and urn model’s.</p></li>
+</ul>
+<p>See the documentation of the corresponding <a class="reference internal" href="reference/instances/index.html#instances-label"><span class="std std-ref">preflibtools.instances package</span></a>.</p>
+<p>A second set of modules introduces functions to test properties of PrefLib instances.</p>
+<ul class="simple">
+<li><p><strong>preflibtools.properties.basic</strong>: provides a lot of small functions testing very basic properties (number of agents, size of the largest ballot…) that are mainly used for sanity checks.</p></li>
+<li><p><strong>preflibtools.properties.singlepeakedness</strong>: provides a set of function to test whether instances represent single-peaked preferences, and related properties (closeness to single-peakedness etc…).</p></li>
+<li><p><strong>preflibtools.properties.distances</strong>: provides a set of distances that can be computed between instances.</p></li>
+</ul>
+<p>See the documentation of the corresponding <a class="reference internal" href="reference/properties/index.html#properties-label"><span class="std std-ref">preflibtools.properties package</span></a>.</p>
+</section>
+<section id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference internal" href="genindex.html"><span class="std std-ref">general index</span></a> can be found here.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Simon Rey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

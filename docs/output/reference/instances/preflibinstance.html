@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>preflibtools.instances.preflibinstance &mdash; PrefLib-Tools 2.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="preflibtools.instances.sampling" href="sampling.html" />
+    <link rel="prev" title="preflibtools.instances package" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> PrefLib-Tools
+          </a>
+              <div class="version">
+                2.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances package</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">preflibtools.instances.preflibinstance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sampling.html">preflibtools.instances.sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="convert.html">preflibtools.instances.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sanity.html">preflibtools.instances.sanity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PrefLib-Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+          <li><a href="index.html">preflibtools.instances package</a> &raquo;</li>
+      <li>preflibtools.instances.preflibinstance</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/reference/instances/preflibinstance.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-preflibtools.instances.preflibinstance">
+<span id="preflibtools-instances-preflibinstance"></span><span id="instances-preflibinstance-label"></span><h1>preflibtools.instances.preflibinstance<a class="headerlink" href="#module-preflibtools.instances.preflibinstance" title="Permalink to this heading"></a></h1>
+<p>This module describes the main class to deal with PrefLib instances..</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">CategoricalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
+<p>This is the class representing a PrefLib instance of categorical preferences. It basically contains the data and
+information written within a PrefLib file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the strings provided as argument, assuming that the latter describes categorical preferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance.type_validator">
+<span class="sig-name descname"><span class="pre">type_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance.type_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a boolean indicating whether the data_type given as argument is a valid one for the python class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – A strong representing a data type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance.write" title="Permalink to this definition"></a></dt>
+<dd><p>Writes the instance into a file whose destination has been given as argument. If no file extension is
+provided the data type of the instance is used.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param filepath</dt>
+<dd class="field-odd"><p>The destination where to write the instance.</p>
+</dd>
+<dt class="field-even">type filepath</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.ComparisonInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">ComparisonInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.ComparisonInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
+<p>To be implemented.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">MatchingInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedGraph" title="preflibtools.instances.preflibinstance.WeightedGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGraph</span></code></a></p>
+<p>This is the class representing a PrefLib instance for matching preferences. It basically contains the data and
+information written within a PrefLib file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the strings, assuming that the latter describes a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance.parse_old">
+<span class="sig-name descname"><span class="pre">parse_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance.parse_old" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the strings, assuming that the latter describes a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance.type_validator">
+<span class="sig-name descname"><span class="pre">type_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance.type_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a boolean indicating whether the data_type given as argument is a valid one for the python class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – A strong representing a data type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance.write" title="Permalink to this definition"></a></dt>
+<dd><p>Writes the instance into a file whose destination has been given as argument, assuming the instance
+represents a graph. If no file extension is provided the data type of the instance is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – The destination where to write the instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">OrdinalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
+<p>This is the class representing a PrefLib instance of ordinal preferences. It basically contains the data and
+information written within a PrefLib file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to the file the instance is taken from. If a path is provided as a parameter,
+the file is immediately parsed and the instance populated accordingly.</p>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>num_unique_orders</strong> – The number of unique orders in the instance.</p></li>
+<li><p><strong>multiplicity</strong> – A dictionary mapping each order to the number of voters who submitted that order.</p></li>
+<li><p><strong>orders</strong> – The list of all the distinct orders in the instance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.append_order_list">
+<span class="sig-name descname"><span class="pre">append_order_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orders</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.append_order_list" title="Permalink to this definition"></a></dt>
+<dd><p>Appends a vote map to the instance. That function incorporates the new orders into the instance and
+updates the set of alternatives if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>orders</strong> (<em>list</em>) – A list of tuples of tuples, each tuple representing a preference order.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.append_vote_map">
+<span class="sig-name descname"><span class="pre">append_vote_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vote_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.append_vote_map" title="Permalink to this definition"></a></dt>
+<dd><p>Appends a vote map to the instance. That function incorporates the new orders into the instance and
+updates the set of alternatives if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vote_map</strong> (<em>dict of</em><em> (</em><em>tuple</em><em>, </em><em>int</em><em>)</em>) – A vote map representing preferences. A vote map is a dictionary whose keys represent
+orders (tuples of tuples of int) that are mapped to the number of voters with the given order as 
+their preferences. We re-map the orders to tuple of tuples to be sure we are dealing with the correct
+type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.flatten_strict">
+<span class="sig-name descname"><span class="pre">flatten_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.flatten_strict" title="Permalink to this definition"></a></dt>
+<dd><p>Strict orders are represented as orders with indifference classes of size 1. This is somewhat heavy when
+working with strict preferences. This function flattens strict preferences by removing the indifference
+class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of tuples of preference order and multiplicity.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.full_profile">
+<span class="sig-name descname"><span class="pre">full_profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.full_profile" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list containing all the orders appearing in the preferences, with each order appearing as
+many times as their multiplicity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of preferences (lists of alternatives).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.infer_type">
+<span class="sig-name descname"><span class="pre">infer_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.infer_type" title="Permalink to this definition"></a></dt>
+<dd><p>Loops through the orders of the instance to infer whether the preferences strict and/or complete,.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The data type of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the strings provided as argument, assuming that the latter describes an order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.parse_old">
+<span class="sig-name descname"><span class="pre">parse_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.parse_old" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the strings provided as argument, assuming that the latter describes an order, in the old PrefLib
+format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_IC">
+<span class="sig-name descname"><span class="pre">populate_IC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_IC" title="Permalink to this definition"></a></dt>
+<dd><p>Populates the instance with a random profile of strict preferences taken from the impartial culture
+distribution. Uses <span class="math notranslate nohighlight">\(preflibtools.instances.sampling.urnModel\)</span> for sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_IC_anon">
+<span class="sig-name descname"><span class="pre">populate_IC_anon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_IC_anon" title="Permalink to this definition"></a></dt>
+<dd><p>Populates the instance with a random profile of strict preferences taken from the impartial anonymous
+culture distribution. Uses <a class="reference internal" href="sampling.html#module-preflibtools.instances.sampling" title="preflibtools.instances.sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.sampling</span></code></a> for sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows">
+<span class="sig-name descname"><span class="pre">populate_mallows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixture</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispersions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows" title="Permalink to this definition"></a></dt>
+<dd><p>Populates the instance with a random profile of strict preferences taken from a mixture of Mallows’
+models. Uses <a class="reference internal" href="sampling.html#module-preflibtools.instances.sampling" title="preflibtools.instances.sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.sampling</span></code></a> for sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
+<li><p><strong>mixture</strong> (<em>list of positive numbers</em>) – A list of the weights of each element of the mixture.</p></li>
+<li><p><strong>dispersions</strong> (<em>list of float</em>) – A list of the dispersion coefficient of each element of the mixture.</p></li>
+<li><p><strong>references</strong> (<em>list of tuples of tuples of int</em>) – A list of the reference orders for each element of the mixture.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows_mix">
+<span class="sig-name descname"><span class="pre">populate_mallows_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_references</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows_mix" title="Permalink to this definition"></a></dt>
+<dd><p>Populates the instance with a random profile of strict preferences taken from a mixture of Mallows’
+models for which reference points and dispersion coefficients are independently and identically 
+distributed. Uses <a class="reference internal" href="sampling.html#module-preflibtools.instances.sampling" title="preflibtools.instances.sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.sampling</span></code></a> for sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
+<li><p><strong>num_references</strong> (<em>int</em>) – Number of element</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_urn">
+<span class="sig-name descname"><span class="pre">populate_urn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_urn" title="Permalink to this definition"></a></dt>
+<dd><p>Populates the instance with a random profile of strict preferences taken from the urn distribution.
+Uses <a class="reference internal" href="sampling.html#module-preflibtools.instances.sampling" title="preflibtools.instances.sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.sampling</span></code></a> for sampling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
+<li><p><strong>replace</strong> (<em>int</em>) – The number of replacements for the urn model.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.recompute_cardinality_param">
+<span class="sig-name descname"><span class="pre">recompute_cardinality_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.recompute_cardinality_param" title="Permalink to this definition"></a></dt>
+<dd><p>Recomputes the basic cardinality parameters based on the order list in the instance. Numbers that are
+recomputed are the number of voters, the sum of voter count and the number of unique orders.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.type_validator">
+<span class="sig-name descname"><span class="pre">type_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.type_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a boolean indicating whether the data_type given as argument is a valid one for the python class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – A strong representing a data type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.vote_map">
+<span class="sig-name descname"><span class="pre">vote_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.vote_map" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the instance described as a vote map, i.e., a dictionary whose keys are orders, mapping
+to the number of voters with the given order as their preferences. This format can be useful for some
+applications. It also ensures interoperability with the old preflibtools (vote maps were the main object).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A vote map representing the preferences in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict of (tuples, int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.write" title="Permalink to this definition"></a></dt>
+<dd><p>Writes the instance into a file whose destination has been given as argument. If no file extension is
+provided the data type of the instance is used.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param filepath</dt>
+<dd class="field-odd"><p>The destination where to write the instance.</p>
+</dd>
+<dt class="field-even">type filepath</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">PrefLibInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class provide a general template to implement specific classes representing PrefLib instances. It should
+mainly be used as an abstract class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – The path to the file the instance is taken from.</p></li>
+<li><p><strong>file_name</strong> – The name of the file the instance is taken from.</p></li>
+<li><p><strong>data_type</strong> – The data type of the instance. Whenever a function only applies to certain types of data
+(strict and complete orders for instance), we do so by checking this value.</p></li>
+<li><p><strong>modification_type</strong> – The modification type of the file: original if it represents original data; induced
+or imbued it is derived from some other data; synthetic if it is synthetically generated.</p></li>
+<li><p><strong>relates_to</strong> – The data file this instance relates to, typically the original data file for induced
+preferences.</p></li>
+<li><p><strong>related_files</strong> – The data files that are to the instance.</p></li>
+<li><p><strong>title</strong> – The title of the instance.</p></li>
+<li><p><strong>description</strong> – A description of the instance.</p></li>
+<li><p><strong>publication_date</strong> – Date at which the corresponding file has been added to PrefLib.com.</p></li>
+<li><p><strong>modification_date</strong> – Last date the  file has been modified on PrefLib.com.</p></li>
+<li><p><strong>num_alternatives</strong> – The number of alternatives in the instance.</p></li>
+<li><p><strong>alternatives_name</strong> – A dictionary mapping alternative (int) to their name (str).</p></li>
+<li><p><strong>num_voters</strong> – The number of voters in the instance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse_file" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the file whose path is provided as argument and populates the PreflibInstance object accordingly.
+The parser to be used is deduced from the file extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em>) – The path to the file to be parsed.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse_lines">
+<span class="sig-name descname"><span class="pre">parse_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse_lines" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the lines provided as argument. The parser to be used is deducted from the instance’s inner value of
+data_type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse_metadata">
+<span class="sig-name descname"><span class="pre">parse_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>A helper function that parses metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>line</strong> (<em>str</em>) – The line to parse.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse_str">
+<span class="sig-name descname"><span class="pre">parse_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse_str" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the string provided as argument and populates the PreflibInstance object accordingly.
+The parser to be used is deduced from the file extension passed as argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<em>str</em>) – The string to parse.</p></li>
+<li><p><strong>data_type</strong> (<em>str</em>) – The data type represented by the string.</p></li>
+<li><p><strong>file_name</strong> (<em>str</em>) – The value to store in the file_name member of the instance. Default is the empty string.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.parse_url">
+<span class="sig-name descname"><span class="pre">parse_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.parse_url" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the file located at the provided URL and populates the PreflibInstance object accordingly.
+The parser to be used (whether the file describes a graph or an order for instance) is deduced based
+on the file extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – The target URL.</p></li>
+<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+</ul>
+</dd>
+</dl>
+<p>in the file. Default is False.
+:type autocorrect: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.type_validator">
+<span class="sig-name descname"><span class="pre">type_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.type_validator" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a boolean indicating whether the data_type given as argument is a valid one for the python class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – A strong representing a data type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance.write_metadata">
+<span class="sig-name descname"><span class="pre">write_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance.write_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>A helper function that writes the metadata in the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> – The file to write into as a file object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">WeightedGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is used to represent (weighted) graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dict</strong> – The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
+to which it is connected). A node can be of any hashable type.</p></li>
+<li><p><strong>weight</strong> – The dictionary mapping every node to its weight.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.add_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an edge to the graph. If the nodes do not exist in the graph, those are also added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node1</strong> – The departure node of the edge.</p></li>
+<li><p><strong>node2</strong> – The arrival node of the edge.</p></li>
+<li><p><strong>weight</strong> – The weight of the edge.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.add_node">
+<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.add_node" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a node to the graph if the node does not already exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to add.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.edges" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the set of all the edges of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A set of tuples (node, neighbour, weight) representing (weighted) edges.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>set of tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.neighbours">
+<span class="sig-name descname"><span class="pre">neighbours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.neighbours" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all the neighbours of a given node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node whose neighbours we want to know.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The set of the neighbours of the node.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the set of all the nodes of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The set of all the nodes of the graph.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.outgoing_edges">
+<span class="sig-name descname"><span class="pre">outgoing_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.outgoing_edges" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all the edges leaving a given node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node whose edges we want to get.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The set of the tuples (node, neighbour, edgeWeight) representing (weighted) edges.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set of tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.get_parsed_instance">
+<span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">get_parsed_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.get_parsed_instance" title="Permalink to this definition"></a></dt>
+<dd><p>Infers from the extension of the file given as input the correct instance to use. Parses the file and return
+the instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the file to be parsed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The instance with the file already parsed.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.PrefLibInstance</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="preflibtools.instances package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sampling.html" class="btn btn-neutral float-right" title="preflibtools.instances.sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Simon Rey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

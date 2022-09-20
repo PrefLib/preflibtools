@@ -50,6 +50,13 @@ class PrefLibInstance(object):
         self.alt_name_pattern = re.compile(r'# ALTERNATIVE NAME (\d+): (.*)')
 
     def type_validator(self, data_type):
+        """ Returns a boolean indicating whether the data_type given as argument is a valid one for the python class.
+
+            :param data_type: A strong representing a data type.
+            :type data_type: str
+            :return: True if the data type is valid for the class and False otherwise.
+            :rtype: bool
+        """
         pass
 
     def parse(self, lines, autocorrect=False):
@@ -59,7 +66,7 @@ class PrefLibInstance(object):
         """ Parses the lines provided as argument. The parser to be used is deducted from the instance's inner value of
             data_type.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
@@ -139,6 +146,14 @@ class PrefLibInstance(object):
         self.parse_lines(lines, autocorrect=autocorrect)
 
     def parse_metadata(self, line, autocorrect=False):
+        """ A helper function that parses metadata.
+
+            :param line: The line to parse.
+            :type line: str
+            :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
+            in the file. Default is False.
+            :type autocorrect: bool
+        """
         if line.startswith("# FILE NAME"):
             self.file_name = line[12:].strip()
         elif line.startswith("# TITLE"):
@@ -178,10 +193,18 @@ class PrefLibInstance(object):
         pass
 
     def write_metadata(self, file):
+        """ A helper function that writes the metadata in the file.
+
+            :param file: The file to write into as a file object.
+
+        """
         file.write("# FILE NAME: {}\n# TITLE: {}\n# DESCRIPTION: {}\n# DATA TYPE: {}\n# MODIFICATION TYPE: {}\n".format(
             self.file_name, self.title, self.description, self.data_type, self.modification_type))
         file.write("# RELATES TO: {}\n# RELATED FILES: {}\n# PUBLICATION DATE: {}\n# MODIFICATION DATE: {}\n".format(
             self.relates_to, self.related_files, self.publication_date, self.modification_date))
+
+    def __str__(self):
+        return "PrefLib-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
 
 class OrdinalInstance(PrefLibInstance):
@@ -214,7 +237,7 @@ class OrdinalInstance(PrefLibInstance):
     def parse(self, lines, autocorrect=False):
         """ Parses the strings provided as argument, assuming that the latter describes an order.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
@@ -265,7 +288,7 @@ class OrdinalInstance(PrefLibInstance):
         """ Parses the strings provided as argument, assuming that the latter describes an order, in the old PrefLib
             format.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
@@ -592,7 +615,7 @@ class CategoricalInstance(PrefLibInstance):
     def parse(self, lines, autocorrect=False):
         """ Parses the strings provided as argument, assuming that the latter describes categorical preferences.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
@@ -793,7 +816,7 @@ class MatchingInstance(PrefLibInstance, WeightedGraph):
     def parse(self, lines, autocorrect=False):
         """ Parses the strings, assuming that the latter describes a graph.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
@@ -820,7 +843,7 @@ class MatchingInstance(PrefLibInstance, WeightedGraph):
     def parse_old(self, lines, autocorrect=False):
         """ Parses the strings, assuming that the latter describes a graph.
 
-            :param lines: A list of string, each string being one line of the ``file'' to parse.
+            :param lines: A list of string, each string being one line of the instance to parse.
             :type lines: list
             :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.

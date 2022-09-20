@@ -1,6 +1,6 @@
 import os
 
-from preflibtools.instances.preflibinstance import *
+from preflibtools.instances import *
 
 
 def write_test_soi_file(filepath):

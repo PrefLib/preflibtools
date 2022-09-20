@@ -1,11 +1,8 @@
-import sys
-import os
-
 from preflibtools.instances.preflibinstance import OrdinalInstance
-from preflibtools.properties.basic import *
 from preflibtools.properties.singlepeakedness import *
 from preflibtools.properties.singlecrossing import *
 from preflibtools.properties.distances import *
+from preflibtools.properties import *
 
 
 def test_basic():
