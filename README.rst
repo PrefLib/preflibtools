@@ -15,7 +15,7 @@ Preflibtools
         :alt: Documentation Status
 
 .. image:: https://codecov.io/gh/Simon-Rey/preflibtools/branch/main/graphs/badge.svg
-        :target: https://codecov.io/gh/Simon-Rey/preflibtools/tree/main
+        :target: https://codecov.io/gh/PrefLib/preflibtools/tree/main
         :alt: Code Coverage
 
 Welcome to the documentation for the Preflibtools package, a set of tools to work with preference data from the `PrefLib.org website <https://www.preflib.org/>`_.

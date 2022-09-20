@@ -4,7 +4,7 @@
 
 import pytest
 
-from .instance import test_read, test_write, test_populate
+from .instance import test_read, test_write, test_populate, order_handling_test
 from .property import test_basic, distance_test, single_peakedness_test, single_crossing_test
 
 
@@ -23,6 +23,7 @@ def test_content(response):
     test_read()
     test_write()
     test_populate()
+    order_handling_test()
     test_basic()
     distance_test()
     single_peakedness_test()
