@@ -10,7 +10,7 @@ Preflibtools
         :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild
         :alt: Build Status
 
-.. image:: https://readthedocs.org/projects/docs/badge/?version=latest
+.. image:: https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main
         :target: https://www.docs.preflib.org/
         :alt: Documentation Status
 
