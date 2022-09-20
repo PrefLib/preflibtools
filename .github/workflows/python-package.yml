@@ -32,6 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
         
     - name: Lint with flake8
       run: |
@@ -40,9 +41,8 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
-    - name: Run tests with tox
-      run: |
-        tox -e py
+    - name: Run tests with pytest and collect coverage
+      run: pytest --cov .
         
     - name: Upload coverage reports to Codecov
       run: |
