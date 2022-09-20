@@ -1,18 +1,6 @@
-Preflibtools
-============
-
-Welcome to the documentation for the Preflibtools package, a set of tools to work with preference data from the `PrefLib.org website <https://www.preflib.org/>`_.
-
-Overview
-========
-
-This package provides input and output operations on PrefLib instances, together with some additional functionalities on the instances: Testing whether a Condorcet winner exists, whether the instance is single-peaked, etc...
-
-We developed this package in the hope of making the use of PrefLib instances easy. This has been done in the same spirit as PrefLib: Providing tools for the community with the help of the community. The code for this package is hosted in the `PrefLib-Tools GitHub <https://www.github.com/PrefLib/PrefLib-Tools>`_ repository. If you want to contribute, feel free to create pull requests. If you have a question, a remark, or encounter a problem, please open an issue in the GitHub repository.
-
-The full documentation of the package can be found at the following URL: `http://www.docs.preflib.org <http://www.docs.preflib.org/>`_.
-
-In case you are interested, the old Preflibtools package can be found `here <https://github.com/PrefLib/Preflib-Tools-Old>`_.
+=====
+Usage
+=====
 
 Ordinal Preferences Example
 ===========================
@@ -42,7 +30,7 @@ We start by initializing a PrefLib instance. It can be populated either by readi
 Once the instance has been initialised, we can perform operations on it. Let's start simply with accessing the information of the instance.
 
 .. code-block:: python
-    
+
     # The type of the instance
     instance.data_type
     # The number of alternatives and their names
@@ -64,7 +52,7 @@ Once the instance has been initialised, we can perform operations on it. Let's s
 We represent orders as tuples of tuples (we need them to be hashable), i.e., it is a vector of sets of alternatives where each set represents an indifference class for the voter. Here are some examples of orders.
 
 .. code-block:: python
-    
+
     # The strict and complete order 1 > 2 > 0
     strict_order = ((1,), (2,), (0,))
     # The weak and complete order (1, 2) > 0 > (3, 4)
@@ -75,7 +63,7 @@ We represent orders as tuples of tuples (we need them to be hashable), i.e., it 
 Now that we know how orders are represented, we can see some example of how to handle orders within the instance.
 
 .. code-block:: python
-    
+
     # Adding preferences to the instance, using different formats
     # Simply a list of orders
     extra_orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
@@ -98,14 +86,14 @@ Now that we know how orders are represented, we can see some example of how to h
 We have now played around with the orders in the instance, maybe we feel like saving it into a file.
 
 .. code-block:: python
-    
+
     # Writing the instance into a file, the file type is automatically added
     instance.write("myNewInstance")
 
 To finish, we may want to test some properties of the instance. Let's start with some basic ones.
 
 .. code-block:: python
-    
+
     from preflibtools.properties.basic import borda_scores, has_condorcet
 
     # Let's check the Borda scores of the alternatives
@@ -114,9 +102,9 @@ To finish, we may want to test some properties of the instance. Let's start with
     has_condorcet(instance)
 
 The are plenty of methods to check for the potential single-peakedness of the instance.
-    
+
 .. code-block:: python
-    
+
     from preflibtools.properties.singlepeakedness import is_single_peaked_axis, is_single_peaked
     from preflibtools.properties.singlepeakedness import is_single_peaked_ILP
     from preflibtools.properties.singlepeakedness import approx_SP_voter_deletion_ILP
@@ -137,18 +125,18 @@ The are plenty of methods to check for the potential single-peakedness of the in
     (num_alt_deleted, opt_status, axis, deleted_alts) = approx_SP_alternative_deletion_ILP(instance)
 
 We can also look into single-crossing.
-    
+
 .. code-block:: python
-    
+
     from preflibtools.properties.singlecrossing import is_single_crossing
 
     # Testing if the instance is single-crossing
     is_single_crossing(instance)
-    
+
 Finally, we can talk about distances between the orders of the instance.
-    
+
 .. code-block:: python
-    
+
     from preflibtools.properties.distances import distance_matrix, spearman_footrule_distance
     from preflibtools.properties.distances import kendall_tau_distance, sertel_distance
 
@@ -157,12 +145,10 @@ Finally, we can talk about distances between the orders of the instance.
     distance_matrix(instance, spearman_footrule_distance)
     distance_matrix(instance, sertel_distance)
 
-Requirements
-============
 
-This package requires some other packages to function properly:
+Categorical Preferences Example
+===============================
 
-* **numpy**: to deal with array and math-related functions (random generator, factorial, etc...)
-* **mip**: to deal with optimisation problems (for instance closeness to single-peakedness).
-* **matplotlib**: to create images of the instances.
-* **networkx**: to draw images of instances representing graphs.
+
+Matching Preferences Example
+============================

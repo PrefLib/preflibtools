@@ -4,8 +4,8 @@
 
 import pytest
 
-
-from preflibtools import preflibtools
+from .instance import test_read, test_write, test_populate
+from .property import test_basic, distance_test, single_peakedness_test, single_crossing_test
 
 
 @pytest.fixture
@@ -20,5 +20,10 @@ def response():
 
 def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+    test_read()
+    test_write()
+    test_populate()
+    test_basic()
+    distance_test()
+    single_peakedness_test()
+    single_crossing_test()
