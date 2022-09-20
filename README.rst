@@ -6,8 +6,8 @@ Preflibtools
         :target: https://pypi.python.org/pypi/preflibtools
         :alt: PyPI Status
 
-.. image:: https://github.com/PrefLib/preflibtools/workflows/python-package/badge.svg?branch=main
-        :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Apython-package
+.. image:: https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main
+        :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild
         :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/docs/badge/?version=latest
