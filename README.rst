@@ -1,5 +1,23 @@
+============
 Preflibtools
 ============
+
+.. image:: https://img.shields.io/pypi/v/whalrus.svg
+        :target: https://pypi.python.org/pypi/whalrus
+        :alt: PyPI Status
+
+.. image:: https://github.com/francois-durand/whalrus/workflows/build/badge.svg?branch=master
+        :target: https://github.com/francois-durand/whalrus/actions?query=workflow%3Abuild
+        :alt: Build Status
+
+.. image:: https://github.com/francois-durand/whalrus/workflows/docs/badge.svg?branch=master
+        :target: https://github.com/francois-durand/whalrus/actions?query=workflow%3Adocs
+        :alt: Documentation Status
+
+.. image:: https://codecov.io/gh/francois-durand/whalrus/branch/master/graphs/badge.svg
+        :target: https://codecov.io/gh/francois-durand/whalrus/branch/master/graphs
+        :alt: Code Coverage
+
 
 Welcome to the documentation for the Preflibtools package, a set of tools to work with preference data from the `PrefLib.org website <https://www.preflib.org/>`_.
 
