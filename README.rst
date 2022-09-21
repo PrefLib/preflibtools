@@ -40,6 +40,11 @@ repository `Preflib-Tools-Old <https://github.com/PrefLib/Preflib-Tools-Old>`_.
 Usage
 =====
 
+PrefLib Instances
+-----------------
+
+.. include:: docs/source/ex_instance.rst
+
 Ordinal Preferences
 -------------------
 
