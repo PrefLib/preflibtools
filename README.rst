@@ -43,22 +43,22 @@ Usage
 PrefLib Instances
 -----------------
 
-.. include:: docs/source/ex_instance.rst
+.. include:: ex_instance.rst
 
 Ordinal Preferences
 -------------------
 
-.. include:: docs/source/ex_ordinal.rst
+.. include:: ex_ordinal.rst
 
 Categorical Preferences
 -----------------------
 
-.. include:: docs/source/ex_categorical.rst
+.. include:: ex_categorical.rst
 
 Matching Preferences
 --------------------
 
-.. include:: docs/source/ex_matching.rst
+.. include:: ex_matching.rst
 
 Requirements
 ============
