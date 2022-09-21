@@ -715,8 +715,8 @@ class CategoricalInstance(PrefLibInstance):
         file.close()
 
 
-class WeightedGraph(object):
-    """ This class is used to represent (weighted) graphs.
+class WeightedDiGraph(object):
+    """ This class is used to represent weighted directed graphs.
 
         :ivar dict: The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
             to which it is connected). A node can be of any hashable type.
@@ -725,7 +725,7 @@ class WeightedGraph(object):
 
     def __init__(self):
         self.node_mapping = dict()
-        self.weight = dict()
+        self.weights = dict()
 
     def neighbours(self, node):
         """ Returns all the neighbours of a given node.
@@ -745,7 +745,7 @@ class WeightedGraph(object):
             :return: The set of the tuples (node, neighbour, edgeWeight) representing (weighted) edges.
             :rtype: set of tuples
         """
-        return {(node, n, self.weight[(node, n)]) for n in self.node_mapping[node]}
+        return {(node, n, self.weights[(node, n)]) for n in self.node_mapping[node]}
 
     def add_node(self, node):
         """ Adds a node to the graph if the node does not already exist.
@@ -765,7 +765,7 @@ class WeightedGraph(object):
         self.add_node(node1)
         self.add_node(node2)
         self.node_mapping[node1].add(node2)
-        self.weight[(node1, node2)] = weight
+        self.weights[(node1, node2)] = weight
 
     def edges(self):
         """ Returns the set of all the edges of the graph.
@@ -773,7 +773,7 @@ class WeightedGraph(object):
             :return: A set of tuples (node, neighbour, weight) representing (weighted) edges.
             :rtype: set of tuples
         """
-        return {(n1, n2, self.weight[(n1, n2)]) for n1 in self.node_mapping for n2 in self.node_mapping[n1]}
+        return {(n1, n2, self.weights[(n1, n2)]) for n1 in self.node_mapping for n2 in self.node_mapping[n1]}
 
     def nodes(self):
         """ Returns the set of all the nodes of the graph.
@@ -794,7 +794,7 @@ class WeightedGraph(object):
         return res[:-1]
 
 
-class MatchingInstance(PrefLibInstance, WeightedGraph):
+class MatchingInstance(PrefLibInstance, WeightedDiGraph):
     """ This is the class representing a PrefLib instance for matching preferences. It basically contains the data and
         information written within a PrefLib file.
 
@@ -802,7 +802,7 @@ class MatchingInstance(PrefLibInstance, WeightedGraph):
 
     def __init__(self, file_path = ""):
         PrefLibInstance.__init__(self)
-        WeightedGraph.__init__(self)
+        WeightedDiGraph.__init__(self)
         self.num_edges = 0
         self.file_path = file_path
 

@@ -5,9 +5,6 @@ preflibtools.instances package
 
 This package provides all kinds of ways to deal with PrefLib instances.
 
-* :ref:`instances-preflibinstance-label` includes the main class of PrefLib instance.
-* :ref:`instances-sampling-label` defines methods to populate instances based on different statistical cultures.
-
 .. toctree::
     preflibinstance
     sampling

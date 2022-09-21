@@ -2,6 +2,8 @@
 Preflibtools
 ============
 
+.. inclusion-marker-badges-begin
+
 .. image:: https://img.shields.io/pypi/v/preflibtools.svg
         :target: https://pypi.python.org/pypi/preflibtools
         :alt: PyPI Status
@@ -17,6 +19,8 @@ Preflibtools
 .. image:: https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg
         :target: https://codecov.io/gh/PrefLib/preflibtools/tree/main
         :alt: Code Coverage
+
+.. inclusion-marker-badges-end
 
 Overview
 ========
@@ -46,7 +50,7 @@ PrefLib Instances
 .. inclusion-marker-instance-begin
 
 We use different Python classes to deal with the different types of data that are hosted on
-`PrefLib.org website <https://www.preflib.org/>`_. All these classes inherit from :code:`PrefLibInstance`, the abstract
+`PrefLib.org <https://www.preflib.org/>`_. All these classes inherit from :code:`PrefLibInstance`, the abstract
 class that implements all the basic functionalities common to all the others. Let us first discuss the class
 :code:`PrefLibInstance`, the other classes will be introduced later.
 
@@ -55,7 +59,7 @@ illustrated below.
 
 .. code-block:: python
 
-    from preflibtools.instance import PrefLibInstance
+    from preflibtools.instances import PrefLibInstance
 
     # The instance can be populated either by reading a file, or from an URL.
     instance = PrefLibInstance()
@@ -121,8 +125,8 @@ functions required by :code:`PrefLibInstance` and provide additional metadata th
     # Additional members of the class are the orders,  their multiplicity and the number of unique orders
     for o in instance.orders:
         order = o
-        multiplicity = instance.order_multiplicity[order]
-    instance.num_unique_order
+        multiplicity = instance.multiplicity[order]
+    instance.num_unique_orders
 
 We represent orders as tuples of tuples (we need them to be hashable), i.e., it is a vector of sets of alternatives
 where each set represents an indifference class for the voter. Here are some examples of orders.
@@ -163,7 +167,7 @@ An instance can be populated by reading a file, but also through some sampling p
 
 .. code-block:: python
 
-    # Some tatistical culture we provide, here for 5 voters and 10 alternatives
+    # Some statistical culture we provide, here for 5 voters and 10 alternatives
     instance = OrdinalInstance()
     instance.populate_mallows_mix(5, 10, 3)
     instance.populate_urn(5, 10, 76)
@@ -230,12 +234,61 @@ Categorical Preferences
 
 .. inclusion-marker-categorical-begin
 
+Categorical preferences represent scenario in which voters were asked to place alternatives into some categories.
+It is also assumed that there is an ordering of the categories inducing some preference between them.
+The typical example of categorical preferences is approval ballots, in which the categories are YES and NO.
+
+This types of preferences are represented using the :code:`CategoricalInstance` class.
+
+.. code-block:: python
+
+    from preflibtools.instances import CategoricalInstance
+
+    instance = CategoricalInstance()
+    instance.parse_url("https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat")
+
+    # Additional members of the class are related to the categories themselves
+    instance.num_categories
+    for cat, cat_name in instance.categories_name.items():
+        category = cat
+        name_of_the_category = cat_name
+    # But also to the preferences
+    for p in instance.preferences:
+        preferences = p
+        multiplicity = instance.multiplicity[p]
+    instance.num_unique_preferences
+
 .. inclusion-marker-categorical-end
 
 Matching Preferences
 --------------------
 
 .. inclusion-marker-matching-begin
+
+Matching preferences cover settings in which agents are to be matched to one another, and they have affinity scores
+between each others. The typical example for such preferences hosted on `PrefLib.org <https://www.preflib.org/>`_ is
+that of kidney transplant where donors and patients are to be matched. The class :code:`MatchingInstance` covers these.
+
+This class inherits both from :code:`PrefLibInstance` and from :code:`WeightedDiGraph`. This means that on top of the
+usual instance machinery, it also has all the graph related members and methods.
+
+.. code-block:: python
+
+    from preflibtools.instances import MatchingInstance
+
+    instance = MatchingInstance()
+    instance.parse_url("https://www.preflib.org/static/data/kidney/00036-00000001.wmd")
+
+    # The instance has a single new member: the number of edges in the graph
+    instance.num_edges
+
+    # ...and an adjacency list implementation of the weighted directed graph
+    instance.nodes() # returns the set of nodes
+    instance.edges() # returns the set of edges in the format (n1, n2, weight)
+    instance.neighbours(n) # returns the neighbours of node n
+    instance.outgoing_edges(n) # returns the edges going out of n
+    instance.add_node(n) # to add a node n
+    instance.add_edge(n1, n2, weight) # to add the edge (n1, n2, weight)
 
 .. inclusion-marker-matching-end
 

@@ -2,6 +2,9 @@
 Usage
 =====
 
+We present below several examples of how to use the PrefLib-Tools. Further information about all the functions and
+classes can be found in the reference.
+
 PrefLib Instances
 =================
 

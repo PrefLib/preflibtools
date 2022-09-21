@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Preflibtools &mdash; PrefLib-Tools 2.0.0 documentation</title>
+  <title>PrefLib-Tools &mdash; PrefLib-Tools 2.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -63,7 +63,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Preflibtools</li>
+      <li>PrefLib-Tools</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -73,7 +73,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="toctree-wrapper compound">
+  <section id="preflib-tools">
+<h1>PrefLib-Tools<a class="headerlink" href="#preflib-tools" title="Permalink to this heading"></a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/preflibtools"><img alt="PyPI Status" src="https://img.shields.io/pypi/v/preflibtools.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild"><img alt="Build Status" src="https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://www.docs.preflib.org/"><img alt="Documentation Status" src="https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/PrefLib/preflibtools/tree/main"><img alt="Code Coverage" src="https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg" /></a>
+<p>Welcome to the document of the PrefLib-Tools, a set of Python tools developed to work with preference data from the
+<a class="reference external" href="https://www.preflib.org/">PrefLib.org website</a>.</p>
+<div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -92,230 +100,6 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
 </div>
-<section id="preflibtools">
-<h1>Preflibtools<a class="headerlink" href="#preflibtools" title="Permalink to this heading"></a></h1>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/preflibtools"><img alt="PyPI Status" src="https://img.shields.io/pypi/v/preflibtools.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild"><img alt="Build Status" src="https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main" /></a>
-<a class="reference external image-reference" href="https://www.docs.preflib.org/"><img alt="Documentation Status" src="https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main" /></a>
-<a class="reference external image-reference" href="https://codecov.io/gh/PrefLib/preflibtools/tree/main"><img alt="Code Coverage" src="https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg" /></a>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
-<p>The PrefLib-Tools is a set of Python tools developed to work with preference data from the
-<a class="reference external" href="https://www.preflib.org/">PrefLib.org website</a>.</p>
-<p>This package provides input and output operations on PrefLib instances, together with some additional functionalities
-on the instances: Testing whether a Condorcet winner exists, whether the instance is single-peaked, etc…</p>
-<p>We developed this package in the hope of making the use of PrefLib instances easy. This has been done in the same
-spirit as PrefLib: Providing tools for the community with the help of the community. If you want to contribute, feel
-free to create pull requests. If you have a question, a remark, or encounter a problem, please open an issue, create a
-pull request etc…</p>
-<p>The full documentation of the package can be found there: <a class="reference external" href="http://www.docs.preflib.org/">http://www.docs.preflib.org</a>.</p>
-<p>If, for some reasons, you are looking for the older version of the PrefLib-Tools, it is still available in the GitHub
-repository <a class="reference external" href="https://github.com/PrefLib/Preflib-Tools-Old">Preflib-Tools-Old</a>.</p>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
-<section id="preflib-instances">
-<h3>PrefLib Instances<a class="headerlink" href="#preflib-instances" title="Permalink to this heading"></a></h3>
-<p>We use different Python classes to deal with the different types of data that are hosted on
-<a class="reference external" href="https://www.preflib.org/">PrefLib.org website</a>. All these classes inherit from <cite>PrefLibInstance</cite>, the abstract
-class that implements all the basic functionalities common to all the others. Let us first discuss the class
-<cite>PrefLibInstance</cite>, the other classes will be introduced later.</p>
-<p>The most important functionality, is the ability to read and parse PrefLib data. We provide several ways to do so, as
-illustrated below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instance</span> <span class="kn">import</span> <span class="n">PrefLibInstance</span>
-
-<span class="c1"># The instance can be populated either by reading a file, or from an URL.</span>
-<span class="n">instance</span> <span class="o">=</span> <span class="n">PrefLibInstance</span><span class="p">()</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">parse_file</span><span class="p">(</span><span class="s2">&quot;00001-00000001.soi&quot;</span><span class="p">)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">parse_url</span><span class="p">(</span><span class="s2">&quot;https://www.preflib.org/static/data/irish/00001-00000001.soi&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><cite>PrefLibInstance</cite> also stores most of the metadata about the data file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the original file, and the name of the file</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">file_path</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">file_name</span>
-<span class="c1"># The type of the instance and its modification type</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">data_type</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">modification_type</span>
-<span class="c1"># Some potentially related files</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">relates_to</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">related_files</span>
-<span class="c1"># The title of the data file and its description (mainly empty, on purpose)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">title</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">description</span>
-<span class="c1"># Some historical landmark about the data file</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">publication_date</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">modification_date</span>
-<span class="c1"># The number of alternatives and their names</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">num_alternatives</span>
-<span class="k">for</span> <span class="n">alt</span><span class="p">,</span> <span class="n">alt_name</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">alternatives_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">alternative</span> <span class="o">=</span> <span class="n">alt</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">alt_name</span>
-<span class="c1"># The number of voters</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">num_voters</span>
-</pre></div>
-</div>
-<p>Finally, <cite>PrefLibInstance</cite> also provide the basic functions to write the instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">path_to_the_file</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>As said before, <cite>PrefLibInstance</cite> is an abstract class, so all the actual stuff only happens in what comes next.</p>
-</section>
-<section id="ordinal-preferences">
-<h3>Ordinal Preferences<a class="headerlink" href="#ordinal-preferences" title="Permalink to this heading"></a></h3>
-<p>In the following, we present the typical use of the package when dealing with preferences submitted as orders.</p>
-<p>We start by initializing a PrefLib instance. It can be populated either by reading a file, or by using one of the sampling method we provide.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instances.preflibinstance</span> <span class="kn">import</span> <span class="n">PreflibInstance</span>
-
-<span class="c1"># We can populate the instance by reading a file from PrefLib.</span>
-<span class="c1"># You can do it based on a URL or on a path to a file</span>
-<span class="n">instance</span> <span class="o">=</span> <span class="n">PreflibInstance</span><span class="p">()</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">parse_file</span><span class="p">(</span><span class="s2">&quot;ED-00001-00000001.soi&quot;</span><span class="p">)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">parse_url</span><span class="p">(</span><span class="s2">&quot;https://www.preflib.org/static/data/ED/irish/ED-00001-00000001.soi&quot;</span><span class="p">)</span>
-
-<span class="c1"># Or we can populate the instance by sampling preferences from one of the statistical</span>
-<span class="c1"># culture we provide, for instance with 5 voters and 10 alternatives</span>
-<span class="n">instance</span> <span class="o">=</span> <span class="n">PreflibInstance</span><span class="p">()</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">populate_mallows_mix</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">populate_urn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">76</span><span class="p">)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">populate_IC</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">populate_IC_anon</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Once the instance has been initialised, we can perform operations on it. Let’s start simply with accessing the information of the instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The type of the instance</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">data_type</span>
-<span class="c1"># The number of alternatives and their names</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">num_alternatives</span>
-<span class="k">for</span> <span class="n">alt</span><span class="p">,</span> <span class="n">alt_name</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">alternatives_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">alternative</span> <span class="o">=</span> <span class="n">alt</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">alt_name</span>
-<span class="c1"># The number of voters</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">num_voters</span>
-<span class="c1"># The sum of vote count</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">sum_vote_count</span>
-<span class="c1"># The number of different orders that have been submitted</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">num_unique_order</span>
-<span class="c1"># The orders together with their multiplicity</span>
-<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">orders</span><span class="p">:</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="n">o</span>
-    <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">order_multiplicity</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>We represent orders as tuples of tuples (we need them to be hashable), i.e., it is a vector of sets of alternatives where each set represents an indifference class for the voter. Here are some examples of orders.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The strict and complete order 1 &gt; 2 &gt; 0</span>
-<span class="n">strict_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,))</span>
-<span class="c1"># The weak and complete order (1, 2) &gt; 0 &gt; (3, 4)</span>
-<span class="n">weak_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="c1"># The incomplete an weak order (1, 2) &gt; 4</span>
-<span class="n">incomplete_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
-</pre></div>
-</div>
-<p>Now that we know how orders are represented, we can see some example of how to handle orders within the instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adding preferences to the instance, using different formats</span>
-<span class="c1"># Simply a list of orders</span>
-<span class="n">extra_orders</span> <span class="o">=</span> <span class="p">[((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)),</span> <span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))]</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">append_order_list</span><span class="p">(</span><span class="n">extra_orders</span><span class="p">)</span>
-<span class="c1"># A vote map, i.e., a dictionary mapping orders to their multiplicity</span>
-<span class="n">extra_vote_map</span> <span class="o">=</span> <span class="p">{((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)):</span> <span class="mi">3</span><span class="p">,</span> <span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)):</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">append_vote_map</span><span class="p">(</span><span class="n">extra_vote_map</span><span class="p">)</span>
-
-<span class="c1"># We can access the full profile, i.e., with orders appearing several times</span>
-<span class="c1"># (according to their multiplicity)</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">full_profile</span><span class="p">()</span>
-
-<span class="c1"># If we are dealing with strict orders, we can flatten the orders so that ((0,), (1,), (2,))</span>
-<span class="c1"># is rewritten as (0, 1, 2). This return a list of tuple(order, multiplicity).</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">flatten_strict</span><span class="p">()</span>
-
-<span class="c1"># We can access the profile as a vote map</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">vote_map</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>We have now played around with the orders in the instance, maybe we feel like saving it into a file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Writing the instance into a file, the file type is automatically added</span>
-<span class="n">instance</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;myNewInstance&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To finish, we may want to test some properties of the instance. Let’s start with some basic ones.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.basic</span> <span class="kn">import</span> <span class="n">borda_scores</span><span class="p">,</span> <span class="n">has_condorcet</span>
-
-<span class="c1"># Let&#39;s check the Borda scores of the alternatives</span>
-<span class="n">borda_scores</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-<span class="c1"># We can also check if the instance has a Condorcet winner</span>
-<span class="n">has_condorcet</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The are plenty of methods to check for the potential single-peakedness of the instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.singlepeakedness</span> <span class="kn">import</span> <span class="n">is_single_peaked_axis</span><span class="p">,</span> <span class="n">is_single_peaked</span>
-<span class="kn">from</span> <span class="nn">preflibtools.properties.singlepeakedness</span> <span class="kn">import</span> <span class="n">is_single_peaked_ILP</span>
-<span class="kn">from</span> <span class="nn">preflibtools.properties.singlepeakedness</span> <span class="kn">import</span> <span class="n">approx_SP_voter_deletion_ILP</span>
-<span class="kn">from</span> <span class="nn">preflibtools.properties.singlepeakedness</span> <span class="kn">import</span> <span class="n">approx_SP_alternative_deletion_ILP</span>
-
-<span class="c1"># We can first check if the instance is single-peaked with respect to a given</span>
-<span class="c1"># axis. This only works for complete orders, they can be weak though.</span>
-<span class="n">is_SP</span> <span class="o">=</span> <span class="n">is_single_peaked_axis</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="c1"># In general we can test for the single-peakedness of the instance:</span>
-<span class="c1"># In the case of strict and complete orders;</span>
-<span class="p">(</span><span class="n">is_SP</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="o">=</span> <span class="n">is_single_peaked</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-<span class="c1"># And in the case of weak and complete order (using an ILP solver).</span>
-<span class="p">(</span><span class="n">is_SP</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="o">=</span> <span class="n">is_single_peaked_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-
-<span class="c1"># Maybe the instance is not single-peaked, but approximately. We can check how close to</span>
-<span class="c1"># single-peaked it is in terms of voter deletion and alternative deletion.</span>
-<span class="p">(</span><span class="n">num_voter_deleted</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">deleted_voters</span><span class="p">)</span> <span class="o">=</span> <span class="n">approx_SP_voter_deletion_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-<span class="p">(</span><span class="n">num_alt_deleted</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">deleted_alts</span><span class="p">)</span> <span class="o">=</span> <span class="n">approx_SP_alternative_deletion_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We can also look into single-crossing.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.singlecrossing</span> <span class="kn">import</span> <span class="n">is_single_crossing</span>
-
-<span class="c1"># Testing if the instance is single-crossing</span>
-<span class="n">is_single_crossing</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Finally, we can talk about distances between the orders of the instance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.distances</span> <span class="kn">import</span> <span class="n">distance_matrix</span><span class="p">,</span> <span class="n">spearman_footrule_distance</span>
-<span class="kn">from</span> <span class="nn">preflibtools.properties.distances</span> <span class="kn">import</span> <span class="n">kendall_tau_distance</span><span class="p">,</span> <span class="n">sertel_distance</span>
-
-<span class="c1"># We can create the distance matrix between any two orders of the instance</span>
-<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">kendall_tau_distance</span><span class="p">)</span>
-<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">spearman_footrule_distance</span><span class="p">)</span>
-<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">sertel_distance</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="categorical-preferences">
-<h3>Categorical Preferences<a class="headerlink" href="#categorical-preferences" title="Permalink to this heading"></a></h3>
-</section>
-<section id="matching-preferences">
-<h3>Matching Preferences<a class="headerlink" href="#matching-preferences" title="Permalink to this heading"></a></h3>
-</section>
-</section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
-<p>This package relies of the following ones:</p>
-<ul class="simple">
-<li><p><strong>numpy</strong>: to deal with array and math-related functions (random generator, factorial, etc…);</p></li>
-<li><p><strong>mip</strong>: to deal with optimisation problems (for instance closeness to single-peakedness).</p></li>
-</ul>
-</section>
-<section id="modules">
-<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading"></a></h2>
-<p>The package provides different modules. The first set of them deal with PrefLib instances.</p>
-<ul class="simple">
-<li><p><strong>preflibtools.instances.preflibinstance</strong>: provides the main class used to represent PrefLib instances together with a very basic graph class.</p></li>
-<li><p><strong>preflibtools.instances.sampling</strong>: provides all kinds of methods to sample preferences using different kinds of Mallows’ models and urn model’s.</p></li>
-</ul>
-<p>See the documentation of the corresponding <a class="reference internal" href="reference/instances/index.html#instances-label"><span class="std std-ref">preflibtools.instances package</span></a>.</p>
-<p>A second set of modules introduces functions to test properties of PrefLib instances.</p>
-<ul class="simple">
-<li><p><strong>preflibtools.properties.basic</strong>: provides a lot of small functions testing very basic properties (number of agents, size of the largest ballot…) that are mainly used for sanity checks.</p></li>
-<li><p><strong>preflibtools.properties.singlepeakedness</strong>: provides a set of function to test whether instances represent single-peaked preferences, and related properties (closeness to single-peakedness etc…).</p></li>
-<li><p><strong>preflibtools.properties.distances</strong>: provides a set of distances that can be computed between instances.</p></li>
-</ul>
-<p>See the documentation of the corresponding <a class="reference internal" href="reference/properties/index.html#properties-label"><span class="std std-ref">preflibtools.properties package</span></a>.</p>
-</section>
 <section id="index">
 <h2>Index<a class="headerlink" href="#index" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference internal" href="genindex.html"><span class="std std-ref">general index</span></a> can be found here.</p>

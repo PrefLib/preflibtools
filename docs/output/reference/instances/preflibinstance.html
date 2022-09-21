@@ -158,7 +158,7 @@ provided the data type of the instance is used.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">MatchingInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedGraph" title="preflibtools.instances.preflibinstance.WeightedGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedGraph</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="preflibtools.instances.preflibinstance.WeightedDiGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code></a></p>
 <p>This is the class representing a PrefLib instance for matching preferences. It basically contains the data and
 information written within a PrefLib file.</p>
 <dl class="py method">
@@ -644,10 +644,10 @@ on the file extension.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">WeightedGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">WeightedDiGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is used to represent (weighted) graphs.</p>
+<p>This class is used to represent weighted directed graphs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
@@ -658,8 +658,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.add_edge">
-<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.add_edge" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.add_edge" title="Permalink to this definition"></a></dt>
 <dd><p>Adds an edge to the graph. If the nodes do not exist in the graph, those are also added.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -673,8 +673,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.add_node">
-<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.add_node" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.add_node">
+<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.add_node" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a node to the graph if the node does not already exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -684,8 +684,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.edges">
-<span class="sig-name descname"><span class="pre">edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.edges" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.edges" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the set of all the edges of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -698,8 +698,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.neighbours">
-<span class="sig-name descname"><span class="pre">neighbours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.neighbours" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.neighbours">
+<span class="sig-name descname"><span class="pre">neighbours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.neighbours" title="Permalink to this definition"></a></dt>
 <dd><p>Returns all the neighbours of a given node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -715,8 +715,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.nodes">
-<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.nodes" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.nodes" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the set of all the nodes of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -729,8 +729,8 @@ to which it is connected). A node can be of any hashable type.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedGraph.outgoing_edges">
-<span class="sig-name descname"><span class="pre">outgoing_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedGraph.outgoing_edges" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.outgoing_edges">
+<span class="sig-name descname"><span class="pre">outgoing_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.outgoing_edges" title="Permalink to this definition"></a></dt>
 <dd><p>Returns all the edges leaving a given node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
