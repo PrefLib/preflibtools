@@ -5,19 +5,27 @@ Usage
 PrefLib Instances
 =================
 
-.. include:: ./ex_instance.rst
+.. include:: ../../README.rst
+    :start-after: inclusion-marker-instance-begin
+    :end-before: inclusion-marker-instance-end
 
 Ordinal Preferences
 ===================
 
-.. include:: ./ex_ordinal.rst
+.. include:: ../../README.rst
+    :start-after: inclusion-marker-ordinal-begin
+    :end-before: inclusion-marker-ordinal-end
 
 Categorical Preferences
 =======================
 
-.. include:: ./ex_categorical.rst
+.. include:: ../../README.rst
+    :start-after: inclusion-marker-categorical-begin
+    :end-before: inclusion-marker-categorical-end
 
 Matching Preferences
 ====================
 
-.. include:: ./ex_matching.rst
+.. include:: ../../README.rst
+    :start-after: inclusion-marker-matching-begin
+    :end-before: inclusion-marker-matching-end
