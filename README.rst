@@ -9,11 +9,13 @@ Preflibtools
         :alt: PyPI Status
 
 [![build](https://github.com/PrefLib/preflibtools/actions/workflows/build.yml/badge.svg)](https://github.com/PrefLib/preflibtools/actions/workflows/build.yml)
+
 .. image:: https://github.com/PrefLib/preflibtools/workflows/build/badge.svg?branch=main
         :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild
         :alt: Build Status
 
 [![docs](https://github.com/PrefLib/preflibtools/actions/workflows/docs.yml/badge.svg)](https://github.com/PrefLib/preflibtools/actions/workflows/docs.yml)
+
 .. image:: https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main
         :target: https://www.docs.preflib.org/
         :alt: Documentation Status
