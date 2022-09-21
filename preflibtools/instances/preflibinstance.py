@@ -581,6 +581,8 @@ class OrdinalInstance(PrefLibInstance):
         """
         self.append_vote_map(generate_mallows_mix(num_voters, list(range(num_alternatives)), num_references))
 
+    def __str__(self):
+        return "Ordinal-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
 class ComparisonInstance(PrefLibInstance):
     """ To be implemented.
@@ -714,6 +716,9 @@ class CategoricalInstance(PrefLibInstance):
             file.write("{}: {}\n".format(self.multiplicity[pref], pref_str[:-1]))
         file.close()
 
+    def __str__(self):
+        return "Categorical-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
+
 
 class WeightedDiGraph(object):
     """ This class is used to represent weighted directed graphs.
@@ -785,13 +790,7 @@ class WeightedDiGraph(object):
 
     def __str__(self):
         """ Returns the string used when printing the graph """
-        res = "Graph with {} vertices and {} edges :\n".format(len(self.node_mapping), len(self.edges()))
-        for node in self.node_mapping:
-            res += str(node) + ": "
-            for edge in self.outgoing_edges(node):
-                res += str(edge) + " "
-            res = res[:-1] + "\n"
-        return res[:-1]
+        return "Graph with {} vertices and {} edges :\n".format(len(self.node_mapping), len(self.edges()))
 
 
 class MatchingInstance(PrefLibInstance, WeightedDiGraph):
@@ -891,6 +890,9 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
             for (vertex1, vertex2, weight) in out_edges:
                 file.write("{},{},{}\n".format(vertex1, vertex2, weight))
         file.close()
+
+    def __str__(self):
+        return "Matching-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
 
 def get_parsed_instance(file_path):

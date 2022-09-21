@@ -41,6 +41,17 @@ The full documentation of the package can be found there: `http://www.docs.prefl
 If, for some reasons, you are looking for the older version of the PrefLib-Tools, it is still available in the GitHub
 repository `Preflib-Tools-Old <https://github.com/PrefLib/Preflib-Tools-Old>`_.
 
+Installation
+============
+
+The installation should be as easy as:
+
+.. code-block:: console
+
+    pip3 install preflibtools
+
+The source code is also available here.
+
 Usage
 =====
 

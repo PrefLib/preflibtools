@@ -26,6 +26,8 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     description="A set of tools to work with preference data from the PrefLib.org website.",
     install_requires=requirements,
@@ -39,7 +41,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/Simon-Rey/preflibtools',
+    url='https://github.com/PrefLib/preflibtools',
     version='2.0.0',
     zip_safe=False,
 )
