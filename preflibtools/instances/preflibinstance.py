@@ -272,14 +272,13 @@ class OrdinalInstance(PrefLibInstance):
                         if len(alt) > 0:
                             order.append((int(alt.strip()),))
             order = tuple(order)
-            self.orders.append(order)
             if autocorrect and order in self.multiplicity:
                 self.multiplicity[tuple(order)] += multiplicity
             else:
+                self.orders.append(order)
                 self.multiplicity[tuple(order)] = multiplicity
 
         if autocorrect:
-            self.orders = list(set(self.orders))
             self.num_alternatives = len(self.alternatives_name)
             self.num_unique_orders = len(self.orders)
             self.num_voters = sum(self.multiplicity.values())
@@ -348,14 +347,11 @@ class OrdinalInstance(PrefLibInstance):
                             if (int(w),) not in order:
                                 order.append((int(w),))
             order = tuple(order)
-            self.orders.append(order)
             if autocorrect and order in self.multiplicity:
                 self.multiplicity[tuple(order)] += multiplicity
             else:
+                self.orders.append(order)
                 self.multiplicity[tuple(order)] = multiplicity
-
-        if autocorrect:
-            self.orders = list(set(self.orders))
 
     def write(self, filepath):
         """ Writes the instance into a file whose destination has been given as argument. If no file extension is
@@ -451,11 +447,12 @@ class OrdinalInstance(PrefLibInstance):
 
     def recompute_cardinality_param(self):
         """ Recomputes the basic cardinality parameters based on the order list in the instance. Numbers that are
-            recomputed are the number of voters, the sum of voter count and the number of unique orders.
+            recomputed are the number of voters and the number of unique orders.
         """
         num_voters = 0
         for order in self.orders:
             num_voters += self.multiplicity[order]
+            print(num_voters)
         self.num_voters = num_voters
         self.num_unique_orders = len(set(self.orders))
 
@@ -475,14 +472,12 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters += len(orders)
 
         for order in orders:
-            multiplicity = len([o for o in orders if o == order])
             if order in self.multiplicity:
-                self.multiplicity[order] += multiplicity
+                self.multiplicity[order] += 1
             else:
-                self.multiplicity[order] = multiplicity
-
-        self.num_unique_orders = len(self.multiplicity)
-        self.orders += deepcopy(orders)
+                self.orders.append(deepcopy(order))
+                self.multiplicity[order] = 1
+                self.num_unique_orders += 1
 
         self.data_type = self.infer_type()
 
@@ -669,14 +664,13 @@ class CategoricalInstance(PrefLibInstance):
                         if len(alt) > 0:
                             pref.append((int(alt.strip()),))
             pref = tuple(pref)
-            self.preferences.append(pref)
             if autocorrect and pref in self.multiplicity:
                 self.multiplicity[tuple(pref)] += multiplicity
             else:
+                self.preferences.append(pref)
                 self.multiplicity[tuple(pref)] = multiplicity
 
         if autocorrect:
-            self.preferences = list(set(self.preferences))
             self.num_alternatives = len(self.alternatives_name)
             self.num_unique_preferences = len(self.preferences)
             self.num_voters = sum(self.multiplicity.values())
@@ -852,7 +846,14 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
         self.num_alternatives = int(lines[0].strip().split(",")[0])
         self.num_voters = int(lines[0].strip().split(",")[1])
         for i in range(1, self.num_alternatives + 1):
-            self.alternatives_name[i] = lines[i].split(",")[1].strip()
+            alt_name = lines[i].split(",")[1].strip()
+            if autocorrect and alt_name in self.alternatives_name.values():
+                tmp = 1
+                while alt_name + "__" + str(tmp) in self.alternatives_name.values():
+                    tmp += 1
+                self.alternatives_name[i] = alt_name + "__" + str(tmp)
+            else:
+                self.alternatives_name[i] = alt_name
 
         # Skip the lines that describe the data
         graph_first_line = self.num_alternatives + 1
@@ -905,7 +906,7 @@ def get_parsed_instance(file_path):
         :return: The instance with the file already parsed.
         :rtype: :class:`preflibtools.instances.preflibinstance.PrefLibInstance`
     """
-    extension = os.path.splitext(file_path)[1]
+    extension = os.path.splitext(file_path)[1][1:]
     if extension in ["soc", "soi", "toc", "toi"]:
         return OrdinalInstance(file_path)
     elif extension == "cat":
