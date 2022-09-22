@@ -22,9 +22,9 @@ def test_basic():
     assert min_num_indif(instance) == 0
     assert largest_indif(instance) == 1
     assert smallest_indif(instance) == 1
-    assert is_approval(instance) == False
-    assert is_strict(instance) == True
-    assert is_complete(instance) == True
+    assert is_approval(instance) is False
+    assert is_strict(instance) is True
+    assert is_complete(instance) is True
     orders += [((0,), (1, 2))]
     instance.append_order_list(orders)
     scores = borda_scores(instance)
@@ -40,9 +40,9 @@ def test_basic():
     assert min_num_indif(instance) == 0
     assert largest_indif(instance) == 2
     assert smallest_indif(instance) == 1
-    assert is_approval(instance) == False
-    assert is_strict(instance) == False
-    assert is_complete(instance) == True
+    assert is_approval(instance) is False
+    assert is_strict(instance) is False
+    assert is_complete(instance) is True
     orders += [((4, 3), (1, 2))]
     instance.append_order_list(orders)
     assert num_alternatives(instance) == 5
@@ -54,65 +54,65 @@ def test_basic():
     assert min_num_indif(instance) == 0
     assert largest_indif(instance) == 2
     assert smallest_indif(instance) == 1
-    assert is_approval(instance) == False
-    assert is_strict(instance) == False
-    assert is_complete(instance) == False
+    assert is_approval(instance) is False
+    assert is_strict(instance) is False
+    assert is_complete(instance) is False
 
     instance = OrdinalInstance()
     instance.append_order_list([((4, 3), (1, 2)), ((1, 3), (1, 4))])
-    assert is_approval(instance) == True
+    assert is_approval(instance) is True
     instance.append_order_list([((2, 3), (1,)), ((3,), (1, 2))])
-    assert is_approval(instance) == False
+    assert is_approval(instance) is False
 
     instance = OrdinalInstance()
     instance.append_order_list([((2, 3),), ((3,),)])
-    assert is_approval(instance) == True
+    assert is_approval(instance) is True
 
     instance = OrdinalInstance()
     orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((1,), (2,), (0,))]
     instance.append_order_list(orders)
-    assert has_condorcet(instance) == False
+    assert has_condorcet(instance) is False
     instance = OrdinalInstance()
     orders = [((0,), (1,), (2,)), ((2,), (1,), (0,)), ((1,), (0,), (2,)), ((1,), (2,), (0,))]
     instance.append_order_list(orders)
-    assert has_condorcet(instance) == True
+    assert has_condorcet(instance) is True
     instance = OrdinalInstance()
     orders = [((0, 1), (2,), (3, 4)), ((4,), (3,), (2, 1, 0)), ((0,), (1, 3), (4,))]
     instance.append_order_list(orders)
-    assert has_condorcet(instance) == True
+    assert has_condorcet(instance) is True
 
 
 def single_peakedness_test():
     instance = OrdinalInstance()
     orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
     instance.append_order_list(orders)
-    assert is_single_peaked_axis(instance, [0, 1, 2]) == False
-    assert is_single_peaked_axis(instance, [1, 0, 2]) == True
-    assert is_single_peaked(instance)[0] == True
-    assert is_single_peaked_ILP(instance)[0] == True
+    assert is_single_peaked_axis(instance, [0, 1, 2]) is False
+    assert is_single_peaked_axis(instance, [1, 0, 2]) is True
+    assert is_single_peaked(instance)[0] is True
+    assert is_single_peaked_ILP(instance)[0] is True
 
     instance = OrdinalInstance()
     orders = [((0,), (1,), (2,)), ((2,), (1,), (0,)), ((1,), (0,), (2,)), ((1,), (2,), (0,))]
     instance.append_order_list(orders)
-    assert is_single_peaked_axis(instance, [0, 1, 2]) == True
-    assert is_single_peaked_axis(instance, [1, 0, 2]) == False
-    assert is_single_peaked(instance)[0] == True
+    assert is_single_peaked_axis(instance, [0, 1, 2]) is True
+    assert is_single_peaked_axis(instance, [1, 0, 2]) is False
+    assert is_single_peaked(instance)[0] is True
     assert is_single_peaked(instance)[1] in ([0, 1, 2], [2, 1, 0])
-    assert is_single_peaked_ILP(instance)[0] == True
+    assert is_single_peaked_ILP(instance)[0] is True
     assert is_single_peaked_ILP(instance)[2] in ([0, 1, 2], [2, 1, 0])
 
     instance = OrdinalInstance()
     orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((1,), (2,), (0,))]
     instance.append_order_list(orders)
-    assert is_single_peaked(instance)[0] == False
-    assert is_single_peaked_ILP(instance)[0] == False
+    assert is_single_peaked(instance)[0] is False
+    assert is_single_peaked_ILP(instance)[0] is False
     assert approx_SP_voter_deletion_ILP(instance)[0] == 1
     assert approx_SP_alternative_deletion_ILP(instance)[0] == 1
 
     instance = OrdinalInstance()
     orders = [((0, 1), (2,), (3, 4)), ((4,), (3,), (2, 1, 0)), ((2, 3), (1,), (0,), (4,))]
     instance.append_order_list(orders)
-    assert is_single_peaked_ILP(instance)[0] == True
+    assert is_single_peaked_ILP(instance)[0] is True
     assert approx_SP_voter_deletion_ILP(instance)[0] == 0
     assert approx_SP_alternative_deletion_ILP(instance)[0] == 0
 

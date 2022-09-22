@@ -452,7 +452,6 @@ class OrdinalInstance(PrefLibInstance):
         num_voters = 0
         for order in self.orders:
             num_voters += self.multiplicity[order]
-            print(num_voters)
         self.num_voters = num_voters
         self.num_unique_orders = len(set(self.orders))
 

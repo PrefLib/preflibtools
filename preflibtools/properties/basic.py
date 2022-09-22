@@ -80,19 +80,20 @@ def borda_scores(instance):
         :return: A dictionary mapping every instance to their Borda score.
         :rtype: dict
     """
-    if instance.data_type not in ("toc", "soc", "toi", "soi"):
+    if instance.data_type not in ("toc", "soc"):
         raise TypeError("You are trying to compute the Borda scores of an instance of type " +
                         str(instance.data_type) + ", this is not possible.")
     res = dict([])
     for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
         i = instance.num_alternatives
         for indif_class in order:
             i -= len(indif_class)
             for alt in indif_class:
                 if alt not in res:
-                    res[alt] = i
+                    res[alt] = i * multiplicity
                 else:
-                    res[alt] += i
+                    res[alt] += i * multiplicity
     return res
 
 
