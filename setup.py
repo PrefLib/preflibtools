@@ -16,10 +16,10 @@ test_requirements = ['pytest>=3',]
 setup(
     author="Simon Rey",
     author_email='reysimon@orange.fr',
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
@@ -42,6 +42,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/PrefLib/preflibtools',
-    version='2.0.0',
+    version='2.0.2',
     zip_safe=False,
 )

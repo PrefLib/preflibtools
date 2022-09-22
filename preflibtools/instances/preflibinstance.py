@@ -7,7 +7,7 @@ from .sampling import *
 from copy import deepcopy
 from os import path
 
-import urllib
+import urllib.request
 import re
 
 
