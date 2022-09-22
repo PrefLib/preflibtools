@@ -76,8 +76,8 @@ class PrefLibInstance(object):
         if self.type_validator(self.data_type):
             self.parse(lines, autocorrect=autocorrect)
         else:
-            raise TypeError("File extension " + str(self.data_type) + " is not valid for an ordinal PrefLib instance." +
-                            " This file cannot be parsed.")
+            raise TypeError("File extension " + str(self.data_type) + " is not valid for this type of PrefLib " +
+                            "instance. This file cannot be parsed.")
 
     def parse_file(self, filepath, autocorrect=False):
         """ Parses the file whose path is provided as argument and populates the PreflibInstance object accordingly.
