@@ -339,7 +339,31 @@ def test_populate():
     assert instance.num_alternatives == 10
 
     instance = OrdinalInstance()
+    exception_raised = False
+    try:
+        instance.populate_urn(10, 30, 2)
+    except ValueError:
+        exception_raised = True
+    assert exception_raised
+
+    instance = OrdinalInstance()
+    instance.populate_urn(30, 10, 2)
+    assert instance.num_voters == 30
+    assert instance.num_alternatives == 10
+
+    instance = OrdinalInstance()
+    instance.populate_urn(30, 2, 2)
+    assert instance.num_voters == 30
+    assert sum(instance.multiplicity.values()) == 30
+    assert instance.num_alternatives == 2
+
+    instance = OrdinalInstance()
     instance.populate_mallows(5, 3, [0.4, 0.6], [0.2, 0.3], [((0,), (1,), (2,)), ((1,), (0,), (2,))])
+    assert instance.num_voters == 5
+    assert instance.num_alternatives == 3
+
+    instance = OrdinalInstance()
+    instance.populate_mallows(5, 3, [10, 20], [0.2, 0.3], [((0,), (1,), (2,)), ((1,), (0,), (2,))])
     assert instance.num_voters == 5
     assert instance.num_alternatives == 3
 
@@ -347,6 +371,31 @@ def test_populate():
     instance.populate_mallows_mix(5, 10, 5)
     assert instance.num_voters == 5
     assert instance.num_alternatives == 10
+
+    exception_raised = False
+    try:
+        instance = OrdinalInstance()
+        instance.populate_mallows(5, 3, [0.4, 0.6, 0.7], [0.2, 0.3], [((0,), (1,), (2,)), ((1,), (0,), (2,))])
+    except ValueError:
+        exception_raised = True
+    assert exception_raised
+
+    exception_raised = False
+    try:
+        instance = OrdinalInstance()
+        instance.populate_mallows(5, 3, [0.4, 0.6], [0.2, 0.3, 0.4], [((0,), (1,), (2,)), ((1,), (0,), (2,))])
+    except ValueError:
+        exception_raised = True
+    assert exception_raised
+
+    exception_raised = False
+    try:
+        instance = OrdinalInstance()
+        instance.populate_mallows(5, 3, [0.4, 0.6], [0.2, 0.3], [((0,), (1,), (2,)), ((1,), (0,), (2,)),
+                                                                 ((0,), (2,), (1,))])
+    except ValueError:
+        exception_raised = True
+    assert exception_raised
 
 
 def main():

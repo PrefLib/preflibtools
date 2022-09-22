@@ -3,7 +3,6 @@
 
 import numpy as np
 
-
 def generate_mallows(num_voters, num_alternatives, mixture, dispersions, references):
     """ Generates a profile following a mixture of Mallow's models.
 
@@ -111,32 +110,32 @@ def generate_urn(num_voters, alternatives, replace):
     vote_map = {}
     replace_votes = {}
 
+    if len(alternatives) > 20:
+        raise ValueError("Because of normalisation factors involving a factorial, we cannot run an urn sampling with "
+                         "mor than 20 alternatives.")
+
     IC_size = np.math.factorial(len(alternatives))
     replace_size = 0
 
     for x in range(num_voters):
         flip = np.random.randint(1, IC_size + replace_size + 1)
+        # We either draw an "original vote"
         if flip <= IC_size:
             # generate an IC vote and make a suitable number of replacements...
             vote = generate_IC_ballot(alternatives)
             vote_map[vote] = (vote_map.get(vote, 0) + 1)
             replace_votes[vote] = (replace_votes.get(vote, 0) + replace)
             replace_size += replace
-
         else:
             # iterate over replacement hash and select proper vote.
             flip = flip - IC_size
             for vote in replace_votes.keys():
                 flip = flip - replace_votes[vote]
                 if flip <= 0:
-                    vote = tuple((alt,) for alt in vote)
                     vote_map[vote] = (vote_map.get(vote, 0) + 1)
                     replace_votes[vote] = (replace_votes.get(vote, 0) + replace)
                     replace_size += replace
                     break
-                else:
-                    print("We Have a problem... replace fell through....")
-                    exit()
 
     return vote_map
 
