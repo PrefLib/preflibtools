@@ -189,6 +189,14 @@ class PrefLibInstance(object):
                 else:
                     self.alternatives_name[alt] = alt_name
 
+    def set_file_name(self, filepath):
+        """ Set self.filename according to a given filepath.
+
+            :param filepath: The filepath to a (preflib) file.
+            :type filepath: str
+        """
+        self.file_name = os.path.basename(filepath)
+
     def write(self, filepath):
         pass
 
@@ -357,31 +365,35 @@ class OrdinalInstance(PrefLibInstance):
         """ Writes the instance into a file whose destination has been given as argument. If no file extension is
         provided the data type of the instance is used.
 
+            Also sets `self.file_name` correctly (according to `filepath`), if `self.file_name` is empty.
+
             :param filepath: The destination where to write the instance.
             :type filepath: str
         """
         if len(path.splitext(filepath)[1]) == 0:
             filepath += "." + str(self.data_type)
-        file = open(filepath, "w", encoding="utf-8")
-        # Writing metadata in the file header
-        self.write_metadata(file)
-        file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER VOTERS: {}\n# NUMBER UNIQUE ORDERS: {}\n".format(
-            self.num_alternatives, self.num_voters, self.num_unique_orders
-        ))
-        for alt, name in self.alternatives_name.items():
-            file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
-        # Writing the actual ballots with their multiplicity
-        orders = deepcopy(self.orders)
-        orders.sort(key=lambda o: (-self.multiplicity[o], -len(o)))
-        for order in orders:
-            order_str = ""
-            for indif_class in order:
-                if len(indif_class) == 1:
-                    order_str += str(indif_class[0]) + ","
-                else:
-                    order_str += "{" + ",".join((str(alt) for alt in indif_class)) + "},"
-            file.write("{}: {}\n".format(self.multiplicity[order], order_str[:-1]))
-        file.close()
+        # set self.filename if it is undefined
+        if not self.file_name:
+            self.set_file_name(filepath)
+        with open(filepath, "w", encoding="utf-8") as file:
+            # Writing metadata in the file header
+            self.write_metadata(file)
+            file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER VOTERS: {}\n# NUMBER UNIQUE ORDERS: {}\n".format(
+                self.num_alternatives, self.num_voters, self.num_unique_orders
+            ))
+            for alt, name in self.alternatives_name.items():
+                file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
+            # Writing the actual ballots with their multiplicity
+            orders = deepcopy(self.orders)
+            orders.sort(key=lambda o: (-self.multiplicity[o], -len(o)))
+            for order in orders:
+                order_str = ""
+                for indif_class in order:
+                    if len(indif_class) == 1:
+                        order_str += str(indif_class[0]) + ","
+                    else:
+                        order_str += "{" + ",".join((str(alt) for alt in indif_class)) + "},"
+                file.write("{}: {}\n".format(self.multiplicity[order], order_str[:-1]))
 
     def vote_map(self):
         """ Returns the instance described as a vote map, i.e., a dictionary whose keys are orders, mapping
@@ -671,43 +683,46 @@ class CategoricalInstance(PrefLibInstance):
 
         if autocorrect:
             self.num_alternatives = len(self.alternatives_name)
-            self.num_unique_preferences = len(self.preferences)
-            self.num_voters = sum(self.multiplicity.values())
+            self.recompute_cardinality_param()
 
     def write(self, filepath):
         """ Writes the instance into a file whose destination has been given as argument. If no file extension is
         provided the data type of the instance is used.
+
+            Also sets `self.file_name` correctly (according to `filepath`), if `self.file_name` is empty.
 
             :param filepath: The destination where to write the instance.
             :type filepath: str
         """
         if len(path.splitext(filepath)[1]) == 0:
             filepath += "." + str(self.data_type)
-        file = open(filepath, "w", encoding="utf-8")
-        # Writing metadata in the file header
-        self.write_metadata(file)
-        file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER VOTERS: {}\n# NUMBER UNIQUE PREFERENCES: {}\n".format(
-            self.num_alternatives, self.num_voters, self.num_unique_preferences
-        ))
-        file.write("# NUMBER CATEGORIES: {}\n".format(self.num_categories))
-        for cat, name in self.categories_name.items():
-            file.write("# CATEGORY NAME {}: {}\n".format(cat, name))
-        for alt, name in self.alternatives_name.items():
-            file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
-        # Writing the actual ballots with their multiplicity
-        preferences = deepcopy(self.preferences)
-        preferences.sort(key=lambda o: (-self.multiplicity[o], -len(o)))
-        for pref in preferences:
-            pref_str = ""
-            for category in pref:
-                if len(category) == 0:
-                    pref_str += '{},'
-                elif len(category) == 1:
-                    pref_str += str(category[0]) + ","
-                else:
-                    pref_str += "{" + ",".join((str(alt) for alt in category)) + "},"
-            file.write("{}: {}\n".format(self.multiplicity[pref], pref_str[:-1]))
-        file.close()
+        # set self.filename if it is undefined
+        if not self.file_name:
+            self.set_file_name(filepath)
+        with open(filepath, "w", encoding="utf-8") as file:
+            # Writing metadata in the file header
+            self.write_metadata(file)
+            file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER VOTERS: {}\n# NUMBER UNIQUE PREFERENCES: {}\n".format(
+                self.num_alternatives, self.num_voters, self.num_unique_preferences
+            ))
+            file.write("# NUMBER CATEGORIES: {}\n".format(self.num_categories))
+            for cat, name in self.categories_name.items():
+                file.write("# CATEGORY NAME {}: {}\n".format(cat, name))
+            for alt, name in self.alternatives_name.items():
+                file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
+            # Writing the actual ballots with their multiplicity
+            preferences = deepcopy(self.preferences)
+            preferences.sort(key=lambda o: (-self.multiplicity[o], -len(o)))
+            for pref in preferences:
+                pref_str = ""
+                for category in pref:
+                    if len(category) == 0:
+                        pref_str += '{},'
+                    elif len(category) == 1:
+                        pref_str += str(category[0]) + ","
+                    else:
+                        pref_str += "{" + ",".join((str(alt) for alt in category)) + "},"
+                file.write("{}: {}\n".format(self.multiplicity[pref], pref_str[:-1]))
 
     def __str__(self):
         return "Categorical-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
@@ -868,28 +883,31 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
         """ Writes the instance into a file whose destination has been given as argument, assuming the instance
             represents a graph. If no file extension is provided the data type of the instance is used.
 
+            Also sets `self.file_name` correctly (according to `filepath`), if `self.file_name` is empty.
+
             :param filepath: The destination where to write the instance.
             :type filepath: str
         """
-
         if len(path.splitext(filepath)[1]) == 0:
             filepath += "." + str(self.data_type)
-        file = open(filepath, "w", encoding="utf-8")
-        # Writing metadata in the file header
-        self.write_metadata(file)
-        file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER EDGES: {}\n".format(
-            self.num_alternatives, self.num_edges,
-        ))
-        for alt, name in self.alternatives_name.items():
-            file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
+        # set self.filename if it is undefined
+        if not self.file_name:
+            self.set_file_name(filepath)
+        with open(filepath, "w", encoding="utf-8") as file:
+            # Writing metadata in the file header
+            self.write_metadata(file)
+            file.write("# NUMBER ALTERNATIVES: {}\n# NUMBER EDGES: {}\n".format(
+                self.num_alternatives, self.num_edges,
+            ))
+            for alt, name in self.alternatives_name.items():
+                file.write("# ALTERNATIVE NAME {}: {}\n".format(alt, name))
 
-        # Writing the actual graph
-        nodes = sorted(list(self.nodes()))
-        for n in nodes:
-            out_edges = sorted(list(self.outgoing_edges(n)), key=lambda x: x[1])
-            for (vertex1, vertex2, weight) in out_edges:
-                file.write("{},{},{}\n".format(vertex1, vertex2, weight))
-        file.close()
+            # Writing the actual graph
+            nodes = sorted(list(self.nodes()))
+            for n in nodes:
+                out_edges = sorted(list(self.outgoing_edges(n)), key=lambda x: x[1])
+                for (vertex1, vertex2, weight) in out_edges:
+                    file.write("{},{},{}\n".format(vertex1, vertex2, weight))
 
     def __str__(self):
         return "Matching-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
