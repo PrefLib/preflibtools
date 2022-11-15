@@ -685,6 +685,13 @@ class CategoricalInstance(PrefLibInstance):
             self.num_alternatives = len(self.alternatives_name)
             self.recompute_cardinality_param()
 
+    def recompute_cardinality_param(self):
+        """ Recomputes the basic cardinality parameters based on the preferences list in the instance. Numbers that are
+            recomputed are the number of voters and the number of unique orders.
+        """
+        self.num_voters = sum(self.multiplicity.values())
+        self.num_unique_preferences = len(set(self.preferences))
+
     def write(self, filepath):
         """ Writes the instance into a file whose destination has been given as argument. If no file extension is
         provided the data type of the instance is used.
