@@ -268,7 +268,7 @@ class OrdinalInstance(PrefLibInstance):
         order_pattern = re.compile(r'{[\d,]+?}|[\d,]+')
         for line in lines[i:]:
             # The first element indicates the multiplicity of the order
-            multiplicity, order_str = line.strip().split(":")
+            multiplicity, order_str = line.strip().replace(" ", "").split(":")
             multiplicity = int(multiplicity)
             order = []
             for group in re.findall(order_pattern, order_str):
@@ -390,10 +390,10 @@ class OrdinalInstance(PrefLibInstance):
                 order_str = ""
                 for indif_class in order:
                     if len(indif_class) == 1:
-                        order_str += str(indif_class[0]) + ","
+                        order_str += str(indif_class[0]) + ", "
                     else:
-                        order_str += "{" + ",".join((str(alt) for alt in indif_class)) + "},"
-                file.write("{}: {}\n".format(self.multiplicity[order], order_str[:-1]))
+                        order_str += "{" + ", ".join((str(alt) for alt in indif_class)) + "}, "
+                file.write("{}: {}\n".format(self.multiplicity[order], order_str.strip(", ")))
 
     def vote_map(self):
         """ Returns the instance described as a vote map, i.e., a dictionary whose keys are orders, mapping
@@ -661,7 +661,7 @@ class CategoricalInstance(PrefLibInstance):
         pref_pattern = re.compile(r'{[\d,]+?}|[\d,]+|{}')
         for line in lines[i:]:
             # The first element indicates the multiplicity of the order
-            multiplicity, pref_str = line.strip().split(":")
+            multiplicity, pref_str = line.strip().replace(" ", "").split(":")
             multiplicity = int(multiplicity)
             pref = []
             for group in re.findall(pref_pattern, pref_str):
@@ -724,12 +724,12 @@ class CategoricalInstance(PrefLibInstance):
                 pref_str = ""
                 for category in pref:
                     if len(category) == 0:
-                        pref_str += '{},'
+                        pref_str += '{}, '
                     elif len(category) == 1:
-                        pref_str += str(category[0]) + ","
+                        pref_str += str(category[0]) + ", "
                     else:
-                        pref_str += "{" + ",".join((str(alt) for alt in category)) + "},"
-                file.write("{}: {}\n".format(self.multiplicity[pref], pref_str[:-1]))
+                        pref_str += "{" + ", ".join((str(alt) for alt in category)) + "}, "
+                file.write("{}: {}\n".format(self.multiplicity[pref], pref_str.strip(", ")))
 
     def __str__(self):
         return "Categorical-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
@@ -850,7 +850,7 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
         self.num_voters = self.num_alternatives
 
         for line in lines[i:]:
-            (vertex1, vertex2, weight) = line.strip().split(",")
+            (vertex1, vertex2, weight) = line.strip().replace(" ", "").split(",")
             self.add_edge(int(vertex1), int(vertex2), float(weight))
         self.num_edges = sum(len(edge_set) for edge_set in self.node_mapping.values())
 
@@ -914,10 +914,10 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
             for n in nodes:
                 out_edges = sorted(list(self.outgoing_edges(n)), key=lambda x: x[1])
                 for (vertex1, vertex2, weight) in out_edges:
-                    file.write("{},{},{}\n".format(vertex1, vertex2, weight))
+                    file.write("{}, {}, {}\n".format(vertex1, vertex2, weight))
 
     def __str__(self):
-        return "Matching-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
+        return "Matching-Instance: {} <{}, {}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
 
 def get_parsed_instance(file_path):
