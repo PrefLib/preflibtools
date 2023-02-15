@@ -71,11 +71,7 @@ illustrated below.
 .. code-block:: python
 
     from preflibtools.instances import PrefLibInstance
-
-    # The instance can be populated either by reading a file, or from an URL.
     instance = PrefLibInstance()
-    instance.parse_file("00001-00000001.soi")
-    instance.parse_url("https://www.preflib.org/static/data/irish/00001-00000001.soi")
 
 :code:`PrefLibInstance` also stores most of the metadata about the data file.
 
