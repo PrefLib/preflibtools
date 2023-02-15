@@ -71,6 +71,7 @@ illustrated below.
 .. code-block:: python
 
     from preflibtools.instances import PrefLibInstance
+
     instance = PrefLibInstance()
 
 :code:`PrefLibInstance` also stores most of the metadata about the data file.
