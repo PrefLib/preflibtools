@@ -42,6 +42,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/PrefLib/preflibtools',
-    version='2.0.8',
+    version='2.0.10',
     zip_safe=False,
 )
