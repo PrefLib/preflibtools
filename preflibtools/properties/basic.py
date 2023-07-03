@@ -7,7 +7,7 @@ def pairwise_scores(instance):
         every other alternative b (the number of voters preferring a over b).
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: A dictionary of dictionaries storing the scores.
         :rtype: dict
@@ -30,7 +30,7 @@ def copeland_scores(instance):
         alternative b (the number of voters preferring a over b minus the number of voters preferring b over a).
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: A dictionary of dictionaries storing the scores.
         :rtype: dict
@@ -55,7 +55,7 @@ def has_condorcet(instance):
         majority contest. 
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: A boolean indicating whether the instance has a Condorcet winner or not.
         :rtype: bool
@@ -75,7 +75,7 @@ def borda_scores(instance):
         score 0.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: A dictionary mapping every instance to their Borda score.
         :rtype: dict
@@ -101,7 +101,7 @@ def num_alternatives(instance):
     """ Returns the number of alternatives of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: The number of alternatives of the instance.
         :rtype: int
@@ -113,7 +113,7 @@ def num_voters(instance):
     """ Returns the number of voters .
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: The number of voters of the instance.
         :rtype: int
@@ -125,7 +125,7 @@ def num_different_preferences(instance):
     """ Returns the number of different orders of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.PreflibInstance
+        :type instance: preflibtools.instances.preflibinstance.PreflibInstance
 
         :return: The number of different orders of the instance.
         :rtype: int
@@ -141,7 +141,7 @@ def largest_ballot(instance):
         appearing in an order.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The size of the largest ballot of the instance.
         :rtype: int
@@ -154,7 +154,7 @@ def smallest_ballot(instance):
         appearing in an order.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The size of the smallest ballot of the instance.
         :rtype: int
@@ -166,7 +166,7 @@ def max_num_indif(instance):
     """ Returns the maximum number of indifference classes over the orders of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The maximum number of indifference classes of the instance.
         :rtype: int
@@ -178,7 +178,7 @@ def min_num_indif(instance):
     """ Returns the minimum number of indifference classes over the orders of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The minimum number of indifference classes of the instance.
         :rtype: int
@@ -190,7 +190,7 @@ def largest_indif(instance):
     """ Returns the size of the largest indifference class of any voter of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The size of the largest indifference class of the instance.
         :rtype: int
@@ -202,7 +202,7 @@ def smallest_indif(instance):
     """ Returns the size of the smallest indifference class of any voter of the instance.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The size of the smallest indifference class of the instance.
         :rtype: int
@@ -216,7 +216,7 @@ def is_approval(instance):
         are incomplete and consists of a single indifference class.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A boolean indicating whether the instance describes an approval profile.
         :rtype: bool
@@ -234,7 +234,7 @@ def is_strict(instance):
     """ Checks whether the instance describes a profile of strict preferences.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A boolean indicating whether the instance describes a profile of strict preferences.
         :rtype: bool
@@ -246,7 +246,7 @@ def is_complete(instance):
     """ Checks whether the instance describes a profile of complete preferences.
 
         :param instance: The instance.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A boolean indicating whether the instance describes a profile of complete preferences.
         :rtype: bool

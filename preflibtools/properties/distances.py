@@ -8,7 +8,7 @@ def distance_matrix(instance, distance_function):
     """ Returns a matrix of the pairwise distance between all orders of the instance.
 
         :param instance: The instance to take the orders from.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
         :param distance_function: The distance function to use. It should take two orders as input.
         :type distance_function: function
 

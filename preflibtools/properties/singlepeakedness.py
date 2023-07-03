@@ -14,7 +14,7 @@ def is_single_peaked_axis(instance, axis):
     """ Tests whether the instance is single-peaked with respect to the axis provided as argument.
 
         :param instance: the instance to work on.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
         :param axis: a list of candidates.
         :type axis: list
 
@@ -65,7 +65,7 @@ def is_single_peaked(instance):
         Pheng who developed this function (under the supervision of Umberto Grandi).
 
         :param instance: the instance to test for single-peakedness.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: The axis with respect to which the instance would be single-peaked, the empty list if the instance
             is not single-peaked.
@@ -265,7 +265,7 @@ def sp_cons_ones_matrix(instance):
         and Trick (1986) to deal with single-peakedness.
 
         :param instance: the instance to test for single-peakedness.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A binary matrix
         :rtype: numpy array
@@ -386,7 +386,7 @@ def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance):
         :param voter_vars: A list of list of python-mip variables where votersVars[v] is set to 1 if and only if
             voter v is removed from consideration.
         :param instance: the instance to test for single-peakedness.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
     """
     matrix = sp_cons_ones_matrix(instance)
     voter_index = -1
@@ -453,7 +453,7 @@ def is_single_peaked_ILP(instance):
         (lackner@dbai.tuwien.ac.at), available at https://github.com/zmf6921/incompletesp.
 
         :param instance: the instance to test for single-peakedness.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A triple composed of a boolean variable indicating whether the instance is single-peaked or not, 
             the python-mip optimisation status of the ILP model, and the axis for which the instance is single-peaked
@@ -519,7 +519,7 @@ def approx_SP_voter_deletion_ILP(instance, weighted=False):
         smallest number of voter to remove for the instance to be single-peaked.
 
         :param instance: the instance to work on.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
         :param weighted: a boolean indicating if orders in the instance should have a weight of 1 in the ILP
             optimization (the default case), or if the weight should be the number of voters having submitted
             the order. 
@@ -602,7 +602,7 @@ def approx_SP_alternative_deletion_ILP(instance):
         smallest number of alternatives to remove for the instance to be single-peaked.
 
         :param instance: the instance to work on.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A quadruple composed of the number of alternatives that have been removed for the instance to be
             single-peaked, the python-mip optimisation status of the ILP model, the axis for which the instance 

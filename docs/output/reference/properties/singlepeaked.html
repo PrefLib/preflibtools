@@ -96,7 +96,7 @@
 smallest number of alternatives to remove for the instance to be single-peaked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A quadruple composed of the number of alternatives that have been removed for the instance to be
@@ -117,7 +117,7 @@ smallest number of voter to remove for the instance to be single-peaked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p></li>
+<li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p></li>
 <li><p><strong>weighted</strong> – a boolean indicating if orders in the instance should have a weight of 1 in the ILP
 optimization (the default case), or if the weight should be the number of voters having submitted
 the order.</p></li>
@@ -143,7 +143,7 @@ preferences.</p>
 Pheng who developed this function (under the supervision of Umberto Grandi).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The axis with respect to which the instance would be single-peaked, the empty list if the instance
@@ -167,7 +167,7 @@ ones property.</p>
 (<a class="reference external" href="mailto:lackner&#37;&#52;&#48;dbai&#46;tuwien&#46;ac&#46;at">lackner<span>&#64;</span>dbai<span>&#46;</span>tuwien<span>&#46;</span>ac<span>&#46;</span>at</a>), available at <a class="reference external" href="https://github.com/zmf6921/incompletesp">https://github.com/zmf6921/incompletesp</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A triple composed of a boolean variable indicating whether the instance is single-peaked or not, 
@@ -187,7 +187,7 @@ the python-mip optimisation status of the ILP model, and the axis for which the 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p></li>
+<li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to work on.</p></li>
 <li><p><strong>axis</strong> (<em>list</em>) – a list of candidates.</p></li>
 </ul>
 </dd>
@@ -257,7 +257,7 @@ the binary matrix corresponding to the instance.</p>
 if a1 is to the left of a2 in the axis.</p></li>
 <li><p><strong>voter_vars</strong> – A list of list of python-mip variables where votersVars[v] is set to 1 if and only if
 voter v is removed from consideration.</p></li>
-<li><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p></li>
+<li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p></li>
 </ul>
 </dd>
 </dl>
@@ -325,7 +325,7 @@ consecutive ones property. This is an helper function to implement the algorithm
 and Trick (1986) to deal with single-peakedness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instance.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.OrdinalInstance</em>) – the instance to test for single-peakedness.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A binary matrix</p>

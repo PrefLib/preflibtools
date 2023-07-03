@@ -1,6 +1,7 @@
 """ This module describes the main class to deal with PrefLib instances..
 """
 import os.path
+from math import ceil
 
 from .sampling import *
 
@@ -592,6 +593,7 @@ class OrdinalInstance(PrefLibInstance):
     def __str__(self):
         return "Ordinal-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
+
 class ComparisonInstance(PrefLibInstance):
     """ To be implemented.
 
@@ -733,6 +735,71 @@ class CategoricalInstance(PrefLibInstance):
                         pref_str += "{" + ", ".join((str(alt) for alt in category)) + "}, "
                 file.write("{}: {}\n".format(self.multiplicity[pref], pref_str.strip(", ")))
 
+    @classmethod
+    def from_ordinal(cls, instance, size_truncators=None, relative_size_truncators=None):
+        """ Converts an ordinal instance into a categorical one. The parameters `size_truncators` and
+        `relative_size_truncators` determine where breaking points are.
+
+        :param instance: The ordinal instance.
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+
+        :param size_truncators: List of truncation points. Each category will contains at least the truncation point
+            number of alternatives. In case of ties, all tied alternatives are in the same category. There is no need to
+             specify the last category, all additional alternatives are placed in the last one. This parameter is
+             ignored if `relative_size_truncators` is used.
+        :type size_truncators: list of int
+
+        :param relative_size_truncators: List of truncation points expressed in relative terms with respect to the total
+            number of alternatives ranked. The truncation points will thus differ for each order. All categories
+            need to be described. In case the values do not add up to one, they are normalised.
+        :type relative_size_truncators: list of float
+        """
+        if relative_size_truncators is not None and sum(relative_size_truncators) != 1:
+            total = sum(relative_size_truncators)
+            relative_size_truncators = [trunc / total for trunc in relative_size_truncators]
+        if size_truncators is None:
+            if relative_size_truncators is None:
+                raise ValueError("Both 'size_truncators' and 'relative_size_truncators' cannot be None at the same "
+                                 "time.")
+            else:
+                size_truncators = []
+        else:
+            if relative_size_truncators is None:
+                relative_size_truncators = []
+            else:
+                size_truncators = []
+
+        cat_instance = cls()
+        cat_instance.file_path = instance.file_path
+        if len(size_truncators) > 0:
+            cat_instance.num_categories = len(size_truncators) + 1
+        else:
+            cat_instance.num_categories = len(relative_size_truncators)
+        cat_instance.categories_name = {}
+        cat_instance.preferences = []
+        for order, multiplicty in instance.multiplicity.items():
+            preferences = []
+            order_index = 0
+            if len(relative_size_truncators) > 0:
+                size_truncators = [int(ceil(len(order) * truncation_point)) for truncation_point in
+                                   relative_size_truncators]
+            for truncation_point in size_truncators:
+                alts = []
+                while len(alts) < truncation_point and order_index < len(order):
+                    alts.extend(order[order_index])
+                    order_index += 1
+                preferences.append(tuple(alts))
+                if order_index >= len(order):
+                    break
+            if order_index < len(order):
+                preferences.append(tuple(a for indif_class in order[order_index:] for a in indif_class))
+            preferences = tuple(preferences)
+            cat_instance.preferences.append(preferences)
+            cat_instance.multiplicity[preferences] = multiplicty
+
+        cat_instance.num_unique_preferences = len(cat_instance.preferences)
+        return cat_instance
+
     def __str__(self):
         return "Categorical-Instance: {} <{},{}>".format(self.file_name, self.num_voters, self.num_alternatives)
 
@@ -816,7 +883,7 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
 
     """
 
-    def __init__(self, file_path = ""):
+    def __init__(self, file_path=""):
         PrefLibInstance.__init__(self)
         WeightedDiGraph.__init__(self)
         self.num_edges = 0

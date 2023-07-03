@@ -6,7 +6,7 @@ def is_single_crossing(instance):
     """ Tests whether the instance describe a profile of single-crossed preferences.
 
         :param instance: The instance to take the orders from.
-        :type instance: preflibtools.instance.preflibinstance.OrdinalInstance
+        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
         :return: A boolean indicating whether the instance is single-crossed or no.
         :rtype: bool
