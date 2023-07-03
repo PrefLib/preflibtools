@@ -5,7 +5,9 @@ import copy
 import time
 
 from itertools import combinations
-from mip import *
+
+import numpy as np
+from mip import Model, xsum, BINARY, MINIMIZE, INTEGER, OptimizationStatus
 
 
 def is_single_peaked_axis(instance, axis):
@@ -464,6 +466,7 @@ def is_single_peaked_ILP(instance):
                         str(instance.data_type) + ", this is not possible. Only toc and soc are allowed here.")
 
     model = Model(sense=MINIMIZE)
+    model.verbose = 0
 
     init_time = time.time()
 
@@ -487,7 +490,6 @@ def is_single_peaked_ILP(instance):
 
     # model.write('modelSP.lp')
 
-    model.verbose = 0
     model.max_gap = 0.05
     model.threads = -1
     opt_status = model.optimize()

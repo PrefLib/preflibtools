@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 def generate_mallows(num_voters, num_alternatives, mixture, dispersions, references):
     """ Generates a profile following a mixture of Mallow's models.
 
@@ -67,7 +68,42 @@ def generate_mallows(num_voters, num_alternatives, mixture, dispersions, referen
     return vote_map
 
 
-def generate_mallows_mix(num_voters, alternatives, num_references):
+# Given the number m of candidates and a phi\in [0,1] function computes the expected number of swaps in a vote
+# sampled from Mallows model
+def expected_number_swaps(num_candidates, phi):
+    res = phi * num_candidates / (1 - phi)
+    for j in range(1, num_candidates + 1):
+        res = res + (j * (phi ** j)) / ((phi ** j) - 1)
+    return res
+
+
+# Given the number m of candidates and a value of norm-phi\in [0,1], this function returns a value of phi such that
+# in a vote sampled from Mallows model with this parameter the expected number of swaps is a norm-phi fraction of the
+# achievable one
+def phi_from_normphi(num_candidates, normphi):
+    if normphi == 1:
+        return 1
+    exp_abs = normphi * (num_candidates * (num_candidates - 1)) / 4
+    low = 0
+    high = 1
+    while low <= high:
+        mid = (high + low) / 2
+        cur = expected_number_swaps(num_candidates, mid)
+        if abs(cur - exp_abs) < 1e-4:
+            return mid
+        # If x is greater, ignore left half
+        if cur < exp_abs:
+            low = mid
+
+        # If x is smaller, ignore right half
+        elif cur > exp_abs:
+            high = mid
+
+    # If we reach here, then the element was not present
+    return -1
+
+
+def generate_mallows_mix(num_voters, alternatives, num_references, norm_phi=True):
     """ Generates a profile following a mixture of Mallow's models for which reference points and dispersion 
         coefficients are independently and identically distributed.
 
@@ -77,6 +113,8 @@ def generate_mallows_mix(num_voters, alternatives, num_references):
         :type alternatives: list of int
         :param num_references: Number of element
         :type num_references: int
+        :param norm_phi: Uses the normalised phi value if true, and just a uniform distribution otherwise. Defaults to True.
+        :type norm_phi: bool
 
         :return: A vote map, i.e., a dictionary whose keys are orders, mapping to the number of voters with
             the given order as their preferences.
@@ -87,7 +125,10 @@ def generate_mallows_mix(num_voters, alternatives, num_references):
     references = []
     for i in range(num_references):
         references.append(tuple(generate_IC(1, alternatives))[0])
-        dispersions.append(round(np.random.rand(), 5))
+        phi = round(np.random.rand(), 5)
+        if norm_phi:
+            phi = phi_from_normphi(len(alternatives), phi)
+        dispersions.append(phi)
         mixture.append(np.random.randint(1, 101))
     mixture = [float(i) / float(sum(mixture)) for i in mixture]
     return generate_mallows(num_voters, len(alternatives), mixture, dispersions, references)
