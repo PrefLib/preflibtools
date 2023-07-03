@@ -771,6 +771,16 @@ class CategoricalInstance(PrefLibInstance):
 
         cat_instance = cls()
         cat_instance.file_path = instance.file_path
+        cat_instance.file_name = instance.file_name
+        cat_instance.data_type = "cat"
+        cat_instance.modification_type = instance.modification_type
+        cat_instance.relates_to = instance.relates_to
+        cat_instance.related_files = instance.related_files
+        cat_instance.title = instance.title
+        cat_instance.description = instance.description
+        cat_instance.publication_date = instance.publication_date
+        cat_instance.modification_date = instance.modification_date
+        cat_instance.num_alternatives = instance.num_alternatives
         if len(size_truncators) > 0:
             cat_instance.num_categories = len(size_truncators) + 1
         else:
@@ -798,6 +808,7 @@ class CategoricalInstance(PrefLibInstance):
             cat_instance.multiplicity[preferences] = multiplicty
 
         cat_instance.num_unique_preferences = len(cat_instance.preferences)
+        cat_instance.recompute_cardinality_param()
         return cat_instance
 
     def __str__(self):
