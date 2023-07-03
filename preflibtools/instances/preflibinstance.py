@@ -736,7 +736,7 @@ class CategoricalInstance(PrefLibInstance):
                 file.write("{}: {}\n".format(self.multiplicity[pref], pref_str.strip(", ")))
 
     @classmethod
-    def from_ordinal(cls, instance, size_truncators=None, relative_size_truncators=None):
+    def from_ordinal(cls, instance, size_truncators=None, relative_size_truncators=None, category_name=None):
         """ Converts an ordinal instance into a categorical one. The parameters `size_truncators` and
         `relative_size_truncators` determine where breaking points are.
 
@@ -753,6 +753,9 @@ class CategoricalInstance(PrefLibInstance):
             number of alternatives ranked. The truncation points will thus differ for each order. All categories
             need to be described. In case the values do not add up to one, they are normalised.
         :type relative_size_truncators: list of float
+
+        :param category_name: List of category names.
+        :type category_name: list of str
         """
         if relative_size_truncators is not None and sum(relative_size_truncators) != 1:
             total = sum(relative_size_truncators)
@@ -781,11 +784,15 @@ class CategoricalInstance(PrefLibInstance):
         cat_instance.publication_date = instance.publication_date
         cat_instance.modification_date = instance.modification_date
         cat_instance.num_alternatives = instance.num_alternatives
+        cat_instance.alternatives_name = deepcopy(instance.alternatives_name)
         if len(size_truncators) > 0:
             cat_instance.num_categories = len(size_truncators) + 1
         else:
             cat_instance.num_categories = len(relative_size_truncators)
-        cat_instance.categories_name = {}
+        if category_name is None:
+            cat_instance.categories_name = {str(i): "Cat" + str(i) for i in range(1, cat_instance.num_categories + 1)}
+        else:
+            cat_instance.categories_name = {str(i + 1): name for i, name in enumerate(category_name)}
         cat_instance.preferences = []
         for order, multiplicty in instance.multiplicity.items():
             preferences = []
