@@ -11,7 +11,7 @@ import urllib.request
 import re
 
 
-class PrefLibInstance(object):
+class PrefLibInstance:
     """ This class provide a general template to implement specific classes representing PrefLib instances. It should
         mainly be used as an abstract class.
 
@@ -265,26 +265,28 @@ class OrdinalInstance(PrefLibInstance):
                 break
 
         # The rest of the lines are about the preferences
-        order_pattern = re.compile(r'{[\d,]+?}|[\d,]+')
+        order_pattern = re.compile(r'\{[\d,]+?\}|[\d,]+')
         for line in lines[i:]:
-            # The first element indicates the multiplicity of the order
-            multiplicity, order_str = line.strip().replace(" ", "").split(":")
-            multiplicity = int(multiplicity)
-            order = []
-            for group in re.findall(order_pattern, order_str):
-                if group.startswith('{'):
-                    group = group[1:-1]
-                    order.append(tuple(int(alt.strip()) for alt in group.split(',') if len(alt) > 0))
+            line = "".join(line.split())
+            if len(line) > 0:
+                # The first element indicates the multiplicity of the order
+                multiplicity, order_str = line.strip().split(":")
+                multiplicity = int(multiplicity.strip())
+                order = []
+                for group in re.findall(order_pattern, order_str):
+                    if group.startswith('{'):
+                        group = group[1:-1]
+                        order.append(tuple(int(alt.strip()) for alt in group.split(',') if len(alt) > 0))
+                    else:
+                        for alt in group.split(','):
+                            if len(alt) > 0:
+                                order.append((int(alt.strip()),))
+                order = tuple(order)
+                if autocorrect and order in self.multiplicity:
+                    self.multiplicity[tuple(order)] += multiplicity
                 else:
-                    for alt in group.split(','):
-                        if len(alt) > 0:
-                            order.append((int(alt.strip()),))
-            order = tuple(order)
-            if autocorrect and order in self.multiplicity:
-                self.multiplicity[tuple(order)] += multiplicity
-            else:
-                self.orders.append(order)
-                self.multiplicity[tuple(order)] = multiplicity
+                    self.orders.append(order)
+                    self.multiplicity[tuple(order)] = multiplicity
 
         if autocorrect:
             self.num_alternatives = len(self.alternatives_name)
