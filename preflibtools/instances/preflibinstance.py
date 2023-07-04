@@ -736,41 +736,43 @@ class CategoricalInstance(PrefLibInstance):
                 file.write("{}: {}\n".format(self.multiplicity[pref], pref_str.strip(", ")))
 
     @classmethod
-    def from_ordinal(cls, instance, size_truncators=None, relative_size_truncators=None, category_name=None):
+    def from_ordinal(cls, instance, num_indif_classes=None, size_truncators=None, relative_size_truncators=None,
+                     category_name=None):
         """ Converts an ordinal instance into a categorical one. The parameters `size_truncators` and
         `relative_size_truncators` determine where breaking points are.
 
         :param instance: The ordinal instance.
         :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
-        :param size_truncators: List of truncation points. Each category will contains at least the truncation point
-            number of alternatives. In case of ties, all tied alternatives are in the same category. There is no need to
-             specify the last category, all additional alternatives are placed in the last one. This parameter is
-             ignored if `relative_size_truncators` is used.
+        :param num_indif_classes: List of number of indifference classes. Each category will contain the union of the
+            alternatives present in the specified number of positions of the ranking. If not all ranked alternative fit
+            in the provided categories, and additional one will be created. This parameter cannot be used together with
+            `size_truncators` and/or `relative_size_truncators`.
+
+        :param size_truncators: List of truncation points. Each category will contain at least the truncation point
+            number of alternatives. In case of ties, all tied alternatives are in the same category. If not all ranked
+            alternative fit in the provided categories, and additional one will be created. This parameter cannot be
+            used together with `num_indif_classes` and/or `relative_size_truncators`.
         :type size_truncators: list of int
 
         :param relative_size_truncators: List of truncation points expressed in relative terms with respect to the total
             number of alternatives ranked. The truncation points will thus differ for each order. All categories
-            need to be described. In case the values do not add up to one, they are normalised.
+            need to be described. In case the values do not add up to one, they are normalised. This parameter
+            cannot be used together with `num_indif_classes` and/or `size_truncators`.
         :type relative_size_truncators: list of float
 
         :param category_name: List of category names.
         :type category_name: list of str
         """
-        if relative_size_truncators is not None and sum(relative_size_truncators) != 1:
+        if sum((num_indif_classes is None, size_truncators is None, relative_size_truncators is None)) < 2:
+            raise ValueError("You can only use one of the paramters 'num_indif_classes', 'size_truncators' and "
+                             "'relative_size_truncators'")
+        if sum((num_indif_classes is None, size_truncators is None, relative_size_truncators is None)) == 3:
+            raise ValueError("You need to specify the value of at least one of theparamters 'num_indif_classes', "
+                             "'size_truncators' or 'relative_size_truncators'")
+        if relative_size_truncators and sum(relative_size_truncators) != 1:
             total = sum(relative_size_truncators)
             relative_size_truncators = [trunc / total for trunc in relative_size_truncators]
-        if size_truncators is None:
-            if relative_size_truncators is None:
-                raise ValueError("Both 'size_truncators' and 'relative_size_truncators' cannot be None at the same "
-                                 "time.")
-            else:
-                size_truncators = []
-        else:
-            if relative_size_truncators is None:
-                relative_size_truncators = []
-            else:
-                size_truncators = []
 
         cat_instance = cls()
         cat_instance.file_path = instance.file_path
@@ -785,37 +787,55 @@ class CategoricalInstance(PrefLibInstance):
         cat_instance.modification_date = instance.modification_date
         cat_instance.num_alternatives = instance.num_alternatives
         cat_instance.alternatives_name = deepcopy(instance.alternatives_name)
-        if len(size_truncators) > 0:
-            cat_instance.num_categories = len(size_truncators) + 1
-        else:
-            cat_instance.num_categories = len(relative_size_truncators)
-        if category_name is None:
-            cat_instance.categories_name = {str(i): "Cat" + str(i) for i in range(1, cat_instance.num_categories + 1)}
-        else:
-            cat_instance.categories_name = {str(i + 1): name for i, name in enumerate(category_name)}
         cat_instance.preferences = []
+
+        preferences = []
+        multiplicities = []
         for order, multiplicty in instance.multiplicity.items():
-            preferences = []
-            order_index = 0
-            if len(relative_size_truncators) > 0:
-                size_truncators = [int(ceil(len(order) * truncation_point)) for truncation_point in
-                                   relative_size_truncators]
-            for truncation_point in size_truncators:
-                alts = []
-                while len(alts) < truncation_point and order_index < len(order):
-                    alts.extend(order[order_index])
-                    order_index += 1
-                preferences.append(tuple(alts))
-                if order_index >= len(order):
-                    break
-            if order_index < len(order):
-                preferences.append(tuple(a for indif_class in order[order_index:] for a in indif_class))
-            preferences = tuple(preferences)
-            cat_instance.preferences.append(preferences)
-            cat_instance.multiplicity[preferences] = multiplicty
+            pref = []
+            if size_truncators or relative_size_truncators:
+                if relative_size_truncators:
+                    size_truncators = [int(ceil(len(order) * truncation_point)) for truncation_point in
+                                       relative_size_truncators]
+                order_index = 0
+                for truncation_point in size_truncators:
+                    alts = []
+                    while len(alts) < truncation_point and order_index < len(order):
+                        alts.extend(order[order_index])
+                        order_index += 1
+                    pref.append(tuple(alts))
+                    if order_index >= len(order):
+                        break
+                if order_index < len(order):
+                    pref.append(tuple(a for indif_class in order[order_index:] for a in indif_class))
+            elif num_indif_classes:
+                order_index = 0
+                for num in num_indif_classes:
+                    alts = []
+                    for k in range(num):
+                        alts.extend(order[order_index + k])
+                    order_index += num
+                    pref.append(tuple(alts))
+                if order_index < len(order):
+                    pref.append(tuple(a for indif_class in order[order_index:] for a in indif_class))
+            preferences.append(pref)
+            multiplicities.append(multiplicty)
+
+        num_categories = max(len(pref) for pref in preferences)
+        for index, preference in enumerate(preferences):
+            while len(preference) < num_categories:
+                preference.append(tuple())
+            preference = tuple(preference)
+            cat_instance.preferences.append(preference)
+            cat_instance.multiplicity[preference] = multiplicities[index]
+
+        cat_instance.num_categories = num_categories
+        for k in range(num_categories):
+            cat_instance.categories_name[str(k + 1)] = "Cat_" + str(k + 1)
 
         cat_instance.num_unique_preferences = len(cat_instance.preferences)
         cat_instance.recompute_cardinality_param()
+
         return cat_instance
 
     def __str__(self):
