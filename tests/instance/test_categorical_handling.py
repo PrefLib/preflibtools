@@ -55,6 +55,12 @@ class TestOrdinal(TestCase):
         assert len(cat_instance.preferences[1]) == 1
         assert cat_instance.preferences[1][0] == (4, 3, 1, 2)
 
+        cat_instance = CategoricalInstance.from_ordinal(instance, num_indif_classes=[6])
+        assert len(cat_instance.preferences[0]) == 1
+        assert cat_instance.preferences[0][0] == (0, 1, 2)
+        assert len(cat_instance.preferences[1]) == 1
+        assert cat_instance.preferences[1][0] == (4, 3, 1, 2)
+
         for _ in range(10):
             instance = OrdinalInstance()
             instance.populate_mallows_mix(30, 20, 4)

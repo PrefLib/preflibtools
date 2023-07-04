@@ -812,8 +812,8 @@ class CategoricalInstance(PrefLibInstance):
                 order_index = 0
                 for num in num_indif_classes:
                     alts = []
-                    for k in range(num):
-                        alts.extend(order[order_index + k])
+                    for k in range(order_index, min(len(order), order_index + num)):
+                        alts.extend(order[k])
                     order_index += num
                     pref.append(tuple(alts))
                 if order_index < len(order):
