@@ -1,9 +1,9 @@
 .. _properties-label:
 
-preflibtools.properties package
-===============================
+preflibtools.properties
+=======================
 
-This package provides different modules to deal with properties of an instance.
+This module provides different ways to deal with properties of an instance.
 
 .. toctree::
     basic

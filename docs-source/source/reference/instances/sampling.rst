@@ -1,7 +1,7 @@
 .. _instances-sampling-label:
 
-preflibtools.instances.sampling
-===============================
+sampling
+========
 
 .. automodule:: preflibtools.instances.sampling
    :members:

@@ -2,8 +2,8 @@
 
 .. _properties-singlepeakedness-label:
 
-preflibtools.properties.singlepeakedness
-========================================
+singlepeakedness
+================
 
 .. automodule:: preflibtools.properties.singlepeakedness
    :members:

@@ -1,4 +1,3 @@
-
 def cat_test_str():
     return """# FILE NAME: 00026-00000001.cat
 # TITLE: GylesNonains
@@ -131,6 +130,7 @@ def toi_test_str():
 def write_test_toi_file(filepath):
     with open(filepath, "w", encoding="utf-8") as file:
         file.write(toi_test_str())
+
 
 def wmd_test_str():
     return """# FILE NAME: 00036-00000001.wmd

@@ -2,11 +2,14 @@ import os
 from unittest import TestCase
 
 from preflibtools.instances import OrdinalInstance, get_parsed_instance
-from tests.instance.io.write_file_test import write_test_soi_file, soi_test_str, write_test_cat_file
+from tests.instance.io.write_file_test import (
+    write_test_soi_file,
+    soi_test_str,
+    write_test_cat_file,
+)
 
 
 class TestSoiInstances(TestCase):
-
     def test_read_from_file(self):
         write_test_soi_file("testInstance.soi")
         instance = OrdinalInstance("testInstance.soi")
@@ -41,7 +44,8 @@ class TestSoiInstances(TestCase):
 
     def test_autocorrect(self):
         instance = OrdinalInstance()
-        instance.parse_str("""# FILE NAME: 00002-00000001.soi
+        instance.parse_str(
+            """# FILE NAME: 00002-00000001.soi
         # TITLE: Debian 2002 Leader
         # DESCRIPTION: 
         # DATA TYPE: soi
@@ -61,7 +65,10 @@ class TestSoiInstances(TestCase):
         50: 1, 3, 2, 4
         40: 3, 2, 4, 1
         34: 3, 2, 4, 1
-        31: 3, 2, 4, 1""", data_type="soi", autocorrect=True)
+        31: 3, 2, 4, 1""",
+            data_type="soi",
+            autocorrect=True,
+        )
         assert len(set(instance.alternatives_name.values())) == 4
         assert instance.multiplicity[((3,), (2,), (4,), (1,))] == 105
 

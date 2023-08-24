@@ -5,16 +5,16 @@ import numpy as np
 
 
 def distance_matrix(instance, distance_function):
-    """ Returns a matrix of the pairwise distance between all orders of the instance.
+    """Returns a matrix of the pairwise distance between all orders of the instance.
 
-        :param instance: The instance to take the orders from.
-        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
-        :param distance_function: The distance function to use. It should take two orders as input.
-        :type distance_function: function
+    :param instance: The instance to take the orders from.
+    :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+    :param distance_function: The distance function to use. It should take two orders as input.
+    :type distance_function: function
 
-        :return: A Numpy array of the pairwise distances, coordinates being the index of the orders in the order
-            list of the instance. 
-        :rtype: numpy array 
+    :return: A Numpy array of the pairwise distances, coordinates being the index of the orders in the order
+        list of the instance.
+    :rtype: numpy array
     """
     profile = instance.full_profile()
     num_voters = len(profile)
@@ -27,18 +27,20 @@ def distance_matrix(instance, distance_function):
 
 
 def kendall_tau_distance(order1, order2):
-    """ Returns the Kendall's tau distance between two orders.
+    """Returns the Kendall's tau distance between two orders.
 
-        :param order1: The first order.
-        :type order1: tuple
-        :param order2: The second order.
-        :type order2: tuple
+    :param order1: The first order.
+    :type order1: tuple
+    :param order2: The second order.
+    :type order2: tuple
 
-        :return: The Kendall's tau distance between the two orders.
-        :rtype: int
+    :return: The Kendall's tau distance between the two orders.
+    :rtype: int
     """
     if len(order1) != len(order2):
-        raise ValueError("Rankings must have the same length to compute their Kendall's tau distance")
+        raise ValueError(
+            "Rankings must have the same length to compute their Kendall's tau distance"
+        )
     res = 0
     norm = 0
     for j1 in range(len(order1)):
@@ -50,18 +52,20 @@ def kendall_tau_distance(order1, order2):
 
 
 def spearman_footrule_distance(order1, order2):
-    """ Returns the Spearman's footrule distance between two orders.
+    """Returns the Spearman's footrule distance between two orders.
 
-        :param order1: The first order.
-        :type order1: tuple
-        :param order2: The second order.
-        :type order2: tuple
+    :param order1: The first order.
+    :type order1: tuple
+    :param order2: The second order.
+    :type order2: tuple
 
-        :return: The Spearman's footrule distance between the two orders.
-        :rtype: float
+    :return: The Spearman's footrule distance between the two orders.
+    :rtype: float
     """
     if len(order1) != len(order2):
-        raise ValueError("Rankings must have the same length to compute their Spearman's footrule distance")
+        raise ValueError(
+            "Rankings must have the same length to compute their Spearman's footrule distance"
+        )
     res = 0
     for j in range(len(order1)):
         res += abs(j - order2.index(order1[j]))
@@ -69,18 +73,20 @@ def spearman_footrule_distance(order1, order2):
 
 
 def sertel_distance(order1, order2):
-    """ Returns the Sertel's distance between two orders.
+    """Returns the Sertel's distance between two orders.
 
-        :param order1: The first order.
-        :type order1: tuple
-        :param order2: The second order.
-        :type order2: tuple
+    :param order1: The first order.
+    :type order1: tuple
+    :param order2: The second order.
+    :type order2: tuple
 
-        :return: The Sertel's distance between the two orders.
-        :rtype: float
+    :return: The Sertel's distance between the two orders.
+    :rtype: float
     """
     if len(order1) != len(order2):
-        raise ValueError("Rankings must have the same length to compute their Sertel's distance")
+        raise ValueError(
+            "Rankings must have the same length to compute their Sertel's distance"
+        )
     j = 0
     for j in range(len(order1)):
         if order1[j] != order2[j]:

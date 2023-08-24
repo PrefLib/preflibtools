@@ -6,7 +6,6 @@ from tests.instance.io.write_file_test import write_test_toi_file
 
 
 class TestToiInstance(TestCase):
-
     def test_read_from_file(self):
         write_test_toi_file("testInstance.toi")
         instance = OrdinalInstance("testInstance.toi")

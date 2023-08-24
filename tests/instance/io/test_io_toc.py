@@ -4,7 +4,6 @@ from preflibtools.instances import OrdinalInstance
 
 
 class TestAnalysis(TestCase):
-
     def test_read_old(self):
         old_toc_str = """12
             1,Cathal Boland F.G. 

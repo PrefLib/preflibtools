@@ -2,8 +2,8 @@
 
 .. _properties-singlecrossing-label:
 
-preflibtools.properties.singlecrossing
-========================================
+singlecrossing
+==============
 
 .. automodule:: preflibtools.properties.singlecrossing
    :members:

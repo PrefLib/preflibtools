@@ -1,7 +1,7 @@
 .. _instances-preflibinstance-label:
 
-preflibtools.instances.preflibinstance
-======================================
+preflibinstance
+===============
 
 .. automodule:: preflibtools.instances.preflibinstance
    :members:

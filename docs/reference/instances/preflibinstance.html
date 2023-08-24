@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>preflibtools.instances.preflibinstance &mdash; PrefLib-Tools 2.0.0 documentation</title>
+  <title>preflibinstance &mdash; Preflibtools</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="preflibtools.instances.sampling" href="sampling.html" />
-    <link rel="prev" title="preflibtools.instances package" href="index.html" /> 
+    <link rel="next" title="sampling" href="sampling.html" />
+    <link rel="prev" title="preflibtools.instances" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -34,7 +34,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            PrefLib-Tools
+            preflibtools
           </a>
               <div class="version">
                 2.0.0
@@ -52,8 +52,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances package</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">preflibtools.instances.preflibinstance</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">preflibinstance</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.CategoricalInstance"><code class="docutils literal notranslate"><span class="pre">CategoricalInstance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.ComparisonInstance"><code class="docutils literal notranslate"><span class="pre">ComparisonInstance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.MatchingInstance"><code class="docutils literal notranslate"><span class="pre">MatchingInstance</span></code></a></li>
@@ -63,12 +63,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.get_parsed_instance"><code class="docutils literal notranslate"><span class="pre">get_parsed_instance()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sampling.html">preflibtools.instances.sampling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="convert.html">preflibtools.instances.convert</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sanity.html">preflibtools.instances.sanity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sampling.html">sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="convert.html">convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sanity.html">sanity</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
@@ -80,7 +80,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">PrefLib-Tools</a>
+          <a href="../../index.html">preflibtools</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -89,8 +89,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
-          <li class="breadcrumb-item"><a href="index.html">preflibtools.instances package</a></li>
-      <li class="breadcrumb-item active">preflibtools.instances.preflibinstance</li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.instances</a></li>
+      <li class="breadcrumb-item active">preflibinstance</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/instances/preflibinstance.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -100,12 +100,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="preflibtools-instances-preflibinstance">
-<span id="instances-preflibinstance-label"></span><h1>preflibtools.instances.preflibinstance<a class="headerlink" href="#preflibtools-instances-preflibinstance" title="Link to this heading"></a></h1>
+  <section id="preflibinstance">
+<span id="instances-preflibinstance-label"></span><h1>preflibinstance<a class="headerlink" href="#preflibinstance" title="Link to this heading"></a></h1>
 <p id="module-preflibtools.instances.preflibinstance">This module describes the main class to deal with PrefLib instances..</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">CategoricalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CategoricalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
 <p>This is the class representing a PrefLib instance of categorical preferences. It basically contains the data and
 information written within a PrefLib file.</p>
@@ -117,7 +117,7 @@ information written within a PrefLib file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<a class="reference internal" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The ordinal instance.</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The ordinal instance.</p></li>
 <li><p><strong>num_indif_classes</strong> – List of number of indifference classes. Each category will contain the union of the
 alternatives present in the specified number of positions of the ranking. If not all ranked alternative fit
 in the provided categories, and additional one will be created. This parameter cannot be used together with
@@ -144,12 +144,11 @@ cannot be used together with <cite>num_indif_classes</cite> and/or <cite>size_tr
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -171,7 +170,7 @@ recomputed are the number of voters and the number of unique orders.</p>
 <dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -179,33 +178,30 @@ recomputed are the number of voters and the number of unique orders.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance.write">
 <span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance.write" title="Link to this definition"></a></dt>
-<dd><p>Writes the instance into a file whose destination has been given as argument. If no file extension is
-provided the data type of the instance is used.</p>
-<blockquote>
-<div><p>Also sets <cite>self.file_name</cite> correctly (according to <cite>filepath</cite>), if <cite>self.file_name</cite> is empty.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param filepath<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The destination where to write the instance.</p>
-</dd>
-<dt class="field-even">type filepath<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd><dl class="simple">
+<dt>Writes the instance into a file whose destination has been given as argument. If no file extension is</dt><dd><p>provided the data type of the instance is used.</p>
 </dd>
 </dl>
-</div></blockquote>
+<p>Also sets <cite>self.file_name</cite> correctly (according to <cite>filepath</cite>), if <cite>self.file_name</cite> is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – The destination where to write the instance.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.ComparisonInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">ComparisonInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.ComparisonInstance" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ComparisonInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.ComparisonInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
 <p>To be implemented.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">MatchingInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MatchingInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="preflibtools.instances.preflibinstance.WeightedDiGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code></a></p>
 <p>This is the class representing a PrefLib instance for matching preferences. It basically contains the data and
 information written within a PrefLib file.</p>
@@ -217,12 +213,11 @@ information written within a PrefLib file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -233,12 +228,11 @@ information written within a PrefLib file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -253,7 +247,7 @@ information written within a PrefLib file.</p>
 <dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -275,7 +269,7 @@ represents a graph. If no file extension is provided the data type of the instan
 
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">OrdinalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OrdinalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
 <p>This is the class representing a PrefLib instance of ordinal preferences. It basically contains the data and
 information written within a PrefLib file.</p>
@@ -312,7 +306,7 @@ updates the set of alternatives if needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vote_map</strong> (<em>dict</em><em> of </em><em>(</em><em>tuple</em><em>, </em><em>int</em><em>)</em>) – A vote map representing preferences. A vote map is a dictionary whose keys represent
-orders (tuples of tuples of int) that are mapped to the number of voters with the given order as 
+orders (tuples of tuples of int) that are mapped to the number of voters with the given order as
 their preferences. We re-map the orders to tuple of tuples to be sure we are dealing with the correct
 type.</p>
 </dd>
@@ -330,7 +324,7 @@ class.</p>
 <dd class="field-odd"><p>A list of tuples of preference order and multiplicity.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list</p>
+<dd class="field-even"><p><em>list</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -345,7 +339,7 @@ many times as their multiplicity.</p>
 <dd class="field-odd"><p>A list of preferences (lists of alternatives).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list</p>
+<dd class="field-even"><p><em>list</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -359,7 +353,7 @@ many times as their multiplicity.</p>
 <dd class="field-odd"><p>The data type of the instance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-even"><p><em>str</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -372,12 +366,11 @@ many times as their multiplicity.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -389,12 +382,11 @@ format.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -449,7 +441,7 @@ models. Uses <a class="reference internal" href="sampling.html#module-preflibtoo
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows_mix">
 <span class="sig-name descname"><span class="pre">populate_mallows_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_references</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.populate_mallows_mix" title="Link to this definition"></a></dt>
 <dd><p>Populates the instance with a random profile of strict preferences taken from a mixture of Mallows’
-models for which reference points and dispersion coefficients are independently and identically 
+models for which reference points and dispersion coefficients are independently and identically
 distributed. Uses <a class="reference internal" href="sampling.html#module-preflibtools.instances.sampling" title="preflibtools.instances.sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.sampling</span></code></a> for sampling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -497,7 +489,7 @@ recomputed are the number of voters and the number of unique orders.</p>
 <dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -513,7 +505,7 @@ applications. It also ensures interoperability with the old preflibtools (vote m
 <dd class="field-odd"><p>A vote map representing the preferences in the instance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict of (tuples, int)</p>
+<dd class="field-even"><p><em>dict</em> of (tuples, <em>int</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -523,24 +515,19 @@ applications. It also ensures interoperability with the old preflibtools (vote m
 <span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.write" title="Link to this definition"></a></dt>
 <dd><p>Writes the instance into a file whose destination has been given as argument. If no file extension is
 provided the data type of the instance is used.</p>
-<blockquote>
-<div><p>Also sets <cite>self.file_name</cite> correctly (according to <cite>filepath</cite>), if <cite>self.file_name</cite> is empty.</p>
+<p>Also sets <cite>self.file_name</cite> correctly (according to <cite>filepath</cite>), if <cite>self.file_name</cite> is empty.</p>
 <dl class="field-list simple">
-<dt class="field-odd">param filepath<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The destination where to write the instance.</p>
-</dd>
-<dt class="field-even">type filepath<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – The destination where to write the instance.</p>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">PrefLibInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PrefLibInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class provide a general template to implement specific classes representing PrefLib instances. It should
 mainly be used as an abstract class.</p>
@@ -580,12 +567,11 @@ The parser to be used is deduced from the file extension.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filepath</strong> (<em>str</em>) – The path to the file to be parsed.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -597,12 +583,11 @@ data_type.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – A list of string, each string being one line of the instance to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -613,12 +598,11 @@ data_type.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>line</strong> (<em>str</em>) – The line to parse.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -632,12 +616,11 @@ The parser to be used is deduced from the file extension passed as argument.</p>
 <li><p><strong>string</strong> (<em>str</em>) – The string to parse.</p></li>
 <li><p><strong>data_type</strong> (<em>str</em>) – The data type represented by the string.</p></li>
 <li><p><strong>file_name</strong> (<em>str</em>) – The value to store in the file_name member of the instance. Default is the empty string.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -650,12 +633,11 @@ on the file extension.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>str</em>) – The target URL.</p></li>
-<li><p><strong>autocorrect</strong> – A boolean indicating whether we should try to automatically correct the potential errors</p></li>
+<li><p><strong>autocorrect</strong> (<em>bool</em>) – A boolean indicating whether we should try to automatically correct the potential errors
+in the file. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
-<p>in the file. Default is False.
-:type autocorrect: bool</p>
 </dd></dl>
 
 <dl class="py method">
@@ -681,7 +663,7 @@ on the file extension.</p>
 <dd class="field-even"><p>True if the data type is valid for the class and False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -706,7 +688,7 @@ on the file extension.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">WeightedDiGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WeightedDiGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class is used to represent weighted directed graphs.</p>
 <dl class="field-list simple">
@@ -753,7 +735,7 @@ to which it is connected). A node can be of any hashable type.</p></li>
 <dd class="field-odd"><p>A set of tuples (node, neighbour, weight) representing (weighted) edges.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>set of tuples</p>
+<dd class="field-even"><p><em>set</em> of tuples</p>
 </dd>
 </dl>
 </dd></dl>
@@ -770,7 +752,7 @@ to which it is connected). A node can be of any hashable type.</p></li>
 <dd class="field-even"><p>The set of the neighbours of the node.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>set</p>
+<dd class="field-odd"><p><em>set</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -784,7 +766,7 @@ to which it is connected). A node can be of any hashable type.</p></li>
 <dd class="field-odd"><p>The set of all the nodes of the graph.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>set</p>
+<dd class="field-even"><p><em>set</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -801,7 +783,7 @@ to which it is connected). A node can be of any hashable type.</p></li>
 <dd class="field-even"><p>The set of the tuples (node, neighbour, edgeWeight) representing (weighted) edges.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>set of tuples</p>
+<dd class="field-odd"><p><em>set</em> of tuples</p>
 </dd>
 </dl>
 </dd></dl>
@@ -810,7 +792,7 @@ to which it is connected). A node can be of any hashable type.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.get_parsed_instance">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.instances.preflibinstance.</span></span><span class="sig-name descname"><span class="pre">get_parsed_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.get_parsed_instance" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_parsed_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.get_parsed_instance" title="Link to this definition"></a></dt>
 <dd><p>Infers from the extension of the file given as input the correct instance to use. Parses the file and return
 the instance.</p>
 <dl class="field-list simple">
@@ -832,14 +814,14 @@ the instance.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="preflibtools.instances package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sampling.html" class="btn btn-neutral float-right" title="preflibtools.instances.sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="preflibtools.instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sampling.html" class="btn btn-neutral float-right" title="sampling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Simon Rey.</p>
+    <p>&#169; Copyright 2023, Simon Rey.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

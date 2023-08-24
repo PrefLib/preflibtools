@@ -3,13 +3,13 @@
 
 
 def is_single_crossing(instance):
-    """ Tests whether the instance describe a profile of single-crossed preferences.
+    """Tests whether the instance describe a profile of single-crossed preferences.
 
-        :param instance: The instance to take the orders from.
-        :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+    :param instance: The instance to take the orders from.
+    :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
-        :return: A boolean indicating whether the instance is single-crossed or no.
-        :rtype: bool
+    :return: A boolean indicating whether the instance is single-crossed or no.
+    :rtype: bool
     """
 
     def prefers(a, b, o):
@@ -19,8 +19,9 @@ def is_single_crossing(instance):
         res = set([])
         for i in range(len(o1)):
             for j in range(i + 1, len(o1)):
-                if ((prefers(o1[i], o1[j], o1) and prefers(o1[j], o1[i], o2)) or
-                        (prefers(o1[j], o1[i], o1) and prefers(o1[i], o1[j], o2))):
+                if (prefers(o1[i], o1[j], o1) and prefers(o1[j], o1[i], o2)) or (
+                    prefers(o1[j], o1[i], o1) and prefers(o1[i], o1[j], o2)
+                ):
                     res.add((min(o1[i][0], o1[j][0]), max(o1[i][0], o1[j][0])))
         return res
 
@@ -29,7 +30,10 @@ def is_single_crossing(instance):
             for k in range(len(profile)):
                 conflict_ij = conflict_set(profile[i], profile[j])
                 conflict_ik = conflict_set(profile[i], profile[k])
-                if not (conflict_ij.issubset(conflict_ik) or conflict_ik.issubset(conflict_ij)):
+                if not (
+                    conflict_ij.issubset(conflict_ik)
+                    or conflict_ik.issubset(conflict_ij)
+                ):
                     return False
         return True
 

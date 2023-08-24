@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>preflibtools.properties.basic &mdash; PrefLib-Tools 2.0.0 documentation</title>
+  <title>basic &mdash; Preflibtools</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="preflibtools.properties.singlepeakedness" href="singlepeaked.html" />
-    <link rel="prev" title="preflibtools.properties package" href="index.html" /> 
+    <link rel="next" title="singlepeakedness" href="singlepeaked.html" />
+    <link rel="prev" title="preflibtools.properties" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +33,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            PrefLib-Tools
+            preflibtools
           </a>
               <div class="version">
                 2.0.0
@@ -51,9 +51,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances package</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.properties package</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">preflibtools.properties.basic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.properties</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">basic</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.borda_scores"><code class="docutils literal notranslate"><span class="pre">borda_scores()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.copeland_scores"><code class="docutils literal notranslate"><span class="pre">copeland_scores()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.has_condorcet"><code class="docutils literal notranslate"><span class="pre">has_condorcet()</span></code></a></li>
@@ -72,9 +72,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.smallest_indif"><code class="docutils literal notranslate"><span class="pre">smallest_indif()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="singlepeaked.html">preflibtools.properties.singlepeakedness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">preflibtools.properties.singlecrossing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distance.html">preflibtools.properties.distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="singlepeaked.html">singlepeakedness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">singlecrossing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distance.html">distances</a></li>
 </ul>
 </li>
 </ul>
@@ -88,7 +88,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">PrefLib-Tools</a>
+          <a href="../../index.html">preflibtools</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -97,8 +97,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
-          <li class="breadcrumb-item"><a href="index.html">preflibtools.properties package</a></li>
-      <li class="breadcrumb-item active">preflibtools.properties.basic</li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.properties</a></li>
+      <li class="breadcrumb-item active">basic</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/properties/basic.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -108,15 +108,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="preflibtools-properties-basic">
-<span id="properties-basic-label"></span><h1>preflibtools.properties.basic<a class="headerlink" href="#preflibtools-properties-basic" title="Link to this heading"></a></h1>
+  <section id="basic">
+<span id="properties-basic-label"></span><h1>basic<a class="headerlink" href="#basic" title="Link to this heading"></a></h1>
 <p id="module-preflibtools.properties.basic">This module describes several procedures to check for basic procedures of PrefLib instances.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.borda_scores">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">borda_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.borda_scores" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">borda_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.borda_scores" title="Link to this definition"></a></dt>
 <dd><p>Computes the total Borda scores of all the alternatives of the instance. Within an indifference class, all
 alternatives are assigned the smallest score one alternative from the class would have gotten, had the order
-been strict. For instance, for the order ({a1}, {a2, a3}, {a4}), a1 gets score 3, a2 and a3 score 1 and a4 
+been strict. For instance, for the order ({a1}, {a2, a3}, {a4}), a1 gets score 3, a2 and a3 score 1 and a4
 score 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -126,14 +126,14 @@ score 0.</p>
 <dd class="field-even"><p>A dictionary mapping every instance to their Borda score.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.copeland_scores">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">copeland_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.copeland_scores" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copeland_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.copeland_scores" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of dictionaries mapping every alternative a to their Copeland score against every other
 alternative b (the number of voters preferring a over b minus the number of voters preferring b over a).</p>
 <dl class="field-list simple">
@@ -144,14 +144,14 @@ alternative b (the number of voters preferring a over b minus the number of vote
 <dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.has_condorcet">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.has_condorcet" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.has_condorcet" title="Link to this definition"></a></dt>
 <dd><p>Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
 the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
 majority contest.</p>
@@ -163,136 +163,136 @@ majority contest.</p>
 <dd class="field-even"><p>A boolean indicating whether the instance has a Condorcet winner or not.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.is_approval">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">is_approval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_approval" title="Link to this definition"></a></dt>
-<dd><p>Checks whether the instance describes an approval profile. A profile is considered to represent approval 
+<span class="sig-name descname"><span class="pre">is_approval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_approval" title="Link to this definition"></a></dt>
+<dd><p>Checks whether the instance describes an approval profile. A profile is considered to represent approval
 ballots in two cases: All the orders are complete and consist of only two indifference classes; The orders
 are incomplete and consists of a single indifference class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes an approval profile.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.is_complete">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">is_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_complete" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_complete" title="Link to this definition"></a></dt>
 <dd><p>Checks whether the instance describes a profile of complete preferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes a profile of complete preferences.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.is_strict">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_strict" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_strict" title="Link to this definition"></a></dt>
 <dd><p>Checks whether the instance describes a profile of strict preferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes a profile of strict preferences.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.largest_ballot">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">largest_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.largest_ballot" title="Link to this definition"></a></dt>
-<dd><p>Returns the size of the largest ballot of the instance, i.e., the maximum number of alternatives 
+<span class="sig-name descname"><span class="pre">largest_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.largest_ballot" title="Link to this definition"></a></dt>
+<dd><p>Returns the size of the largest ballot of the instance, i.e., the maximum number of alternatives
 appearing in an order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the largest ballot of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.largest_indif">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">largest_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.largest_indif" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">largest_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.largest_indif" title="Link to this definition"></a></dt>
 <dd><p>Returns the size of the largest indifference class of any voter of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the largest indifference class of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.max_num_indif">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">max_num_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.max_num_indif" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_num_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.max_num_indif" title="Link to this definition"></a></dt>
 <dd><p>Returns the maximum number of indifference classes over the orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The maximum number of indifference classes of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.min_num_indif">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">min_num_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.min_num_indif" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">min_num_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.min_num_indif" title="Link to this definition"></a></dt>
 <dd><p>Returns the minimum number of indifference classes over the orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The minimum number of indifference classes of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.num_alternatives">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">num_alternatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_alternatives" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_alternatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_alternatives" title="Link to this definition"></a></dt>
 <dd><p>Returns the number of alternatives of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -302,14 +302,14 @@ appearing in an order.</p>
 <dd class="field-even"><p>The number of alternatives of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.num_different_preferences">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">num_different_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_different_preferences" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_different_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_different_preferences" title="Link to this definition"></a></dt>
 <dd><p>Returns the number of different orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -319,14 +319,14 @@ appearing in an order.</p>
 <dd class="field-even"><p>The number of different orders of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.num_voters">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">num_voters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_voters" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_voters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.num_voters" title="Link to this definition"></a></dt>
 <dd><p>Returns the number of voters .</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -336,14 +336,14 @@ appearing in an order.</p>
 <dd class="field-even"><p>The number of voters of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.pairwise_scores">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">pairwise_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.pairwise_scores" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pairwise_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.pairwise_scores" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of dictionaries mapping every alternative a to the number of times it beats
 every other alternative b (the number of voters preferring a over b).</p>
 <dl class="field-list simple">
@@ -354,42 +354,42 @@ every other alternative b (the number of voters preferring a over b).</p>
 <dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.smallest_ballot">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">smallest_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.smallest_ballot" title="Link to this definition"></a></dt>
-<dd><p>Returns the size of the smallest ballot of the instance, i.e., the smallest number of alternatives 
+<span class="sig-name descname"><span class="pre">smallest_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.smallest_ballot" title="Link to this definition"></a></dt>
+<dd><p>Returns the size of the smallest ballot of the instance, i.e., the smallest number of alternatives
 appearing in an order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the smallest ballot of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.smallest_indif">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.basic.</span></span><span class="sig-name descname"><span class="pre">smallest_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.smallest_indif" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">smallest_indif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.smallest_indif" title="Link to this definition"></a></dt>
 <dd><p>Returns the size of the smallest indifference class of any voter of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the smallest indifference class of the instance.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -400,14 +400,14 @@ appearing in an order.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="preflibtools.properties package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="singlepeaked.html" class="btn btn-neutral float-right" title="preflibtools.properties.singlepeakedness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="preflibtools.properties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="singlepeaked.html" class="btn btn-neutral float-right" title="singlepeakedness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Simon Rey.</p>
+    <p>&#169; Copyright 2023, Simon Rey.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

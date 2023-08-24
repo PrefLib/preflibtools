@@ -1,7 +1,7 @@
 .. _instances-sanity-label:
 
-preflibtools.instances.sanity
-===============================
+sanity
+======
 
 .. automodule:: preflibtools.instances.sanity
    :members:

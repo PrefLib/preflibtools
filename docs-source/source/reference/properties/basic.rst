@@ -1,8 +1,8 @@
 
 .. _properties-basic-label:
 
-preflibtools.properties.basic
-=============================
+basic
+=====
 
 .. automodule:: preflibtools.properties.basic
    :members:

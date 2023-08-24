@@ -2,8 +2,8 @@
 
 .. _properties-distances-label:
 
-preflibtools.properties.distances
-=================================
+distances
+=========
 
 .. automodule:: preflibtools.properties.distances
    :members:

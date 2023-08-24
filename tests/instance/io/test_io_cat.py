@@ -2,11 +2,14 @@ import os
 from unittest import TestCase
 
 from preflibtools.instances import CategoricalInstance, get_parsed_instance
-from tests.instance.io.write_file_test import write_test_cat_file, cat_test_str, write_test_soi_file
+from tests.instance.io.write_file_test import (
+    write_test_cat_file,
+    cat_test_str,
+    write_test_soi_file,
+)
 
 
 class TestCatInstance(TestCase):
-
     def test_read_from_file(self):
         write_test_cat_file("testInstance.cat")
         instance = CategoricalInstance("testInstance.cat")
@@ -50,7 +53,9 @@ class TestCatInstance(TestCase):
 
     def test_read_from_url(self):
         instance = CategoricalInstance()
-        instance.parse_url("https://www.preflib.org/static/data/aamas/00037-00000001.cat")
+        instance.parse_url(
+            "https://www.preflib.org/static/data/aamas/00037-00000001.cat"
+        )
 
     def test_read_autocorrect(self):
         str_to_correct = """# FILE NAME: 00026-00000001.cat
@@ -111,7 +116,7 @@ class TestCatInstance(TestCase):
         with self.assertRaises(TypeError):
             instance.parse_file("testInstance.soi")
         os.remove("testInstance.soi")
-    
+
     def test_write_to_file(self):
         write_test_cat_file("testInstance.cat")
         instance = CategoricalInstance("testInstance.cat")

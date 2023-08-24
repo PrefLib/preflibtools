@@ -2,11 +2,14 @@ import os
 from unittest import TestCase
 
 from preflibtools.instances import MatchingInstance, get_parsed_instance
-from tests.instance.io.write_file_test import write_test_wmd_file, write_test_cat_file, write_test_soi_file
+from tests.instance.io.write_file_test import (
+    write_test_wmd_file,
+    write_test_cat_file,
+    write_test_soi_file,
+)
 
 
 class TestWmdInstances(TestCase):
-
     def test_get_parsed_instances(self):
         write_test_wmd_file("testInstance.wmd")
         instance1 = get_parsed_instance("testInstance.wmd")

@@ -76,7 +76,12 @@ class TestAnalysis(TestCase):
         instance.append_order_list(orders)
         assert has_condorcet(instance) is False
         instance = OrdinalInstance()
-        orders = [((0,), (1,), (2,)), ((2,), (1,), (0,)), ((1,), (0,), (2,)), ((1,), (2,), (0,))]
+        orders = [
+            ((0,), (1,), (2,)),
+            ((2,), (1,), (0,)),
+            ((1,), (0,), (2,)),
+            ((1,), (2,), (0,)),
+        ]
         instance.append_order_list(orders)
         assert has_condorcet(instance) is True
         instance = OrdinalInstance()
@@ -94,7 +99,12 @@ class TestAnalysis(TestCase):
         assert is_single_peaked_ILP(instance)[0] is True
 
         instance = OrdinalInstance()
-        orders = [((0,), (1,), (2,)), ((2,), (1,), (0,)), ((1,), (0,), (2,)), ((1,), (2,), (0,))]
+        orders = [
+            ((0,), (1,), (2,)),
+            ((2,), (1,), (0,)),
+            ((1,), (0,), (2,)),
+            ((1,), (2,), (0,)),
+        ]
         instance.append_order_list(orders)
         assert is_single_peaked_axis(instance, [0, 1, 2]) is True
         assert is_single_peaked_axis(instance, [1, 0, 2]) is False
@@ -112,7 +122,11 @@ class TestAnalysis(TestCase):
         assert approx_SP_alternative_deletion_ILP(instance)[0] == 1
 
         instance = OrdinalInstance()
-        orders = [((0, 1), (2,), (3, 4)), ((4,), (3,), (2, 1, 0)), ((2, 3), (1,), (0,), (4,))]
+        orders = [
+            ((0, 1), (2,), (3, 4)),
+            ((4,), (3,), (2, 1, 0)),
+            ((2, 3), (1,), (0,), (4,)),
+        ]
         instance.append_order_list(orders)
         assert is_single_peaked_ILP(instance)[0] is True
         assert approx_SP_voter_deletion_ILP(instance)[0] == 0

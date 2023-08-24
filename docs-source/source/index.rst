@@ -15,10 +15,6 @@ PrefLib-Tools
         :target: https://github.com/PrefLib/preflibtools/actions?query=workflow%3Abuild
         :alt: Build Status
 
-.. image:: https://github.com/PrefLib/preflibtools/workflows/docs/badge.svg?branch=main
-        :target: https://www.docs.preflib.org/
-        :alt: Documentation Status
-
 .. image:: https://codecov.io/gh/PrefLib/preflibtools/branch/main/graphs/badge.svg
         :target: https://codecov.io/gh/PrefLib/preflibtools/tree/main
         :alt: Code Coverage

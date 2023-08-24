@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>preflibtools.properties.distances &mdash; PrefLib-Tools 2.0.0 documentation</title>
+  <title>distances &mdash; Preflibtools</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="About" href="../../about.html" />
-    <link rel="prev" title="preflibtools.properties.singlecrossing" href="singlecrossing.html" /> 
+    <link rel="prev" title="singlecrossing" href="singlecrossing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +33,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            PrefLib-Tools
+            preflibtools
           </a>
               <div class="version">
                 2.0.0
@@ -51,12 +51,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances package</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.properties package</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="basic.html">preflibtools.properties.basic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="singlepeaked.html">preflibtools.properties.singlepeakedness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">preflibtools.properties.singlecrossing</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">preflibtools.properties.distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.properties</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basic.html">basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="singlepeaked.html">singlepeakedness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">singlecrossing</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">distances</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.distances.distance_matrix"><code class="docutils literal notranslate"><span class="pre">distance_matrix()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.distances.kendall_tau_distance"><code class="docutils literal notranslate"><span class="pre">kendall_tau_distance()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.distances.sertel_distance"><code class="docutils literal notranslate"><span class="pre">sertel_distance()</span></code></a></li>
@@ -76,7 +76,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">PrefLib-Tools</a>
+          <a href="../../index.html">preflibtools</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -85,8 +85,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
-          <li class="breadcrumb-item"><a href="index.html">preflibtools.properties package</a></li>
-      <li class="breadcrumb-item active">preflibtools.properties.distances</li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.properties</a></li>
+      <li class="breadcrumb-item active">distances</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/properties/distance.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,17 +96,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="preflibtools-properties-distances">
-<span id="properties-distances-label"></span><h1>preflibtools.properties.distances<a class="headerlink" href="#preflibtools-properties-distances" title="Link to this heading"></a></h1>
+  <section id="distances">
+<span id="properties-distances-label"></span><h1>distances<a class="headerlink" href="#distances" title="Link to this heading"></a></h1>
 <p id="module-preflibtools.properties.distances">This module provides functions to compute distances between orders.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.distances.distance_matrix">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.distances.</span></span><span class="sig-name descname"><span class="pre">distance_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.distance_matrix" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">distance_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.distance_matrix" title="Link to this definition"></a></dt>
 <dd><p>Returns a matrix of the pairwise distance between all orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>preflibtools.instances.preflibinstance.OrdinalInstance</em></a>) – The instance to take the orders from.</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance to take the orders from.</p></li>
 <li><p><strong>distance_function</strong> (<em>function</em>) – The distance function to use. It should take two orders as input.</p></li>
 </ul>
 </dd>
@@ -122,7 +122,7 @@ list of the instance.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.distances.kendall_tau_distance">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.distances.</span></span><span class="sig-name descname"><span class="pre">kendall_tau_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.kendall_tau_distance" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">kendall_tau_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.kendall_tau_distance" title="Link to this definition"></a></dt>
 <dd><p>Returns the Kendall’s tau distance between two orders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -135,14 +135,14 @@ list of the instance.</p>
 <dd class="field-even"><p>The Kendall’s tau distance between the two orders.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p><em>int</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.distances.sertel_distance">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.distances.</span></span><span class="sig-name descname"><span class="pre">sertel_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.sertel_distance" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sertel_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.sertel_distance" title="Link to this definition"></a></dt>
 <dd><p>Returns the Sertel’s distance between two orders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -155,14 +155,14 @@ list of the instance.</p>
 <dd class="field-even"><p>The Sertel’s distance between the two orders.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><em>float</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.distances.spearman_footrule_distance">
-<span class="sig-prename descclassname"><span class="pre">preflibtools.properties.distances.</span></span><span class="sig-name descname"><span class="pre">spearman_footrule_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.spearman_footrule_distance" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">spearman_footrule_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.distances.spearman_footrule_distance" title="Link to this definition"></a></dt>
 <dd><p>Returns the Spearman’s footrule distance between two orders.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -175,7 +175,7 @@ list of the instance.</p>
 <dd class="field-even"><p>The Spearman’s footrule distance between the two orders.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><em>float</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,14 +186,14 @@ list of the instance.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="singlecrossing.html" class="btn btn-neutral float-left" title="preflibtools.properties.singlecrossing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="singlecrossing.html" class="btn btn-neutral float-left" title="singlecrossing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../../about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Simon Rey.</p>
+    <p>&#169; Copyright 2023, Simon Rey.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,7 +4,6 @@ from preflibtools.instances import OrdinalInstance
 
 
 class TestOrdinal(TestCase):
-
     def test_basic(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
@@ -46,9 +45,16 @@ class TestOrdinal(TestCase):
         assert instance.data_type == "soc"
         assert instance.num_voters == 5
         assert len(instance.full_profile()) == 5
-        assert instance.orders in ([((0,), (1,), (2,)), ((2,), (0,), (1,))],
-                                   [((2,), (0,), (1,)), ((0,), (1,), (2,))])
-        vote_map = {((0,), (1,), (2,)): 3, ((2,), (0,), (1,)): 2, ((0,), (1, 2)): 4, ((4, 3), (1, 2)): 2}
+        assert instance.orders in (
+            [((0,), (1,), (2,)), ((2,), (0,), (1,))],
+            [((2,), (0,), (1,)), ((0,), (1,), (2,))],
+        )
+        vote_map = {
+            ((0,), (1,), (2,)): 3,
+            ((2,), (0,), (1,)): 2,
+            ((0,), (1, 2)): 4,
+            ((4, 3), (1, 2)): 2,
+        }
         instance.append_vote_map(vote_map)
         assert instance.num_alternatives == 5
         assert instance.data_type == "toi"

@@ -1,7 +1,7 @@
 .. _instances-convert-label:
 
-preflibtools.instances.convert
-==============================
+convert
+=======
 
 .. automodule:: preflibtools.instances.convert
    :members:
