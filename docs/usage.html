@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; PrefLib-Tools 2.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=51b770b3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PrefLib-Tools
+          </a>
+              <div class="version">
+                2.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preflib-instances">PrefLib Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ordinal-preferences">Ordinal Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#categorical-preferences">Categorical Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#matching-preferences">Matching Preferences</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PrefLib-Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<p>We present below several examples of how to use the PrefLib-Tools. Further information about all the functions and
+classes can be found in the reference.</p>
+<section id="preflib-instances">
+<h2>PrefLib Instances<a class="headerlink" href="#preflib-instances" title="Link to this heading"></a></h2>
+<p>We use different Python classes to deal with the different types of data that are hosted on
+<a class="reference external" href="https://www.preflib.org/">PrefLib.org</a>. All these classes inherit from <code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code>, the abstract
+class that implements all the basic functionalities common to all the others. Let us first discuss the class
+<code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code>, the other classes will be introduced later.</p>
+<p>The most important functionality, is the ability to read and parse PrefLib data. We provide several ways to do so, as
+illustrated below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instances</span> <span class="kn">import</span> <span class="n">PrefLibInstance</span>
+
+<span class="n">instance</span> <span class="o">=</span> <span class="n">PrefLibInstance</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code> also stores most of the metadata about the data file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the original file, and the name of the file</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">file_path</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">file_name</span>
+<span class="c1"># The type of the instance and its modification type</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">data_type</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">modification_type</span>
+<span class="c1"># Some potentially related files</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">relates_to</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">related_files</span>
+<span class="c1"># The title of the data file and its description (mainly empty, on purpose)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">title</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">description</span>
+<span class="c1"># Some historical landmark about the data file</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">publication_date</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">modification_date</span>
+<span class="c1"># The number of alternatives and their names</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_alternatives</span>
+<span class="k">for</span> <span class="n">alt</span><span class="p">,</span> <span class="n">alt_name</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">alternatives_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">alternative</span> <span class="o">=</span> <span class="n">alt</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">alt_name</span>
+<span class="c1"># The number of voters</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_voters</span>
+</pre></div>
+</div>
+<p>Finally, <code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code> also provide the basic functions to write the instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">instance</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">path_to_the_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As said before, <code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code> is an abstract class, so all the actual stuff only happens in what comes next.</p>
+</section>
+<section id="ordinal-preferences">
+<h2>Ordinal Preferences<a class="headerlink" href="#ordinal-preferences" title="Link to this heading"></a></h2>
+<p>Preferences that can be represented as orders over the alternatives are called ordinal. The orders can be partial,
+and/or weak. All these preferences are represented using the class <code class="code docutils literal notranslate"><span class="pre">OrdinalInstance</span></code>. It implements the basic
+functions required by <code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code> and provide additional metadata that are illustrated below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instances</span> <span class="kn">import</span> <span class="n">OrdinalInstance</span>
+
+<span class="c1"># We can populate the instance by reading a file from PrefLib.</span>
+<span class="c1"># You can do it based on a URL or on a path to a file</span>
+<span class="n">instance</span> <span class="o">=</span> <span class="n">OrdinalInstance</span><span class="p">()</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">parse_file</span><span class="p">(</span><span class="s2">&quot;00001-00000001.soi&quot;</span><span class="p">)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">parse_url</span><span class="p">(</span><span class="s2">&quot;https://www.preflib.org/static/data/irish/00001-00000001.soi&quot;</span><span class="p">)</span>
+
+<span class="c1"># Additional members of the class are the orders,  their multiplicity and the number of unique orders</span>
+<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">orders</span><span class="p">:</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">o</span>
+    <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">multiplicity</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_unique_orders</span>
+</pre></div>
+</div>
+<p>We represent orders as tuples of tuples (we need them to be hashable), i.e., it is a vector of sets of alternatives
+where each set represents an indifference class for the voter. Here are some examples of orders.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The strict and complete order 1 &gt; 2 &gt; 0</span>
+<span class="n">strict_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,))</span>
+<span class="c1"># The weak and complete order (1, 2) &gt; 0 &gt; (3, 4)</span>
+<span class="n">weak_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># The incomplete an weak order (1, 2) &gt; 4</span>
+<span class="n">incomplete_order</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>Now that we know how orders are represented, we can see some example of how to handle orders within the instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adding preferences to the instance, using different formats</span>
+<span class="c1"># Simply a list of orders</span>
+<span class="n">extra_orders</span> <span class="o">=</span> <span class="p">[((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)),</span> <span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))]</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">append_order_list</span><span class="p">(</span><span class="n">extra_orders</span><span class="p">)</span>
+<span class="c1"># A vote map, i.e., a dictionary mapping orders to their multiplicity</span>
+<span class="n">extra_vote_map</span> <span class="o">=</span> <span class="p">{((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)):</span> <span class="mi">3</span><span class="p">,</span> <span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)):</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">append_vote_map</span><span class="p">(</span><span class="n">extra_vote_map</span><span class="p">)</span>
+
+<span class="c1"># We can access the full profile, i.e., with orders appearing several times</span>
+<span class="c1"># (according to their multiplicity)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">full_profile</span><span class="p">()</span>
+
+<span class="c1"># If we are dealing with strict orders, we can flatten the orders so that ((0,), (1,), (2,))</span>
+<span class="c1"># is rewritten as (0, 1, 2). This return a list of tuple(order, multiplicity).</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">flatten_strict</span><span class="p">()</span>
+
+<span class="c1"># We can access the profile as a vote map</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">vote_map</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>An instance can be populated by reading a file, but also through some sampling procedures that we provide.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some statistical culture we provide, here for 5 voters and 10 alternatives</span>
+<span class="n">instance</span> <span class="o">=</span> <span class="n">OrdinalInstance</span><span class="p">()</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">populate_mallows_mix</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">populate_urn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">76</span><span class="p">)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">populate_IC</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">populate_IC_anon</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To finish, we may want to test some properties of the instance. Let’s start with some basic ones.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties</span> <span class="kn">import</span> <span class="n">borda_scores</span><span class="p">,</span> <span class="n">has_condorcet</span>
+
+<span class="c1"># Let&#39;s check the Borda scores of the alternatives</span>
+<span class="n">borda_scores</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+<span class="c1"># We can also check if the instance has a Condorcet winner</span>
+<span class="n">has_condorcet</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The are plenty of methods to check for the potential single-peakedness of the instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.singlepeakedness</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># We can first check if the instance is single-peaked with respect to a given</span>
+<span class="c1"># axis. This only works for complete orders, they can be weak though.</span>
+<span class="n">is_SP</span> <span class="o">=</span> <span class="n">is_single_peaked_axis</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="c1"># In general we can test for the single-peakedness of the instance:</span>
+<span class="c1"># In the case of strict and complete orders;</span>
+<span class="p">(</span><span class="n">is_SP</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="o">=</span> <span class="n">is_single_peaked</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+<span class="c1"># And in the case of weak and complete order (using an ILP solver).</span>
+<span class="p">(</span><span class="n">is_SP</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="o">=</span> <span class="n">is_single_peaked_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+
+<span class="c1"># Maybe the instance is not single-peaked, but approximately. We can check how close to</span>
+<span class="c1"># single-peaked it is in terms of voter deletion and alternative deletion.</span>
+<span class="p">(</span><span class="n">num_voter_deleted</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">deleted_voters</span><span class="p">)</span> <span class="o">=</span> <span class="n">approx_SP_voter_deletion_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+<span class="p">(</span><span class="n">num_alt_deleted</span><span class="p">,</span> <span class="n">opt_status</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">deleted_alts</span><span class="p">)</span> <span class="o">=</span> <span class="n">approx_SP_alternative_deletion_ILP</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also look into single-crossing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.singlecrossing</span> <span class="kn">import</span> <span class="n">is_single_crossing</span>
+
+<span class="c1"># Testing if the instance is single-crossing</span>
+<span class="n">is_single_crossing</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we can talk about distances between the orders of the instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.properties.distances</span> <span class="kn">import</span> <span class="n">distance_matrix</span><span class="p">,</span> <span class="n">spearman_footrule_distance</span>
+<span class="kn">from</span> <span class="nn">preflibtools.properties.distances</span> <span class="kn">import</span> <span class="n">kendall_tau_distance</span><span class="p">,</span> <span class="n">sertel_distance</span>
+
+<span class="c1"># We can create the distance matrix between any two orders of the instance</span>
+<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">kendall_tau_distance</span><span class="p">)</span>
+<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">spearman_footrule_distance</span><span class="p">)</span>
+<span class="n">distance_matrix</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">sertel_distance</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="categorical-preferences">
+<h2>Categorical Preferences<a class="headerlink" href="#categorical-preferences" title="Link to this heading"></a></h2>
+<p>Categorical preferences represent scenario in which voters were asked to place alternatives into some categories.
+It is also assumed that there is an ordering of the categories inducing some preference between them.
+The typical example of categorical preferences is approval ballots, in which the categories are YES and NO.</p>
+<p>This types of preferences are represented using the <code class="code docutils literal notranslate"><span class="pre">CategoricalInstance</span></code> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instances</span> <span class="kn">import</span> <span class="n">CategoricalInstance</span>
+
+<span class="n">instance</span> <span class="o">=</span> <span class="n">CategoricalInstance</span><span class="p">()</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">parse_url</span><span class="p">(</span><span class="s2">&quot;https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat&quot;</span><span class="p">)</span>
+
+<span class="c1"># Additional members of the class are related to the categories themselves</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_categories</span>
+<span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">cat_name</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">categories_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">cat</span>
+    <span class="n">name_of_the_category</span> <span class="o">=</span> <span class="n">cat_name</span>
+<span class="c1"># But also to the preferences</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">preferences</span><span class="p">:</span>
+    <span class="n">preferences</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">multiplicity</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_unique_preferences</span>
+</pre></div>
+</div>
+</section>
+<section id="matching-preferences">
+<h2>Matching Preferences<a class="headerlink" href="#matching-preferences" title="Link to this heading"></a></h2>
+<p>Matching preferences cover settings in which agents are to be matched to one another, and they have affinity scores
+between each others. The typical example for such preferences hosted on <a class="reference external" href="https://www.preflib.org/">PrefLib.org</a> is
+that of kidney transplant where donors and patients are to be matched. The class <code class="code docutils literal notranslate"><span class="pre">MatchingInstance</span></code> covers these.</p>
+<p>This class inherits both from <code class="code docutils literal notranslate"><span class="pre">PrefLibInstance</span></code> and from <code class="code docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code>. This means that on top of the
+usual instance machinery, it also has all the graph related members and methods.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">preflibtools.instances</span> <span class="kn">import</span> <span class="n">MatchingInstance</span>
+
+<span class="n">instance</span> <span class="o">=</span> <span class="n">MatchingInstance</span><span class="p">()</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">parse_url</span><span class="p">(</span><span class="s2">&quot;https://www.preflib.org/static/data/kidney/00036-00000001.wmd&quot;</span><span class="p">)</span>
+
+<span class="c1"># The instance has a single new member: the number of edges in the graph</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">num_edges</span>
+
+<span class="c1"># ...and an adjacency list implementation of the weighted directed graph</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="c1"># returns the set of nodes</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span> <span class="c1"># returns the set of edges in the format (n1, n2, weight)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">neighbours</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># returns the neighbours of node n</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">outgoing_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># returns the edges going out of n</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># to add a node n</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span> <span class="c1"># to add the edge (n1, n2, weight)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Simon Rey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
