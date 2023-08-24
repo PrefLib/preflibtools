@@ -17,7 +17,7 @@ spirit as PrefLib: Providing tools for the community with the help of the commun
 free to create pull requests. If you have a question, a remark, or encounter a problem, please open an issue, create a
 pull request etc...
 
-The full documentation of the package can be found there: http://www.docs.preflib.org.
+The full documentation of the package can be found there: https://preflib.github.io/preflibtools/.
 
 If, for some reasons, you are looking for the older version of the PrefLib-Tools, it is still available in the GitHub
 repository [Preflib-Tools-Old](https://github.com/PrefLib/Preflib-Tools-Old).
