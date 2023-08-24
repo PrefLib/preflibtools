@@ -1,0 +1,37 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "preflibtools"
+version = "2.0.13"
+description = "A set of tools to work with preference data from the PrefLib.org website."
+authors = [
+  { name = "Simon Rey", email = "reysimon@orange.fr" },
+]
+license = { file = "LICENSE.md" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "mip",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage",
+    "Sphinx",
+    "sphinx_rtd_theme",
+    "pytest"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/PrefLib/preflibtools"
+"Bug Tracker" = "https://github.com/PrefLib/preflibtools/issues"
