@@ -55,10 +55,11 @@ def copeland_scores(instance):
         return scores
 
 
-def has_condorcet(instance):
+def has_condorcet(instance, weak_condorcet=False):
     """Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
     the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
-    majority contest.
+    majority contest. An alternative is a weak Condorcet winner if it strictly beats or ties every other
+    alternative in a pairwise majority contest.
 
     :param instance: The instance.
     :type instance: preflibtools.instances.preflibinstance.PreflibInstance
@@ -69,7 +70,7 @@ def has_condorcet(instance):
     if instance.data_type in ["soc", "toc", "soi", "toi"]:
         scores = copeland_scores(instance)
         for alt, scoreDict in scores.items():
-            if all(score > 0 for score in scoreDict.values()):
+            if all(score > 0 or (weak_condorcet and score >= 0) for score in scoreDict.values()):
                 return True
         return False
 
