@@ -85,6 +85,14 @@ class TestAnalysis(TestCase):
         instance.append_order_list(orders)
         assert has_condorcet(instance) is True
         instance = OrdinalInstance()
+        orders = [
+            ((0,), (1,), (2,)),
+            ((2,), (1,), (0,)),
+        ]
+        instance.append_order_list(orders)
+        assert has_condorcet(instance) is False
+        assert has_condorcet(instance, weak_condorcet=True) is True
+        instance = OrdinalInstance()
         orders = [((0, 1), (2,), (3, 4)), ((4,), (3,), (2, 1, 0)), ((0,), (1, 3), (4,))]
         instance.append_order_list(orders)
         assert has_condorcet(instance) is True

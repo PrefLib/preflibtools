@@ -63,6 +63,8 @@ def has_condorcet(instance, weak_condorcet=False):
 
     :param instance: The instance.
     :type instance: preflibtools.instances.preflibinstance.PreflibInstance
+    :param weak_condorcet: Boolean indicating whether to consider weak-Condorcet winners or not.
+    :type weak_condorcet: bool
 
     :return: A boolean indicating whether the instance has a Condorcet winner or not.
     :rtype: bool
@@ -70,7 +72,10 @@ def has_condorcet(instance, weak_condorcet=False):
     if instance.data_type in ["soc", "toc", "soi", "toi"]:
         scores = copeland_scores(instance)
         for alt, scoreDict in scores.items():
-            if all(score > 0 or (weak_condorcet and score >= 0) for score in scoreDict.values()):
+            if all(
+                score > 0 or (weak_condorcet and score >= 0)
+                for score in scoreDict.values()
+            ):
                 return True
         return False
 

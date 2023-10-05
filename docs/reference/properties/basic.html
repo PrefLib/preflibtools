@@ -151,13 +151,17 @@ alternative b (the number of voters preferring a over b minus the number of vote
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.has_condorcet">
-<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.has_condorcet" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weak_condorcet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.has_condorcet" title="Link to this definition"></a></dt>
 <dd><p>Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
 the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
-majority contest.</p>
+majority contest. An alternative is a weak Condorcet winner if it strictly beats or ties every other
+alternative in a pairwise majority contest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p></li>
+<li><p><strong>weak_condorcet</strong> (<em>bool</em>) – Boolean indicating whether to consider weak-Condorcet winners or not.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance has a Condorcet winner or not.</p>
