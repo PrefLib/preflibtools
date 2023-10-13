@@ -51,3 +51,31 @@ def copeland_winner(instance):
         scores[a] = sum(raw_scores[a].values())
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
+
+
+@requires_approval
+def approval_winner(instance):
+    scores = dict()
+    for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
+        for a in order[0]:
+            if a not in scores:
+                scores[a] = multiplicity
+            else:
+                scores[a] += multiplicity
+    best_score = max(scores.values())
+    return {a for a in scores if scores[a] == best_score}
+
+
+@requires_approval
+def satisfaction_approval_winner(instance):
+    scores = dict()
+    for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
+        for a in order[0]:
+            if a not in scores:
+                scores[a] = multiplicity/len(order[0])
+            else:
+                scores[a] += multiplicity/len(order[0])
+    best_score = max(scores.values())
+    return {a for a in scores if scores[a] == best_score}

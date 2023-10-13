@@ -17,3 +17,11 @@ def requires_preference_type(*dtype):
             return fn(*fn_args, **fn_kw_args)
         return wrapper_fn
     return decorator_fn
+
+
+def requires_approval(fn):
+    def wrapper_fn(*fn_args, **fn_kw_args):
+        if not is_approval(fn_args[0]):
+            raise PreferenceIncompatibleError("Only approval preferences are accepted.")
+        return fn(*fn_args, **fn_kw_args)
+    return wrapper_fn

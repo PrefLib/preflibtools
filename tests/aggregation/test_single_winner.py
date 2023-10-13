@@ -87,3 +87,36 @@ class TestCopeland:
             ]
         instance.append_order_list(orders)
         assert copeland_winner(instance) == {0, 1, 2}
+
+
+class TestApproval:
+    def test_approval_winner(self):
+        instance = OrdinalInstance()
+        orders = [
+            ((0,1),),
+            ((2,),),
+            ((2,3),)
+            ]
+        instance.append_order_list(orders)
+        assert approval_winner(instance) == {2}
+
+    def test_approval_winner2(self):
+        instance = OrdinalInstance()
+        orders = [
+            ((0,1),(2,3)),
+            ((2,),(0,1,3)),
+            ((2,3),(0,1))
+            ]
+        instance.append_order_list(orders)
+        assert approval_winner(instance) == {2}
+
+class TestSatisfactionApproval:
+    def test_satisfaction_approval_winner(self):
+        instance = OrdinalInstance()
+        orders = [
+            ((1,2,3),),
+            ((0,),),
+            ((2,3),)
+            ]
+        instance.append_order_list(orders)
+        assert satisfaction_approval_winner(instance) == {0}
