@@ -17,6 +17,18 @@ def plurality_winner(instance):
     return {a for a in scores if scores[a] == best_score}
 
 
+@requires_preference_type("soc", "toc")
+def veto_winner(instance):
+    scores = {a : 0 for a in instance.alternatives_name}
+    for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
+        for a in order[-1]:
+            scores[a] += multiplicity
+    least_vetos = min(scores.values())
+    print(scores)
+    return {a for a in scores if scores[a] == least_vetos}
+
+
 @requires_preference_type("soc", "soi")
 def k_approval_winner(instance, k):
     scores = dict()
@@ -77,5 +89,49 @@ def satisfaction_approval_winner(instance):
                 scores[a] = multiplicity/len(order[0])
             else:
                 scores[a] += multiplicity/len(order[0])
+    best_score = max(scores.values())
+    return {a for a in scores if scores[a] == best_score}
+
+
+@requires_preference_type("soc", "soi")
+def fallback_voting_winner(instance):
+    scores = dict()
+    quota = (instance.num_voters // 2) + 1
+    for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
+        scores[order[0][0]] = multiplicity
+    current_pos = 1
+    while max(scores.values()) < quota and current_pos < instance.num_alternatives:
+        for order in instance.orders:
+            multiplicity = instance.multiplicity[order]
+            if len(order) > current_pos:
+                a = order[current_pos][0]
+                if a not in scores:
+                    scores[a] = multiplicity
+                else:
+                    scores[a] += multiplicity
+        current_pos += 1
+    best_score = max(scores.values())
+    return {a for a in scores if scores[a] == best_score}
+
+
+@requires_preference_type("soc")
+def bucklin_voting_winner(instance):
+    scores = dict()
+    quota = (instance.num_voters // 2) + 1
+    for order in instance.orders:
+        multiplicity = instance.multiplicity[order]
+        scores[order[0][0]] = multiplicity
+    current_pos = 1
+    while max(scores.values()) < quota:
+        for order in instance.orders:
+            multiplicity = instance.multiplicity[order]
+            if len(order) > current_pos:
+                a = order[current_pos][0]
+                if a not in scores:
+                    scores[a] = multiplicity
+                else:
+                    scores[a] += multiplicity
+        current_pos += 1
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
