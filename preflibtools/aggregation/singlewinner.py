@@ -26,12 +26,12 @@ def plurality_winner(instance):
 @requires_preference_type("soc", "toc")
 def veto_winner(instance):
     """Returns all the alternatives with the smallest veto score, i.e., that appear the smallest number of times
-    lower than in the first position.
+    in the last indifference class.
 
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = {}
+    scores = {a: 0 for a in instance.alternatives_name}
     for order, mult in instance.multiplicity.items():
         for a in order[-1]:
             if a not in scores:

@@ -29,7 +29,7 @@ class TestPlurality(TestCase):
         assert plurality_winner(instance) == {2, 0}
 
 
-class TestVeto:
+class TestVeto(TestCase):
     def test_veto_winner_1(self):
         instance = OrdinalInstance()
         orders = [((0,), (1, 2), (3,)), ((0, 2), (1, 3)), ((1,), (0, 3), (2,))]
@@ -43,7 +43,7 @@ class TestVeto:
         assert veto_winner(instance) == {0, 1}
 
 
-class TestKApproval:
+class TestKApproval(TestCase):
     def test_k_approval(self):
         instance = OrdinalInstance()
         orders = [
@@ -56,7 +56,7 @@ class TestKApproval:
         assert k_approval_winner(instance, 2) == {0, 1}
 
 
-class TestBorda:
+class TestBorda(TestCase):
     def test_borda_only_one_winner(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((1,), (0,), (2,))]
@@ -75,7 +75,7 @@ class TestBorda:
         assert borda_winner(instance) == {1, 0}
 
 
-class TestCopeland:
+class TestCopeland(TestCase):
     def test_copeland_condorcet_winner(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((0,), (1,), (2,))]
@@ -89,7 +89,7 @@ class TestCopeland:
         assert copeland_winner(instance) == {0, 1, 2}
 
 
-class TestApproval:
+class TestApproval(TestCase):
     def test_approval_winner(self):
         instance = OrdinalInstance()
         orders = [((0, 1),), ((2,),), ((2, 3),)]
@@ -103,7 +103,7 @@ class TestApproval:
         assert approval_winner(instance) == {2}
 
 
-class TestSatisfactionApproval:
+class TestSatisfactionApproval(TestCase):
     def test_satisfaction_approval_winner(self):
         instance = OrdinalInstance()
         orders = [((1, 2, 3),), ((0,),), ((2, 3),)]
@@ -111,7 +111,7 @@ class TestSatisfactionApproval:
         assert satisfaction_approval_winner(instance) == {0}
 
 
-class TestFallback:
+class TestFallback(TestCase):
     def test_fallback_winner_1(self):
         instance = OrdinalInstance()
         orders = [((1,), (2,)), ((0,), (2,)), ((3,),), ((4,),), ((5,),)]
@@ -131,7 +131,7 @@ class TestFallback:
         assert fallback_voting_winner(instance) == {2}
 
 
-class TestBucklin:
+class TestBucklin(TestCase):
     def test_bucklin_winner_1(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((1,), (2,), (0,))]
