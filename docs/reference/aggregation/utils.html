@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>convert &mdash; Preflibtools</title>
+  <title>utils &mdash; Preflibtools</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="sanity" href="sanity.html" />
-    <link rel="prev" title="sampling" href="sampling.html" /> 
+    <link rel="next" title="About" href="../../about.html" />
+    <link rel="prev" title="single winner" href="singlewinner.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,18 +51,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="preflibinstance.html">preflibinstance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sampling.html">sampling</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">convert</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.convert.order_to_pwg"><code class="docutils literal notranslate"><span class="pre">order_to_pwg()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="sanity.html">sanity</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../aggregation/index.html">preflibtools.aggregation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.aggregation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="singlewinner.html">single winner</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.utils.PreferenceIncompatibleError"><code class="docutils literal notranslate"><span class="pre">PreferenceIncompatibleError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.utils.requires_approval"><code class="docutils literal notranslate"><span class="pre">requires_approval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.utils.requires_preference_type"><code class="docutils literal notranslate"><span class="pre">requires_preference_type()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
@@ -83,10 +83,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
-          <li class="breadcrumb-item"><a href="index.html">preflibtools.instances</a></li>
-      <li class="breadcrumb-item active">convert</li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.aggregation</a></li>
+      <li class="breadcrumb-item active">utils</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/reference/instances/convert.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/reference/aggregation/utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -94,18 +94,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="convert">
-<span id="instances-convert-label"></span><h1>convert<a class="headerlink" href="#convert" title="Link to this heading"></a></h1>
-<p id="module-preflibtools.instances.convert">This module presents procedures to convert instances from one type to another.</p>
+  <section id="utils">
+<span id="instances-aggregation-utils"></span><h1>utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h1>
+<p id="module-preflibtools.aggregation.utils">This module contains utilities used for the voting rules, such as decorators.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="preflibtools.aggregation.utils.PreferenceIncompatibleError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PreferenceIncompatibleError</span></span><a class="headerlink" href="#preflibtools.aggregation.utils.PreferenceIncompatibleError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception raised if an instance with a different type of preferences than expected was encountered.</p>
+</dd></dl>
+
 <dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.instances.convert.order_to_pwg">
-<span class="sig-name descname"><span class="pre">order_to_pwg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.convert.order_to_pwg" title="Link to this definition"></a></dt>
-<dd><p>Takes as input an instances and returns a string describing a pairwise graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance to convert.</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="preflibtools.aggregation.utils.requires_approval">
+<span class="sig-name descname"><span class="pre">requires_approval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.utils.requires_approval" title="Link to this definition"></a></dt>
+<dd><p>Decorator to filter ordinal instances that are not approval.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.aggregation.utils.requires_preference_type">
+<span class="sig-name descname"><span class="pre">requires_preference_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.utils.requires_preference_type" title="Link to this definition"></a></dt>
+<dd><p>Decorator to filter instances with wrong preference type.</p>
 </dd></dl>
 
 </section>
@@ -114,8 +122,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sampling.html" class="btn btn-neutral float-left" title="sampling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sanity.html" class="btn btn-neutral float-right" title="sanity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="singlewinner.html" class="btn btn-neutral float-left" title="single winner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
