@@ -1,7 +1,47 @@
 """ This module describes several procedures to check for basic procedures of PrefLib instances.
 """
 
+from functools import wraps
 
+
+
+class PreferenceIncompatibleError(Exception):
+    """Exception raised if an instance with a different type of preferences than expected was encountered."""
+
+    pass
+
+
+def requires_preference_type(*dtype):
+    """Decorator to filter instances with wrong preference type."""
+
+    def decorator_fn(fn):
+        @wraps(fn)
+        def wrapper_fn(*fn_args, **fn_kw_args):
+            if fn_args[0].data_type not in dtype:
+                type_str = (("%s, " * (len(dtype) - 1)) + "%s") % dtype
+                raise PreferenceIncompatibleError(
+                    "Only the following types are accepted: %s" % type_str
+                )
+            return fn(*fn_args, **fn_kw_args)
+
+        return wrapper_fn
+
+    return decorator_fn
+
+
+def requires_approval(fn):
+    """Decorator to filter ordinal instances that are not approval."""
+
+    @wraps(fn)
+    def wrapper_fn(*fn_args, **fn_kw_args):
+        if not is_approval(fn_args[0]):
+            raise PreferenceIncompatibleError("Only approval preferences are accepted.")
+        return fn(*fn_args, **fn_kw_args)
+
+    return wrapper_fn
+
+
+@requires_preference_type("soc", "toc", "soi", "toi")
 def pairwise_scores(instance):
     """Returns a dictionary of dictionaries mapping every alternative a to the number of times it beats
     every other alternative b (the number of voters preferring a over b).
@@ -12,22 +52,22 @@ def pairwise_scores(instance):
     :return: A dictionary of dictionaries storing the scores.
     :rtype: dict
     """
-    if instance.data_type in ["soc", "toc", "soi", "toi"]:
-        scores = {
-            alt: {a: 0 for a in instance.alternatives_name if a != alt}
-            for alt in instance.alternatives_name
-        }
-        for order in instance.orders:
-            alternatives_before = []
-            for indif_class in order:
-                # Every alternative appearing before are beating the ones in the current indifference class
-                for alt_beaten in indif_class:
-                    for alt_winning in alternatives_before:
-                        scores[alt_winning][alt_beaten] += instance.multiplicity[order]
-                alternatives_before += [alt for alt in indif_class]
-        return scores
+    scores = {
+        alt: {a: 0 for a in instance.alternatives_name if a != alt}
+        for alt in instance.alternatives_name
+    }
+    for order in instance.orders:
+        alternatives_before = []
+        for indif_class in order:
+            # Every alternative appearing before are beating the ones in the current indifference class
+            for alt_beaten in indif_class:
+                for alt_winning in alternatives_before:
+                    scores[alt_winning][alt_beaten] += instance.multiplicity[order]
+            alternatives_before += [alt for alt in indif_class]
+    return scores
 
 
+@requires_preference_type("soc", "toc", "soi", "toi")
 def copeland_scores(instance):
     """Returns a dictionary of dictionaries mapping every alternative a to their Copeland score against every other
     alternative b (the number of voters preferring a over b minus the number of voters preferring b over a).
@@ -38,23 +78,23 @@ def copeland_scores(instance):
     :return: A dictionary of dictionaries storing the scores.
     :rtype: dict
     """
-    if instance.data_type in ["soc", "toc", "soi", "toi"]:
-        scores = {
-            alt: {a: 0 for a in instance.alternatives_name if a != alt}
-            for alt in instance.alternatives_name
-        }
-        for order in instance.orders:
-            alternatives_before = []
-            for indif_class in order:
-                # Every alternative appearing before are beating the ones in the current indifference class
-                for alt_beaten in indif_class:
-                    for alt_winning in alternatives_before:
-                        scores[alt_winning][alt_beaten] += instance.multiplicity[order]
-                        scores[alt_beaten][alt_winning] -= instance.multiplicity[order]
-                alternatives_before += [alt for alt in indif_class]
-        return scores
+    scores = {
+        alt: {a: 0 for a in instance.alternatives_name if a != alt}
+        for alt in instance.alternatives_name
+    }
+    for order in instance.orders:
+        alternatives_before = []
+        for indif_class in order:
+            # Every alternative appearing before are beating the ones in the current indifference class
+            for alt_beaten in indif_class:
+                for alt_winning in alternatives_before:
+                    scores[alt_winning][alt_beaten] += instance.multiplicity[order]
+                    scores[alt_beaten][alt_winning] -= instance.multiplicity[order]
+            alternatives_before += [alt for alt in indif_class]
+    return scores
 
 
+@requires_preference_type("soc", "toc", "soi", "toi")
 def has_condorcet(instance, weak_condorcet=False):
     """Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
     the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
@@ -69,17 +109,17 @@ def has_condorcet(instance, weak_condorcet=False):
     :return: A boolean indicating whether the instance has a Condorcet winner or not.
     :rtype: bool
     """
-    if instance.data_type in ["soc", "toc", "soi", "toi"]:
-        scores = copeland_scores(instance)
-        for alt, scoreDict in scores.items():
-            if all(
-                score > 0 or (weak_condorcet and score >= 0)
-                for score in scoreDict.values()
-            ):
-                return True
-        return False
+    scores = copeland_scores(instance)
+    for alt, scoreDict in scores.items():
+        if all(
+            score > 0 or (weak_condorcet and score >= 0)
+            for score in scoreDict.values()
+        ):
+            return True
+    return False
 
 
+@requires_preference_type("toc", "soc")
 def borda_scores(instance):
     """Computes the total Borda scores of all the alternatives of the instance. Within an indifference class, all
     alternatives are assigned the smallest score one alternative from the class would have gotten, had the order
@@ -92,12 +132,6 @@ def borda_scores(instance):
     :return: A dictionary mapping every instance to their Borda score.
     :rtype: dict
     """
-    if instance.data_type not in ("toc", "soc"):
-        raise TypeError(
-            "You are trying to compute the Borda scores of an instance of type "
-            + str(instance.data_type)
-            + ", this is not possible."
-        )
     res = dict([])
     for order in instance.orders:
         multiplicity = instance.multiplicity[order]

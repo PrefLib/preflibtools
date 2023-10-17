@@ -1,4 +1,4 @@
-from preflibtools.aggregation.utils import *
+from preflibtools.properties.basic import *
 from preflibtools.instances.preflibinstance import OrdinalInstance
 
 from unittest import TestCase
