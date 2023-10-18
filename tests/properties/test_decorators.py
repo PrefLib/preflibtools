@@ -51,13 +51,7 @@ class TestApprovalDecorator(TestCase):
         instance = OrdinalInstance()
         orders = [
             ((0,), (1, 2)),
-            (
-                (
-                    2,
-                    0,
-                ),
-                (1,),
-            ),
+            ((2, 0,), (1,),),
         ]
         instance.append_order_list(orders)
 
