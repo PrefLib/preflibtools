@@ -1,8 +1,7 @@
 """ This module describes several procedures to check for basic metrics of PrefLib instances.
 """
 
-from functools import wraps
-from preflibtools.properties.basic import *
+from preflibtools.properties import requires_preference_type
 
 
 @requires_preference_type("soc", "toc", "soi", "toi")

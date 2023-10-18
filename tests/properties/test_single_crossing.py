@@ -1,5 +1,5 @@
 from preflibtools.instances.preflibinstance import OrdinalInstance
-from preflibtools.properties.singlecrossing import *
+from preflibtools.properties import *
 
 from unittest import TestCase
 
