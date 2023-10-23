@@ -3,7 +3,7 @@
 import os.path
 from math import ceil
 
-from .sampling import *
+from .sampling import generate_IC_anon, generate_urn, generate_mallows, generate_mallows_mix, generate_IC
 
 from copy import deepcopy
 from os import path

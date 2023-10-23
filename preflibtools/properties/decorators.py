@@ -2,7 +2,7 @@
 the input instance type is supported by the function."""
 
 from functools import wraps
-from preflibtools.properties.basic import *
+from preflibtools.properties.basic import is_approval
 
 
 class PreferenceIncompatibleError(Exception):
