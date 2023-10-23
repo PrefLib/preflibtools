@@ -1,7 +1,7 @@
 """This module contains single-winner voting rules."""
 
-from preflibtools.aggregation.utils import requires_approval, requires_preference_type
-from preflibtools.properties.basic import borda_scores, copeland_scores
+from preflibtools.properties import requires_approval, requires_preference_type
+from preflibtools.properties import borda_scores, copeland_scores
 
 
 @requires_preference_type("soc", "toc", "soi", "toi")

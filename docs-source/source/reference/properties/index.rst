@@ -10,3 +10,5 @@ This module provides different ways to deal with properties of an instance.
     singlepeaked
     singlecrossing
     distance
+    decorators
+    metrics

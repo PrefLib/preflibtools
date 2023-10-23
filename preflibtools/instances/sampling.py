@@ -2,7 +2,7 @@
 """
 
 import numpy as np
-
+import math
 
 # Given the number m of candidates and a phi\in [0,1] function computes the expected number of swaps in a vote
 # sampled from Mallows model
@@ -170,7 +170,7 @@ def generate_urn(num_voters, alternatives, replace):
             "mor than 20 alternatives."
         )
 
-    IC_size = np.math.factorial(len(alternatives))
+    IC_size = math.factorial(len(alternatives))
     replace_size = 0
 
     for x in range(num_voters):

@@ -1,7 +1,9 @@
-"""This module contains utilities used for the voting rules, such as decorators."""
-from functools import wraps
+"""This file contains decorators which can be used in other functions to ensure
+the input instance type is supported by the function."""
 
-from preflibtools.properties.basic import is_approval
+from functools import wraps
+from preflibtools.properties.basic import *
+
 
 
 class PreferenceIncompatibleError(Exception):

@@ -7,4 +7,3 @@ This module provides aggregation methods for PrefLib instances.
 
 .. toctree::
     singlewinner
-    utils

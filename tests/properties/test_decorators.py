@@ -1,4 +1,4 @@
-from preflibtools.aggregation.utils import *
+from preflibtools.properties import *
 from preflibtools.instances.preflibinstance import OrdinalInstance
 
 from unittest import TestCase
@@ -51,13 +51,7 @@ class TestApprovalDecorator(TestCase):
         instance = OrdinalInstance()
         orders = [
             ((0,), (1, 2)),
-            (
-                (
-                    2,
-                    0,
-                ),
-                (1,),
-            ),
+            ((2, 0,), (1,),),
         ]
         instance.append_order_list(orders)
 
