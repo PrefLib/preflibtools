@@ -54,9 +54,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.properties</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">basic</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.borda_scores"><code class="docutils literal notranslate"><span class="pre">borda_scores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.copeland_scores"><code class="docutils literal notranslate"><span class="pre">copeland_scores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.has_condorcet"><code class="docutils literal notranslate"><span class="pre">has_condorcet()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.is_approval"><code class="docutils literal notranslate"><span class="pre">is_approval()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.is_complete"><code class="docutils literal notranslate"><span class="pre">is_complete()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.is_strict"><code class="docutils literal notranslate"><span class="pre">is_strict()</span></code></a></li>
@@ -67,7 +64,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.num_alternatives"><code class="docutils literal notranslate"><span class="pre">num_alternatives()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.num_different_preferences"><code class="docutils literal notranslate"><span class="pre">num_different_preferences()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.num_voters"><code class="docutils literal notranslate"><span class="pre">num_voters()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.pairwise_scores"><code class="docutils literal notranslate"><span class="pre">pairwise_scores()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.smallest_ballot"><code class="docutils literal notranslate"><span class="pre">smallest_ballot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.basic.smallest_indif"><code class="docutils literal notranslate"><span class="pre">smallest_indif()</span></code></a></li>
 </ul>
@@ -75,6 +71,8 @@
 <li class="toctree-l3"><a class="reference internal" href="singlepeaked.html">singlepeakedness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">singlecrossing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="distance.html">distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decorators.html">decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pairwisecomparisons.html">Pairwise Comparisons</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../aggregation/index.html">preflibtools.aggregation</a></li>
@@ -112,67 +110,6 @@
   <section id="basic">
 <span id="properties-basic-label"></span><h1>basic<a class="headerlink" href="#basic" title="Link to this heading"></a></h1>
 <p id="module-preflibtools.properties.basic">This module describes several procedures to check for basic procedures of PrefLib instances.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.properties.basic.borda_scores">
-<span class="sig-name descname"><span class="pre">borda_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.borda_scores" title="Link to this definition"></a></dt>
-<dd><p>Computes the total Borda scores of all the alternatives of the instance. Within an indifference class, all
-alternatives are assigned the smallest score one alternative from the class would have gotten, had the order
-been strict. For instance, for the order ({a1}, {a2, a3}, {a4}), a1 gets score 3, a2 and a3 score 1 and a4
-score 0.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary mapping every instance to their Borda score.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>dict</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.properties.basic.copeland_scores">
-<span class="sig-name descname"><span class="pre">copeland_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.copeland_scores" title="Link to this definition"></a></dt>
-<dd><p>Returns a dictionary of dictionaries mapping every alternative a to their Copeland score against every other
-alternative b (the number of voters preferring a over b minus the number of voters preferring b over a).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>dict</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.properties.basic.has_condorcet">
-<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weak_condorcet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.has_condorcet" title="Link to this definition"></a></dt>
-<dd><p>Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
-the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
-majority contest. An alternative is a weak Condorcet winner if it strictly beats or ties every other
-alternative in a pairwise majority contest.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p></li>
-<li><p><strong>weak_condorcet</strong> (<em>bool</em>) – Boolean indicating whether to consider weak-Condorcet winners or not.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A boolean indicating whether the instance has a Condorcet winner or not.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>bool</em></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.basic.is_approval">
 <span class="sig-name descname"><span class="pre">is_approval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.is_approval" title="Link to this definition"></a></dt>
@@ -342,24 +279,6 @@ appearing in an order.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>int</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.properties.basic.pairwise_scores">
-<span class="sig-name descname"><span class="pre">pairwise_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.basic.pairwise_scores" title="Link to this definition"></a></dt>
-<dd><p>Returns a dictionary of dictionaries mapping every alternative a to the number of times it beats
-every other alternative b (the number of voters preferring a over b).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
 </dd></dl>

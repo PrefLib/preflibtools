@@ -4,6 +4,7 @@
 import numpy as np
 import math
 
+
 # Given the number m of candidates and a phi\in [0,1] function computes the expected number of swaps in a vote
 # sampled from Mallows model
 def expected_number_swaps(num_candidates, phi):

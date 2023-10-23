@@ -1,6 +1,6 @@
 """ This module presents procedures to convert instances from one type to another.
 """
-from preflibtools.properties.basic import pairwise_scores
+from preflibtools.properties.pairwisecomparisons import pairwise_scores
 
 
 def order_to_pwg(instance):

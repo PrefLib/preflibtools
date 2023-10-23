@@ -176,9 +176,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="properties/index.html">preflibtools.properties</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="properties/basic.html">basic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.borda_scores"><code class="docutils literal notranslate"><span class="pre">borda_scores()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.copeland_scores"><code class="docutils literal notranslate"><span class="pre">copeland_scores()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.has_condorcet"><code class="docutils literal notranslate"><span class="pre">has_condorcet()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.is_approval"><code class="docutils literal notranslate"><span class="pre">is_approval()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.is_complete"><code class="docutils literal notranslate"><span class="pre">is_complete()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.is_strict"><code class="docutils literal notranslate"><span class="pre">is_strict()</span></code></a></li>
@@ -189,7 +186,6 @@
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.num_alternatives"><code class="docutils literal notranslate"><span class="pre">num_alternatives()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.num_different_preferences"><code class="docutils literal notranslate"><span class="pre">num_different_preferences()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.num_voters"><code class="docutils literal notranslate"><span class="pre">num_voters()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.pairwise_scores"><code class="docutils literal notranslate"><span class="pre">pairwise_scores()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.smallest_ballot"><code class="docutils literal notranslate"><span class="pre">smallest_ballot()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="properties/basic.html#preflibtools.properties.basic.smallest_indif"><code class="docutils literal notranslate"><span class="pre">smallest_indif()</span></code></a></li>
 </ul>
@@ -220,6 +216,19 @@
 <li class="toctree-l3"><a class="reference internal" href="properties/distance.html#preflibtools.properties.distances.spearman_footrule_distance"><code class="docutils literal notranslate"><span class="pre">spearman_footrule_distance()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="properties/decorators.html">decorators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="properties/decorators.html#preflibtools.properties.decorators.PreferenceIncompatibleError"><code class="docutils literal notranslate"><span class="pre">PreferenceIncompatibleError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/decorators.html#preflibtools.properties.decorators.requires_approval"><code class="docutils literal notranslate"><span class="pre">requires_approval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/decorators.html#preflibtools.properties.decorators.requires_preference_type"><code class="docutils literal notranslate"><span class="pre">requires_preference_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="properties/pairwisecomparisons.html">Pairwise Comparisons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="properties/pairwisecomparisons.html#preflibtools.properties.pairwisecomparisons.borda_scores"><code class="docutils literal notranslate"><span class="pre">borda_scores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/pairwisecomparisons.html#preflibtools.properties.pairwisecomparisons.copeland_scores"><code class="docutils literal notranslate"><span class="pre">copeland_scores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/pairwisecomparisons.html#preflibtools.properties.pairwisecomparisons.has_condorcet"><code class="docutils literal notranslate"><span class="pre">has_condorcet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="properties/pairwisecomparisons.html#preflibtools.properties.pairwisecomparisons.pairwise_scores"><code class="docutils literal notranslate"><span class="pre">pairwise_scores()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="aggregation/index.html">preflibtools.aggregation</a><ul>
@@ -233,12 +242,6 @@
 <li class="toctree-l3"><a class="reference internal" href="aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.plurality_winner"><code class="docutils literal notranslate"><span class="pre">plurality_winner()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.satisfaction_approval_winner"><code class="docutils literal notranslate"><span class="pre">satisfaction_approval_winner()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.veto_winner"><code class="docutils literal notranslate"><span class="pre">veto_winner()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="aggregation/utils.html">utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aggregation/utils.html#preflibtools.aggregation.utils.PreferenceIncompatibleError"><code class="docutils literal notranslate"><span class="pre">PreferenceIncompatibleError</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aggregation/utils.html#preflibtools.aggregation.utils.requires_approval"><code class="docutils literal notranslate"><span class="pre">requires_approval()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="aggregation/utils.html#preflibtools.aggregation.utils.requires_preference_type"><code class="docutils literal notranslate"><span class="pre">requires_preference_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -1,4 +1,4 @@
-""" This module describes several procedures to check for basic metrics of PrefLib instances.
+""" This module describes several procedures to check for properties based on pairwise comparisons.
 """
 
 from preflibtools.properties import requires_preference_type
@@ -75,8 +75,7 @@ def has_condorcet(instance, weak_condorcet=False):
     scores = copeland_scores(instance)
     for alt, scoreDict in scores.items():
         if all(
-            score > 0 or (weak_condorcet and score >= 0)
-            for score in scoreDict.values()
+            score > 0 or (weak_condorcet and score >= 0) for score in scoreDict.values()
         ):
             return True
     return False

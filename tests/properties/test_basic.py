@@ -5,7 +5,6 @@ from unittest import TestCase
 
 
 class TestAnalysis(TestCase):
-
     def test_ordinal_1(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
@@ -22,16 +21,16 @@ class TestAnalysis(TestCase):
         assert is_approval(instance) is False
         assert is_strict(instance) is True
         assert is_complete(instance) is True
-    
+
     def test_ordinal_2(self):
         instance = OrdinalInstance()
         orders = [
-                    ((0,), (1,), (2,)),
-                    ((0,), (1,), (2,)),
-                    ((2,), (0,), (1,)),
-                    ((2,), (0,), (1,)),
-                    ((0,), (1, 2)),
-                  ]
+            ((0,), (1,), (2,)),
+            ((0,), (1,), (2,)),
+            ((2,), (0,), (1,)),
+            ((2,), (0,), (1,)),
+            ((0,), (1, 2)),
+        ]
         instance.append_order_list(orders)
         assert num_alternatives(instance) == 3
         assert num_voters(instance) == 5
@@ -45,20 +44,20 @@ class TestAnalysis(TestCase):
         assert is_approval(instance) is False
         assert is_strict(instance) is False
         assert is_complete(instance) is True
-    
+
     def test_ordinal_3(self):
         instance = OrdinalInstance()
         orders = [
-                    ((0,), (1,), (2,)),
-                    ((0,), (1,), (2,)),
-                    ((0,), (1,), (2,)),
-                    ((2,), (0,), (1,)),
-                    ((2,), (0,), (1,)),
-                    ((2,), (0,), (1,)),
-                    ((0,), (1, 2)),
-                    ((0,), (1, 2)),
-                    ((4, 3), (1, 2)),
-                  ]
+            ((0,), (1,), (2,)),
+            ((0,), (1,), (2,)),
+            ((0,), (1,), (2,)),
+            ((2,), (0,), (1,)),
+            ((2,), (0,), (1,)),
+            ((2,), (0,), (1,)),
+            ((0,), (1, 2)),
+            ((0,), (1, 2)),
+            ((4, 3), (1, 2)),
+        ]
         instance.append_order_list(orders)
         assert num_alternatives(instance) == 5
         assert num_voters(instance) == 9

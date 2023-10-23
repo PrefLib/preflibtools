@@ -5,7 +5,6 @@ from unittest import TestCase
 
 
 class TestAnalysis(TestCase):
-    
     def test_distance(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]

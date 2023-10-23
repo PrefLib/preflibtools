@@ -11,4 +11,4 @@ This module provides different ways to deal with properties of an instance.
     singlecrossing
     distance
     decorators
-    metrics
+    pairwisecomparisons

@@ -5,7 +5,6 @@ from functools import wraps
 from preflibtools.properties.basic import *
 
 
-
 class PreferenceIncompatibleError(Exception):
     """Exception raised if an instance with a different type of preferences than expected was encountered."""
 
