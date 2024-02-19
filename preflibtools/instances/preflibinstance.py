@@ -3,7 +3,13 @@
 import os.path
 from math import ceil
 
-from .sampling import generate_IC_anon, generate_urn, generate_mallows, generate_mallows_mix, generate_IC
+from .sampling import (
+    generate_IC_anon,
+    generate_urn,
+    generate_mallows,
+    generate_mallows_mix,
+    generate_IC,
+)
 
 from copy import deepcopy
 from os import path
@@ -520,9 +526,7 @@ class OrdinalInstance(PrefLibInstance):
         :param orders: A 2D numpy array where each row represents a preference order.
         :type orders: np.ndarray
         """
-        alternatives = set(
-            alt for order in orders for alt in order
-        )
+        alternatives = set(alt for order in orders for alt in order)
         for alt in alternatives:
             if alt not in self.alternatives_name:
                 self.alternatives_name[alt] = "Alternative " + str(alt)
@@ -540,7 +544,6 @@ class OrdinalInstance(PrefLibInstance):
                 self.num_unique_orders += 1
 
         self.data_type = self.infer_type()
-
 
     def append_order_list(self, orders):
         """Appends a list of orders to the instance. That function incorporates the new orders into
@@ -619,9 +622,7 @@ class OrdinalInstance(PrefLibInstance):
         :param num_alternatives: Number of alternatives for the sampled orders.
         :type num_alternatives: int
         """
-        self.append_vote_map(
-            generate_IC_anon(num_voters, num_alternatives)
-        )
+        self.append_vote_map(generate_IC_anon(num_voters, num_alternatives))
 
     def populate_urn(self, num_voters, num_alternatives, replace):
         """Populates the instance with a random profile of strict preferences taken from the urn distribution.
@@ -634,9 +635,7 @@ class OrdinalInstance(PrefLibInstance):
         :param replace: The number of replacements for the urn model.
         :type replace: int
         """
-        self.append_vote_map(
-            generate_urn(num_voters, num_alternatives, replace)
-        )
+        self.append_vote_map(generate_urn(num_voters, num_alternatives, replace))
 
     def populate_mallows(
         self, num_voters, num_alternatives, mixture, dispersions, references
@@ -674,9 +673,7 @@ class OrdinalInstance(PrefLibInstance):
         :type num_references: int
         """
         self.append_vote_map(
-            generate_mallows_mix(
-                num_voters, num_alternatives, num_references
-            )
+            generate_mallows_mix(num_voters, num_alternatives, num_references)
         )
 
     def __str__(self):

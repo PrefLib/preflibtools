@@ -57,7 +57,14 @@ def generate_mallows(
         "num_candidates": num_alternatives,
         "samplers": [mallows for _ in mixture],
         "weights": mixture,
-        "sampler_parameters": [{"phi": dispersions[i], "central_vote": np.array([a for c in references[i] for a in c]), "normalise_phi": norm_phi} for i in range(len(mixture))]
+        "sampler_parameters": [
+            {
+                "phi": dispersions[i],
+                "central_vote": np.array([a for c in references[i] for a in c]),
+                "normalise_phi": norm_phi,
+            }
+            for i in range(len(mixture))
+        ],
     }
     return prefsampling_ordinal_wrapper(
         sampling_mixture,
@@ -123,10 +130,10 @@ def generate_urn(num_voters, num_alternatives, replace):
     return prefsampling_ordinal_wrapper(
         urn,
         {
-        "num_voters": num_voters,
-        "num_candidates": num_alternatives,
-        "alpha": replace / math.factorial(num_alternatives)
-        }
+            "num_voters": num_voters,
+            "num_candidates": num_alternatives,
+            "alpha": replace / math.factorial(num_alternatives),
+        },
     )
 
 
@@ -145,10 +152,7 @@ def generate_IC(num_voters, num_alternatives):
     :rtype: dict
     """
     return prefsampling_ordinal_wrapper(
-        impartial,
-        {"num_voters": num_voters,
-         "num_candidates": num_alternatives
-         }
+        impartial, {"num_voters": num_voters, "num_candidates": num_alternatives}
     )
 
 
@@ -168,10 +172,9 @@ def generate_IC_anon(num_voters, num_alternatives):
     """
     return prefsampling_ordinal_wrapper(
         impartial_anonymous,
-        {"num_voters": num_voters,
-         "num_candidates": num_alternatives
-         }
+        {"num_voters": num_voters, "num_candidates": num_alternatives},
     )
+
 
 def generate_IC_ballot(num_alternatives):
     """Generates a strict order over the set of alternatives following the impartial culture. Note that all we are using the
@@ -186,9 +189,6 @@ def generate_IC_ballot(num_alternatives):
     """
 
     votes = prefsampling_ordinal_wrapper(
-        impartial,
-        {"num_voters": 1,
-         "num_candidates": num_alternatives
-         }
+        impartial, {"num_voters": 1, "num_candidates": num_alternatives}
     )
     return next(votes.__iter__())
