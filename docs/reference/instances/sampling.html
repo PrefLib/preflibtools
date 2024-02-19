@@ -54,14 +54,13 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="preflibinstance.html">preflibinstance</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sampling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.expected_number_swaps"><code class="docutils literal notranslate"><span class="pre">expected_number_swaps()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_IC"><code class="docutils literal notranslate"><span class="pre">generate_IC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_IC_anon"><code class="docutils literal notranslate"><span class="pre">generate_IC_anon()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_IC_ballot"><code class="docutils literal notranslate"><span class="pre">generate_IC_ballot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_mallows"><code class="docutils literal notranslate"><span class="pre">generate_mallows()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_mallows_mix"><code class="docutils literal notranslate"><span class="pre">generate_mallows_mix()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.generate_urn"><code class="docutils literal notranslate"><span class="pre">generate_urn()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.phi_from_normphi"><code class="docutils literal notranslate"><span class="pre">phi_from_normphi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sampling.prefsampling_ordinal_wrapper"><code class="docutils literal notranslate"><span class="pre">prefsampling_ordinal_wrapper()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="convert.html">convert</a></li>
@@ -103,21 +102,20 @@
              
   <section id="sampling">
 <span id="instances-sampling-label"></span><h1>sampling<a class="headerlink" href="#sampling" title="Link to this heading"></a></h1>
-<p id="module-preflibtools.instances.sampling">This module describes procedures to sample preferences for different probability distributions.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.instances.sampling.expected_number_swaps">
-<span class="sig-name descname"><span class="pre">expected_number_swaps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.expected_number_swaps" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<p id="module-preflibtools.instances.sampling">This module describes procedures to sample preferences for different probability distributions.
+Note that this has been updated to use the samplers provided in the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> package.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_IC">
-<span class="sig-name descname"><span class="pre">generate_IC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC" title="Link to this definition"></a></dt>
-<dd><p>Generates a profile of strict preferences following the impartial culture.</p>
+<span class="sig-name descname"><span class="pre">generate_IC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC" title="Link to this definition"></a></dt>
+<dd><p>Generates a profile of strict preferences following the impartial culture. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
-<li><p><strong>alternatives</strong> (<em>list</em><em> of </em><em>int</em>) – List of alternatives.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -132,13 +130,15 @@ the given order as their preferences.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_IC_anon">
-<span class="sig-name descname"><span class="pre">generate_IC_anon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC_anon" title="Link to this definition"></a></dt>
-<dd><p>Generates a profile of strict preferences following the anonymous impartial culture.</p>
+<span class="sig-name descname"><span class="pre">generate_IC_anon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC_anon" title="Link to this definition"></a></dt>
+<dd><p>Generates a profile of strict preferences following the anonymous impartial culture. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
-<li><p><strong>alternatives</strong> (<em>list</em><em> of </em><em>int</em>) – List of alternatives.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -153,11 +153,13 @@ the given order as their preferences.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_IC_ballot">
-<span class="sig-name descname"><span class="pre">generate_IC_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC_ballot" title="Link to this definition"></a></dt>
-<dd><p>Generates a strict order over the set of alternatives following the impartial culture.</p>
+<span class="sig-name descname"><span class="pre">generate_IC_ballot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_IC_ballot" title="Link to this definition"></a></dt>
+<dd><p>Generates a strict order over the set of alternatives following the impartial culture. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>alternatives</strong> (<em>list</em><em> of </em><em>int</em>) – List of alternatives.</p>
+<dd class="field-odd"><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A strict order over the alternatives, i.e., a tuple of tuples of size 1.</p>
@@ -171,7 +173,9 @@ the given order as their preferences.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_mallows">
 <span class="sig-name descname"><span class="pre">generate_mallows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixture</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispersions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_phi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_mallows" title="Link to this definition"></a></dt>
-<dd><p>Generates a profile following a mixture of Mallow’s models.</p>
+<dd><p>Generates a profile following a mixture of Mallow’s models. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -196,14 +200,16 @@ the given order as their preferences.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_mallows_mix">
-<span class="sig-name descname"><span class="pre">generate_mallows_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_references</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_phi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_mallows_mix" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">generate_mallows_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_references</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_phi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_mallows_mix" title="Link to this definition"></a></dt>
 <dd><p>Generates a profile following a mixture of Mallow’s models for which reference points and dispersion
-coefficients are independently and identically distributed.</p>
+coefficients are independently and identically distributed. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
-<li><p><strong>alternatives</strong> (<em>list</em><em> of </em><em>int</em>) – List of alternatives for the sampled orders.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
 <li><p><strong>num_references</strong> (<em>int</em>) – Number of element</p></li>
 <li><p><strong>norm_phi</strong> (<em>bool</em>) – Uses the normalised phi value if true, and just a uniform distribution otherwise. Defaults to True.</p></li>
 </ul>
@@ -220,13 +226,15 @@ the given order as their preferences.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sampling.generate_urn">
-<span class="sig-name descname"><span class="pre">generate_urn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_urn" title="Link to this definition"></a></dt>
-<dd><p>Generates a profile following the urn model.</p>
+<span class="sig-name descname"><span class="pre">generate_urn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_voters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_alternatives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.generate_urn" title="Link to this definition"></a></dt>
+<dd><p>Generates a profile following the urn model. Note that all we are using the
+<a class="reference external" href="https://github.com/COMSOC-Community/prefsampling">prefsampling</a> samplers. This is
+thus just a wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_voters</strong> (<em>int</em>) – Number of orders to sample.</p></li>
-<li><p><strong>alternatives</strong> (<em>list</em><em> of </em><em>int</em>) – List of alternatives.</p></li>
+<li><p><strong>num_alternatives</strong> (<em>int</em>) – Number of alternatives for the sampled orders.</p></li>
 <li><p><strong>replace</strong> (<em>int</em>) – The number of replacements for the urn model.</p></li>
 </ul>
 </dd>
@@ -241,8 +249,8 @@ the given order as their preferences.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="preflibtools.instances.sampling.phi_from_normphi">
-<span class="sig-name descname"><span class="pre">phi_from_normphi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normphi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.phi_from_normphi" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="preflibtools.instances.sampling.prefsampling_ordinal_wrapper">
+<span class="sig-name descname"><span class="pre">prefsampling_ordinal_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sampling.prefsampling_ordinal_wrapper" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>

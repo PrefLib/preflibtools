@@ -288,10 +288,22 @@ the file is immediately parsed and the instance populated accordingly.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.append_order_array">
+<span class="sig-name descname"><span class="pre">append_order_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orders</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.append_order_array" title="Link to this definition"></a></dt>
+<dd><p>Appends an array of orders to the instance. That function incorporates the new orders
+into the instance and updates the set of alternatives if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>orders</strong> (<em>np.ndarray</em>) – A 2D numpy array where each row represents a preference order.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance.append_order_list">
 <span class="sig-name descname"><span class="pre">append_order_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orders</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance.append_order_list" title="Link to this definition"></a></dt>
-<dd><p>Appends a vote map to the instance. That function incorporates the new orders into the instance and
-updates the set of alternatives if needed.</p>
+<dd><p>Appends a list of orders to the instance. That function incorporates the new orders into
+the instance and updates the set of alternatives if needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>orders</strong> (<em>list</em>) – A list of tuples of tuples, each tuple representing a preference order.</p>
@@ -695,9 +707,9 @@ in the file. Default is False.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Variables<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dict</strong> – The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
+<li><p><strong>node_mapping</strong> – The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
 to which it is connected). A node can be of any hashable type.</p></li>
-<li><p><strong>weight</strong> – The dictionary mapping every node to its weight.</p></li>
+<li><p><strong>weights</strong> – The dictionary mapping every node to its weight.</p></li>
 </ul>
 </dd>
 </dl>

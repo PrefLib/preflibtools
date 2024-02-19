@@ -513,9 +513,38 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters = num_voters
         self.num_unique_orders = len(set(self.orders))
 
+    def append_order_array(self, orders):
+        """Appends an array of orders to the instance. That function incorporates the new orders
+        into the instance and updates the set of alternatives if needed.
+
+        :param orders: A 2D numpy array where each row represents a preference order.
+        :type orders: np.ndarray
+        """
+        alternatives = set(
+            alt for order in orders for alt in order
+        )
+        for alt in alternatives:
+            if alt not in self.alternatives_name:
+                self.alternatives_name[alt] = "Alternative " + str(alt)
+        self.num_alternatives = len(self.alternatives_name)
+
+        self.num_voters += len(orders)
+
+        for order in orders:
+            order = tuple((a,) for a in order)
+            if order in self.multiplicity:
+                self.multiplicity[order] += 1
+            else:
+                self.orders.append(order)
+                self.multiplicity[order] = 1
+                self.num_unique_orders += 1
+
+        self.data_type = self.infer_type()
+
+
     def append_order_list(self, orders):
-        """Appends a vote map to the instance. That function incorporates the new orders into the instance and
-        updates the set of alternatives if needed.
+        """Appends a list of orders to the instance. That function incorporates the new orders into
+        the instance and updates the set of alternatives if needed.
 
         :param orders: A list of tuples of tuples, each tuple representing a preference order.
         :type orders: list
@@ -531,6 +560,7 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters += len(orders)
 
         for order in orders:
+            order = tuple(order)
             if order in self.multiplicity:
                 self.multiplicity[order] += 1
             else:
@@ -578,7 +608,7 @@ class OrdinalInstance(PrefLibInstance):
         :param num_alternatives: Number of alternatives for the sampled orders.
         :type num_alternatives: int
         """
-        self.append_vote_map(generate_IC(num_voters, list(range(num_alternatives))))
+        self.append_vote_map(generate_IC(num_voters, num_alternatives))
 
     def populate_IC_anon(self, num_voters, num_alternatives):
         """Populates the instance with a random profile of strict preferences taken from the impartial anonymous
@@ -590,7 +620,7 @@ class OrdinalInstance(PrefLibInstance):
         :type num_alternatives: int
         """
         self.append_vote_map(
-            generate_IC_anon(num_voters, list(range(num_alternatives)))
+            generate_IC_anon(num_voters, num_alternatives)
         )
 
     def populate_urn(self, num_voters, num_alternatives, replace):
@@ -605,7 +635,7 @@ class OrdinalInstance(PrefLibInstance):
         :type replace: int
         """
         self.append_vote_map(
-            generate_urn(num_voters, list(range(num_alternatives)), replace)
+            generate_urn(num_voters, num_alternatives, replace)
         )
 
     def populate_mallows(
@@ -645,7 +675,7 @@ class OrdinalInstance(PrefLibInstance):
         """
         self.append_vote_map(
             generate_mallows_mix(
-                num_voters, list(range(num_alternatives)), num_references
+                num_voters, num_alternatives, num_references
             )
         )
 
@@ -964,9 +994,9 @@ class CategoricalInstance(PrefLibInstance):
 class WeightedDiGraph(object):
     """This class is used to represent weighted directed graphs.
 
-    :ivar dict: The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
+    :ivar node_mapping: The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
         to which it is connected). A node can be of any hashable type.
-    :ivar weight: The dictionary mapping every node to its weight.
+    :ivar weights: The dictionary mapping every node to its weight.
     """
 
     def __init__(self):
