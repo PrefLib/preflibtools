@@ -13,6 +13,7 @@ class TestWmdInstances(TestCase):
     def test_get_parsed_instances(self):
         write_test_wmd_file("testInstance.wmd")
         instance1 = get_parsed_instance("testInstance.wmd")
+        assert isinstance(instance1, MatchingInstance)
         instance2 = MatchingInstance("testInstance.wmd")
         assert instance1.node_mapping == instance2.node_mapping
         os.remove("testInstance.wmd")

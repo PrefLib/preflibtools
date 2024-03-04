@@ -72,7 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">singlecrossing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="distance.html">distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decorators.html">decorators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pairwisecomparisons.html">Pairwise Comparisons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pairwisecomparisons.html">pairwisecomparisons</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../aggregation/index.html">preflibtools.aggregation</a></li>
@@ -118,7 +118,7 @@ ballots in two cases: All the orders are complete and consist of only two indiff
 are incomplete and consists of a single indifference class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes an approval profile.</p>
@@ -135,7 +135,7 @@ are incomplete and consists of a single indifference class.</p>
 <dd><p>Checks whether the instance describes a profile of complete preferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes a profile of complete preferences.</p>
@@ -152,7 +152,7 @@ are incomplete and consists of a single indifference class.</p>
 <dd><p>Checks whether the instance describes a profile of strict preferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance describes a profile of strict preferences.</p>
@@ -170,7 +170,7 @@ are incomplete and consists of a single indifference class.</p>
 appearing in an order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the largest ballot of the instance.</p>
@@ -187,7 +187,7 @@ appearing in an order.</p>
 <dd><p>Returns the size of the largest indifference class of any voter of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the largest indifference class of the instance.</p>
@@ -204,7 +204,7 @@ appearing in an order.</p>
 <dd><p>Returns the maximum number of indifference classes over the orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The maximum number of indifference classes of the instance.</p>
@@ -221,7 +221,7 @@ appearing in an order.</p>
 <dd><p>Returns the minimum number of indifference classes over the orders of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The minimum number of indifference classes of the instance.</p>
@@ -290,7 +290,7 @@ appearing in an order.</p>
 appearing in an order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the smallest ballot of the instance.</p>
@@ -307,7 +307,7 @@ appearing in an order.</p>
 <dd><p>Returns the size of the smallest indifference class of any voter of the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – The instance.</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The size of the smallest indifference class of the instance.</p>

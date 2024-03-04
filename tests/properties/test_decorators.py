@@ -15,14 +15,14 @@ def some_approval_function(instance):
 
 
 class TestTypeDecorator(TestCase):
-    def test_decorator_preft_type_1(self):
+    def test_decorator_pref_type_1(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
         instance.append_order_list(orders)
 
         some_function(instance)
 
-    def test_decorator_preft_type_2(self):
+    def test_decorator_pref_type_2(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (1,))]
         instance.append_order_list(orders)
@@ -30,7 +30,7 @@ class TestTypeDecorator(TestCase):
         with self.assertRaises(PreferenceIncompatibleError):
             some_function(instance)
 
-    def test_decorator_preft_type_3(self):
+    def test_decorator_pref_type_3(self):
         instance = OrdinalInstance()
         orders = [((0, 1), (2,)), ((2,), (1,))]
         instance.append_order_list(orders)

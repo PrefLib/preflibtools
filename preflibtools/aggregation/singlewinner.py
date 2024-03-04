@@ -94,27 +94,20 @@ def copeland_winner(instance):
 
 @requires_approval
 def approval_winner(instance):
-    """Returns the approval winners, i.e., the alternatives with the highest approval score (number of appearance in the
-    first position).
+    """Returns the approval winners, i.e., the alternatives with the highest approval score (number
+    of appearance in the first position).
 
-    :param instance: The instance.œ
+    :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = dict()
-    for order, mult in instance.multiplicity.items():
-        for a in order[0]:
-            if a not in scores:
-                scores[a] = mult
-            else:
-                scores[a] += mult
-    best_score = max(scores.values())
-    return {a for a in scores if scores[a] == best_score}
+    return plurality_winner(instance)
 
 
 @requires_approval
 def satisfaction_approval_winner(instance):
-    """Returns the satisfaction approval winners, i.e., the alternatives with the highest satisfaction approval score
-    (sum of 1 divided by length of the first position, for all approvers).
+    """Returns the satisfaction approval winners, i.e., the alternatives with the highest
+    satisfaction approval score (sum of 1 divided by length of the first position, for all
+    approvers).
 
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`

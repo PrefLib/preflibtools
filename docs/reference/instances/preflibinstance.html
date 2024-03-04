@@ -55,11 +55,9 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.instances</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">preflibinstance</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.CategoricalInstance"><code class="docutils literal notranslate"><span class="pre">CategoricalInstance</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.ComparisonInstance"><code class="docutils literal notranslate"><span class="pre">ComparisonInstance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.MatchingInstance"><code class="docutils literal notranslate"><span class="pre">MatchingInstance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.OrdinalInstance"><code class="docutils literal notranslate"><span class="pre">OrdinalInstance</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance"><code class="docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedDiGraph"><code class="docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.preflibinstance.get_parsed_instance"><code class="docutils literal notranslate"><span class="pre">get_parsed_instance()</span></code></a></li>
 </ul>
 </li>
@@ -103,11 +101,10 @@
              
   <section id="preflibinstance">
 <span id="instances-preflibinstance-label"></span><h1>preflibinstance<a class="headerlink" href="#preflibinstance" title="Link to this heading"></a></h1>
-<p id="module-preflibtools.instances.preflibinstance">This module describes the main class to deal with PrefLib instances..</p>
-<dl class="py class">
+<dl class="py class" id="module-preflibtools.instances.preflibinstance">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CategoricalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.instance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
 <p>This is the class representing a PrefLib instance of categorical preferences. It basically contains the data and
 information written within a PrefLib file.</p>
 <dl class="py method">
@@ -155,8 +152,9 @@ in the file. Default is False.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.CategoricalInstance.recompute_cardinality_param">
 <span class="sig-name descname"><span class="pre">recompute_cardinality_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.CategoricalInstance.recompute_cardinality_param" title="Link to this definition"></a></dt>
-<dd><p>Recomputes the basic cardinality parameters based on the preferences list in the instance. Numbers that are
-recomputed are the number of voters and the number of unique orders.</p>
+<dd><p>Recomputes the basic cardinality parameters based on the preferences list in the
+instance. Numbers that are recomputed are the number of voters and the number of unique
+preferences.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -194,18 +192,11 @@ recomputed are the number of voters and the number of unique orders.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.ComparisonInstance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ComparisonInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.ComparisonInstance" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
-<p>To be implemented.</p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MatchingInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <a class="reference internal" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="preflibtools.instances.preflibinstance.WeightedDiGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code></a></p>
-<p>This is the class representing a PrefLib instance for matching preferences. It basically contains the data and
-information written within a PrefLib file.</p>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.instance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">WeightedDiGraph</span></code></p>
+<p>This is the class representing a PrefLib instance for matching preferences. It basically 
+contains the data and information written within a PrefLib file.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.MatchingInstance.parse">
 <span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocorrect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.MatchingInstance.parse" title="Link to this definition"></a></dt>
@@ -271,7 +262,7 @@ represents a graph. If no file extension is provided the data type of the instan
 <dl class="py class">
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.OrdinalInstance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OrdinalInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.OrdinalInstance" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.instance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrefLibInstance</span></code></a></p>
 <p>This is the class representing a PrefLib instance of ordinal preferences. It basically contains the data and
 information written within a PrefLib file.</p>
 <dl class="field-list simple">
@@ -284,6 +275,7 @@ the file is immediately parsed and the instance populated accordingly.</p>
 <li><p><strong>num_unique_orders</strong> – The number of unique orders in the instance.</p></li>
 <li><p><strong>multiplicity</strong> – A dictionary mapping each order to the number of voters who submitted that order.</p></li>
 <li><p><strong>orders</strong> – The list of all the distinct orders in the instance.</p></li>
+<li><p><strong>preferences</strong> – A pointer to the orders attribute so that it can be accessed both ways.</p></li>
 </ul>
 </dd>
 </dl>
@@ -542,8 +534,8 @@ provided the data type of the instance is used.</p>
 <dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.PrefLibInstance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PrefLibInstance</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.PrefLibInstance" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class provide a general template to implement specific classes representing PrefLib instances. It should
-mainly be used as an abstract class.</p>
+<p>This class provide a general template to implement specific classes representing PrefLib
+instances. It should mainly be used as an abstract class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -693,110 +685,6 @@ in the file. Default is False.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>file</strong> – The file to write into as a file object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WeightedDiGraph</span></span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is used to represent weighted directed graphs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Variables<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node_mapping</strong> – The dictionary representing the graph mapping each node to its neighbourhood (set of nodes
-to which it is connected). A node can be of any hashable type.</p></li>
-<li><p><strong>weights</strong> – The dictionary mapping every node to its weight.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.add_edge">
-<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.add_edge" title="Link to this definition"></a></dt>
-<dd><p>Adds an edge to the graph. If the nodes do not exist in the graph, those are also added.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node1</strong> – The departure node of the edge.</p></li>
-<li><p><strong>node2</strong> – The arrival node of the edge.</p></li>
-<li><p><strong>weight</strong> – The weight of the edge.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.add_node">
-<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.add_node" title="Link to this definition"></a></dt>
-<dd><p>Adds a node to the graph if the node does not already exist.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> – The node to add.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.edges">
-<span class="sig-name descname"><span class="pre">edges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.edges" title="Link to this definition"></a></dt>
-<dd><p>Returns the set of all the edges of the graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A set of tuples (node, neighbour, weight) representing (weighted) edges.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>set</em> of tuples</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.neighbours">
-<span class="sig-name descname"><span class="pre">neighbours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.neighbours" title="Link to this definition"></a></dt>
-<dd><p>Returns all the neighbours of a given node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> – The node whose neighbours we want to know.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The set of the neighbours of the node.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>set</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.nodes">
-<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.nodes" title="Link to this definition"></a></dt>
-<dd><p>Returns the set of all the nodes of the graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The set of all the nodes of the graph.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>set</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="preflibtools.instances.preflibinstance.WeightedDiGraph.outgoing_edges">
-<span class="sig-name descname"><span class="pre">outgoing_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.preflibinstance.WeightedDiGraph.outgoing_edges" title="Link to this definition"></a></dt>
-<dd><p>Returns all the edges leaving a given node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> – The node whose edges we want to get.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The set of the tuples (node, neighbour, edgeWeight) representing (weighted) edges.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>set</em> of tuples</p>
 </dd>
 </dl>
 </dd></dl>

@@ -71,8 +71,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="singlecrossing.html">singlecrossing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="distance.html">distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decorators.html">decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pairwisecomparisons.html">pairwisecomparisons</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../aggregation/index.html">preflibtools.aggregation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
@@ -164,11 +167,12 @@ Pheng who developed this function (under the supervision of Umberto Grandi).</p>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – the instance to test for single-peakedness.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The axis with respect to which the instance would be single-peaked, the empty list if the instance
-is not single-peaked.</p>
+<dd class="field-even"><p>A Boolean indicating whether the instance is single-peaked, together with the axis with
+respect to which the instance would be single-peaked, the empty list if the instance is not
+single-peaked.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>list</em></p>
+<dd class="field-odd"><p><em>Tuple</em>(<em>bool</em>, <em>list</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -220,7 +224,7 @@ the python-mip optimisation status of the ILP model, and the axis for which the 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_alt_del_cstr">
-<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_alt_del_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_alt_del_cstr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_alt_del_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_alt_del_cstr" title="Link to this definition"></a></dt>
 <dd><p>A helper function for computing the closeness to single-peakedness of and instance with an ILP solver.
 Adds the single-peakedness constraints to the ILP model given as parameter, allowing to ignore some
 alternatives if needed. These constraints enforce that the instance is indeed single-peaked with respect to
@@ -235,6 +239,7 @@ if a1 is to the left of a2 in the axis.</p></li>
 <li><p><strong>alt_vars</strong> – A list of list of python-mip variables where altVars[a] is set to 1 if and only if
 alternative a is removed from consideration.</p></li>
 <li><p><strong>instance</strong> – the instance to test for single-peakedness.</p></li>
+<li><p><strong>alt_map</strong> (<em>dict</em><em>[</em><em>_</em><em>, </em><em>int</em><em>]</em>) – a mapping from alternative name to range(0, m).</p></li>
 </ul>
 </dd>
 </dl>
@@ -242,7 +247,7 @@ alternative a is removed from consideration.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_cstr">
-<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_cstr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_cstr" title="Link to this definition"></a></dt>
 <dd><p>A helper function for testing single-peakedness with an ILP solver. Adds the single-peakedness constraints
 to the ILP model given as parameter. These constraints enforce that the instance is indeed single-peaked
 with respect to the axis constructed. They actually implement the consecutive ones property of the
@@ -254,6 +259,7 @@ binary matrix corresponding to the instance.</p>
 <li><p><strong>left_of_vars</strong> – A list of list of python-mip variables where leftOfVars[a1][a2] is set to 1 if and only
 if a1 is to the left of a2 in the axis.</p></li>
 <li><p><strong>instance</strong> – the instance to test for single-peakedness.</p></li>
+<li><p><strong>alt_map</strong> (<em>dict</em><em>[</em><em>_</em><em>, </em><em>int</em><em>]</em>) – a mapping from alternative name to range(0, m).</p></li>
 </ul>
 </dd>
 </dl>
@@ -261,7 +267,7 @@ if a1 is to the left of a2 in the axis.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_vot_del_cstr">
-<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_vot_del_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voter_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_vot_del_cstr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sp_ILP_cons_ones_vot_del_cstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_of_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voter_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_vot_del_cstr" title="Link to this definition"></a></dt>
 <dd><p>A helper function for computing the closeness to single-peakedness of and instance with an ILP solver.
 Adds the single-peakedness constraints to the ILP model given as parameter, allowing to ignore some
 voters if needed. These constraints enforce that the instance is indeed single-peaked with respect to
@@ -276,6 +282,7 @@ if a1 is to the left of a2 in the axis.</p></li>
 <li><p><strong>voter_vars</strong> – A list of list of python-mip variables where votersVars[v] is set to 1 if and only if
 voter v is removed from consideration.</p></li>
 <li><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – the instance to test for single-peakedness.</p></li>
+<li><p><strong>alt_map</strong> (<em>dict</em><em>[</em><em>_</em><em>, </em><em>int</em><em>]</em>) – a mapping from alternative name to range(0, m).</p></li>
 </ul>
 </dd>
 </dl>
@@ -337,13 +344,16 @@ if a1 is to the left of a2 in the axis.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.singlepeakedness.sp_cons_ones_matrix">
-<span class="sig-name descname"><span class="pre">sp_cons_ones_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_cons_ones_matrix" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sp_cons_ones_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.singlepeakedness.sp_cons_ones_matrix" title="Link to this definition"></a></dt>
 <dd><p>Returns a binary matrix such that the instance is single-peaked if and only if the matrix has the
 consecutive ones property. This is an helper function to implement the algorithm proposed by Bartholdi
 and Trick (1986) to deal with single-peakedness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – the instance to test for single-peakedness.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><em>OrdinalInstance</em></a>) – the instance to test for single-peakedness.</p></li>
+<li><p><strong>alt_map</strong> (<em>dict</em><em>[</em><em>_</em><em>, </em><em>int</em><em>]</em>) – a mapping from alternative name to range(0, m).</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A binary matrix</p>
