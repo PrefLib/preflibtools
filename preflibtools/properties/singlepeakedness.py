@@ -70,9 +70,10 @@ def is_single_peaked(instance):
     :param instance: the instance to test for single-peakedness.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
-    :return: The axis with respect to which the instance would be single-peaked, the empty list if the instance
-        is not single-peaked.
-    :rtype: list
+    :return: A Boolean indicating whether the instance is single-peaked, together with the axis with
+        respect to which the instance would be single-peaked, the empty list if the instance is not
+        single-peaked.
+    :rtype: Tuple(bool, list)
     """
 
     if instance.data_type != "soc":
@@ -272,13 +273,15 @@ def is_single_peaked(instance):
     return is_SP, axis
 
 
-def sp_cons_ones_matrix(instance):
+def sp_cons_ones_matrix(instance, alt_map):
     """Returns a binary matrix such that the instance is single-peaked if and only if the matrix has the
     consecutive ones property. This is an helper function to implement the algorithm proposed by Bartholdi
     and Trick (1986) to deal with single-peakedness.
 
     :param instance: the instance to test for single-peakedness.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+    :param alt_map: a mapping from alternative name to range(0, m).
+    :type alt_map: dict[_, int]
 
     :return: A binary matrix
     :rtype: numpy array
@@ -290,7 +293,7 @@ def sp_cons_ones_matrix(instance):
             for level_index in range(max_level + 1):
                 level = order[level_index]
                 for a in level:
-                    matrix[matrix_index][a] = 1
+                    matrix[matrix_index][alt_map[a]] = 1
             matrix_index += 1
     return matrix
 
@@ -385,7 +388,7 @@ def sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance):
         )
 
 
-def sp_ILP_cons_ones_cstr(model, left_of_vars, instance):
+def sp_ILP_cons_ones_cstr(model, left_of_vars, instance, alt_map):
     """A helper function for testing single-peakedness with an ILP solver. Adds the single-peakedness constraints
     to the ILP model given as parameter. These constraints enforce that the instance is indeed single-peaked
     with respect to the axis constructed. They actually implement the consecutive ones property of the
@@ -395,8 +398,10 @@ def sp_ILP_cons_ones_cstr(model, left_of_vars, instance):
     :param left_of_vars: A list of list of python-mip variables where leftOfVars[a1][a2] is set to 1 if and only
         if a1 is to the left of a2 in the axis.
     :param instance: the instance to test for single-peakedness.
+    :param alt_map: a mapping from alternative name to range(0, m).
+    :type alt_map: dict[_, int]
     """
-    matrix = sp_cons_ones_matrix(instance)
+    matrix = sp_cons_ones_matrix(instance, alt_map)
     for row_index in range(len(matrix)):
         row = matrix[row_index]
         # print("Row{}: {}".format(rowIndex, row))
@@ -411,29 +416,15 @@ def sp_ILP_cons_ones_cstr(model, left_of_vars, instance):
             for k in zeros:
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j] <= 1,
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{i}_{j}_{k}"
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i] <= 1,
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{j}_{i}_{k}"
                 )
 
 
-def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance):
+def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance, alt_map):
     """A helper function for computing the closeness to single-peakedness of and instance with an ILP solver.
     Adds the single-peakedness constraints to the ILP model given as parameter, allowing to ignore some
     voters if needed. These constraints enforce that the instance is indeed single-peaked with respect to
@@ -447,8 +438,10 @@ def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance):
         voter v is removed from consideration.
     :param instance: the instance to test for single-peakedness.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+    :param alt_map: a mapping from alternative name to range(0, m).
+    :type alt_map: dict[_, int]
     """
-    matrix = sp_cons_ones_matrix(instance)
+    matrix = sp_cons_ones_matrix(instance, alt_map)
     voter_index = -1
     for row_index in range(len(matrix)):
         row = matrix[row_index]
@@ -466,30 +459,16 @@ def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance):
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j]
                     <= 1 + voter_vars[voter_index],
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{i}_{j}_{k}"
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i]
                     <= 1 + voter_vars[voter_index],
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{j}_{i}_{k}"
                 )
 
 
-def sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance):
+def sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance, alt_map):
     """A helper function for computing the closeness to single-peakedness of and instance with an ILP solver.
     Adds the single-peakedness constraints to the ILP model given as parameter, allowing to ignore some
     alternatives if needed. These constraints enforce that the instance is indeed single-peaked with respect to
@@ -502,8 +481,10 @@ def sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance):
     :param alt_vars: A list of list of python-mip variables where altVars[a] is set to 1 if and only if
         alternative a is removed from consideration.
     :param instance: the instance to test for single-peakedness.
+    :param alt_map: a mapping from alternative name to range(0, m).
+    :type alt_map: dict[_, int]
     """
-    matrix = sp_cons_ones_matrix(instance)
+    matrix = sp_cons_ones_matrix(instance, alt_map)
     for row_index in range(len(matrix)):
         row = matrix[row_index]
         zeros = set()
@@ -518,26 +499,12 @@ def sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance):
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j]
                     <= 1 + alt_vars[i] + alt_vars[j] + alt_vars[k],
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{i}_{j}_{k}"
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i]
                     <= 1 + alt_vars[j] + alt_vars[i] + alt_vars[k],
-                    name="SP_row"
-                    + str(row_index)
-                    + "_"
-                    + str(j)
-                    + "_"
-                    + str(i)
-                    + "_"
-                    + str(k),
+                    name=f"SP_row{row_index}_{j}_{i}_{k}"
                 )
 
 
@@ -594,9 +561,11 @@ def is_single_peaked_ILP(instance):
         ]
     )
 
+    alternatives_to_index = {a: i for i, a in enumerate(instance.alternatives_name)}
+    index_to_alternatives = list(instance.alternatives_name)
     sp_ILP_trans_cstr(model, left_of_vars, instance)
     sp_ILP_total_cstr(model, left_of_vars, instance)
-    sp_ILP_cons_ones_cstr(model, left_of_vars, instance)
+    sp_ILP_cons_ones_cstr(model, left_of_vars, instance, alternatives_to_index)
     sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance)
 
     model.objective = 0
@@ -627,9 +596,9 @@ def is_single_peaked_ILP(instance):
         opt_status == OptimizationStatus.OPTIMAL
         or opt_status == OptimizationStatus.FEASIBLE
     ):
-        axis = [0 for i in range(instance.num_alternatives)]
+        axis = [0 for _ in range(instance.num_alternatives)]
         for v in pos_vars:
-            axis[int(v.x) - 1] = int(v.name.split("_")[-1])
+            axis[int(v.x) - 1] = index_to_alternatives[int(v.name.split("_")[-1])]
         # print('solution:')
         # for v in model.vars:
         #     if abs(v.x) > 1e-6: # only printing non-zeros
@@ -692,11 +661,13 @@ def approx_SP_voter_deletion_ILP(instance, weighted=False):
         ]
     )
 
+    alternatives_to_index = {a: i for i, a in enumerate(instance.alternatives_name)}
+    index_to_alternatives = list(instance.alternatives_name)
     sp_ILP_trans_cstr(model, left_of_vars, instance)
     print("Transitivity done")
     sp_ILP_total_cstr(model, left_of_vars, instance)
     print("Totality done")
-    sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance)
+    sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance, alternatives_to_index)
     print("Consecutive ones done")
     sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance)
     print("Position done")
@@ -737,9 +708,9 @@ def approx_SP_voter_deletion_ILP(instance, weighted=False):
         opt_status == OptimizationStatus.OPTIMAL
         or opt_status == OptimizationStatus.FEASIBLE
     ):
-        axis = [0 for i in range(instance.num_alternatives)]
+        axis = [0 for _ in range(instance.num_alternatives)]
         for v in pos_vars:
-            axis[int(v.x) - 1] = int(v.name.split("_")[-1])
+            axis[int(v.x) - 1] = index_to_alternatives[int(v.name.split("_")[-1])]
         deleted_voters = []
         for v in voter_vars:
             if v.x > 0:
@@ -803,9 +774,11 @@ def approx_SP_alternative_deletion_ILP(instance):
         ]
     )
 
+    alternatives_to_index = {a: i for i, a in enumerate(instance.alternatives_name)}
+    index_to_alternatives = list(instance.alternatives_name)
     sp_ILP_trans_cstr(model, left_of_vars, instance)
     sp_ILP_total_cstr(model, left_of_vars, instance)
-    sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance)
+    sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance, alternatives_to_index)
     sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance)
 
     model.start = [(a, 1) for a in alt_vars[:-2]]
@@ -841,9 +814,9 @@ def approx_SP_alternative_deletion_ILP(instance):
         opt_status == OptimizationStatus.OPTIMAL
         or opt_status == OptimizationStatus.FEASIBLE
     ):
-        axis = [0 for i in range(instance.num_alternatives)]
+        axis = [0 for _ in range(instance.num_alternatives)]
         for v in pos_vars:
-            axis[int(v.x) - 1] = int(v.name.split("_")[-1])
+            axis[int(v.x) - 1] = index_to_alternatives[int(v.name.split("_")[-1])]
         deleted_alts = []
         for v in alt_vars:
             if v.x > 0:
