@@ -78,10 +78,8 @@ def is_single_peaked(instance):
 
     if instance.data_type != "soc":
         raise TypeError(
-            "You are trying to use the algorithm of Escoffier, Lang, and Ozturk (2008) to test single-"
-            + "peakedness on an instance of type "
-            + str(instance.data_type)
-            + ", this is not possible."
+            f"You are trying to use the algorithm of Escoffier, Lang, and Ozturk (2008) to test"
+            f"single-peakedness on an instance of type {instance.data_type}, this is not possible."
         )
 
     is_SP = True
@@ -267,10 +265,11 @@ def is_single_peaked(instance):
 
         iteration += 1
 
-    if is_SP and axis is None:
-        axis = left_axis + right_axis
-
-    return is_SP, axis
+    if is_SP:
+        if axis is None:
+            axis = left_axis + right_axis
+        return True, axis
+    return False, None
 
 
 def sp_cons_ones_matrix(instance, alt_map):

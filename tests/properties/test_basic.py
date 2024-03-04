@@ -78,3 +78,11 @@ class TestAnalysis(TestCase):
         assert is_approval(instance) is True
         instance.append_order_list([((2, 3), (1,)), ((3,), (1, 2))])
         assert is_approval(instance) is False
+
+        instance = CategoricalInstance()
+        instance.num_categories = 1
+        assert is_approval(instance) is True
+        instance.num_categories = 2
+        assert is_approval(instance) is True
+        instance.num_categories = 3
+        assert is_approval(instance) is False

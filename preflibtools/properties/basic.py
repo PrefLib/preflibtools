@@ -1,5 +1,6 @@
 """ This module describes several procedures to check for basic procedures of PrefLib instances.
 """
+from preflibtools.instances import OrdinalInstance, CategoricalInstance
 
 
 def num_alternatives(instance):
@@ -39,6 +40,11 @@ def num_different_preferences(instance):
         return instance.num_unique_orders
     elif instance.data_type == "cat":
         return instance.num_unique_preferences
+    else:
+        raise TypeError(
+            f"The function num_different_preferences cannot be used with instance of type"
+            f" {instance.data_type}."
+        )
 
 
 def largest_ballot(instance):
@@ -136,13 +142,21 @@ def is_approval(instance):
     :return: A boolean indicating whether the instance describes an approval profile.
     :rtype: bool
     """
-    m = max([len(order) for order in instance.orders])
-    if m == 1:
-        return True
-    elif m == 2:
-        return is_complete(instance)
+    if isinstance(instance, OrdinalInstance):
+        m = max([len(order) for order in instance.orders])
+        if m == 1:
+            return True
+        elif m == 2:
+            return is_complete(instance)
+        else:
+            return False
+    elif isinstance(instance, CategoricalInstance):
+        return 0 < instance.num_categories <= 2
     else:
-        return False
+        raise TypeError(
+            f"The function is_approval cannot be used with instance of type"
+            f" {instance.data_type}."
+        )
 
 
 def is_strict(instance):
