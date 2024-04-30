@@ -89,7 +89,7 @@ class PrefLibInstance():
         """
 
         # Populating basic properties of the instance
-        self.file_path = filepath
+        self.file_path = os.path.basename(filepath)
         self.file_name = path.split(filepath)[1]
         self.data_type = path.splitext(filepath)[1][1:]
 
