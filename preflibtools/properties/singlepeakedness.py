@@ -87,6 +87,7 @@ def is_single_peaked(instance):
     axis = None
     right_axis, left_axis = [], []
     x_i, x_j = None, None
+    to_append_left = [] # Candidates that will be appended to the left at the end
 
     # generates list of preferences without the weight while flattening the orders
     list_of_preferences = [
@@ -96,7 +97,6 @@ def is_single_peaked(instance):
     # list_of_preferences_SP: list to modify
     list_of_preferences_SP = copy.deepcopy(list_of_preferences)
 
-    iteration = 0
     while is_SP and len(list_of_preferences_SP[0]) >= 1 and not end_flag:
         # make a list of last candidates
         last_candidates = []
@@ -117,157 +117,152 @@ def is_single_peaked(instance):
                 if x in preference:
                     preference.remove(x)
 
-            case = 0
-
-            for i in range(len(list_of_preferences)):
-                # find index of x, x_i, x_j in each preference
-                index_x = list_of_preferences[i].index(x)
-                if x_i is None:
-                    index_x_i = -1
-                else:
-                    index_x_i = list_of_preferences[i].index(x_i)
-                if x_j is None:
-                    index_x_j = -1
-                else:
-                    index_x_j = list_of_preferences[i].index(x_j)
-
-                # 3 possibilities for len(last_candidates) == 1
-                if index_x_i > index_x > index_x_j:  # Case 1
-                    case_i = 1
-                    if case == 0:
-                        case = case_i
-                    elif case == 1:
-                        pass
-                    elif case == 2:
-                        end_flag = True
-                        is_SP = False  # contradiction
-                        break
-                elif index_x_j > index_x > index_x_j:  # Case 2
-                    case_i = 2
-                    if case == 0:
-                        case = case_i
-                    elif case == 2:
-                        pass
-                    elif case == 1:
-                        end_flag = True
-                        is_SP = False  # contradiction
-                        break
-                elif index_x > index_x_i and index_x > index_x_j:  # Case 0
-                    case_i = 0
-
-            # add x in leftmost or rightmost axis according to case if axis is compatible
-            if not end_flag:
-                if case == 0:
+            if x_i is None:
+                to_append_left.append(x)
+            else:
+                # Special case for the last candidate here i + 1 = j - 1
+                if len(list_of_preferences_SP[0]) == 0:
                     left_axis.append(x)
-                    x_i = x
-                elif case == 1:
-                    left_axis.append(x)
-                    x_i = x
-                elif case == 2:
-                    right_axis.insert(0, x)
-                    x_j = x
+
+                else:
+
+                    case = 0
+
+                    for i in range(len(list_of_preferences)):
+                        # find index of x, x_i, x_j in each preference
+                        index_x = list_of_preferences[i].index(x)
+                        index_x_i = list_of_preferences[i].index(x_i)
+                        index_x_j = list_of_preferences[i].index(x_j)
+
+                        # 3 possibilities for len(last_candidates) == 1
+                        if index_x_i > index_x > index_x_j:  # Case 3.(c) Inverse
+                            if case == 2:
+                                end_flag = True
+                                is_SP = False  # contradiction
+                                break
+                            case = 1
+                        elif index_x_j > index_x > index_x_i:  # Case 3.(c)
+                            if case == 1:
+                                end_flag = True
+                                is_SP = False  # contradiction
+                                break
+                            case = 2
+                        elif index_x < index_x_i and index_x < index_x_j:  # Case 3.(b)
+                            pass
+                        else:  # Case 3.(a) is impossible
+                            raise ValueError("We should never have ended up here with a single "
+                                             "candidate ranked last.")
+
+                    # add x in leftmost or rightmost axis according to case if axis is compatible
+                    if not end_flag:
+                        if case == 0:
+                            left_axis.append(x)
+                            x_i = x
+                        elif case == 1:
+                            left_axis.append(x)
+                            x_i = x
+                        elif case == 2:
+                            right_axis.insert(0, x)
+                            x_j = x
 
         elif len(last_candidates) == 2:
-            x = last_candidates[0]
-            y = last_candidates[1]
+            x, y = last_candidates
             for preference in list_of_preferences_SP:
                 if x in preference:
                     preference.remove(x)
                 if y in preference:
                     preference.remove(y)
 
-            case = 0
+            if x_i is None:
+                left_axis.append(x)
+                right_axis.insert(0, y)
+                x_i = x
+                x_j = y
+            else:
 
-            for i in range(len(list_of_preferences)):
-                # find index of x, y, x_i, x_j in each preference
-                index_x = list_of_preferences[i].index(x)
-                index_y = list_of_preferences[i].index(y)
-
-                if x_i is None:
-                    index_x_i = -1
-                else:
+                forced_position = {}
+                for i in range(len(list_of_preferences)):
+                    # find index of x, y, x_i, x_j in each preference
+                    index_x = list_of_preferences[i].index(x)
+                    index_y = list_of_preferences[i].index(y)
                     index_x_i = list_of_preferences[i].index(x_i)
-                if x_j is None:
-                    index_x_j = -1
-                else:
                     index_x_j = list_of_preferences[i].index(x_j)
 
-                # swap position to put x in the lower position (ranked last)
-                if index_y > index_x:
-                    index_x, index_y = index_y, index_x
+                    # swap position to put x in the lower position (ranked last)
+                    if index_y > index_x:
+                        index_x, index_y = index_y, index_x
+                        x, y = y, x
 
-                # all possible cases
-                if (
-                    index_x_i > index_x > index_y > index_x_j
-                    or index_x_j > index_x > index_y > index_x_i
-                ):  # Case 4
-                    case_i = 4
-
-                    # get index for leftover elements and append them into left axis following increasing order
-                    T_bar = last_candidates + list_of_preferences_SP[i]
-                    order = []
-                    for candidate in T_bar:
-                        index_candidate = list_of_preferences[i].index(candidate)
-                        order.append((index_candidate, candidate))
-                    order.sort(reverse=True)
-                    for index, candidate in order:
-                        left_axis.append(candidate)
-
-                    axis = left_axis + right_axis
-
-                    is_SP = is_single_peaked_axis(
-                        instance, axis
-                    )  # to be completed , complete right n left axis
-                    end_flag = True
-                    break
-
-                elif index_x_i > index_x > index_x_j > index_y:  # Case 1
-                    case_i = 1
-                    if case == 0:
-                        case = case_i
-                    elif case == 1:
-                        pass
-                    elif case == 2:
+                    # all possible cases
+                    if index_x_j > index_x > index_y > index_x_i:  # Case 2.(d) Reverse
+                        placed_candidates = set(left_axis)
+                        placed_candidates.update(right_axis)
+                        placed_candidates.update(to_append_left)
+                        axis = [c for c in list_of_preferences[i] if c not in placed_candidates]
+                        axis = to_append_left + left_axis + axis + right_axis
+                        is_SP = is_single_peaked_axis(
+                            instance, axis
+                        )
                         end_flag = True
-                        is_SP = False  # contradiction
                         break
-                elif index_x_j > index_x > index_x_i > index_y:  # Case 2
-                    case_i = 2
-                    if case == 0:
-                        case = case_i
-                    elif case == 2:
-                        pass
-                    elif case == 1:
+
+                    elif index_x_i > index_x > index_y > index_x_j:  # Case 2.(d)
+                        placed_candidates = set(left_axis)
+                        placed_candidates.update(right_axis)
+                        placed_candidates.update(to_append_left)
+                        axis = [c for c in list_of_preferences[i] if c not in placed_candidates]
+                        axis.reverse()
+                        axis = to_append_left + left_axis + axis + right_axis
+                        is_SP = is_single_peaked_axis(
+                            instance, axis
+                        )
                         end_flag = True
-                        is_SP = False  # contradiction
                         break
-                elif index_x > index_x_i and index_x > index_x_j:
-                    case_i = 0
 
-                    # add x and y  in leftmost or rightmost axis according to case if axis is compatible
+                    elif index_x_i > index_x > index_x_j > index_y:  # Case 2.(c)
+                        if forced_position.get(x, "") == "right" or forced_position.get(y, "") == "left":
+                            end_flag = True
+                            is_SP = False  # contradiction
+                            break
+                        forced_position[x] = "left"
+                        forced_position[y] = "right"
+                    elif index_x_j > index_x > index_x_i > index_y:  # Case 2.(c) Inverse
+                        if forced_position.get(x, "") == "left" or forced_position.get(y, "") == "right":
+                            end_flag = True
+                            is_SP = False  # contradiction
+                            break
+                        forced_position[x] = "right"
+                        forced_position[y] = "left"
+                    elif index_x < index_x_i and index_x < index_x_j:  # Case 2.(b)
+                        pass
+                    else:
+                        raise ValueError("We should never have ended up here with two "
+                                         "candidates ranked last.")
 
-            if not end_flag:
-                if case == 0:
-                    left_axis.append(x)
-                    right_axis.insert(0, y)
-                    x_i = x
-                    x_j = y
-                elif case == 1:
-                    left_axis.append(x)
-                    right_axis.insert(0, y)
-                    x_i = x
-                    x_j = y
-                elif case == 2:
-                    left_axis.append(y)
-                    right_axis.insert(0, x)
-                    x_i = y
-                    x_j = x
+                if not end_flag:
+                    if x not in forced_position:
+                        if y not in forced_position:
+                            forced_position[x] = "left"
+                            forced_position[y] = "right"
+                        else:
+                            forced_position[x] = "left" if forced_position[y] == "right" else "right"
+                    if y not in forced_position:
+                        forced_position[y] = "left" if forced_position[x] == "right" else "right"
 
-        iteration += 1
-
+                    if forced_position[x] == "left":
+                        left_axis.append(x)
+                        right_axis.insert(0, y)
+                        x_i = x
+                        x_j = y
+                    else:
+                        left_axis.append(y)
+                        right_axis.insert(0, x)
+                        x_i = y
+                        x_j = x
     if is_SP:
         if axis is None:
             axis = left_axis + right_axis
+        axis = to_append_left + axis
         return True, axis
     return False, None
 
