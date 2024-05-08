@@ -1,7 +1,7 @@
 from itertools import combinations
 
 def is_2partition(instance):
-    # Create a set of all possible alternatives
+    # Create a set of all possible alternatives (WAAR OP GESTEMD IS)!!!!!!!
     alternatives = set().union(*instance)
 
     # Create all possible sizes for the combinations
@@ -15,22 +15,33 @@ def is_2partition(instance):
             part2 = alternatives - part1
 
             # Check for every vote if its either a subset of part1 or part2
+            # ADD NOT EMPTY LIST AS ANSWER?
             if all(vote <= part1 or vote <= part2 for vote in instance):
                 print(f"Partition 1 = {part1} and Partition 2 = {part2}")
                 return True
                 
     return False
 
+def is_partition(instance):
+    # Create list to save partitions
+    part = []
 
-# Example data
-instance = [
-    {'A', 'B'},  # Voter 1 chooses candidates A and B
-    {'C'},       # Voter 2 chooses candidate C
-    {'D', 'E'},  # Voter 3 chooses candidates D and E
-    {'A', 'C'}   # Voter 4 chooses candidates A and C
-]
+    # Pick a vote ffrom instance
+    for vote1 in instance:
+        # Get the the alternatives from vote
+        alternatives = set().union(*vote1)
 
-# Check if the data is 2-partition
-result = is_2partition(instance)
-print("Is the data 2-partition?:", result)
+        # Check for every alternative from vote if found in another vote
+        for alt in alternatives:
+            for vote2 in instance:
+                if alt in vote2:
 
+                    # If alternative found in another vote the rest of the vote must be the same
+                    if vote1 != vote2:
+                        return False
+                    
+        # If passed this is a possible partition so add to list              
+        part.append(alt)
+
+    print(part)
+    return True
