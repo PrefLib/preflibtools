@@ -46,5 +46,9 @@ def is_partition(instance):
                     
         # If passed this is a possible partition so add to list              
         partition.append(vote1)
+    
+    for part in partition:
+        if not part:
+            return False
 
     return True, partition

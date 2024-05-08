@@ -41,4 +41,5 @@ instance3 =[
     {}
 ]
 
-print(is_2partition(instance2))
+assert is_2partition(instance3) == False
+assert is_2partition(instance3) == False
