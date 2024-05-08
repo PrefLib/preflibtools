@@ -25,3 +25,12 @@ assert is_partition(instance1)[0] == True
 
 # Check if they both return the same partition in this case
 assert is_2partition(instance1)[1] == is_partition(instance1)[1]
+
+# TEST 2
+# Check if correct output with only one voter
+instance2 = [
+    {'A'}
+]
+
+assert is_2partition(instance2) == False
+assert is_partition(instance2) == True
