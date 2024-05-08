@@ -33,4 +33,12 @@ instance2 = [
 ]
 
 assert is_2partition(instance2) == False
-assert is_partition(instance2) == True
+assert is_partition(instance2)[0] == True
+
+# TEST 3
+# Check if handles empty votes
+instance3 =[
+    {}
+]
+
+print(is_2partition(instance2))
