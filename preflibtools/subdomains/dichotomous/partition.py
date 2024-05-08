@@ -3,6 +3,7 @@ from itertools import combinations
 def is_2partition(instance):
     # Create a set of all possible alternatives (WAAR OP GESTEMD IS)!!!!!!!
     alternatives = set().union(*instance)
+    partition = []
 
     # Create all possible sizes for the combinations
     for s in range(1, len(instance)):
@@ -19,14 +20,15 @@ def is_2partition(instance):
 
                 # Check for every vote if its either a subset of part1 or part2
                 if all(vote <= part1 or vote <= part2 for vote in instance): 
-                    print(f"Partition 1 = {part1} and Partition 2 = {part2}")
-                    return True
+                    partition.append(part1)
+                    partition.append(part2)
+                    return True, partition
                 
     return False
 
 def is_partition(instance):
     # Create list to save partitions
-    part = []
+    partition = []
 
     # Pick a vote ffrom instance
     for vote1 in instance:
@@ -43,7 +45,6 @@ def is_partition(instance):
                         return False
                     
         # If passed this is a possible partition so add to list              
-        part.append(alt)
+        partition.append(vote1)
 
-    print(part)
-    return True
+    return True, partition

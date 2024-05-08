@@ -1,5 +1,8 @@
 from partition import *
 
+'''
+Use for testing of functions in partition.py
+'''
 
 # Example data
 instance = [
@@ -9,4 +12,16 @@ instance = [
     {'A', 'C'}   # Voter 4 chooses candidates A and C
 ]
 
-print(is_2partition(instance))
+# TEST 1
+# Check if recognizing 2part. Also is_partitioning should find the 2part
+instance1 = [
+    {'A', 'B'},
+    {'C'}
+]
+
+# Make sure both find partitions and return True
+assert is_2partition(instance1)[0] == True
+assert is_partition(instance1)[0] == True
+
+# Check if they both return the same partition in this case
+assert is_2partition(instance1)[1] == is_partition(instance1)[1]
