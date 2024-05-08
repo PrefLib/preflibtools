@@ -14,11 +14,13 @@ def is_2partition(instance):
             part1 = set().union(*(instance[idx] for idx in part1_idx))
             part2 = alternatives - part1
 
-            # Check for every vote if its either a subset of part1 or part2
-            # ADD NOT EMPTY LIST AS ANSWER?
-            if all(vote <= part1 or vote <= part2 for vote in instance):
-                print(f"Partition 1 = {part1} and Partition 2 = {part2}")
-                return True
+            # Check if both not empty sets
+            if part1 and part2:
+
+                # Check for every vote if its either a subset of part1 or part2
+                if all(vote <= part1 or vote <= part2 for vote in instance): 
+                    print(f"Partition 1 = {part1} and Partition 2 = {part2}")
+                    return True
                 
     return False
 
