@@ -2,16 +2,20 @@ import numpy as np
 from pq_trees import P
 
 def instance_to_matrix(instance, interval):
+    # Get alternatives sorter, for columns
     alternatives = sorted(set().union(*instance))
     alternative_count = len(alternatives)
     voter_count = len(instance)
 
+    # Create empty matrix with sizes of voters and alternatives
     M = np.zeros((voter_count, alternative_count), dtype=int)
-        
+
+    # Fill in matrix  
     for idx, vote in enumerate(instance):
         for alt in vote:
             M[idx][alternatives.index(alt)] = 1
 
+    # Make amtrix to list for correct input for P tree
     M = M.tolist()
     print("M:", M)
 
