@@ -43,3 +43,5 @@ instance3 =[
 
 assert is_2partition(instance3) == False
 assert is_2partition(instance3) == False
+
+# TEST 4
