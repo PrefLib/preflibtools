@@ -302,7 +302,7 @@ def is_single_peaked_pq_tree(instance):
             + ", this is not possible. Only toc and soc are allowed here."
         )
 
-    alt_map = {k: n for k, n in enumerate(instance.alternatives_name)}
+    alt_map = {n: k for k, n in enumerate(instance.alternatives_name)}
     matrix = sp_cons_ones_matrix(instance, alt_map)
     return isC1P(matrix)
 
