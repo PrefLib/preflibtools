@@ -188,6 +188,7 @@ def is_vei_test(matrix, alt_count):
             pass
     return True
 
+alt_count = len(matrix[0])
 res = is_vei_test(matrix, alt_count)
 print(res)
 
