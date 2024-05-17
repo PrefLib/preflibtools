@@ -18,8 +18,8 @@ def instance_to_matrix(instance, interval):
             M[idx][alternatives.index(alt)] = 1
     
 
-    input_matrix = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-    return input_matrix
+    input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
+    return input_M
 
     # Need later
     if interval == 'vi':
@@ -57,7 +57,46 @@ def solve_C1(M):
     
     return p.orderings()
 
+# Flatten the nested tuples
+def flatten(ordering):
+    # Check if tuple and if not more nested
+    if isinstance(ordering, tuple) and not isinstance(ordering[0], tuple):
+        res = [ordering]
+        return tuple(res)
+    
+    res = []
 
+    # Recursively flatten nested tuples
+    for sub in ordering:
+        res += flatten(sub)
+
+    # Return result and make tuple again
+    return tuple(res)
+
+# Convert ordering to matrix
+def C1_to_matrix(ordering, instance):
+    # (Maybe all orderings instead of 1 at a time)
+    # for ord in ordering:
+        # ord = flatten(ord)
+    
+    # Flatten ordering
+    ordering = flatten(ordering)
+
+    # Get info to initiate matrix
+    alternatives = sorted(set().union(*instance))
+    alternative_count = len(alternatives)
+    # This can be less then first matrix because ordering is only unique votings
+    voter_count = len(ordering)
+    
+    # Create empty matrix with sizes of voters and alternatives
+    M = np.zeros((voter_count, alternative_count), dtype=int)
+
+    # Fill in matrix based on ordering
+    for voter_idx, vote in enumerate(ordering):
+        for alt_idx in vote:
+            M[voter_idx, alt_idx] = 1
+
+    return M
 
 # Voter Interval (VI)
 def is_VI(instance):
@@ -200,4 +239,9 @@ instance = [
     {'D'},
     {'D'}
 ]
-instance_to_matrix(instance, interval='vei')
+M = instance_to_matrix(instance, interval='vei')
+solved = solve_C1(M)
+
+for a in solved:
+    print("tuple:", a)
+    C1_to_matrix(a, instance)
