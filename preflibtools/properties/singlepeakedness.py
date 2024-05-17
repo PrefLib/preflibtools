@@ -9,6 +9,8 @@ from itertools import combinations
 import numpy as np
 from mip import Model, xsum, BINARY, MINIMIZE, INTEGER, OptimizationStatus
 
+from preflibtools.properties.pq_trees import isC1P
+
 
 def is_single_peaked_axis(instance, axis):
     """Tests whether the instance is single-peaked with respect to the axis provided as argument.
@@ -290,6 +292,19 @@ def sp_cons_ones_matrix(instance, alt_map):
                     matrix[matrix_index][alt_map[a]] = 1
             matrix_index += 1
     return matrix
+
+
+def is_single_peaked_pq_tree(instance):
+    if instance.data_type not in ("soc", "toc"):
+        raise TypeError(
+            "You are trying to test for single-peakedness on an instance of type "
+            + str(instance.data_type)
+            + ", this is not possible. Only toc and soc are allowed here."
+        )
+
+    alt_map = {k: n for k, n in enumerate(instance.alternatives_name)}
+    matrix = sp_cons_ones_matrix(instance, alt_map)
+    return isC1P(matrix)
 
 
 def sp_ILP_trans_cstr(model, left_of_vars, instance):

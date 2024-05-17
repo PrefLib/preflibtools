@@ -13,6 +13,7 @@ class TestAnalysis(TestCase):
         assert is_single_peaked_axis(instance, [1, 0, 2]) is True
         assert is_single_peaked(instance)[0] is True
         assert is_single_peaked_ILP(instance)[0] is True
+        assert is_single_peaked_pq_tree(instance) is True
 
         instance = OrdinalInstance()
         orders = [
@@ -28,12 +29,14 @@ class TestAnalysis(TestCase):
         assert is_single_peaked(instance)[1] in ([0, 1, 2], [2, 1, 0])
         assert is_single_peaked_ILP(instance)[0] is True
         assert is_single_peaked_ILP(instance)[2] in ([0, 1, 2], [2, 1, 0])
+        assert is_single_peaked_pq_tree(instance) is True
 
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,)), ((1,), (2,), (0,))]
         instance.append_order_list(orders)
         assert is_single_peaked(instance)[0] is False
         assert is_single_peaked_ILP(instance)[0] is False
+        assert is_single_peaked_pq_tree(instance) is False
         assert approx_SP_voter_deletion_ILP(instance)[0] == 1
         assert approx_SP_alternative_deletion_ILP(instance)[0] == 1
 
@@ -45,6 +48,7 @@ class TestAnalysis(TestCase):
         ]
         instance.append_order_list(orders)
         assert is_single_peaked_ILP(instance)[0] is True
+        assert is_single_peaked_pq_tree(instance) is True
         assert approx_SP_voter_deletion_ILP(instance)[0] == 0
         assert approx_SP_alternative_deletion_ILP(instance)[0] == 0
 
