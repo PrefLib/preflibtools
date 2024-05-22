@@ -1,6 +1,5 @@
 import numpy as np
-from pq_trees import P
-# from tests_sagemath import isC1P
+from pq_trees import reorder_sets
 
 def instance_to_matrix(instance, interval):
     # Get alternatives sorter, for columns
@@ -8,7 +7,6 @@ def instance_to_matrix(instance, interval):
     alternative_count = len(alternatives)
     voter_count = len(instance)
     
-
     # Create empty matrix with sizes of voters and alternatives
     M = np.zeros((voter_count, alternative_count), dtype=int)
 
@@ -17,227 +15,206 @@ def instance_to_matrix(instance, interval):
         for alt in vote:
             M[idx][alternatives.index(alt)] = 1
 
-    # print(M)
-    # M = np.transpose(M)
-    # print("T:", M)
-    # input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-
-    # return input_M
-
     if interval == 'ci':
-        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-
-        # Used for testing
-        # M = np.transpose(M)
-        return input_M
+        return M, alternatives
     elif interval == 'cei':
-        comp = 1 - M
-        new_M = np.vstack((M, comp))
-        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in new_M]
-        return new_M
+        # Create new M to add the complements in
+        new_M = []
+
+        # Add every row and the complement of the row
+        for row in M:
+            comp = 1 - row
+            new_M.append(row)
+            new_M.append(comp)
+
+        return np.array(new_M), alternatives
     elif interval == 'vi':
+       # Transpose matrix
        M = np.transpose(M)
-       input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-       return input_M
+
+        # Voters to give result in reordererd voters
+       voters = [f"V{i+1}" for i in range(voter_count)]
+       return M, voters
     elif interval == 'vei':
+        # Transpose matrix
         M = np.transpose(M)
-        comp = 1 - M
-        new_M = np.vstack((M, comp))
-        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in new_M]
-        return new_M
+
+        # Create new M to add the complements in
+        new_M = []
+
+        # Add every row and the complement of the row
+        for row in M:
+            comp = 1 - row
+            new_M.append(row)
+            new_M.append(comp)
+
+        # Voters to give result in reordererd voters
+        voters = [f"V{i+1}" for i in range(voter_count)]
+
+        return np.array(new_M), voters
 
 def solve_C1(M):
-    # Create P
-    p = P(M)
+    # Get shape matrix
+    num_rows, num_cols = M.shape
 
-    # print("Cardinality:", p.cardinality())
+    # Get all columns to use for solving C1
+    columns = [tuple(M[:, col]) for col in range(num_cols)]
 
-    # Make consecutive ones
-    for col in range(len(matrix[0])):
-        # p.set_contiguous(col)
-        try:
-            p.set_contiguous(col)
-        except ValueError:
-            return False
+    # In sagemath duplicates will be deleted, so check for duplicates to add in result
+    column_duplicates = {}
+    for idx, col in enumerate(columns):
+        if col not in column_duplicates:
+            column_duplicates[col] = []
+        column_duplicates[col].append(idx)
+        
+    unique_columns = list(column_duplicates.keys())
 
+    # Make frozenset of the columns indices
+    columns_to_set = [frozenset(row for row in range(num_rows) if col[row] == 1) for col in unique_columns]
 
-    # for ordering in p.orderings():
-    #     print(ordering)
+    # Try to solve C1
+    try:
+        result = reorder_sets(columns_to_set)
+    except ValueError:
+            return False, []
 
+    # Check for duplicates and add the duplicates back in the result
+    ordered_idx = []
+    for order in result:
+         for col in unique_columns:
+                if frozenset(row for row in range(num_rows) if col[row] == 1) == order:
+                   ordered_idx.extend(column_duplicates[col])
+                   unique_columns.remove(col)
+                   break
+                   
+    return True, ordered_idx
 
-    # Print the cardinality after setting contiguity
-    # print("Cardinality after:", p.cardinality())
-    
-    return p.orderings()
-
-# Flatten the nested tuples
-def flatten(ordering):
-    # Check if tuple and if not more nested
-    if isinstance(ordering, tuple) and not isinstance(ordering[0], tuple):
-        res = [ordering]
-        return tuple(res)
-    
-    res = []
-
-    # Recursively flatten nested tuples
-    for sub in ordering:
-        res += flatten(sub)
-
-    # Return result and make tuple again
-    return tuple(res)
-
-# Convert ordering to matrix
-def C1_to_matrix(ordering, M):
-    # (Maybe all orderings instead of 1 at a time)
-    # for ord in ordering:
-        # ord = flatten(ord)
-    # print(ordering)
-    # Flatten ordering
-    ordering = flatten(ordering)
-
-    # Get info to initiate matrix
-    alternatives = sorted(set().union(*instance))
-    alternative_count = len(alternatives)
-    # This can be less then first matrix because ordering is only unique votings
-    voter_count = len(ordering)
-    
-    # NOT CORRECT YET
-    # Create empty matrix with sizes of voters and alternatives
-    M = np.zeros((voter_count, alternative_count), dtype=int)
-
-    # Possible solution
-    # M = np.zeros_like(M)
-
-    # Fill in matrix based on ordering
-    for voter_idx, vote in enumerate(ordering):
-        for alt_idx in vote:
-            M[voter_idx, alt_idx] = 1
-
-    return M
+'''
+Example usage:
+res, order_result, M_result = is_CI(instance, show_result=True, show_matrix=True)
+print("Result:", res)
+print("Order result:", order_result)
+print("Result Matrix:\n", M_result)
+'''
 
 # Candidate Interval
-def is_CI(instance):
-    M = instance_to_matrix(instance, interval='ci')
-    print("Check heck", M)
-    res = solve_C1(M)
+def is_CI(instance, show_result=True, show_matrix=True):
+    # Get matrix and lables
+    M, columns_labels = instance_to_matrix(instance, interval='ci')
+
+    # Solve C1 and get results of new order columns
+    res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, []
+        return False, [], []
     else:
-        # res = next(res)
-        for r in res:
-            print(r)
-            M = C1_to_matrix(r, instance)
-            print(M)
+        # Get result of the order
+        order_result = [columns_labels[i] for i in ordered_idx]
+        # Convert result back to matrix based on column index
+        M_result = M[:, ordered_idx]
 
-    print(True)
-    print(M)
-    return True, M
+    # Return depending on arguments
+    if show_result is True:
+        if show_matrix is True:
+            return True, order_result, M_result
+        else:
+            return True, order_result, []
+    else:
+        if show_matrix is True:
+            return True, M_result, []
+        else:
+            return True, [], []
 
 # Candidate Extremal Interval (CEI)
-def is_CEI(instance):
-    M = instance_to_matrix(instance, interval = 'cei')
+def is_CEI(instance, show_result=True, show_matrix=True):
+    M, columns_labels = instance_to_matrix(instance, interval='cei')
     print(M)
-    res = solve_C1(M)
+
+    res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, []
+        return False, [], []
     else:
-        res = next(res)
+        order_result = [columns_labels[i] for i in ordered_idx]
 
-    M = C1_to_matrix(res, instance)
-    return True, M
+        # Delete all the rows with the complements (odd rows)
+        idx = [i for i in range(len(M)) if i%2 != 0]
+        M = np.delete(M, idx, axis=0)
+
+        # Matrix result
+        M_result = M[:, ordered_idx]
+
+    return True, order_result, M_result
 
 # Voter Interval (VI)
-def is_VI(instance):
-    M = instance_to_matrix(instance, interval = 'vi')
-    res = solve_C1(M)
+def is_VI(instance, show_result=True, show_matrix=True):
+    M, columns_labels = instance_to_matrix(instance, interval='vi')
+    print(M)
+    res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, []
+        return False, [], []
     else:
-        res = next(res)
+        order_result = [columns_labels[i] for i in ordered_idx]
+        M_result = M[:, ordered_idx]
+        
 
-    M = C1_to_matrix(res, instance)
-    return True, M
+    return True, order_result, M_result
 
 # Voter Extremal Interval (VEI)
-def is_VEI(instance):
-    M = instance_to_matrix(instance, interval = 'vei')
-    res = solve_C1(M)
+def is_VEI(instance, show_result=True, show_matrix=True):
+    M, columns_labels = instance_to_matrix(instance, interval='vei')
+    print(M)
+    res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, []
+        return False, [], []
     else:
-        res = next(res)
+        order_result = [columns_labels[i] for i in ordered_idx]
 
-    M = C1_to_matrix(res, instance)
-    return True, M
+        # Delete all the rows with the complements (odd rows)
+        idx = [i for i in range(len(M)) if i%2 != 0]
+        M = np.delete(M, idx, axis=0)
 
-instance2 = [
+        # Matrix result
+        M_result = M[:, ordered_idx]
+
+    return True, order_result, M_result
+
+
+instance_CI = [
+    {'A'},
+    {'B', 'C'},
     {'C', 'D'},
+    {'D', 'E', 'F'}
+]
+
+instance_CEI = [
+    {'A', 'B', 'C', 'D'},
+    {'A', 'B'},
+    {'A'},
+    {'A', 'D', 'E', 'F'}
+]
+
+instance_VEI = [
     {'A', 'B', 'C'},
     {'B', 'C'},
     {'C'},
-    {'D'},
+    {'D', 'C'},
+    {'D'}, 
     {'D'}
 ]
 
-matrix_vei= [
-    [0, 0, 1, 1],   # C D 
-    [1, 1, 1, 0],   # ABC
-    [0, 0, 0, 1],   # D
-    [0, 0, 1, 0],   # C
-    [0, 0, 0, 1],   # D
-    [0, 1, 1, 0]    # B C
-]
-
-matrix_vi = [
-    [0, 1, 1, 0],   # BC
-    [0, 0, 1, 1],    # CD
-    [0, 1, 0, 0],    # B
-    [0, 0, 0, 1],    # D
-    [1, 0, 0, 0],    # A
-    [0, 0, 0, 1]    # D
-]
-
-matrix2 = [
-    [1, 1, 1, 1, 0, 0], # ABCD
-    [1, 1, 0, 0, 0, 0], # AB
-    [1, 0, 0, 0, 0, 0], # A
-    [0, 0, 0, 1, 1, 1]  # DEF
-]
-matrix_cei = list(zip(*matrix2))
-
-
-matrix = [
-    [1, 1, 1, 0],
-    [0, 1, 1, 0],
-    [0, 0, 1, 1],
-    [0, 0, 0, 1]
-]
-
-matrix2 = [
-    [1, 1, 1, 0],
-    [0, 1, 1, 1],
-    [0, 0, 1, 0],
-    [0, 0, 0, 1]
-]
-
-instance = [
+instance_VI = [
     {'A'},
+    {'B'},
     {'B', 'C'},
-    {'A', 'D', 'E', 'F'},
-    {'B', 'C', 'D'},
+    {'D', 'C'},
+    {'D'}, 
+    {'D'}
 ]
-# M = instance_to_matrix(instance, interval='vei')
 
-# solved = solve_C1(M)
-# # print(M)
-
-# for a in solved:
-#     C1_to_matrix(a, instance)
-
-is_CI(instance)
-
-# instance_to_matrix(instance, interval='vei')
+res, order_result, M_result = is_VI(instance_VI)
+print("Result:", res)
+print("Order result:", order_result)
+print("Result Matrix:\n", M_result)
