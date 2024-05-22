@@ -16,22 +16,33 @@ def instance_to_matrix(instance, interval):
     for idx, vote in enumerate(instance):
         for alt in vote:
             M[idx][alternatives.index(alt)] = 1
-    
 
-    input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-    return input_M
+    # print(M)
+    # M = np.transpose(M)
+    # print("T:", M)
+    # input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
 
-    # Need later
-    if interval == 'vi':
-       return M, alternatives
+    # return input_M
 
-    elif interval == 'ci':
-        M = list(zip(*M))
-        pass
-    elif interval == 'vei':
-        pass
+    if interval == 'ci':
+        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
+        M = np.transpose(M)
+        return input_M
     elif interval == 'cei':
-        pass
+        comp = 1 - M
+        new_M = np.vstack((M, comp))
+        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in new_M]
+        return new_M
+    elif interval == 'vi':
+       M = np.transpose(M)
+       input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
+       return input_M
+    elif interval == 'vei':
+        M = np.transpose(M)
+        comp = 1 - M
+        new_M = np.vstack((M, comp))
+        input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in new_M]
+        return new_M
 
 def solve_C1(M):
     # Create P
@@ -48,8 +59,8 @@ def solve_C1(M):
             return False
 
 
-    for ordering in p.orderings():
-        print(ordering)
+    # for ordering in p.orderings():
+    #     print(ordering)
 
 
     # Print the cardinality after setting contiguity
@@ -74,11 +85,11 @@ def flatten(ordering):
     return tuple(res)
 
 # Convert ordering to matrix
-def C1_to_matrix(ordering, instance):
+def C1_to_matrix(ordering, M):
     # (Maybe all orderings instead of 1 at a time)
     # for ord in ordering:
         # ord = flatten(ord)
-    
+    # print(ordering)
     # Flatten ordering
     ordering = flatten(ordering)
 
@@ -88,8 +99,12 @@ def C1_to_matrix(ordering, instance):
     # This can be less then first matrix because ordering is only unique votings
     voter_count = len(ordering)
     
+    # NOT CORRECT YET
     # Create empty matrix with sizes of voters and alternatives
     M = np.zeros((voter_count, alternative_count), dtype=int)
+
+    # Possible solution
+    # M = np.zeros_like(M)
 
     # Fill in matrix based on ordering
     for voter_idx, vote in enumerate(ordering):
@@ -98,65 +113,65 @@ def C1_to_matrix(ordering, instance):
 
     return M
 
-# Voter Interval (VI)
-def is_VI(instance):
-    # Comvert instance to matrix
-    # M, alternatives = instance_to_matrix(instance, interval = 'vi')
-    alternatives = sorted(set().union(*instance))
+def is_CI(instance):
+    M = instance_to_matrix(instance, interval='ci')
+    print("Check heck", M)
+    res = solve_C1(M)
 
-    # If input p is just the alternatives and not binary matrix (to list) it does work?
-    # but why
-    instances_list = [list(vote) for vote in instance]
+    if res is False:
+        return False, []
+    else:
+        # res = next(res)
+        for r in res:
+            print(r)
+            M = C1_to_matrix(r, instance)
+            print(M)
 
-    # Make P tree and set contiguous for all alternatives to solve consecutive ones problem
-    p = P(instances_list)
-    for alt in alternatives:
-        # If could not solve consecutive ones than False                    # Here i already tried to use column index in set continuous or by alternative name
-        if not p.set_contiguous(alt):
-            return False
-        p.set_contiguous(alt)
-    
-    
-
-    # Get order
-    order = p.ordering()
-
-    print("CI order:", order)
-    return True
-
-# Voter Extremal Interval (VEI)
-def is_VEI(instance):
-    '''
-    Started here but continued for VI in the meantime
-    '''
-    # Convert instance to matrix
-    M, alternatives = instance_to_matrix(instance, interval = 'vei')
-    # alternatives = sorted(set().union(*instance))
-    # M = M.transpose
-    # Make P tree and set contiguous for all alternatives to solve consecutive ones problem
-    p = P(M)
-    print(p)
-    for idx, alt in enumerate(alternatives):  
-        p.set_contiguous(idx)
-        p.set_contiguous(alt)
-    
-    print(p)
-
-
-    ordering = p.ordering()
-
-    return p
-
+    print(True)
+    print(M)
+    return True, M
 
 # Candidate Extremal Interval (CEI)
 def is_CEI(instance):
     M = instance_to_matrix(instance, interval = 'cei')
-    pass
+    print(M)
+    res = solve_C1(M)
 
+    if res is False:
+        return False, []
+    else:
+        res = next(res)
 
+    M = C1_to_matrix(res, instance)
+    return True, M
 
+# Voter Interval (VI)
+def is_VI(instance):
+    M = instance_to_matrix(instance, interval = 'vi')
+    res = solve_C1(M)
 
-instance = [
+    if res is False:
+        return False, []
+    else:
+        res = next(res)
+
+    M = C1_to_matrix(res, instance)
+    return True, M
+
+# Voter Extremal Interval (VEI)
+def is_VEI(instance):
+    M = instance_to_matrix(instance, interval = 'vei')
+    res = solve_C1(M)
+
+    if res is False:
+        return False, []
+    else:
+        res = next(res)
+
+    M = C1_to_matrix(res, instance)
+    return True, M
+
+instance2 = [
     {'C', 'D'},
     {'A', 'B', 'C'},
     {'B', 'C'},
@@ -206,42 +221,20 @@ matrix2 = [
     [0, 0, 0, 1]
 ]
 
-
-
-
-def is_vei_test(matrix, alt_count):
-    positions = []
-    for row in matrix:
-        for i in range(alt_count):
-            if row[i] == 1:
-                positions.append(i)
-        for idx in range(len(positions) -1):
-            if positions[idx]+1 != positions[idx+1]:
-                return False
-        positions = []
-
-    for i in range(alt_count):
-        positions = [j for j in range(len(matrix)) if matrix[j][i] == 1]
-        if len(positions) > 1:
-            # Check if the 1s form a contiguous block in the column         #?
-            pass
-    return True
-
-alt_count = len(matrix[0])
-res = is_vei_test(matrix, alt_count)
-print(res)
-
 instance = [
-    {'C', 'D'},
-    {'A', 'B', 'C'},
+    {'A'},
     {'B', 'C'},
-    {'C'},
-    {'D'},
-    {'D'}
+    {'A', 'D', 'E', 'F'},
+    {'B', 'C', 'D'},
 ]
-M = instance_to_matrix(instance, interval='vei')
-solved = solve_C1(M)
+# M = instance_to_matrix(instance, interval='vei')
 
-for a in solved:
-    print("tuple:", a)
-    C1_to_matrix(a, instance)
+# solved = solve_C1(M)
+# # print(M)
+
+# for a in solved:
+#     C1_to_matrix(a, instance)
+
+is_CI(instance)
+
+# instance_to_matrix(instance, interval='vei')
