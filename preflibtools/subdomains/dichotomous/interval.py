@@ -26,7 +26,9 @@ def instance_to_matrix(instance, interval):
 
     if interval == 'ci':
         input_M = [tuple(i for i in range(len(row)) if row[i] == 1) for row in M]
-        M = np.transpose(M)
+
+        # Used for testing
+        # M = np.transpose(M)
         return input_M
     elif interval == 'cei':
         comp = 1 - M
