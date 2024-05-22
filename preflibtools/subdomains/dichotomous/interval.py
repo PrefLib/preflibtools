@@ -113,6 +113,7 @@ def C1_to_matrix(ordering, M):
 
     return M
 
+# Candidate Interval
 def is_CI(instance):
     M = instance_to_matrix(instance, interval='ci')
     print("Check heck", M)
