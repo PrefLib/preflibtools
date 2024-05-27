@@ -92,6 +92,8 @@ def solve_C1(M):
 '''
 Example usage:
 res, order_result, M_result = is_CI(instance, show_result=True, show_matrix=True)
+order_result = result[0]
+M_result = result[1]
 print("Result:", res)
 print("Order result:", order_result)
 print("Result Matrix:\n", M_result)
@@ -106,87 +108,131 @@ def is_CI(instance, show_result=True, show_matrix=True):
     res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, [], []
+        return False, ([], [])
     else:
         # Get result of the order
         order_result = [columns_labels[i] for i in ordered_idx]
+
         # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
     # Return depending on arguments
     if show_result is True:
         if show_matrix is True:
-            return True, order_result, M_result
+            return True, (order_result, M_result)
         else:
-            return True, order_result, []
+            return True, (order_result, [])
     else:
         if show_matrix is True:
-            return True, M_result, []
+            return True, (M_result, [])
         else:
-            return True, [], []
+            return True, ([], [])
 
 # Candidate Extremal Interval (CEI)
 def is_CEI(instance, show_result=True, show_matrix=True):
+    # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='cei')
-    print(M)
 
+    # Solve C1 and get results of new order columns
     res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, [], []
+        return False, ([], [])
     else:
+        # Get result of the order
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Delete all the rows with the complements (odd rows)
         idx = [i for i in range(len(M)) if i%2 != 0]
         M = np.delete(M, idx, axis=0)
 
-        # Matrix result
+        # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
-    return True, order_result, M_result
+    # Return depending on arguments
+    if show_result is True:
+        if show_matrix is True:
+            return True, (order_result, M_result)
+        else:
+            return True, (order_result, [])
+    else:
+        if show_matrix is True:
+            return True, (M_result, [])
+        else:
+            return True, ([], [])
+
 
 # Voter Interval (VI)
 def is_VI(instance, show_result=True, show_matrix=True):
+    # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='vi')
-    print(M)
+
+    # Solve C1 and get results of new order columns
     res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, [], []
+        return False, ([], [])
     else:
+        # Get result of the order
         order_result = [columns_labels[i] for i in ordered_idx]
+
+        # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
         
 
-    return True, order_result, M_result
+    # Return depending on arguments
+    if show_result is True:
+        if show_matrix is True:
+            return True, (order_result, M_result)
+        else:
+            return True, (order_result, [])
+    else:
+        if show_matrix is True:
+            return True, (M_result, [])
+        else:
+            return True, ([], [])
+
 
 # Voter Extremal Interval (VEI)
 def is_VEI(instance, show_result=True, show_matrix=True):
+    # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='vei')
-    print(M)
+    
+    # Solve C1 and get results of new order columns
     res, ordered_idx = solve_C1(M)
 
     if res is False:
-        return False, [], []
+        return False, ([], [])
     else:
+        # Get result of the order
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Delete all the rows with the complements (odd rows)
         idx = [i for i in range(len(M)) if i%2 != 0]
         M = np.delete(M, idx, axis=0)
 
-        # Matrix result
+        # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
-    return True, order_result, M_result
+    # Return depending on arguments
+    if show_result is True:
+        if show_matrix is True:
+            return True, (order_result, M_result)
+        else:
+            return True, (order_result, [])
+    else:
+        if show_matrix is True:
+            return True, (M_result, [])
+        else:
+            return True, ([], [])
+
 
 
 instance_CI = [
-    {'A'},
-    {'B', 'C'},
+    {'A', 'D', 'E', 'F'},
     {'C', 'D'},
-    {'D', 'E', 'F'}
+    {'A', 'D'},
+    {'B', 'C'}
 ]
 
 instance_CEI = [
@@ -214,7 +260,9 @@ instance_VI = [
     {'D'}
 ]
 
-res, order_result, M_result = is_VI(instance_VI)
+res, result = is_VEI(instance_CI)
+order_result = result[0]
+M_result = result[1]
 print("Result:", res)
 print("Order result:", order_result)
 print("Result Matrix:\n", M_result)
