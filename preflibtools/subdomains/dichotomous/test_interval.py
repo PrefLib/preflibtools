@@ -4,7 +4,7 @@ import random
 
 
 def generate_CI_instances(a, v):
-    # Generate possible instances based on 'a' (alternatives)
+    # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
     # Initiate the instance
@@ -25,7 +25,7 @@ def generate_CI_instances(a, v):
     return instance
 
 def generate_CEI_instances(a, v):
-    # Generate possible instances based on 'a' (alternatives)
+    # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
     # Initiate the instance

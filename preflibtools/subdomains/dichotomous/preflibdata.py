@@ -34,8 +34,8 @@ for approval_set in data_list:
     res_VI, _ = is_VI(instances)
     res_VEI, _ = is_VEI(instances)
 
-    res_2part, result_2part = is_2partition(instances)
-    res_part, result_part = is_partition(instances)
+    res_2part, result_2part = is_2PART(instances)
+    res_part, result_part = is_PART(instances)
 
     CI_result.append(res_CI)
     CEI_result.append(res_CEI)
