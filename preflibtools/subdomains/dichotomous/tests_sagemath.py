@@ -26,19 +26,19 @@ def shuffleColumns(matrix):
         new_matrix.append([row[i] for i in perm])
     return new_matrix
 
-# # Positive tests
-# print("Testing positive examples...")
-# for _ in trange(100):
-#     n = random.randint(5, 100)
-#     m = random.randint(5, 100)
-#     matrix = []
-#     for _ in range(m):
-#         left = random.randint(0, n - 2)
-#         right = random.randint(left + 1, n - 1)
-#         row = [1 if left <= i <= right else 0 for i in range(n)]
-#         matrix.append(row)
-#     for _ in range(10):
-#         assert isC1P(shuffleColumns(matrix))
+# Positive tests
+print("Testing positive examples...")
+for _ in trange(100):
+    n = random.randint(5, 100)
+    m = random.randint(5, 100)
+    matrix = []
+    for _ in range(m):
+        left = random.randint(0, n - 2)
+        right = random.randint(left + 1, n - 1)
+        row = [1 if left <= i <= right else 0 for i in range(n)]
+        matrix.append(row)
+    for _ in range(10):
+        assert isC1P(shuffleColumns(matrix))
 
 # # Negative tests
 # def tuckerI(k):

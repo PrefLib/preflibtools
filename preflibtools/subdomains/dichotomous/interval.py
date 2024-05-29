@@ -124,7 +124,7 @@ def is_CI(instance, show_result=True, show_matrix=True):
             return True, (order_result, [])
     else:
         if show_matrix is True:
-            return True, (M_result, [])
+            return True, ([], M_result)
         else:
             return True, ([], [])
 
@@ -157,7 +157,7 @@ def is_CEI(instance, show_result=True, show_matrix=True):
             return True, (order_result, [])
     else:
         if show_matrix is True:
-            return True, (M_result, [])
+            return True, ([], M_result)
         else:
             return True, ([], [])
 
@@ -188,7 +188,7 @@ def is_VI(instance, show_result=True, show_matrix=True):
             return True, (order_result, [])
     else:
         if show_matrix is True:
-            return True, (M_result, [])
+            return True, ([], M_result)
         else:
             return True, ([], [])
 
@@ -222,7 +222,7 @@ def is_VEI(instance, show_result=True, show_matrix=True):
             return True, (order_result, [])
     else:
         if show_matrix is True:
-            return True, (M_result, [])
+            return True, ([], M_result)
         else:
             return True, ([], [])
 
@@ -236,10 +236,16 @@ instance_CI = [
 ]
 
 instance_CEI = [
-    {'A', 'B', 'C', 'D'},
-    {'A', 'B'},
     {'A'},
-    {'A', 'D', 'E', 'F'}
+    {'A', 'B', 'C', 'D'},
+    {'D', 'E', 'F'},
+    {'A', 'B'},
+]
+instance_CEI = [
+    {'A'},
+    {'A', 'D', 'F', 'B'},
+    {'C', 'E'},
+    {'B', 'C', 'E'}
 ]
 
 instance_VEI = [
@@ -260,9 +266,18 @@ instance_VI = [
     {'D'}
 ]
 
-res, result = is_VEI(instance_CI)
-order_result = result[0]
-M_result = result[1]
-print("Result:", res)
-print("Order result:", order_result)
-print("Result Matrix:\n", M_result)
+instance_VEI = [
+    {'A', 'C'},
+    {'A', 'B'},
+    {'A', 'B'},
+    {'C'}, 
+    {'C', 'D'},
+    {'C', 'D'},
+]
+
+# res, result = is_VEI(instance_VEI)
+# order_result = result[0]
+# M_result = result[1]
+# print("Result:", res)
+# print("Order result:", order_result)
+# print("Result Matrix:\n", M_result)

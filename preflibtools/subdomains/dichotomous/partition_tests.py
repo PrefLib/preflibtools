@@ -32,7 +32,7 @@ instance2 = [
     {'A'}
 ]
 
-assert is_2partition(instance2) == False
+assert is_2partition(instance2)[0] == False
 assert is_partition(instance2)[0] == True
 
 # TEST 3
@@ -41,7 +41,7 @@ instance3 =[
     {}
 ]
 
-assert is_2partition(instance3) == False
-assert is_2partition(instance3) == False
+assert is_2partition(instance3)[0] == False
+assert is_2partition(instance3)[0] == False
 
 # TEST 4
