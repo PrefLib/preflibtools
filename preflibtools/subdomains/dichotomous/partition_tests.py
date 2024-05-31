@@ -54,6 +54,7 @@ def generate_2PART_instances(a, v):
 
     # Initiate the instance
     instance = []
+
     # Generate a random cut to cut the alternative list into 2 groups of at least length 1
     cut = random.randint(1, a-1)
 
@@ -168,13 +169,15 @@ def generate_NOT_PART_instances(a, v):
 
     return instance
 
-print("Testing positive examples 2PART")
+print("Testing positive examples 2PART (for 2PART and PART)")
 for _ in trange(1000):
     a = random.randint(5, 100)
     v = random.randint(5, 100)
     instance = generate_2PART_instances(a, v)
     res, _ = is_2PART(instance)
+    res2, _ = is_PART(instance)
     assert res == True
+    assert res2 == True
 
 print("Testing negative examples 2PART")
 for _ in trange(1000):
@@ -182,7 +185,9 @@ for _ in trange(1000):
     v = random.randint(5, 100)
     instance = generate_NOT_2PART_instances(a, v)
     res, _ = is_2PART(instance)
+    res2, _ = is_PART(instance)
     assert res == False
+    assert res2 == False
 
 
 print("Testing positive examples PART")
