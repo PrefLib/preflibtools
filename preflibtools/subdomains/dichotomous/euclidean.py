@@ -19,6 +19,6 @@ def is_PE(instance):
     else:
         return False, None
     
-
+# Check Dichotomous Uniformly Euclidean
 def is_DUE(instance):
     pass
