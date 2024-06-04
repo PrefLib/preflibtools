@@ -1,6 +1,9 @@
 from preflibtools.instances import CategoricalInstance
 from interval import *
 from partition import *
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
 
 '''
 Take dataset from PrefLib and check if subdomains exist in the data.
@@ -10,47 +13,94 @@ Append result (True or False) in a list to see all results of checked data sets
 
 data_list = ["https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000002.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000003.cat",
              "https://www.preflib.org/static/data/frenchapproval/00026-00000004.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000005.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000006.cat"]
-data_list = ["https://www.preflib.org/static/data/kusama/00061-00000001.cat"]
+data_list = ["https://www.preflib.org/static/data/kusama/00061-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat"]
 
-CI_result = []
-CEI_result = []
-VI_result = []
-VEI_result = []
-part2_result = []
-part_result = []
-
-for approval_set in data_list:
+directory = '/Users/dennistol/Desktop/Studie/Scriptie/data/cat'
+data = []
+voters = []
+atlernatives = []
+for file in os.listdir(directory):
+    filename = os.fsdecode(file)
     instance = CategoricalInstance()
-    instance.parse_url(approval_set)
-    instances = []
-    for p in instance.preferences:
-        preferences = p
-        pref_set = set(preferences[0])
-        if len(pref_set) > 0:
-            instances.append(pref_set)
+    instance.parse_file(f'/Users/dennistol/Desktop/Studie/Scriptie/data/cat/{filename}')
+
+    # file_name = instance.file_name
+    # file_path = instance.file_path
+    # title = instance.title
+    num_alt = instance.num_alternatives
+    num_voters = instance.num_voters
+    # num_unique_pref = instance.num_unique_preferences
+    # num_cat = instance.num_categories
+    # categories = []
+    # for cat, cat_name in instance.categories_name.items():
+    #     category = cat
+    #     name_of_the_category = cat_name
+    #     categories.append(name_of_the_category)
+    #     # print("cat:", category)
+    #     # print("name:", name_of_the_category)
+    # data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, file_path])
+    # # print(data)
+
+    if num_voters < 5000:
+
+        voters.append(num_voters)
+        atlernatives.append(num_alt)
+
+plt.scatter(voters, atlernatives)
+plt.xlabel('Voters count')
+plt.ylabel('Alternatives count')
+plt.title('Voter - alternative ratio files')
+plt.show()
+
+
+# df = pd.DataFrame(data, columns=['File name', 'Title', 'Num Alternatives', 'Num Voters', 'Num unique pref', 'Num categories', 'Categories', 'File path'])
+
+# print(df)
+
+# df.to_excel("output_cat_data.xlsx") 
+
+
     
-    res_CI, _ = is_CI(instances)
-    res_CEI, _ = is_CEI(instances)
-    res_VI, _ = is_VI(instances)
-    res_VEI, _ = is_VEI(instances)
 
-    res_2part, result_2part = is_2PART(instances)
-    res_part, result_part = is_PART(instances)
+# CI_result = []
+# CEI_result = []
+# VI_result = []
+# VEI_result = []
+# part2_result = []
+# part_result = []
 
-    CI_result.append(res_CI)
-    CEI_result.append(res_CEI)
-    VI_result.append(res_VI)
-    VEI_result.append(res_VEI)
+# for approval_set in data_list:
+#     instance = CategoricalInstance()
+#     instance.parse_url(approval_set)
+#     instances = []
+#     for p in instance.preferences:
+#         preferences = p
+#         pref_set = set(preferences[0])
+#         if len(pref_set) > 0:
+#             instances.append(pref_set)
+    
+#     res_CI, _ = is_CI(instances)
+#     res_CEI, _ = is_CEI(instances)
+#     res_VI, _ = is_VI(instances)
+#     res_VEI, _ = is_VEI(instances)
 
-    part2_result.append(res_2part)
-    part_result.append(res_part)
+#     res_2part, result_2part = is_2PART(instances)
+#     res_part, result_part = is_PART(instances)
 
-print("CI:", CI_result)
-print("CEI:", CEI_result)
-print("VI:", VI_result)
-print("VEI:", VEI_result)
-print("2PART:", part2_result)
-print("PART:", part_result)
+#     CI_result.append(res_CI)
+#     CEI_result.append(res_CEI)
+#     VI_result.append(res_VI)
+#     VEI_result.append(res_VEI)
+
+#     part2_result.append(res_2part)
+#     part_result.append(res_part)
+
+# print("CI:", CI_result)
+# print("CEI:", CEI_result)
+# print("VI:", VI_result)
+# print("VEI:", VEI_result)
+# print("2PART:", part2_result)
+# print("PART:", part_result)
 
 
 # instance = CategoricalInstance()

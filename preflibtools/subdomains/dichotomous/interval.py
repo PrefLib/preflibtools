@@ -16,7 +16,8 @@ def instance_to_matrix(instance, interval):
             M[idx][alternatives.index(alt)] = 1
 
     if interval == 'ci':
-        return M, alternatives
+        return np.array(M), alternatives
+    
     elif interval == 'cei':
         # Create new M to add the complements in
         new_M = []
@@ -28,13 +29,16 @@ def instance_to_matrix(instance, interval):
             new_M.append(comp)
 
         return np.array(new_M), alternatives
+    
     elif interval == 'vi':
        # Transpose matrix
        M = np.transpose(M)
 
         # Voters to give result in reordererd voters
        voters = [f"V{i+1}" for i in range(voter_count)]
-       return M, voters
+
+       return np.array(M), voters
+    
     elif interval == 'vei':
         # Transpose matrix
         M = np.transpose(M)
@@ -52,6 +56,36 @@ def instance_to_matrix(instance, interval):
         voters = [f"V{i+1}" for i in range(voter_count)]
 
         return np.array(new_M), voters
+    
+    elif interval == 'wsc':
+        M = []
+        
+        for vote in instance:
+            row = []
+            for i in range(alternative_count):
+                for j in range(i + 1, alternative_count):
+                    a = alternatives[i]
+                    b = alternatives[j]
+
+                    if a in vote and b not in vote:
+                        row.append(1)
+                        row.append(0)
+                    elif b in vote and a not in vote:
+                        row.append(0)
+                        row.append(1)
+                    else:
+                        row.append(0)
+                        row.append(0)
+            
+            M.append(row)
+
+        M = np.array(M)
+        M = M.transpose()
+
+        # Voters to give result in reordererd voters
+        voters = [f"V{i+1}" for i in range(voter_count)]
+        return np.array(M), voters
+
 
 def solve_C1(M):
     # Get shape matrix
@@ -225,7 +259,34 @@ def is_VEI(instance, show_result=True, show_matrix=True):
             return True, ([], M_result)
         else:
             return True, ([], [])
+        
+def is_WSC(instance, show_result=True, show_matrix=True):
+    # Get matrix and lables
+    M, columns_labels = instance_to_matrix(instance, interval='wsc')
 
+    # Solve C1 and get results of new order columns
+    res, ordered_idx = solve_C1(M)
+
+    if res is False:
+        return False, ([], [])
+    else:
+        # Get result of the order
+        order_result = [columns_labels[i] for i in ordered_idx]
+
+        # Convert result back to matrix based on column index
+        M_result = M[:, ordered_idx]
+    
+    # Return depending on arguments
+    if show_result is True:
+        if show_matrix is True:
+            return True, (order_result, M_result)
+        else:
+            return True, (order_result, [])
+    else:
+        if show_matrix is True:
+            return True, ([], M_result)
+        else:
+            return True, ([], [])
 
 
 instance_CI = [
@@ -275,7 +336,12 @@ instance_VEI = [
     {'C', 'D'},
 ]
 
-# res, result = is_VEI(instance_VEI)
+instance_WSC = [
+    {'A', 'C'},
+    {'B'}
+]
+
+# res, result = is_WSC(instance_VEI)
 # order_result = result[0]
 # M_result = result[1]
 # print("Result:", res)
