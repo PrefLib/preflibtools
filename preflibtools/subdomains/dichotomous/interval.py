@@ -1,91 +1,95 @@
 import numpy as np
 from pq_trees import reorder_sets
+from itertools import combinations
+from memory_profiler import profile
 
+
+# @profile
 def instance_to_matrix(instance, interval):
     # Get alternatives sorter, for columns
     alternatives = sorted(set().union(*instance))
     alternative_count = len(alternatives)
     voter_count = len(instance)
-    
-    # Create empty matrix with sizes of voters and alternatives
-    M = np.zeros((voter_count, alternative_count), dtype=int)
+        
+    if interval == 'ci' or interval == 'cei' or interval == 'vi' or interval == 'vei':
+        # Create empty matrix with sizes of voters and alternatives
+        M = np.zeros((voter_count, alternative_count), dtype=int)
 
-    # Fill in matrix  
-    for idx, vote in enumerate(instance):
-        for alt in vote:
-            M[idx][alternatives.index(alt)] = 1
+        # Fill in matrix  
+        for idx, vote in enumerate(instance):
+            for alt in vote:
+                M[idx][alternatives.index(alt)] = 1
 
-    if interval == 'ci':
-        return np.array(M), alternatives
-    
-    elif interval == 'cei':
-        # Create new M to add the complements in
-        new_M = []
+        if interval == 'ci':
+            return np.array(M), alternatives
+        
+        elif interval == 'cei':
+            # Create new M to add the complements in
+            new_M = []
 
-        # Add every row and the complement of the row
-        for row in M:
-            comp = 1 - row
-            new_M.append(row)
-            new_M.append(comp)
+            # Add every row and the complement of the row
+            for row in M:
+                comp = 1 - row
+                new_M.append(row)
+                new_M.append(comp)
 
-        return np.array(new_M), alternatives
-    
-    elif interval == 'vi':
-       # Transpose matrix
-       M = np.transpose(M)
+            return np.array(new_M), alternatives
+        
+        elif interval == 'vi':
+            # Transpose matrix
+            M = np.transpose(M)
 
-        # Voters to give result in reordererd voters
-       voters = [f"V{i+1}" for i in range(voter_count)]
+                # Voters to give result in reordererd voters
+            voters = [f"V{i+1}" for i in range(voter_count)]
 
-       return np.array(M), voters
-    
-    elif interval == 'vei':
-        # Transpose matrix
-        M = np.transpose(M)
+            return np.array(M), voters
+        
+        elif interval == 'vei':
+            # Transpose matrix
+            M = np.transpose(M)
 
-        # Create new M to add the complements in
-        new_M = []
+            # Create new M to add the complements in
+            new_M = []
 
-        # Add every row and the complement of the row
-        for row in M:
-            comp = 1 - row
-            new_M.append(row)
-            new_M.append(comp)
+            # Add every row and the complement of the row
+            for row in M:
+                comp = 1 - row
+                new_M.append(row)
+                new_M.append(comp)
 
-        # Voters to give result in reordererd voters
-        voters = [f"V{i+1}" for i in range(voter_count)]
+            # Voters to give result in reordererd voters
+            voters = [f"V{i+1}" for i in range(voter_count)]
 
-        return np.array(new_M), voters
+            return np.array(new_M), voters
     
     elif interval == 'wsc':
-        M = []
+        # Find all possible combinations of alternative pairs
+        all_comb = list(combinations(alternatives, 2))
+        comb_count = len(all_comb)
+
+        # Init the matrix, for all votes by 2 times the alternative pairs
+        M = np.zeros((voter_count, comb_count * 2), dtype=int)
+
+        # Loop over all votes
+        for vote_idx, vote in enumerate(instance):
+
+            # Keep track of col index to fill in for every two columns
+            col_idx = 0
+
+            # For every pair of alternatives, put correct value in matrix. 
+            for a, b in all_comb:
+                if a in vote and b not in vote:
+                    M[vote_idx, col_idx] = 1
+                elif b in vote and a not in vote:
+                    M[vote_idx, col_idx + 1] = 1
+
+                # Increase col index per 2
+                col_idx += 2
         
-        for vote in instance:
-            row = []
-            for i in range(alternative_count):
-                for j in range(i + 1, alternative_count):
-                    a = alternatives[i]
-                    b = alternatives[j]
-
-                    if a in vote and b not in vote:
-                        row.append(1)
-                        row.append(0)
-                    elif b in vote and a not in vote:
-                        row.append(0)
-                        row.append(1)
-                    else:
-                        row.append(0)
-                        row.append(0)
-            
-            M.append(row)
-
-        M = np.array(M)
-        M = M.transpose()
-
         # Voters to give result in reordererd voters
         voters = [f"V{i+1}" for i in range(voter_count)]
-        return np.array(M), voters
 
+        return M.transpose(), voters
 
 def solve_C1(M):
     # Get shape matrix

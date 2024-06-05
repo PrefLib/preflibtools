@@ -4,6 +4,8 @@ from partition import *
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+import time
+
 
 '''
 Take dataset from PrefLib and check if subdomains exist in the data.
@@ -11,54 +13,91 @@ Append result (True or False) in a list to see all results of checked data sets
 '''
 
 
-data_list = ["https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000002.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000003.cat",
-             "https://www.preflib.org/static/data/frenchapproval/00026-00000004.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000005.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000006.cat"]
-data_list = ["https://www.preflib.org/static/data/kusama/00061-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat"]
-
+# data_list = ["https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000002.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000003.cat",
+#              "https://www.preflib.org/static/data/frenchapproval/00026-00000004.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000005.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000006.cat"]
+# data_list = ["https://www.preflib.org/static/data/kusama/00061-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat"]
+start_time = time.time()
 directory = '/Users/dennistol/Desktop/Studie/Scriptie/data/cat'
 data = []
 voters = []
 atlernatives = []
+file_number = 0
 for file in os.listdir(directory):
+    file_number += 1 
+    print(f"File number {file_number}")
     filename = os.fsdecode(file)
     instance = CategoricalInstance()
     instance.parse_file(f'/Users/dennistol/Desktop/Studie/Scriptie/data/cat/{filename}')
 
-    # file_name = instance.file_name
-    # file_path = instance.file_path
-    # title = instance.title
+    file_name = instance.file_name
+    file_path = instance.file_path
+    title = instance.title
     num_alt = instance.num_alternatives
     num_voters = instance.num_voters
-    # num_unique_pref = instance.num_unique_preferences
-    # num_cat = instance.num_categories
-    # categories = []
-    # for cat, cat_name in instance.categories_name.items():
-    #     category = cat
-    #     name_of_the_category = cat_name
-    #     categories.append(name_of_the_category)
-    #     # print("cat:", category)
-    #     # print("name:", name_of_the_category)
-    # data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, file_path])
-    # # print(data)
+    num_unique_pref = instance.num_unique_preferences
+    num_cat = instance.num_categories
 
-    if num_voters < 5000:
+    instances = []
 
-        voters.append(num_voters)
-        atlernatives.append(num_alt)
+    if num_cat <= 2:
+        categories = [cat_name for _, cat_name in instance.categories_name.items()]
 
-plt.scatter(voters, atlernatives)
-plt.xlabel('Voters count')
-plt.ylabel('Alternatives count')
-plt.title('Voter - alternative ratio files')
-plt.show()
+        for p in instance.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instances.append(pref_set)
+
+        # print("2part")
+        # res_2part, result_2part = is_2PART(instances)
+
+        # print("part")
+        # res_part, result_part = is_PART(instances)
+
+        # print("CI")
+        # res_CI, _ = is_CI(instances, show_result=False, show_matrix=False)
+
+        # print("CEI")
+        # res_CEI, _ = is_CEI(instances, show_result=False, show_matrix=False)
+
+        # print("VI")
+        # res_VI, _ = is_VI(instances, show_result=False, show_matrix=False)
+
+        # print('VEI')
+        # res_VEI, _ = is_VEI(instances, show_result=False, show_matrix=False)
+
+        print("WSC")
+        res_WSC, _ = is_WSC(instances, show_result=False, show_matrix=False)
+
+        print("Done")
+        data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, res_WSC])
+                    #  res_2part, res_part, res_CI, res_CEI, res_VI, res_VEI, res_WSC])
+    
+        break
+    print(data)
+
+    # if num_voters < 5000:
+
+    #     voters.append(num_voters)
+    #     atlernatives.append(num_alt)
+
+# plt.scatter(voters, atlernatives)
+# plt.xlabel('Voters count')
+# plt.ylabel('Alternatives count')
+# plt.title('Voter - alternative ratio files')
+# plt.show()
+    
 
 
-# df = pd.DataFrame(data, columns=['File name', 'Title', 'Num Alternatives', 'Num Voters', 'Num unique pref', 'Num categories', 'Categories', 'File path'])
+df = pd.DataFrame(data, columns=['File name', 'Title', 'Num Alternatives', 'Num Voters', 'Num unique pref', 'Num categories', 'Categories', 'WSC'])
+                                #  '2PART', 'PART', 'CI', 'CEI', 'VI', 'VEI', 'WSC'])
 
-# print(df)
+print(df)
+# df.to_excel("output_cat_data_tested.xlsx") 
+end_time = time.time()
 
-# df.to_excel("output_cat_data.xlsx") 
-
+total_time = start_time - end_time
+print(f"Runtime: {total_time} seconds")
 
     
 
@@ -105,6 +144,7 @@ plt.show()
 
 # instance = CategoricalInstance()
 # instance.parse_url("https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat")
+# instance.parse_url("https://www.preflib.org/static/data/kusama/00061-00000001.cat")
 
 # instances = []
 
@@ -120,8 +160,11 @@ plt.show()
 #     if len(pref_set) > 0:
 #         instances.append(pref_set)
 #     multiplicity = instance.multiplicity[p]
-# instance.num_unique_preferences
+# num = instance.num_unique_preferences
+# num_cat = instance.num_categories
 
+# print(num_cat)
+# print(instances)
 
 # for a in instance.preferences[0][0]:
 #     print(a)

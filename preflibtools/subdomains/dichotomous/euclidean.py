@@ -3,9 +3,12 @@ from interval import is_CI
 
 # Check Dichotomous Euclidean
 def is_DE(instance):
-    res, _ = is_CI(instance)
+    res, (order, _) = is_CI(instance)
 
     if res is True:
+        
+
+
         return True, None
     else:
         return False, None
