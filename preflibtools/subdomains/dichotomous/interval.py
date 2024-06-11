@@ -345,9 +345,11 @@ instance_WSC = [
     {'B'}
 ]
 
-# res, result = is_WSC(instance_VEI)
-# order_result = result[0]
-# M_result = result[1]
-# print("Result:", res)
-# print("Order result:", order_result)
-# print("Result Matrix:\n", M_result)
+
+
+res, result = is_VEI(instance_VEI)
+order_result = result[0]
+M_result = result[1]
+print("Result:", res)
+print("Order result:", order_result)
+print("Result Matrix:\n", M_result)

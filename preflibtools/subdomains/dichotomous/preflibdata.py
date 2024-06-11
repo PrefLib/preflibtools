@@ -65,15 +65,22 @@ for file in os.listdir(directory):
 
         # print('VEI')
         # res_VEI, _ = is_VEI(instances, show_result=False, show_matrix=False)
+        if num_alt <= 500:
+            print(file_name)
+            print(num_alt)
+            print(num_voters)
+            print(num_unique_pref)
 
-        print("WSC")
-        res_WSC, _ = is_WSC(instances, show_result=False, show_matrix=False)
+            print("WSC")
+            res_WSC, _ = is_WSC(instances, show_result=False, show_matrix=False)
 
-        print("Done")
-        data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, res_WSC])
-                    #  res_2part, res_part, res_CI, res_CEI, res_VI, res_VEI, res_WSC])
-    
-        break
+            print("Done")
+            data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, res_WSC])
+                        #  res_2part, res_part, res_CI, res_CEI, res_VI, res_VEI, res_WSC])
+        else:
+            continue
+        
+        # break
     print(data)
 
     # if num_voters < 5000:
