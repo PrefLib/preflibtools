@@ -5,8 +5,17 @@ from euclidean import is_DUE
 from partition_tests import generate_PART_instances
 from prefsampling import EuclideanSpace
 from prefsampling.approval import euclidean_vcr
+from test_singlecrossing import generate_WSC_instance
 
 # print("Testing positive examples DUE (Prefsampling)")
+# for _ in trange(100):
+#     a = random.randint(5, 50)
+#     v = random.randint(5, 50)
+#     instance = euclidean_vcr(num_voters=v, num_candidates=a, voters_radius=1/a, candidates_radius=1/a, num_dimensions=1, voters_positions=EuclideanSpace.UNIFORM_BALL, candidates_positions=EuclideanSpace.UNIFORM_BALL)
+#     res, _ = is_DUE(instance)
+#     assert res == True or None
+
+# print("Testing positive examples DUE (WSC)")
 # for _ in trange(100):
 #     a = random.randint(5, 50)
 #     v = random.randint(5, 50)
