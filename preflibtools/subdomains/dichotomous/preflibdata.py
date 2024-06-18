@@ -1,208 +1,203 @@
 from preflibtools.instances import CategoricalInstance
-from interval import *
-from partition import *
+# from interval import *
+# from partition import *
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
 import time
+# from euclidean import *
+# from singlecrossing import *
 
 
-'''
-Take dataset from PrefLib and check if subdomains exist in the data.
-Append result (True or False) in a list to see all results of checked data sets
-'''
+# '''
+# Take dataset from PrefLib and check if subdomains exist in the data.
+# Append result (True or False) in a list to see all results of checked data sets
+# '''
 
-
-# data_list = ["https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000002.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000003.cat",
-#              "https://www.preflib.org/static/data/frenchapproval/00026-00000004.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000005.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000006.cat"]
-# data_list = ["https://www.preflib.org/static/data/kusama/00061-00000001.cat", "https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat"]
-start_time = time.time()
-directory = '/Users/dennistol/Desktop/Studie/Scriptie/data/cat'
-data = []
-voters = []
-atlernatives = []
-file_number = 0
-for file in os.listdir(directory):
-    file_number += 1 
-    print(f"File number {file_number}")
-    filename = os.fsdecode(file)
-    instance = CategoricalInstance()
-    instance.parse_file(f'/Users/dennistol/Desktop/Studie/Scriptie/data/cat/{filename}')
-
-    file_name = instance.file_name
-    file_path = instance.file_path
-    title = instance.title
-    num_alt = instance.num_alternatives
-    num_voters = instance.num_voters
-    num_unique_pref = instance.num_unique_preferences
-    num_cat = instance.num_categories
-
-    instances = []
-
-    if num_cat <= 2:
-        categories = [cat_name for _, cat_name in instance.categories_name.items()]
-
-        for p in instance.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instances.append(pref_set)
-
-        # print("2part")
-        # res_2part, result_2part = is_2PART(instances)
-
-        # print("part")
-        # res_part, result_part = is_PART(instances)
-
-        # print("CI")
-        # res_CI, _ = is_CI(instances, show_result=False, show_matrix=False)
-
-        # print("CEI")
-        # res_CEI, _ = is_CEI(instances, show_result=False, show_matrix=False)
-
-        # print("VI")
-        # res_VI, _ = is_VI(instances, show_result=False, show_matrix=False)
-
-        # print('VEI')
-        # res_VEI, _ = is_VEI(instances, show_result=False, show_matrix=False)
-        if num_alt <= 500:
-            print(file_name)
-            print(num_alt)
-            print(num_voters)
-            print(num_unique_pref)
-
-            print("WSC")
-            res_WSC, _ = is_WSC(instances, show_result=False, show_matrix=False)
-
-            print("Done")
-            data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, res_WSC])
-                        #  res_2part, res_part, res_CI, res_CEI, res_VI, res_VEI, res_WSC])
-        else:
-            continue
-        
-        # break
-    print(data)
-
-    # if num_voters < 5000:
-
-    #     voters.append(num_voters)
-    #     atlernatives.append(num_alt)
-
-# plt.scatter(voters, atlernatives)
-# plt.xlabel('Voters count')
-# plt.ylabel('Alternatives count')
-# plt.title('Voter - alternative ratio files')
-# plt.show()
-    
-
-
-df = pd.DataFrame(data, columns=['File name', 'Title', 'Num Alternatives', 'Num Voters', 'Num unique pref', 'Num categories', 'Categories', 'WSC'])
-                                #  '2PART', 'PART', 'CI', 'CEI', 'VI', 'VEI', 'WSC'])
-
-print(df)
-# df.to_excel("output_cat_data_tested.xlsx") 
-end_time = time.time()
-
-total_time = start_time - end_time
-print(f"Runtime: {total_time} seconds")
-
-    
-
-# CI_result = []
-# CEI_result = []
-# VI_result = []
-# VEI_result = []
-# part2_result = []
-# part_result = []
-
-# for approval_set in data_list:
+# start_time = time.time()
+# directory = '/Users/dennistol/Desktop/Studie/Scriptie/data/cat'
+# data = []
+# voters = []
+# atlernatives = []
+# file_number = 0
+# count = 0
+# for file in os.listdir(directory):
+#     file_number += 1 
+#     print(f"File number {file_number}")
+#     filename = os.fsdecode(file)
 #     instance = CategoricalInstance()
-#     instance.parse_url(approval_set)
+#     instance.parse_file(f'/Users/dennistol/Desktop/Studie/Scriptie/data/cat/{filename}')
+
+#     file_name = instance.file_name
+#     file_path = instance.file_path
+#     title = instance.title
+#     num_alt = instance.num_alternatives
+#     num_voters = instance.num_voters
+#     num_unique_pref = instance.num_unique_preferences
+#     num_cat = instance.num_categories
+
 #     instances = []
-#     for p in instance.preferences:
-#         preferences = p
-#         pref_set = set(preferences[0])
-#         if len(pref_set) > 0:
-#             instances.append(pref_set)
+
+#     if num_cat <= 2:
+#         categories = [cat_name for _, cat_name in instance.categories_name.items()]
+
+#         for p in instance.preferences:
+#             preferences = p
+#             pref_set = set(preferences[0])
+#             if len(pref_set) > 0:
+#                 instances.append(pref_set)
+
+#         print("CI")
+#         res_CI, _ = is_CI(instances, show_result=False, show_matrix=False)
+
+#         print("VI")
+#         res_VI, _ = is_VI(instances, show_result=False, show_matrix=False)
+
+#         if res_CI is False or res_VI is False:
+#             res_2part = False
+#             res_part = False
+#             res_CEI = False
+#             res_VEI = False
+#             res_WSC = False
+#             res_DUE = False
+#             print("Done")
+#         else:
+#             print("DUE")
+#             res_DUE = is_DUE(instances)
+
+#             if res_DUE is False:
+#                 res_2part = False
+#                 res_part = False
+#                 res_CEI = False
+#                 res_VEI = False
+#                 res_WSC = False
+#                 print("Done")
+#             else:
+#                 print("WSC")
+#                 if num_alt <= 350:
+#                     res_WSC, _ = is_WSC(instances, show_result=False, show_matrix=False)
+#                 else:
+#                     res_WSC = None
+
+#                 if res_WSC is False:
+#                     res_2part = False
+
+#                     print("part")
+#                     res_part, result_part = is_PART(instances)
+
+
+#                     print("CEI")
+#                     res_CEI, _ = is_CEI(instances, show_result=False, show_matrix=False)
+
+
+#                     print('VEI')
+#                     res_VEI, _ = is_VEI(instances, show_result=False, show_matrix=False)
+#                     print("Done")
+#                 else:
+#                     print("2part")
+#                     res_2part, result_2part = is_2PART(instances)
+
+#                     print("part")
+#                     res_part, result_part = is_PART(instances)
+
+
+#                     print("CEI")
+#                     res_CEI, _ = is_CEI(instances, show_result=False, show_matrix=False)
+
+
+#                     print('VEI')
+#                     res_VEI, _ = is_VEI(instances, show_result=False, show_matrix=False)
+#                     print("Done")
+
+
+#         data.append([file_name, title, num_alt, num_voters, num_unique_pref, num_cat, categories, res_2part, res_part, res_CI, res_CEI, res_VI, res_VEI, res_WSC, res_DUE])
+
+
+#         break
+
+
+#     # if num_voters < 5000:
+
+#     #     voters.append(num_voters)
+#     #     atlernatives.append(num_alt)
+
+# # plt.scatter(voters, atlernatives)
+# # plt.xlabel('Voters count')
+# # plt.ylabel('Alternatives count')
+# # plt.title('Voter - alternative ratio files')
+# # plt.show()
     
-#     res_CI, _ = is_CI(instances)
-#     res_CEI, _ = is_CEI(instances)
-#     res_VI, _ = is_VI(instances)
-#     res_VEI, _ = is_VEI(instances)
-
-#     res_2part, result_2part = is_2PART(instances)
-#     res_part, result_part = is_PART(instances)
-
-#     CI_result.append(res_CI)
-#     CEI_result.append(res_CEI)
-#     VI_result.append(res_VI)
-#     VEI_result.append(res_VEI)
-
-#     part2_result.append(res_2part)
-#     part_result.append(res_part)
-
-# print("CI:", CI_result)
-# print("CEI:", CEI_result)
-# print("VI:", VI_result)
-# print("VEI:", VEI_result)
-# print("2PART:", part2_result)
-# print("PART:", part_result)
 
 
-# instance = CategoricalInstance()
-# instance.parse_url("https://www.preflib.org/static/data/frenchapproval/00026-00000001.cat")
-# instance.parse_url("https://www.preflib.org/static/data/kusama/00061-00000001.cat")
+# df = pd.DataFrame(data, columns=['File name', 'Title', 'Num Alternatives', 'Num Voters', 'Num unique pref', 'Num categories', 'Categories', '2PART', 'PART', 'CI/DE/PE/PSP', 'CEI', 'VI', 'VEI', 'WSC', 'DUE'])
 
-# instances = []
+# print(df)
+# df.to_excel("output_cat_data_all_results_TEST.xlsx") 
+# df.to_csv('output_preflib_df_TEST')
+# end_time = time.time()
 
-# # Additional members of the class are related to the categories themselves
-# instance.num_categories
-# for cat, cat_name in instance.categories_name.items():
-#     category = cat
-#     name_of_the_category = cat_name
-# # But also to the preferences
-# for p in instance.preferences:
-#     preferences = p
-#     pref_set = set(preferences[0])
-#     if len(pref_set) > 0:
-#         instances.append(pref_set)
-#     multiplicity = instance.multiplicity[p]
-# num = instance.num_unique_preferences
-# num_cat = instance.num_categories
+# total_time = end_time - start_time
+# print(f"Runtime: {total_time} seconds")
 
-# print(num_cat)
-# print(instances)
+df = pd.read_csv('/Users/dennistol/Desktop/testfiles/output_preflib_df')
 
-# for a in instance.preferences[0][0]:
-#     print(a)
+pd.set_option('display.max_rows', None)
 
-# print(instances)
-# print(len(instances))
+# # print(df[df['PART'] == True])
 
-# M, alternatives = instance_to_matrix(instances, interval='ci')
-# print(M)
+# value_counts = df['PART'].value_counts()
+# print(value_counts)
 
-# instance_CEI = [
-#     {'A'},
-#     {'D', 'F', 'B'},
-#     {'C', 'E'},
-#     {'B', 'C', 'E'}
-# ]
+# value_counts = df['2PART'].value_counts()
+# print(value_counts)
 
-# instances = instance_CEI
+# value_counts = df['VI'].value_counts()
+# print(value_counts)
 
-# res_CI, result_CI = is_CI(instances)
-# res_CEI, result_CEI = is_CEI(instances)
-# res_VI, resul_VI = is_VI(instances)
-# res_VEI, result_VEI = is_VEI(instances)
+# value_counts = df['CI/DE/PE/PSP'].value_counts()
+# print(value_counts)
 
-# print("CI:", res_CI)
-# print("CEI:", res_CEI)
-# print("VI:", res_VI)
-# print("VEI:", res_VEI)
+# value_counts = df['CEI'].value_counts()
+# print(value_counts)
 
-# res_2part, result_2part = is_2partition(instances)
-# res_part, result_part = is_partition(instances)
+# value_counts = df['VEI'].value_counts()
+# print(value_counts)
 
-# print("2part:", res_2part)
-# print("PART:", res_part)
+# value_counts = df['WSC'].value_counts()
+# print(value_counts)
+
+# value_counts = df['DUE'].value_counts()
+# print(value_counts)
+
+
+smaller_df = df[df['Num Voters'] >500]
+end_df = smaller_df[smaller_df['Num Voters'] <1000000]
+# df = df[df['VI'] == True]
+# print(df)
+
+print("Mean all voters:", round(df['Num unique pref'].mean(), 2))
+# print("Mean all Alternatives:", round(df['Num unique pref'].mean(), 2))
+
+print("Mean voters without big:", round(end_df['Num unique pref'].mean(),2))
+# print("Mean alternatives without big:", round(end_df['Num unique pref'].mean(),2))
+
+# plt.scatter(end_df['Num Voters'], end_df["Num Alternatives"])
+# # plt.scatter(df["Num Alternatives"], df['Num Voters'])
+
+# file_count = len(end_df)
+# plt.xlabel('Voter count')
+# plt.ylabel('Alternative count')
+# plt.title(f'Distribution of Voters and Alternatives (Files: {file_count})')
+# # plt.ylim(bottom=-5)
+# # plt.xlim(left=-5)
+# plt.show()
+
+
+# df = df.drop(columns=['Title'])
+
+# Convert to LaTeX table format
+# latex_table = df.to_latex(index=False, longtable=True)
+
+# Save the LaTeX table to a file
+# with open('results_latex_new.tex', 'w') as f:
+#     f.write(latex_table)

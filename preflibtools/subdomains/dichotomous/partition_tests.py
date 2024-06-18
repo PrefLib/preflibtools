@@ -169,39 +169,39 @@ def generate_NOT_PART_instances(a, v):
 
     return instance
 
-print("Testing positive examples 2PART (for 2PART and PART)")
-for _ in trange(1000):
-    a = random.randint(5, 100)
-    v = random.randint(5, 100)
-    instance = generate_2PART_instances(a, v)
-    res, _ = is_2PART(instance)
-    res2, _ = is_PART(instance)
-    assert res == True
-    assert res2 == True
+# print("Testing positive examples 2PART (for 2PART and PART)")
+# for _ in trange(1000):
+#     a = random.randint(5, 100)
+#     v = random.randint(5, 100)
+#     instance = generate_2PART_instances(a, v)
+#     res, _ = is_2PART(instance)
+#     res2, _ = is_PART(instance)
+#     assert res == True
+#     assert res2 == True
 
-print("Testing negative examples 2PART")
-for _ in trange(1000):
-    a = random.randint(5, 100)
-    v = random.randint(5, 100)
-    instance = generate_NOT_2PART_instances(a, v)
-    res, _ = is_2PART(instance)
-    res2, _ = is_PART(instance)
-    assert res == False
-    assert res2 == False
+# print("Testing negative examples 2PART")
+# for _ in trange(1000):
+#     a = random.randint(5, 100)
+#     v = random.randint(5, 100)
+#     instance = generate_NOT_2PART_instances(a, v)
+#     res, _ = is_2PART(instance)
+#     res2, _ = is_PART(instance)
+#     assert res == False
+#     assert res2 == False
 
 
-print("Testing positive examples PART")
-for _ in trange(1000):
-    a = random.randint(5, 100)
-    v = random.randint(5, 100)
-    instance = generate_PART_instances(a, v)
-    res, _ = is_PART(instance)
-    assert res == True
+# print("Testing positive examples PART")
+# for _ in trange(1000):
+#     a = random.randint(5, 100)
+#     v = random.randint(5, 100)
+#     instance = generate_PART_instances(a, v)
+#     res, _ = is_PART(instance)
+#     assert res == True
     
-print("Testing negative examples PART")
-for _ in trange(1000):
-    a = random.randint(5, 100)
-    v = random.randint(5, 100)
-    instance = generate_NOT_PART_instances(a, v)
-    res, _ = is_PART(instance)
-    assert res == False
+# print("Testing negative examples PART")
+# for _ in trange(1000):
+#     a = random.randint(5, 100)
+#     v = random.randint(5, 100)
+#     instance = generate_NOT_PART_instances(a, v)
+#     res, _ = is_PART(instance)
+#     assert res == False

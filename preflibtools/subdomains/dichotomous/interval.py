@@ -1,10 +1,7 @@
 import numpy as np
 from pq_trees import reorder_sets
 from itertools import combinations
-from memory_profiler import profile
 
-
-# @profile
 def instance_to_matrix(instance, interval):
     # Get alternatives sorter, for columns
     alternatives = sorted(set().union(*instance))
@@ -263,35 +260,6 @@ def is_VEI(instance, show_result=True, show_matrix=True):
             return True, ([], M_result)
         else:
             return True, ([], [])
-        
-def is_WSC(instance, show_result=True, show_matrix=True):
-    # Get matrix and lables
-    M, columns_labels = instance_to_matrix(instance, interval='wsc')
-
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
-
-    if res is False:
-        return False, ([], [])
-    else:
-        # Get result of the order
-        order_result = [columns_labels[i] for i in ordered_idx]
-
-        # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
-    
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
-
 
 instance_CI = [
     {'A', 'D', 'E', 'F'},
@@ -340,16 +308,10 @@ instance_VEI = [
     {'C', 'D'},
 ]
 
-instance_WSC = [
-    {'A', 'C'},
-    {'B'}
-]
 
-
-
-res, result = is_VEI(instance_VEI)
-order_result = result[0]
-M_result = result[1]
-print("Result:", res)
-print("Order result:", order_result)
-print("Result Matrix:\n", M_result)
+# res, result = is_VEI(instance_VEI)
+# order_result = result[0]
+# M_result = result[1]
+# print("Result:", res)
+# print("Order result:", order_result)
+# print("Result Matrix:\n", M_result)

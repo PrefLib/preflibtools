@@ -95,7 +95,7 @@ def _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx):
 
     
 # Check Dichotomous Uniformly Euclidean
-def is_DUE(instance):
+def is_DUE(instance, time_limit=300):
     num_voters = len(instance)
     alternatives = sorted(set().union(*instance))
     num_alt = len(alternatives)
@@ -116,8 +116,8 @@ def is_DUE(instance):
     # Set objective
     m.objective = minimize(r)
 
-    # 0 or 1 to not print 
-    # m.verbose = 0
+    # Set to 0 to not print progress
+    m.verbose = 0
 
     # Step size to check batch of voters if satisfies DUE
     step = 10
@@ -130,11 +130,17 @@ def is_DUE(instance):
         _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx)
         
         # Optimize model
-        status = m.optimize(max_solutions=1, max_seconds=300)
+        status = m.optimize(max_solutions=1, max_seconds=time_limit)
 
         # Check if solution was found, is so continue otherwise stop and return False
         if status == OptimizationStatus.OPTIMAL or status == OptimizationStatus.FEASIBLE:
             continue
+
+        # If problem take too long to solve based on time limit, there is no solution
+        elif status == OptimizationStatus.NO_SOLUTION_FOUND:
+            print("No solution found in time limit")
+            return None, ([], [], None)
+        
         else:
             return False, ([], [], None)
 
