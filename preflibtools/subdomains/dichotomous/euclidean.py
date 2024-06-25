@@ -1,12 +1,20 @@
 from interval import is_CI
 from mip import Model, minimize, maximize, BINARY, CONTINUOUS, OptimizationStatus, ConstrList, SearchEmphasis
-import random
-from test_interval import generate_CEI_instances
-import time
-from tqdm import trange
+from preflibtools.instances import CategoricalInstance
 
 # Check Dichotomous Euclidean
-def is_DE(instance):
+def is_DE(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     res, (order, _) = is_CI(instance)
 
     if res is True:
@@ -51,7 +59,18 @@ def is_DE(instance):
         return False, None
 
 # Check Possible Euclidean
-def is_PE(instance):
+def is_PE(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     res, _ = is_CI(instance)
 
     if res is True:
@@ -95,7 +114,18 @@ def _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx):
 
     
 # Check Dichotomous Uniformly Euclidean
-def is_DUE(instance, time_limit=300):
+def is_DUE(instance_input, time_limit=300):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     num_voters = len(instance)
     alternatives = sorted(set().union(*instance))
     num_alt = len(alternatives)
@@ -157,34 +187,3 @@ def is_DUE(instance, time_limit=300):
         return True, (voter_pos, alt_pos, radius)
     else:
         return False, ([], [], None)
-
-
-instance = [
-    {'A', 'D', 'E', 'F'},
-    {'C', 'D'},
-    {'A', 'D'},
-    {'B', 'C'}
-]
-
-# res, (voter_pos, alt_pos, radius) = is_DUE(instance)
-# if res:
-#     print("Voter postitions:", voter_pos)
-#     print("Alternative positions:", alt_pos)
-#     print("R:", radius)
-
-#     for voter in voter_pos:
-#         print("----")
-#         for alt in alt_pos:
-#             print(abs(voter[1] - alt[1]) <= radius)
-
-# print("Testing positive examples CEI")
-# for _ in trange(1):
-#     a = random.randint(999,1000)
-#     v = random.randint(999,1000)
-#     instance = generate_CEI_instances(a, v)
-#     # print(instance)
-#     start = time.time()
-#     res, _ = is_DUE(instance)
-#     end = time.time()
-#     print("time:", (end-start))
-#     assert res == True

@@ -6,6 +6,11 @@ from partition_tests import generate_PART_instances
 from prefsampling import EuclideanSpace
 from prefsampling.approval import euclidean_vcr
 from test_singlecrossing import generate_WSC_instance
+from test_singlecrossing import *
+
+'''
+Uncomment to run the tests
+'''
 
 # print("Testing positive examples DUE (Prefsampling)")
 # for _ in trange(100):
@@ -14,16 +19,8 @@ from test_singlecrossing import generate_WSC_instance
 #     instance = euclidean_vcr(num_voters=v, num_candidates=a, voters_radius=1/a, candidates_radius=1/a, num_dimensions=1, voters_positions=EuclideanSpace.UNIFORM_BALL, candidates_positions=EuclideanSpace.UNIFORM_BALL)
 #     res, _ = is_DUE(instance)
 #     assert res == True or None
-
-# print("Testing positive examples DUE (WSC)")
-# for _ in trange(100):
-#     a = random.randint(5, 50)
-#     v = random.randint(5, 50)
-#     instance = euclidean_vcr(num_voters=v, num_candidates=a, voters_radius=1/a, candidates_radius=1/a, num_dimensions=1, voters_positions=EuclideanSpace.UNIFORM_BALL, candidates_positions=EuclideanSpace.UNIFORM_BALL)
-#     res, _ = is_DUE(instance)
-#     assert res == True or None
     
-# print("Testing positive examples DUE (Prefsampling + added votes)")
+# print("Testing neagative examples DUE (Prefsampling + added votes)")
 # for _ in trange(100):
     # a = random.randint(5, 50)
     # v = random.randint(5, 50)
@@ -35,6 +32,24 @@ from test_singlecrossing import generate_WSC_instance
     #     instance.append(vote)
     # res, _ = is_DUE(instance)
     # assert res == False or None
+
+# print("Testing positive examples DUE (WSC)")
+# for _ in trange(100):
+#     a = random.randint(10, 20)
+#     alternatives = [i for i in range(a)]
+#     v = random.randint(5, len(list(combinations(alternatives, 2))))
+#     instance = generate_WSC_instance(a, v)
+#     res, _ = is_DUE(instance)
+#     assert res == True or None
+
+# print("Testing neagtive examples DUE (WSC)")
+# for _ in trange(100):
+#     a = random.randint(10, 20)
+#     alternatives = [i for i in range(a)]
+#     v = random.randint(5, len(list(combinations(alternatives, 2))))
+#     instance = generate_NOT_WSC_instance(a, v)
+#     res, _ = is_DUE(instance)
+#     assert res == False or None
 
 # print("Testing positive examples DUE (CEI)")
 # for _ in trange(1):

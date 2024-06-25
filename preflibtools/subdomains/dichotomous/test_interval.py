@@ -335,7 +335,10 @@ instance_NOT_VI_VEI_T5 =[
     ['D']
 ]
 
-    
+'''
+Uncomment to run the tests
+'''
+  
 # print("Testing positive examples CI")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)

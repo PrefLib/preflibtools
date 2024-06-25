@@ -1,6 +1,7 @@
 import numpy as np
 from pq_trees import reorder_sets
 from itertools import combinations
+from preflibtools.instances import CategoricalInstance
 
 def instance_to_matrix(instance, interval):
     # Get alternatives sorter, for columns
@@ -124,18 +125,19 @@ def solve_C1(M):
                    
     return True, ordered_idx
 
-'''
-Example usage:
-res, order_result, M_result = is_CI(instance, show_result=True, show_matrix=True)
-order_result = result[0]
-M_result = result[1]
-print("Result:", res)
-print("Order result:", order_result)
-print("Result Matrix:\n", M_result)
-'''
-
 # Candidate Interval
-def is_CI(instance, show_result=True, show_matrix=True):
+def is_CI(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='ci')
 
@@ -151,20 +153,21 @@ def is_CI(instance, show_result=True, show_matrix=True):
         # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
+    return True, (order_result, M_result)
 
 # Candidate Extremal Interval (CEI)
-def is_CEI(instance, show_result=True, show_matrix=True):
+def is_CEI(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='cei')
 
@@ -184,21 +187,22 @@ def is_CEI(instance, show_result=True, show_matrix=True):
         # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
+    return True, (order_result, M_result)
 
 
 # Voter Interval (VI)
-def is_VI(instance, show_result=True, show_matrix=True):
+def is_VI(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='vi')
 
@@ -215,21 +219,22 @@ def is_VI(instance, show_result=True, show_matrix=True):
         M_result = M[:, ordered_idx]
         
 
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
+    return True, (order_result, M_result)
 
 
 # Voter Extremal Interval (VEI)
-def is_VEI(instance, show_result=True, show_matrix=True):
+def is_VEI(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='vei')
     
@@ -249,69 +254,4 @@ def is_VEI(instance, show_result=True, show_matrix=True):
         # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
 
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
-
-instance_CI = [
-    {'A', 'D', 'E', 'F'},
-    {'C', 'D'},
-    {'A', 'D'},
-    {'B', 'C'}
-]
-
-instance_CEI = [
-    {'A'},
-    {'A', 'B', 'C', 'D'},
-    {'D', 'E', 'F'},
-    {'A', 'B'},
-]
-instance_CEI = [
-    {'A'},
-    {'A', 'D', 'F', 'B'},
-    {'C', 'E'},
-    {'B', 'C', 'E'}
-]
-
-instance_VEI = [
-    {'A', 'B', 'C'},
-    {'B', 'C'},
-    {'C'},
-    {'D', 'C'},
-    {'D'}, 
-    {'D'}
-]
-
-instance_VI = [
-    {'A'},
-    {'B'},
-    {'B', 'C'},
-    {'D', 'C'},
-    {'D'}, 
-    {'D'}
-]
-
-instance_VEI = [
-    {'A', 'C'},
-    {'A', 'B'},
-    {'A', 'B'},
-    {'C'}, 
-    {'C', 'D'},
-    {'C', 'D'},
-]
-
-
-# res, result = is_VEI(instance_VEI)
-# order_result = result[0]
-# M_result = result[1]
-# print("Result:", res)
-# print("Order result:", order_result)
-# print("Result Matrix:\n", M_result)
+    return True, (order_result, M_result)

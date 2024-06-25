@@ -1,6 +1,17 @@
-from itertools import combinations
+from preflibtools.instances import CategoricalInstance
 
-def is_2PART(instance):
+def is_2PART(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Create list to save partitions
     partition = []
 
@@ -36,7 +47,18 @@ def is_2PART(instance):
 
 
 
-def is_PART(instance):
+def is_PART(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Create list to save partitions
     partition = []
     # Pick a vote ffrom instance

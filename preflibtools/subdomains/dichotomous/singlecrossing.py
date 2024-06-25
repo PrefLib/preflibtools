@@ -1,7 +1,19 @@
 from interval import instance_to_matrix, solve_C1
+from preflibtools.instances import CategoricalInstance
 
 
-def is_WSC(instance, show_result=True, show_matrix=True):
+def is_WSC(instance_input):
+    if isinstance(instance_input, CategoricalInstance):
+        # Convert categorical instance to usable format
+        instance = []
+        for p in instance_input.preferences:
+            preferences = p
+            pref_set = set(preferences[0])
+            if len(pref_set) > 0:
+                instance.append(pref_set)
+    else:
+        instance = instance_input
+
     # Get matrix and lables
     M, columns_labels = instance_to_matrix(instance, interval='wsc')
 
@@ -17,14 +29,4 @@ def is_WSC(instance, show_result=True, show_matrix=True):
         # Convert result back to matrix based on column index
         M_result = M[:, ordered_idx]
     
-    # Return depending on arguments
-    if show_result is True:
-        if show_matrix is True:
-            return True, (order_result, M_result)
-        else:
-            return True, (order_result, [])
-    else:
-        if show_matrix is True:
-            return True, ([], M_result)
-        else:
-            return True, ([], [])
+    return True, (order_result, M_result)

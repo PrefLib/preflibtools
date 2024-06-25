@@ -85,6 +85,10 @@ def generate_NOT_WSC_instance(alt,voters):
 
     return instance
 
+'''
+Uncomment to run the tests
+'''
+
 # print("Testing positive examples WSC")
 # for _ in trange(1000):
 #     a = random.randint(10, 20)
@@ -153,4 +157,3 @@ def generate_NOT_WSC_instance(alt,voters):
 #     instance = instance_NOT_CI_CEI_T5
 #     res, _ = is_WSC(instance)
 #     assert res == False
-

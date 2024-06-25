@@ -169,6 +169,10 @@ def generate_NOT_PART_instances(a, v):
 
     return instance
 
+'''
+Uncomment to run the tests
+'''
+
 # print("Testing positive examples 2PART (for 2PART and PART)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
