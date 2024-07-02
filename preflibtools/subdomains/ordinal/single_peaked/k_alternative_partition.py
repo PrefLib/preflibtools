@@ -39,7 +39,7 @@ def generate_k_alt_partition_sp(num_voters, partitions, seed = None):
     seperate_profiles = []
 
     for n, axis in zip(partitions, axes):
-        votes = singlepeaked.single_peaked_walsh(num_voters, n, seed)
+        votes = singlepeaked.single_peaked_walsh(num_voters, n, seed=seed)
 
         for i in range(num_voters):
             votes[i] = axis[votes[i]].tolist()
