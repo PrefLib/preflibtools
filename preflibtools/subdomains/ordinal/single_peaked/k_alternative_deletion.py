@@ -6,8 +6,8 @@ import numpy as np
 
 def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed = None):
     """Generates a non-single-peaked profile that becomes single-peaked after
-    k alternatives are deleted. This is done by attempting to violate the alpha-restriction
-    criterium for k alternatives, see Ballester, Haeringer (2011) for more details.
+    k alternatives are deleted. This is done by generating a single-peaked profile and
+    adding extra orders such that there remain WD-structures untill k alternatives are removed.
 
     :param num_voters: Number of orders to sample.
     :type num_voters: int
@@ -234,6 +234,8 @@ def N(i, m, Y, L, unique_votes):
     :type Y: set
     :param L: L sets, ordering the alternatives based on their lowest-rank.
     :type L: dict(set)
+    :param unique_votes: The unique orders within the profile.
+    :type unique_votes: list(list)
 
     :return: set of pairs or singletons of alternatives eligable to be placed next on
     the axis.
