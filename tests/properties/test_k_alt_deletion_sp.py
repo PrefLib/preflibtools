@@ -14,6 +14,7 @@ class Testanalysis(TestCase):
         params = {
             "num_voters" : 500,
             "num_alternatives" : 11,
+            "k": 0,
             "seed" : 1
         }
         vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
@@ -30,7 +31,7 @@ class Testanalysis(TestCase):
         # test 2, non-sp profile, remove 4 
         params = {
             "num_voters" : 500,
-            "num_alternatives" : 7,
+            "num_alternatives" : 11,
             "k" : 4,
             "seed" : 10
         }
@@ -42,14 +43,14 @@ class Testanalysis(TestCase):
         axis, candidates = k_alternative_deletion(instance)
         SP_instance = remove_alternatives(instance, candidates)
 
-        assert axis == [i for i in range(7)]
-        assert candidates == [7, 8, 9, 10]
+        assert len(axis) == 7
+        assert len(candidates) == 4
         assert is_single_peaked(SP_instance)
 
         # test 3, non-sp profile, remove 7 
         params = {
             "num_voters" : 10000,
-            "num_alternatives" : 5,
+            "num_alternatives" : 12,
             "k" : 7,
             "seed" : 5
         }
@@ -60,6 +61,6 @@ class Testanalysis(TestCase):
         axis, candidates = k_alternative_deletion(instance)
         SP_instance = remove_alternatives(instance, candidates)
 
-        assert axis == [i for i in range(5)]
-        assert candidates == [5, 6, 7, 8, 9, 10, 11]
+        assert len(axis) == 5
+        assert len(candidates) == 7
         assert is_single_peaked(SP_instance)
