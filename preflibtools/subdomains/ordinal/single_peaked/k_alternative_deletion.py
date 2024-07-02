@@ -11,9 +11,9 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed = None):
 
     :param num_voters: Number of orders to sample.
     :type num_voters: int
-    :param num_alternatives: Number of alternatives on which the orders are single-peaked.
+    :param num_alternatives: Number of alternatives
     :type num_alternatives: int
-    :param k: Number of alternatives that violate the previous alternatives' single-peakedness.
+    :param k: Number of alternatives that violate single-peakedness.
     :type k: int
     :param seed: Seed for numpy random number generator
     :type seed: int
@@ -21,36 +21,30 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed = None):
     :return: 
     :rtype: list(list)
     """
-    if num_voters < 2:
+    if num_voters < (2 + k):
         raise ValueError(
-            "Must need at least 2 votes."
+            f"Must need at least {2+k} votes for {k}-alternative deletion"
+        )
+    
+    if k > num_alternatives:
+        raise ValueError(
+            "Cannot remove more alternatives than total."
         )
     
     rng = np.random.default_rng(seed)
 
-    votes = singlepeaked.single_peaked_walsh(num_voters - 2, num_alternatives, seed)
-    alternatives = [i for i in range(num_alternatives)]
+    votes = singlepeaked.single_peaked_walsh(num_voters - (2+k), num_alternatives, seed)
+    axis = [i for i in range(num_alternatives)]
 
-    for alt in range(k):
-        alt += num_alternatives
+    votes.append(axis)
+    votes.append(list(reversed(axis)))
 
-        for vote in votes:
-            id = rng.integers(0, len(vote))
+    alternatives_to_remove = rng.choice(axis[1:-1], k, replace=False)
 
-            vote.insert(id, alt)
-
-    vote_axis = list(alternatives)
-    vote_reverse_axis = list(reversed(vote_axis))
-    middle_id = len(vote_axis)//2
-
-    for alt in range(k):
-        alt += num_alternatives
-
-        vote_axis.insert(middle_id, alt)
-        vote_reverse_axis.insert(middle_id, alt)
-    
-    votes.append(vote_axis)
-    votes.append(vote_reverse_axis)
+    for alt in alternatives_to_remove:
+        new_vote = [a for a in axis if a != alt]
+        new_vote.append(alt)
+        votes.append(new_vote)
 
     return votes
 
