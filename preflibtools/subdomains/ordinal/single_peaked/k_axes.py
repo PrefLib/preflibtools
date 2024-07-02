@@ -24,7 +24,7 @@ def generate_k_axes_sp(num_voters_partition, num_alternatives, k, seed = None):
     """
     rng = np.random.default_rng(seed)
 
-    votes = singlepeaked.single_peaked_walsh(num_voters_partition, num_alternatives, seed)
+    votes = singlepeaked.single_peaked_walsh(num_voters_partition, num_alternatives, seed=seed)
     axis_1 = tuple([i for i in range(num_alternatives)])
 
     axes_and_reverse = {axis_1: np.flip(np.array(axis_1))}

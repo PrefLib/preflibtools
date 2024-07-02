@@ -33,7 +33,7 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed = None):
     
     rng = np.random.default_rng(seed)
 
-    votes = singlepeaked.single_peaked_walsh(num_voters - (2+k), num_alternatives, seed)
+    votes = singlepeaked.single_peaked_walsh(num_voters - (2+k), num_alternatives, seed=seed)
     axis = [i for i in range(num_alternatives)]
 
     votes.append(axis)
