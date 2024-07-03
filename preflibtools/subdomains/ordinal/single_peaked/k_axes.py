@@ -197,6 +197,7 @@ def two_axes_sp(instance):
                     
             previous_vote = c_vote
 
+    # Topologically ordered strongly connected components from kosaraju's alg
     solution = two_sat(vertices, edges, inv_edges)
 
     # Split the votes
@@ -215,10 +216,11 @@ def two_axes_sp(instance):
         else:
             var = vertices.index(vote)
 
-            # Vote can't be assigned to both partitions
+            # If p and not p are in same scc, np solution -> Vote can't be assigned to both partitions.
             if solution[var] == solution[-var]:
                 return False, [None]
             
+            # Assign true to literals in reverse topological ordering of scc.
             if solution[var] > solution[-var]:
                 truth_value = 1
             else:
@@ -280,7 +282,6 @@ def is_alpha(v0, v1):
 
     :return: whether the two votes contain an alpha-structure
     :rtype: bool
-    
     """
     if len(v0) < 4:
         return False
@@ -328,8 +329,9 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
     :param vertices: The implication graph's vertices.
     :type vertices: list
     :param edges: Edges of the implication graph.
-
+    :type edges: dict
     :param inv_edges: Inverse of implication graph.
+    :type inv_edges: dict
     """
     vote_1, vote_2 = votes
     val_1, val_2 = clause
@@ -356,7 +358,13 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
 def two_sat(vertices, edges, inv_edges):
     """A helper function for the k-alternative deletion algorithm.
     Implements Kosaraju's algorithm to find the strongly connected
-    components of the given graph.
+    components of the given graph. Topologically orders the strongly
+    connected components and finds which vertices belong to which component. 
+
+
+    :return: dictionary pairing vertices with the topologically oredered
+    strongly connected component it belongs to.
+    :rtype: dict()
     """
     variables = [-i for i, _ in enumerate(reversed(vertices)) if i != 0] + [i for i, _ in enumerate(vertices) if i != 0]
     visited = {key: False for key in variables}
