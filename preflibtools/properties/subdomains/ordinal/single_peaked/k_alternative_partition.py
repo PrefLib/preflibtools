@@ -1,7 +1,6 @@
-from preflibtools.instances import OrdinalInstance
 from prefsampling.ordinal import singlepeaked
 
-from preflibtools.subdomains.ordinal.single_peaked.k_alternative_deletion import longest_single_peaked_axis, get_L_sets, place
+from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_deletion import longest_single_peaked_axis, get_L_sets, place
 
 import numpy as np
 import math

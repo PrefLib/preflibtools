@@ -1,7 +1,6 @@
-from preflibtools.subdomains.ordinal.single_peaked.k_alternative_partition import generate_k_alt_partition_sp, k_alternative_partition_DFS
+from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_partition import generate_k_alt_partition_sp, k_alternative_partition_DFS
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 
-from preflibtools.properties.singlepeakedness import is_single_peaked_axis
 from preflibtools.instances import OrdinalInstance
 
 from unittest import TestCase

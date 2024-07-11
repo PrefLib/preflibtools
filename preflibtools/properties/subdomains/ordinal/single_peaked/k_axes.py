@@ -1,10 +1,11 @@
 from preflibtools.instances import OrdinalInstance
-from preflibtools.properties.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
 from prefsampling.ordinal import singlepeaked
 
 import numpy as np
 from itertools import combinations, product
 from collections import defaultdict
+
 
 def generate_k_axes_sp(num_voters_partition, num_alternatives, k, seed = None):
     """Generates a non-single-peaked profile by combining the votes of k profiles

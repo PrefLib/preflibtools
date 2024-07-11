@@ -1,7 +1,7 @@
-from preflibtools.subdomains.ordinal.single_peaked.k_alternative_deletion import generate_k_alt_nearly_sp, k_alternative_deletion, remove_alternatives
+from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_deletion import generate_k_alt_nearly_sp, k_alternative_deletion, remove_alternatives
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 
-from preflibtools.properties.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
 from preflibtools.instances import OrdinalInstance
 
 from unittest import TestCase
