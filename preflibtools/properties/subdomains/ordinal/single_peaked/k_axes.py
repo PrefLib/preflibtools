@@ -1,71 +1,15 @@
 from preflibtools.instances import OrdinalInstance
 from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
-from prefsampling.ordinal import singlepeaked
 
 import numpy as np
 from itertools import combinations, product
 from collections import defaultdict
 
 
-def generate_k_axes_sp(num_voters_partition, num_alternatives, k, seed = None):
-    """Generates a non-single-peaked profile by combining the votes of k profiles
-    that are single-peaked on different axes.
-
-    :param num_voters_partition: Number of orders in each partition.
-    :type num_voters_1: int
-    :param num_alternatives: Number of alternatives on which the orders are single-peaked.
-    :type num_alternatives: int
-    :param k: Number of single-peaked partitions the profile should contain.
-    :type k: int
-    :param seed: Seed for numpy random number generator
-    :type seed: int
-
-    :return: 
-    :rtype: list(list)
-    """
-    rng = np.random.default_rng(seed)
-
-    votes = singlepeaked.single_peaked_walsh(num_voters_partition, num_alternatives, seed=seed)
-    axis_1 = tuple([i for i in range(num_alternatives)])
-
-    axes_and_reverse = {axis_1: np.flip(np.array(axis_1))}
-
-    alternative_mapping = np.array(axis_1)
-
-    # Generate new axes
-    for _ in range(k - 1):
-        alternative_mapping = np.array(axis_1)
-
-        axis_is_not_new = True
-        while axis_is_not_new:
-            rng.shuffle(alternative_mapping)
-
-            for axis in axes_and_reverse:
-                if ((axis != alternative_mapping).all()
-                or (axes_and_reverse[axis] != alternative_mapping).all()):
-                    axis_is_not_new = False
-                    break
-        
-        axes_and_reverse[tuple(alternative_mapping)] = np.flip(alternative_mapping)
-
-    # map votes to new axes
-    for axis in axes_and_reverse:
-
-        if axis != axis_1:
-            for i in range(num_voters_partition):
-                vote = np.array(axis_1)[votes[i]].tolist()
-
-                votes.append(vote)
-    
-        votes.append(list(axis))
-        votes.append(axes_and_reverse[axis].tolist())
-
-    return votes
-
 #########################################################################################
 
 def two_axes_sp(instance):
-    """Tests wether the collection of orders of the given instance can be split into
+    """Tests whether the collection of orders of the given instance can be split into
     two partitions such that each partition is itself a single-peaked instance. 
     In other words, whether the given instance is 2-axes single-peaked.
     This function implements an algorithm of Yang (2020).
@@ -91,20 +35,24 @@ def two_axes_sp(instance):
     wd_alternatives = None
 
     for votes in combinations(unique_votes, 3):
-        
-        has_wd, alts = is_WD(*votes)
+        has_wd, alts = is_worst_restricted(*votes)
         if has_wd:
             wd_alternatives = alts
             break
     
     if not has_wd:
-        # If not, find all alpha sturctures
+        # If not, find all alpha structures
         for a, b in combinations(unique_votes, 2):
             if is_alpha(a, b): 
                 add_clause((a, b), (1, 1), vertices, edges, inv_edges)
                 add_clause((a, b), (-1, -1), vertices, edges, inv_edges)
 
-    elif has_wd:
+        # Topologically ordered strongly connected components from kosaraju's alg
+        solution = two_sat(vertices, edges, inv_edges)
+
+        votes_to_part = unique_votes
+        final_partitions = [[], []]
+    else:
         # If exists, split votes based on last candidate of WD
         partitions = {alt: [] for alt in wd_alternatives}
 
@@ -164,7 +112,7 @@ def two_axes_sp(instance):
                 for x_vote in partitions[x]:
 
                     # Check WD between c, c' and x
-                    is_wd, _ = is_WD(c_vote, c_vote_p, x_vote)
+                    is_wd, _ = is_worst_restricted(c_vote, c_vote_p, x_vote)
                     if is_wd:
                         add_clause((c_vote, c_vote_p), clause_vals, vertices, edges, inv_edges)
                     
@@ -184,7 +132,7 @@ def two_axes_sp(instance):
                             if x_vote == x_vote_p:
                                 continue
 
-                            is_wd, _ = is_WD(c_vote, x_vote, x_vote_p)
+                            is_wd, _ = is_worst_restricted(c_vote, x_vote, x_vote_p)
                             if is_wd:
                                 add_clause((c_vote, c_vote), clause_vals, vertices, edges, inv_edges)
 
@@ -198,14 +146,10 @@ def two_axes_sp(instance):
                     
             previous_vote = c_vote
 
-    # Topologically ordered strongly connected components from kosaraju's alg
-    solution = two_sat(vertices, edges, inv_edges)
+        # Topologically ordered strongly connected components from kosaraju's alg
+        solution = two_sat(vertices, edges, inv_edges)
 
-    # Split the votes
-    if not has_wd:
-        votes_to_part = unique_votes
-        final_partitions = [[], []]
-    elif has_wd:
+        # Split the votes
         votes_to_part = partitions[c]
         final_partitions = [partitions[b], partitions[a]]
 
@@ -232,12 +176,16 @@ def two_axes_sp(instance):
     return True, final_partitions
 
 
-def is_WD(v0, v1, v2):
+def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
     """A helper function for the 2-axes single-peaked function. Checks
     whether three votes contain a WD-structure.
 
-    :param v0: order of alternatives.
+    :param v0: first vote.
     :type v0:
+    :param v1: second vote.
+    :type v1:
+    :param v2: third vote.
+    :type v2:
 
     :return: whether the three votes contain a WD-structure, if yes, also
     provides the involved alternatives.
@@ -268,18 +216,20 @@ def is_WD(v0, v1, v2):
                 id_c2 = v2.index(c)
                 must_have_a = v2[:id_c2]
 
-                if (a in must_have_a):
+                if a in must_have_a:
                     return True, (a, b, c)
 
     return False, (None,)
 
 
-def is_alpha(v0, v1):
+def is_alpha(v0: list[int], v1: list[int]):
     """A helper function for the 2-axes single-peaked function.
     Tests whether two votes contain an alpha-structure.
 
-    :param v0: Order of alternatives.
-    :type v0: tuple
+    :param v0: first vote.
+    :type v0: list[int]
+    :param v1: second vote.
+    :type v1: list[int]
 
     :return: whether the two votes contain an alpha-structure
     :rtype: bool

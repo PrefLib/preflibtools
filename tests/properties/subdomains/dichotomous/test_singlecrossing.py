@@ -1,8 +1,4 @@
-from singlecrossing import is_WSC
-from test_interval import *
-from partition_tests import generate_2PART_instances
 import random
-from tqdm import trange
 from itertools import combinations
 
 def generate_WSC_instance(alt,voters):

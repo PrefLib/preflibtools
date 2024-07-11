@@ -1,7 +1,8 @@
 from preflibtools.instances.preflibinstance import OrdinalInstance
-from preflibtools.properties import *
 
 from unittest import TestCase
+
+from preflibtools.properties.subdomains.ordinal.singlecrossing import is_single_crossing
 
 
 class TestAnalysis(TestCase):

@@ -1,12 +1,6 @@
-from test_interval import *
 import random
-from tqdm import trange
-from euclidean import is_DUE
-from partition_tests import generate_PART_instances
 from prefsampling import EuclideanSpace
 from prefsampling.approval import euclidean_vcr
-from test_singlecrossing import generate_WSC_instance
-from test_singlecrossing import *
 
 '''
 Uncomment to run the tests

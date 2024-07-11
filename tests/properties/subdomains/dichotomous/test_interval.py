@@ -1,5 +1,3 @@
-from interval import *
-from tqdm import trange
 import random
 
 

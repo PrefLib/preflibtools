@@ -1,7 +1,10 @@
 from preflibtools.instances.preflibinstance import OrdinalInstance
-from preflibtools.properties import *
 
 from unittest import TestCase
+
+from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import \
+    is_single_peaked_axis, is_single_peaked, is_single_peaked_pq_tree, is_single_peaked_ILP, \
+    approx_SP_voter_deletion_ILP, approx_SP_alternative_deletion_ILP
 
 
 class TestAnalysis(TestCase):
