@@ -46,7 +46,6 @@ class TestKAxesSinglePeaked(TestCase):
         instance = OrdinalInstance()
         instance.append_vote_map(vote_map)
 
-
         is_2SP, partitions = two_axes_sp(instance)
         assert is_2SP
 

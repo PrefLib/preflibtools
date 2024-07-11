@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from preflibtools.instances import OrdinalInstance
 from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
 

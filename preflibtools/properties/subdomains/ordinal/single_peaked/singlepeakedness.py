@@ -1,6 +1,8 @@
 """ This module provides procedures to deal with the potential single-peakedness of the instance.
 """
 
+from __future__ import annotations
+
 import copy
 import time
 
