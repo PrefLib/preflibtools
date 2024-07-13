@@ -293,6 +293,30 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters = num_voters
         self.num_unique_orders = len(set(self.orders))
 
+    def append_order(self, order):
+        """Appends an order to the instance. That function incorporates the new order
+        into the instance and updates the set of alternatives if needed.
+
+        :param order: An order.
+        :type order: Iterable
+        """
+        for alt in order:
+            if alt not in self.alternatives_name:
+                self.alternatives_name[alt] = "Alternative " + str(alt)
+        self.num_alternatives = len(self.alternatives_name)
+
+        self.num_voters += 1
+
+        order = tuple((a,) for a in order)
+        if order in self.multiplicity:
+            self.multiplicity[order] += 1
+        else:
+            self.orders.append(order)
+            self.multiplicity[order] = 1
+            self.num_unique_orders += 1
+
+        self.data_type = self.infer_type()
+
     def append_order_array(self, orders):
         """Appends an array of orders to the instance. That function incorporates the new orders
         into the instance and updates the set of alternatives if needed.
@@ -337,7 +361,7 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters += len(orders)
 
         for order in orders:
-            order = tuple(order)
+            order = tuple((a,) for a in order)
             if order in self.multiplicity:
                 self.multiplicity[order] += 1
             else:

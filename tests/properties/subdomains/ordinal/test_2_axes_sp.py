@@ -38,9 +38,9 @@ class TestKAxesSinglePeaked(TestCase):
         params = {
             "num_voters" : 200,
             "num_candidates" : 11,
-            "k" : 2,
+            "k": 2,
             "axes_weights": 0.5,
-            "seed" : 10
+            "seed": 10
         }
         vote_map = prefsampling_ordinal_wrapper(k_axes_single_peaked, params)
         instance = OrdinalInstance()
@@ -56,3 +56,14 @@ class TestKAxesSinglePeaked(TestCase):
         second = OrdinalInstance()
         second.append_order_array(partitions[1])
         assert is_single_peaked(second)[0]
+
+    def test_specific_instances(self):
+        i = OrdinalInstance()
+        v1 = ((2,), (0,), (3,), (1,))
+        v2 = ((1,), (2,), (0,), (3,))
+        v3 = ((3,), (0,), (2,), (1,))
+        v4 = ((1,), (3,), (0,), (2,))
+        v5 = ((3,), (1,), (2,), (0,))
+        v6 = ((1,), (0,), (3,), (2,))
+        i.append_order_list([v1, v2, v3, v4, v5, v6])
+        print(two_axes_sp(i))

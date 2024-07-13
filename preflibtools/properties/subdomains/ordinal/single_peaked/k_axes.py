@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
-from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import \
+    is_single_peaked
 
 import numpy as np
 from itertools import combinations, product
@@ -41,11 +42,13 @@ def two_axes_sp(instance):
         if has_wd:
             wd_alternatives = alts
             break
-    
+
+    print(has_wd, wd_alternatives)
+
     if not has_wd:
         # If not, find all alpha structures
         for a, b in combinations(unique_votes, 2):
-            if is_alpha(a, b): 
+            if is_alpha(a, b):
                 add_clause((a, b), (1, 1), vertices, edges, inv_edges)
                 add_clause((a, b), (-1, -1), vertices, edges, inv_edges)
 
@@ -63,50 +66,44 @@ def two_axes_sp(instance):
                 if alt in wd_alternatives:
                     partitions[alt].append(vote)
                     break
-        
+        print("partitions", partitions)
+
         # Check if two of those splits are single-peaked
         valid_partitions = []
         invalid_partition = None
 
         for alt in partitions:
             instance = OrdinalInstance()
-            instance.append_order_array(np.array(partitions[alt]))
-
-            is_SP, _ = is_single_peaked(instance)
-
-            if is_SP:
+            instance.append_order_list(partitions[alt])
+            if is_single_peaked(instance)[0]:
                 valid_partitions.append(alt)
             else:
                 invalid_partition = alt
+        print("valid_partitions", valid_partitions)
 
         # Must have 2 single-peaked partitions
         if len(valid_partitions) < 2:
             return False, [None]
         elif len(valid_partitions) == 3:
             invalid_partition = valid_partitions.pop()
-        
+
+        print("invalid_partition", invalid_partition)
+
         # Find all WD and alpha in remaining partition
         a, b = valid_partitions[1], valid_partitions[0]
         c = invalid_partition
 
-        other_partition = {
-            a : b,
-            b : a
-        }
+        other_partition = {a: b, b: a}
 
-        clauses = {
-            a : (-1, -1),
-            b : (1, 1)
-        }
+        clauses = {a: (-1, -1), b: (1, 1)}
 
         assigned_to = {
-            a : defaultdict(lambda:False),
-            b : defaultdict(lambda:False)
+            a: defaultdict(lambda: False),
+            b: defaultdict(lambda: False)
         }
-        
+
         previous_vote = None
         for c_vote, c_vote_p in combinations(partitions[c], 2):
-
             for x in (a, b):
                 y = other_partition[x]
                 clause_vals = clauses[x]
@@ -117,7 +114,7 @@ def two_axes_sp(instance):
                     is_wd, _ = is_worst_restricted(c_vote, c_vote_p, x_vote)
                     if is_wd:
                         add_clause((c_vote, c_vote_p), clause_vals, vertices, edges, inv_edges)
-                    
+
                     if previous_vote != c_vote and not assigned_to[y][c_vote]:
 
                         # Check alpha between c, x
@@ -126,9 +123,9 @@ def two_axes_sp(instance):
 
                             # c can't be in partition x
                             assigned_to[y][c_vote] = True
-                    
+
                     if previous_vote != c_vote and not assigned_to[y][c_vote]:
-                        
+
                         # Check WD between c, x, and x'
                         for x_vote_p in partitions[x]:
                             if x_vote == x_vote_p:
@@ -136,16 +133,17 @@ def two_axes_sp(instance):
 
                             is_wd, _ = is_worst_restricted(c_vote, x_vote, x_vote_p)
                             if is_wd:
-                                add_clause((c_vote, c_vote), clause_vals, vertices, edges, inv_edges)
+                                add_clause((c_vote, c_vote), clause_vals, vertices, edges,
+                                           inv_edges)
 
                                 # c can't be in partition x
                                 assigned_to[y][c_vote] = True
                                 break
-                
+
                     # c can't be assigned to both partition x and y
                     if assigned_to[x][c_vote] and assigned_to[y][c_vote]:
                         return False, [None]
-                    
+
             previous_vote = c_vote
 
         # Topologically ordered strongly connected components from kosaraju's alg
@@ -163,16 +161,17 @@ def two_axes_sp(instance):
         else:
             var = vertices.index(vote)
 
-            # If p and not p are in same scc, np solution -> Vote can't be assigned to both partitions.
+            # If p and not p are in same scc, no solution
             if solution[var] == solution[-var]:
+                print("HEERRE", vote, var)
                 return False, [None]
-            
+
             # Assign true to literals in reverse topological ordering of scc.
             if solution[var] > solution[-var]:
                 truth_value = 1
             else:
                 truth_value = 0
-            
+
             final_partitions[truth_value].append(vote)
 
     return True, final_partitions
@@ -212,7 +211,7 @@ def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
             c_candidates = v2[id_b2 + 1:]
             for c in reversed(c_candidates):
                 if (c not in must_have_c
-                    or c not in must_have_bc):
+                        or c not in must_have_bc):
                     continue
 
                 id_c2 = v2.index(c)
@@ -238,7 +237,7 @@ def is_alpha(v0: list[int], v1: list[int]):
     """
     if len(v0) < 4:
         return False
-    
+
     # Find b candidates
     b_0 = v0[2:-1]
     b_1 = v1[2:-1]
@@ -246,7 +245,7 @@ def is_alpha(v0: list[int], v1: list[int]):
 
     if len(b_candidates) == 0:
         return False
-    
+
     # Find a and c candidates
     for b in b_candidates:
         id_b_0 = v0.index(b)
@@ -264,7 +263,7 @@ def is_alpha(v0: list[int], v1: list[int]):
 
             if len(d_0) != 0:
                 return True
-            
+
     return False
 
 
@@ -292,7 +291,7 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
     for vote in votes:
         if vote not in vertices:
             vertices.append(vote)
-    
+
     # multiply by 1 or -1 based on whether the proposition should be negated.
     x = val_1 * vertices.index(vote_1)
     y = val_2 * vertices.index(vote_2)
@@ -301,10 +300,11 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
     if y not in edges[-x]:
         edges[-x].append(y)
         inv_edges[y].append(-x)
-    
+
     if x not in edges[-y]:
         edges[-y].append(x)
         inv_edges[x].append(-y)
+
 
 #########################################################################################
 
@@ -314,40 +314,43 @@ def two_sat(vertices, edges, inv_edges):
     components of the given graph. Topologically orders the strongly
     connected components and finds which vertices belong to which component. 
 
-
-    :return: dictionary pairing vertices with the topologically oredered
+    :return: dictionary pairing vertices with the topologically ordered
     strongly connected component it belongs to.
     :rtype: dict()
     """
-    variables = [-i for i, _ in enumerate(reversed(vertices)) if i != 0] + [i for i, _ in enumerate(vertices) if i != 0]
+    variables = [-i for i, _ in enumerate(reversed(vertices)) if i != 0]
+    variables.extend(i for i, _ in enumerate(vertices) if i != 0)
+
     visited = {key: False for key in variables}
     assigned_scc = {key: None for key in variables}
     scc = defaultdict(set)
     L = []
-
     for u in variables:
         visit(u, visited, edges, L)
+    print(L)
 
     for i, u in enumerate(reversed(L)):
         assign(u, i, inv_edges, scc, assigned_scc)
 
     return assigned_scc
 
+
 def visit(u, visited, edges, L):
     if visited[u]:
         return
-    
+
     visited[u] = True
 
     for v in edges[u]:
         visit(v, visited, edges, L)
-    
+
     L.append(u)
+
 
 def assign(u, root, edges, scc, assigned_scc):
     if assigned_scc[u] is not None:
         return
-    
+
     assigned_scc[u] = root
     scc[root].add(u)
 
