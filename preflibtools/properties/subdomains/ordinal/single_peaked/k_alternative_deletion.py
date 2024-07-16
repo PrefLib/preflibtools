@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
-from prefsampling.ordinal import singlepeaked
-
 
 import numpy as np
 
@@ -20,9 +18,9 @@ def remove_alternatives(profile, violating_alternatives):
     :rtype: preflibtools.instances.preflibinstance.OrdinalInstance
     """
     old_votes = profile.full_profile()
-    
+
     new_num_alternatives = profile.num_alternatives - len(violating_alternatives)
-    new_votes = np.zeros([len(old_votes), new_num_alternatives], dtype = int)
+    new_votes = np.zeros([len(old_votes), new_num_alternatives], dtype=int)
 
     for i, vote in enumerate(old_votes):
         m = 0
@@ -33,10 +31,11 @@ def remove_alternatives(profile, violating_alternatives):
             if c not in violating_alternatives:
                 new_votes[i][m] = c
                 m += 1
-    
+
     instance = OrdinalInstance()
     instance.append_order_array(new_votes)
     return instance
+
 
 #########################################################################################
 
@@ -86,7 +85,7 @@ def longest_single_peaked_axis(instance, alternatives):
 
     # Construct S dict
     S = {
-        0 : {
+        0: {
             ((None, None, None, None), frozenset()): [None]
         }
     }
@@ -97,15 +96,15 @@ def longest_single_peaked_axis(instance, alternatives):
     # Keep track of longest constructed axis
     longest = [None]
 
-    for i in range(1, m+1):
-        S[i] = dict(S[i-1])
+    for i in range(1, m + 1):
+        S[i] = dict(S[i - 1])
 
-        for key in S[i-1]:
-            A = S[i-1][key]
+        for key in S[i - 1]:
+            A = S[i - 1][key]
 
             if None not in A:
                 continue
-                
+
             # No need to bother if current axis can't exceed longest found with remaining alternatives
             if len(A) + len(remaining_alternatives) < len(longest):
                 continue
@@ -116,17 +115,17 @@ def longest_single_peaked_axis(instance, alternatives):
                 new_A, consistent = place(A, X, unique_votes)
 
                 if consistent:
-                    
+
                     if len(new_A) > len(longest):
                         longest = new_A
 
                     new_key = (boundary(new_A), X)
-                    
+
                     if new_key not in S[i]:
                         S[i][new_key] = new_A
                     elif len(new_A) > len(S[i][new_key]):
                         S[i][new_key] = new_A
-                
+
                 # Keep track of longest locked axis
                 elif new_A != A and len(new_A) > len(locked_axis):
                     locked_axis = new_A
@@ -137,7 +136,7 @@ def longest_single_peaked_axis(instance, alternatives):
         longest = locked_axis
 
     longest.remove(None)
-    removed_alternatives = [i for i in alternatives if i not in longest ] 
+    removed_alternatives = [i for i in alternatives if i not in longest]
 
     return longest, removed_alternatives
 
@@ -163,18 +162,18 @@ def get_L_sets(alternatives, unique_votes):
     previous_last = set()
     last = set()
 
-    for j in range(1, m+1):
+    for j in range(1, m + 1):
         for i in range(len(votes_copy)):
             new_order = [a for a in votes_copy[i] if a not in previous_last and a in alternatives]
 
             if len(new_order) > 0:
                 last.add(new_order[-1])
             votes_copy[i] = new_order
-        
+
         L[j] = last
         previous_last = last
         last = set()
-    
+
     return L
 
 
@@ -203,8 +202,10 @@ def N(i, m, Y, L, unique_votes):
     for pos in range(i, m):
         remaining_alternatives.update(L[pos])
 
-    X = {frozenset([x_1, x_2]) for x_1 in L[i] for x_2 in remaining_alternatives if Last_check(unique_votes, Y, [x_1, x_2])}
+    X = {frozenset([x_1, x_2]) for x_1 in L[i] for x_2 in remaining_alternatives if
+         Last_check(unique_votes, Y, [x_1, x_2])}
     return X
+
 
 def Last_check(unique_votes, previous_alternatives, alternatives):
     """A helper function for the k-alternative deletion algorithm.
@@ -226,16 +227,16 @@ def Last_check(unique_votes, previous_alternatives, alternatives):
 
         last_of_all_alt.add(full_restricted_vote[-1])
         last_of_new_alt.add(new_alt_restricted_vote[-1])
-    
+
     previous_are_last = True
     both_new_are_last = True
     for alt in alternatives:
         if alt in last_of_all_alt and len(previous_alternatives) != 0:
             previous_are_last = False
-        
+
         if alt not in last_of_new_alt:
             both_new_are_last = False
-    
+
     return previous_are_last and both_new_are_last
 
 
@@ -257,7 +258,7 @@ def place(axis, X, votes):
 
     if len(X) == 1:
         return case_3(new_axis, X, votes)
-    
+
     if len(X) == 2:
         return case_2(new_axis, X, votes)
 
@@ -284,7 +285,7 @@ def case_2(axis, X, votes):
     flag_c2, flag_d2 = False, False
 
     if (bound[1] is not None
-        or bound[2] is not None):
+            or bound[2] is not None):
 
         for vote in votes:
             id_x1 = vote.index(x1)
@@ -294,13 +295,13 @@ def case_2(axis, X, votes):
 
             if (b[1] is not None and b[2] is not None):
                 if ((b[1] < id_x1 and b[2] < id_x1)
-                    or (b[1] < id_x2 and b[2] < id_x2)):
+                        or (b[1] < id_x2 and b[2] < id_x2)):
                     return axis, False
-            
+
             if (b[0] is not None or b[3] is not None):
                 if check_case_4(b, id_x1) or check_case_4(b, id_x2):
                     return axis, False
-                
+
             if b[2] is not None:
                 if (b[2] < id_x1 and id_x2 < id_x1):
                     flag_c1 = True
@@ -314,15 +315,15 @@ def case_2(axis, X, votes):
 
                 if (b[1] < id_x2 and id_x1 < id_x2):
                     flag_d2 = True
-            
+
             if ((flag_c1 and flag_d1)
-                or (flag_c2 and flag_d2)
-                or (flag_c1 and flag_c2)
-                or (flag_d1 and flag_d2)):
+                    or (flag_c2 and flag_d2)
+                    or (flag_c1 and flag_c2)
+                    or (flag_d1 and flag_d2)):
                 return axis, False
-            
+
     id_none = axis.index(None)
-    first_half, second_half = axis[:id_none], axis[id_none+1:]
+    first_half, second_half = axis[:id_none], axis[id_none + 1:]
 
     if (flag_c2 or flag_d1):
         first_half.append(x2)
@@ -357,7 +358,7 @@ def case_3(axis, X, votes):
     flag_c, flag_d = False, False
 
     if (bound[1] is not None
-        or bound[2] is not None):
+            or bound[2] is not None):
 
         for vote in votes:
             id_x = vote.index(x)
@@ -367,23 +368,23 @@ def case_3(axis, X, votes):
             if (b[1] is not None and b[2] is not None):
                 if (b[1] < id_x and b[2] < id_x):
                     return axis, False
-            
+
             if (b[0] is not None or b[3] is not None):
                 if check_case_4(b, id_x):
                     return axis, False
-            
+
             if b[2] is not None:
                 if b[2] < id_x:
                     flag_c = True
-            
+
             if b[1] is not None:
                 if b[1] < id_x:
                     flag_d = True
-                        
+
     id_x = axis.index(None)
     if flag_d:
         id_x += 1
-    
+
     axis.insert(id_x, x)
 
     return axis, not (flag_c and flag_d)
@@ -425,11 +426,11 @@ def boundary(axis):
     """
     if None not in axis:
         return
-    
+
     x = axis.index(None) + 2
     tmp = [None, None] + axis + [None, None]
     ids = [x - 2, x - 1, x + 1, x + 2]
-    
+
     return tuple([tmp[i] for i in ids])
 
 #########################################################################################

@@ -25,6 +25,10 @@ def two_axes_sp(instance):
     :rtype: tuple(bool, list)
     """
 
+    # THIS DOES NOT WORK AT THE MOMENT
+
+    raise RuntimeError("This function is known not to work.")
+
     # Instance information
     unique_votes = [vote for vote, _ in instance.flatten_strict()]
 
@@ -60,7 +64,6 @@ def two_axes_sp(instance):
     else:
         # If exists, split votes based on last candidate of WD
         partitions = {alt: [] for alt in wd_alternatives}
-
         for vote in unique_votes:
             for alt in reversed(vote):
                 if alt in wd_alternatives:
@@ -69,28 +72,26 @@ def two_axes_sp(instance):
         print("partitions", partitions)
 
         # Check if two of those splits are single-peaked
-        valid_partitions = []
+        sp_partitions = []
         invalid_partition = None
-
-        for alt in partitions:
+        for alt, orders in partitions.items():
             instance = OrdinalInstance()
-            instance.append_order_list(partitions[alt])
+            instance.append_order_list(orders)
             if is_single_peaked(instance)[0]:
-                valid_partitions.append(alt)
+                sp_partitions.append(alt)
             else:
                 invalid_partition = alt
-        print("valid_partitions", valid_partitions)
+        print("sp_partitions", sp_partitions)
 
         # Must have 2 single-peaked partitions
-        if len(valid_partitions) < 2:
+        if len(sp_partitions) < 2:
             return False, [None]
-        elif len(valid_partitions) == 3:
-            invalid_partition = valid_partitions.pop()
-
+        elif len(sp_partitions) == 3:
+            invalid_partition = sp_partitions.pop()
         print("invalid_partition", invalid_partition)
 
         # Find all WD and alpha in remaining partition
-        a, b = valid_partitions[1], valid_partitions[0]
+        a, b = sp_partitions[1], sp_partitions[0]
         c = invalid_partition
 
         other_partition = {a: b, b: a}

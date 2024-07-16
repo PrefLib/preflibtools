@@ -21,7 +21,7 @@ def k_alt_partition_approx(instance):
 
     axes = []
 
-    while (len(alternatives) > 0):
+    while len(alternatives) > 0:
         longest_axis, alternatives = longest_single_peaked_axis(instance, alternatives)
 
         axes.append(longest_axis)
