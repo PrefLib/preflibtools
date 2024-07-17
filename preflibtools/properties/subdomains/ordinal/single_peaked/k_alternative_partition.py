@@ -30,14 +30,14 @@ def k_alt_partition_approx(instance):
 
 #########################################################################################
 
-def k_alternative_partition_DFS(instance, k):
+def k_alternative_partition_brut_force(instance, k):
     """Generates the lowest amount of partitions of the alternatives in a given
     profile such that when restricted to each partition, the profile is single-peaked.
-    This is done by brute-forcingly constructing all admissible partitions.
+    This is done by brute-forcing all admissible partitions in a DFS fashion.
 
     :param instance: the instance to test for k-alternative deletion single-peakedness.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
-    :param k: boundary on the amount of partitions to create
+    :param k: The maximum number of partitions
     :type k: int
 
     :return: A list containing single-peaked axes representing the optimal partitions
@@ -111,9 +111,6 @@ def dfs(i, axes, shortest, m, k, L, unique_votes):
         new_axes = extend(axes, extension, unique_votes, k)        
 
         for ax in new_axes:
-
-            completed_partitions = None
-
             # Ignore this partition if it is already longer than the shortest complete partition
             if shortest is None or len(ax) < len(shortest):
                 completed_partitions = dfs(i + 1, ax, shortest, m, k, L, unique_votes)
@@ -137,6 +134,8 @@ def extend(axes, extension, unique_votes, k):
     :type extension: list
     :param unique_votes: The unique orders within the profile.
     :type unique_votes: list(list)
+    :param k: The maximum number of partitions
+    :type k: int
 
     :return: List of lists of new incomplete axes obtained after placing extensions
     :rtype: list(list(list))

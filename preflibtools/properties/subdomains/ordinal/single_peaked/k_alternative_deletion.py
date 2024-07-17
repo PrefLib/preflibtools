@@ -2,14 +2,12 @@ from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
 
-import numpy as np
 
-
-def remove_alternatives(profile, violating_alternatives):
+def remove_alternatives(instance, violating_alternatives):
     """Removes a set of single-peakedness violating alternatives from a given profile.
 
-    :param profile: Instance to remove the given alternatives from.
-    :type profile: preflibtools.instances.preflibinstance.OrdinalInstance
+    :param instance: Instance to remove the given alternatives from.
+    :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
     :param violating_alternatives: Alternatives to remove from the orders in the profile.
     :type violating_alternatives: list
 
@@ -17,24 +15,14 @@ def remove_alternatives(profile, violating_alternatives):
     removed.
     :rtype: preflibtools.instances.preflibinstance.OrdinalInstance
     """
-    old_votes = profile.full_profile()
-
-    new_num_alternatives = profile.num_alternatives - len(violating_alternatives)
-    new_votes = np.zeros([len(old_votes), new_num_alternatives], dtype=int)
-
-    for i, vote in enumerate(old_votes):
-        m = 0
-
-        for c in vote:
-            c = c[0]
-
-            if c not in violating_alternatives:
-                new_votes[i][m] = c
-                m += 1
-
-    instance = OrdinalInstance()
-    instance.append_order_array(new_votes)
-    return instance
+    new_instance = OrdinalInstance()
+    new_instance.num_alternatives = instance.num_alternatives - len(violating_alternatives)
+    for order, m in instance.multiplicity.items():
+        new_order = tuple((a,) for c in order for a in c if a not in violating_alternatives)
+        new_instance.orders.append(new_order)
+        new_instance.multiplicity[new_order] = m
+    new_instance.data_type = "soc"
+    return new_instance
 
 
 #########################################################################################
@@ -109,7 +97,7 @@ def longest_single_peaked_axis(instance, alternatives):
             if len(A) + len(remaining_alternatives) < len(longest):
                 continue
 
-            extensions = N(i, m, key[-1], L, unique_votes)
+            extensions = eligible_alternatives(i, m, key[-1], L, unique_votes)
 
             for X in extensions:
                 new_A, consistent = place(A, X, unique_votes)
@@ -177,9 +165,9 @@ def get_L_sets(alternatives, unique_votes):
     return L
 
 
-def N(i, m, Y, L, unique_votes):
+def eligible_alternatives(i, m, Y, L, unique_votes):
     """A helper function for the k-alternative deletion algorithm.
-    Generates the set of sets of alternatives that are eligable to be placed at
+    Generates the set of sets of alternatives that are eligible to be placed at
     this step of the procedure. See Erdélyi, Lackner, Pfandler (2017) for details.
 
     :param i: iteration of the k-alternative deletion algorithm.
@@ -203,11 +191,11 @@ def N(i, m, Y, L, unique_votes):
         remaining_alternatives.update(L[pos])
 
     X = {frozenset([x_1, x_2]) for x_1 in L[i] for x_2 in remaining_alternatives if
-         Last_check(unique_votes, Y, [x_1, x_2])}
+         last_check(unique_votes, Y, [x_1, x_2])}
     return X
 
 
-def Last_check(unique_votes, previous_alternatives, alternatives):
+def last_check(unique_votes, previous_alternatives, alternatives):
     """A helper function for the k-alternative deletion algorithm.
     Do not place a set of new alternatives if one of said alternatives is always ranked higher
     than the rest. Do not place a set of new alternatives if there is a vote that ranks one lower
@@ -293,27 +281,27 @@ def case_2(axis, X, votes):
 
             b = [vote.index(b_i) if b_i is not None else None for b_i in bound]
 
-            if (b[1] is not None and b[2] is not None):
+            if b[1] is not None and b[2] is not None:
                 if ((b[1] < id_x1 and b[2] < id_x1)
                         or (b[1] < id_x2 and b[2] < id_x2)):
                     return axis, False
 
-            if (b[0] is not None or b[3] is not None):
+            if b[0] is not None or b[3] is not None:
                 if check_case_4(b, id_x1) or check_case_4(b, id_x2):
                     return axis, False
 
             if b[2] is not None:
-                if (b[2] < id_x1 and id_x2 < id_x1):
+                if b[2] < id_x1 and id_x2 < id_x1:
                     flag_c1 = True
 
-                if (b[2] < id_x2 and id_x1 < id_x2):
+                if b[2] < id_x2 and id_x1 < id_x2:
                     flag_c2 = True
 
             if b[1] is not None:
-                if (b[1] < id_x1 and id_x2 < id_x1):
+                if b[1] < id_x1 and id_x2 < id_x1:
                     flag_d1 = True
 
-                if (b[1] < id_x2 and id_x1 < id_x2):
+                if b[1] < id_x2 and id_x1 < id_x2:
                     flag_d2 = True
 
             if ((flag_c1 and flag_d1)
@@ -325,7 +313,7 @@ def case_2(axis, X, votes):
     id_none = axis.index(None)
     first_half, second_half = axis[:id_none], axis[id_none + 1:]
 
-    if (flag_c2 or flag_d1):
+    if flag_c2 or flag_d1:
         first_half.append(x2)
         second_half.insert(0, x1)
     else:
@@ -365,11 +353,11 @@ def case_3(axis, X, votes):
 
             b = [vote.index(b_i) if b_i is not None else None for b_i in bound]
 
-            if (b[1] is not None and b[2] is not None):
-                if (b[1] < id_x and b[2] < id_x):
+            if b[1] is not None and b[2] is not None:
+                if b[1] < id_x and b[2] < id_x:
                     return axis, False
 
-            if (b[0] is not None or b[3] is not None):
+            if b[0] is not None or b[3] is not None:
                 if check_case_4(b, id_x):
                     return axis, False
 

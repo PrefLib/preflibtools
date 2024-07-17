@@ -1,4 +1,5 @@
 import re
+from collections.abc import Iterable
 from copy import deepcopy
 from os import path
 
@@ -361,7 +362,7 @@ class OrdinalInstance(PrefLibInstance):
         self.num_voters += len(orders)
 
         for order in orders:
-            order = tuple((a,) for a in order)
+            order = tuple(tuple(a) if isinstance(a, Iterable) else (a,) for a in order)
             if order in self.multiplicity:
                 self.multiplicity[order] += 1
             else:

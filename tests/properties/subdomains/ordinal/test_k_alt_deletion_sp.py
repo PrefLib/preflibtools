@@ -54,7 +54,7 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed=None):
 
     return votes
 
-class Testanalysis(TestCase):
+class TestKAlternativeDeletion(TestCase):
     def test_alt_deletion_single_peaked(self):
 
         # test 1, sp profile

@@ -1,83 +1,57 @@
-from interval import is_CI
-from mip import Model, minimize, maximize, BINARY, CONTINUOUS, OptimizationStatus, ConstrList, SearchEmphasis
-from preflibtools.instances import CategoricalInstance
+from interval import is_candidate_interval
+from mip import Model, minimize, BINARY, CONTINUOUS, OptimizationStatus, SearchEmphasis
 
-# Check Dichotomous Euclidean
-def is_DE(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
 
-    res, (order, _) = is_CI(instance)
+def is_dichotomous_euclidean(instance):
+    res, (order, _) = is_candidate_interval(instance)
 
-    if res is True:
-        # Place all alternatives over a line
-        alternative_positions = [(alt, pos) for pos, alt in enumerate(order)]
-        voter_position_radius = []
-
-        # Check for every vote
-        for vote in range(len(instance)):
-            left = None
-            right = None
-            voter = f'V{vote+1}'
-
-            # Empty votes have no position or radius
-            if len(instance[vote]) == 0:
-                voter_position_radius.append((voter, None, None))
-            
-            # Votes with one alternative get that postion of the alternative and radius zero
-            elif len(instance[vote]) == 1:
-                index = order.index(instance[vote][0])
-                voter_position_radius.append((voter, 0, index))
-
-            elif len(instance[vote]) > 1:
-
-                # Check for every alternative of the vote the index and keep track of the lowest (left) and greatest (right) index
-                for alt in instance[vote]:
-                    index = order.index(alt)
-
-                    if left is None or index < left:
-                        left = index
-                    if right is None or index > right:
-                        right = index
-                
-                # The position of the voter will be in the middle of the alternatives and the radius is that by half
-                radius = (right - left) / 2
-                position = (left + right) / 2
-                voter_position_radius.append((voter, position, radius))
-
-        # Return tuple of the voters with position and radius and tuple with the alternative postitions
-        return True, (voter_position_radius, alternative_positions)
-    else:
+    if not res:
         return False, None
 
-# Check Possible Euclidean
-def is_PE(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
+    # Place all alternatives over a line
+    alternative_positions = [(alt, pos) for pos, alt in enumerate(order)]
+    voter_position_radius = []
 
-    res, _ = is_CI(instance)
+    # Check for every vote
+    for vote in range(len(instance)):
+        left = None
+        right = None
+        voter = f'V{vote+1}'
 
-    if res is True:
-        return True, None
-    else:
-        return False, None
-    
+        # Empty votes have no position or radius
+        if len(instance[vote]) == 0:
+            voter_position_radius.append((voter, None, None))
+
+        # Votes with one alternative get that postion of the alternative and radius zero
+        elif len(instance[vote]) == 1:
+            index = order.index(instance[vote][0])
+            voter_position_radius.append((voter, 0, index))
+
+        elif len(instance[vote]) > 1:
+
+            # Check for every alternative of the vote the index and keep track of the lowest (left) and greatest (right) index
+            for alt in instance[vote]:
+                index = order.index(alt)
+
+                if left is None or index < left:
+                    left = index
+                if right is None or index > right:
+                    right = index
+
+            # The position of the voter will be in the middle of the alternatives and the radius is that by half
+            radius = (right - left) / 2
+            position = (left + right) / 2
+            voter_position_radius.append((voter, position, radius))
+
+    # Return tuple of the voters with position and radius and tuple with the alternative postitions
+    return True, (voter_position_radius, alternative_positions)
+
+
+def is_possibly_euclidean(instance):
+    res, _ = is_candidate_interval(instance)
+    return res, None
+
+
 def _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx):
     alternatives = sorted(set().union(*instance))
     num_alt = len(alternatives)
@@ -114,18 +88,7 @@ def _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx):
 
     
 # Check Dichotomous Uniformly Euclidean
-def is_DUE(instance_input, time_limit=300):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
-
+def is_dichotomous_uniformly_euclidean(instance_input, time_limit=300):
     num_voters = len(instance)
     alternatives = sorted(set().union(*instance))
     num_alt = len(alternatives)

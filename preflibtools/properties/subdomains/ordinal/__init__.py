@@ -1,7 +1,7 @@
 from preflibtools.properties.subdomains.ordinal.single_peaked import (
     two_axes_sp,
     k_alt_partition_approx,
-    k_alternative_partition_DFS,
+    k_alternative_partition_brut_force,
     k_alternative_deletion,
     is_single_peaked,
     is_single_peaked_pq_tree,
@@ -13,7 +13,7 @@ from preflibtools.properties.subdomains.ordinal.singlecrossing import is_single_
 __all__ = [
     "two_axes_sp",
     "k_alt_partition_approx",
-    "k_alternative_partition_DFS",
+    "k_alternative_partition_brut_force",
     "k_alternative_deletion",
     "is_single_crossing",
     "is_single_peaked",

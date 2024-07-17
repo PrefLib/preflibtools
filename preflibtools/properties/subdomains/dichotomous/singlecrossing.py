@@ -1,4 +1,4 @@
-from interval import instance_to_matrix, solve_C1
+from interval import instance_to_matrix, solve_consecutive_ones
 from preflibtools.instances import CategoricalInstance
 
 
@@ -18,7 +18,7 @@ def is_WSC(instance_input):
     M, columns_labels = instance_to_matrix(instance, interval='wsc')
 
     # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
+    res, ordered_idx = solve_consecutive_ones(M)
 
     if res is False:
         return False, ([], [])

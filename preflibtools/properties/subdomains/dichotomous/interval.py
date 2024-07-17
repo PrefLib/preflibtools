@@ -1,7 +1,23 @@
 import numpy as np
-from pq_trees import reorder_sets
 from itertools import combinations
-from preflibtools.instances import CategoricalInstance
+
+from preflibtools.properties.subdomains.pq_trees import reorder_sets
+
+
+def instance_to_ci_matrix(instance):
+    """
+    Builds a matrix so that the instance is candidate interval if and only if the matrix has the
+    consecutive ones property.
+
+    :param instance: the instance, only the first class is used
+    :type instance: preflibtools.instances.preflibinstance.CategoricalInstance
+    """
+    alternatives = list(instance.alternatives_name)
+    matrix = np.zeros((len(instance.preferences), instance.num_alternatives), dtype=int)
+    for idx, vote in enumerate(instance.preferences):
+        for alt in vote[0]:
+            matrix[idx][alternatives.index(alt)] = 1
+    return matrix
 
 def instance_to_matrix(instance, interval):
     # Get alternatives sorter, for columns
@@ -89,61 +105,29 @@ def instance_to_matrix(instance, interval):
 
         return M.transpose(), voters
 
-def solve_C1(M):
-    # Get shape matrix
-    num_rows, num_cols = M.shape
-
-    # Get all columns to use for solving C1
-    columns = [tuple(M[:, col]) for col in range(num_cols)]
-
-    # In sagemath duplicates will be deleted, so check for duplicates to add in result
-    column_duplicates = {}
-    for idx, col in enumerate(columns):
-        if col not in column_duplicates:
-            column_duplicates[col] = []
-        column_duplicates[col].append(idx)
-        
-    unique_columns = list(column_duplicates.keys())
-
-    # Make frozenset of the columns indices
-    columns_to_set = [frozenset(row for row in range(num_rows) if col[row] == 1) for col in unique_columns]
-
-    # Try to solve C1
+def solve_consecutive_ones(matrix):
+    num_rows, num_cols = matrix.shape
+    # For each column, the indices where there is a 1
+    columns_indices = [[] for _ in range(num_cols)]
+    for row, col in np.argwhere(matrix == 1):
+        columns_indices[col] = row
     try:
-        result = reorder_sets(columns_to_set)
+        result = reorder_sets(columns_indices)
     except ValueError:
-            return False, []
-
-    # Check for duplicates and add the duplicates back in the result
+            return False, None
     ordered_idx = []
     for order in result:
-         for col in unique_columns:
-                if frozenset(row for row in range(num_rows) if col[row] == 1) == order:
-                   ordered_idx.extend(column_duplicates[col])
-                   unique_columns.remove(col)
-                   break
-                   
+         for col in columns:
+            if frozenset(row for row in range(num_rows) if col[row] == 1) == order:
+               ordered_idx.extend(column_duplicates[col])
+               unique_columns.remove(col)
+               break
+
     return True, ordered_idx
 
-# Candidate Interval
-def is_CI(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
-
-    # Get matrix and lables
-    M, columns_labels = instance_to_matrix(instance, interval='ci')
-
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
-
+def is_candidate_interval(instance):
+    matrix, columns_labels = instance_to_matrix(instance, interval='ci')
+    res, ordered_idx = solve_consecutive_ones(matrix)
     if res is False:
         return False, ([], [])
     else:
@@ -151,28 +135,14 @@ def is_CI(instance_input):
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
+        M_result = matrix[:, ordered_idx]
 
     return True, (order_result, M_result)
 
-# Candidate Extremal Interval (CEI)
-def is_CEI(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
 
-    # Get matrix and lables
-    M, columns_labels = instance_to_matrix(instance, interval='cei')
-
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
+def is_candidate_extremal_interval(instance):
+    matrix, columns_labels = instance_to_matrix(instance, interval='cei')
+    res, ordered_idx = solve_consecutive_ones(matrix)
 
     if res is False:
         return False, ([], [])
@@ -181,33 +151,18 @@ def is_CEI(instance_input):
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Delete all the rows with the complements (odd rows)
-        idx = [i for i in range(len(M)) if i%2 != 0]
-        M = np.delete(M, idx, axis=0)
+        idx = [i for i in range(len(matrix)) if i%2 != 0]
+        matrix = np.delete(matrix, idx, axis=0)
 
         # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
+        M_result = matrix[:, ordered_idx]
 
     return True, (order_result, M_result)
 
 
-# Voter Interval (VI)
-def is_VI(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
-
-    # Get matrix and lables
-    M, columns_labels = instance_to_matrix(instance, interval='vi')
-
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
+def is_voter_interval(instance):
+    matrix, columns_labels = instance_to_matrix(instance, interval='vi')
+    res, ordered_idx = solve_consecutive_ones(matrix)
 
     if res is False:
         return False, ([], [])
@@ -216,30 +171,15 @@ def is_VI(instance_input):
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
+        M_result = matrix[:, ordered_idx]
         
 
     return True, (order_result, M_result)
 
 
-# Voter Extremal Interval (VEI)
-def is_VEI(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
-
-    # Get matrix and lables
-    M, columns_labels = instance_to_matrix(instance, interval='vei')
-    
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_C1(M)
+def is_voter_extremal_interval(instance):
+    matrix, columns_labels = instance_to_matrix(instance, interval='vei')
+    res, ordered_idx = solve_consecutive_ones(matrix)
 
     if res is False:
         return False, ([], [])
@@ -248,10 +188,10 @@ def is_VEI(instance_input):
         order_result = [columns_labels[i] for i in ordered_idx]
 
         # Delete all the rows with the complements (odd rows)
-        idx = [i for i in range(len(M)) if i%2 != 0]
-        M = np.delete(M, idx, axis=0)
+        idx = [i for i in range(len(matrix)) if i%2 != 0]
+        matrix = np.delete(matrix, idx, axis=0)
 
         # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
+        M_result = matrix[:, ordered_idx]
 
     return True, (order_result, M_result)
