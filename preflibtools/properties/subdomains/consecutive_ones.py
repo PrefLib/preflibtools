@@ -1,4 +1,34 @@
-# sage_setup: distribution = sagemath-graphs
+from collections import defaultdict
+
+import numpy as np
+
+
+def solve_consecutive_ones(matrix):
+    """
+    Checks whether the given input matrix has the consecutive ones property. The PQ-Tree code from
+    the Sage-math package is used for that.
+
+    :param matrix: the matrix
+    :type matrix: np.ndarray
+    """
+    num_rows, num_cols = matrix.shape
+    # For each column, the indices where there is a 1
+    columns_indices = [[] for _ in range(num_cols)]
+    for row, col in np.argwhere(matrix == 1):
+        columns_indices[col].append(row)
+    indices_to_columns = defaultdict(list)
+    for col, indices in enumerate(columns_indices):
+        indices_to_columns[tuple(indices)].append(col)
+    try:
+        result = reorder_sets(indices_to_columns.keys())
+    except ValueError:
+        return False, None
+    ordered_idx = []
+    for indices in result:
+        ordered_idx += indices_to_columns[indices]
+    return True, ordered_idx
+
+
 r"""
 PQ-Trees
 

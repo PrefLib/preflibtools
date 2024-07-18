@@ -1,518 +1,380 @@
+import unittest
 import random
 
+from instances import CategoricalInstance
+from properties.subdomains.dichotomous.interval import is_candidate_interval, \
+    is_candidate_extremal_interval, is_voter_interval, is_voter_extremal_interval
 
-def generate_CI_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
-
-    # Generate 'v' votes
-    for _ in range(v):
-        # Take a left bound
-        left = random.randint(0, a-1)
-
-        # Take a right bound
-        right = random.randint(left, a)
-
-        # Create a vote with the alternatives between the left and right bound to make sure it is a interval
-        vote = [alternatives[j] for j in range(left, right)]
-        instance.append(vote)
-    
+def base_cat_instance(num_alt):
+    instance = CategoricalInstance()
+    instance.num_alternatives = num_alt
+    instance.alternatives_name = {i: i for i in range(num_alt)}
+    instance.num_categories = 1
+    instance.categories_name = {0: "Approved"}
     return instance
 
-def generate_NOT_CI_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
-
-    # Generate 'v' votes
-    for _ in range(v):
-        # Take a left bound
-        left = random.randint(0, a-1)
-
-        # Take a right bound
-        right = random.randint(left, a)
-
-        # Create a vote with the alternatives between the left and right bound to make sure it is a interval
-        vote = [alternatives[j] for j in range(left, right)]
-        instance.append(vote)
-    
-    # Create a vote of ervery single alternative and vote with that alterntive with the last one to be sure no CI
-    for i in range(len(alternatives)-1):
-        vote = [alternatives[i]]
-        instance.append(vote)
-        vote = [alternatives[i], alternatives[-1]]
-        instance.append(vote)
-
+def generate_ci_instances(num_alt, num_votes):
+    instance = base_cat_instance(num_alt)
+    for _ in range(num_votes):
+        left_bound = random.randint(0, num_alt - 1)
+        right_bound = random.randint(left_bound, num_alt)
+        instance.preferences.append((tuple(range(left_bound, right_bound)),))
     return instance
 
-def generate_CEI_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+def generate_not_ci_instances(num_alt, num_votes):
+    instance = generate_ci_instances(num_alt, num_votes)
+    for j in range(num_alt - 1):
+        instance.preferences.append(((j,),))
+        instance.preferences.append(((j, num_alt - 1),))
+    return instance
 
-    # Generate 'v' votes
-    for _ in range(v):
 
-        # Choose random to create a prefix (0) or a suffcix (1)
-        fix = random.randint(0,1)
-
-        # Take a random length for the vote
-        length = random.randint(0, a-1)
-
-        # If prefix
-        if fix == 0:
-
-            # Create a vote from the most left alternative to length, to make sure interval and prefix
-            vote = [alternatives[j] for j in range(0, length)]
-            instance.append(vote)
-        
-        # Else if suffix
+def generate_cei_instances(num_alt, num_votes):
+    instance = base_cat_instance(num_alt)
+    for _ in range(num_votes):
+        length = random.randint(0, num_alt - 1)
+        if random.random() < 0.5:
+            instance.preferences.append((tuple(range(0, length)),))
         else:
-
-            # Create a vote from length to the last alternative, to make sure interval and suffix
-            vote = [alternatives[j] for j in range(length, a)]
-            instance.append(vote)
-
+            instance.preferences.append((tuple(range(num_alt - length - 1, num_alt)),))
     return instance
 
-def generate_NOT_CEI_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
-
-    # Generate 'v' votes
-    for _ in range(v):
-
-        # Choose random to create a prefix (0) or a suffcix (1)
-        fix = random.randint(0,1)
-
-        # Take a random length for the vote
-        length = random.randint(0, a-1)
-
-        # If prefix
-        if fix == 0:
-
-            # Create a vote from the most left alternative to length, to make sure interval and prefix
-            vote = [alternatives[j] for j in range(0, length)]
-            instance.append(vote)
-        
-        # Else if suffix
-        else:
-
-            # Create a vote from length to the last alternative, to make sure interval and suffix
-            vote = [alternatives[j] for j in range(length, a)]
-            instance.append(vote)
-
-    # Create a vote of ervery single alternative and vote with that alterntive with the last one to be sure no CI
-    for i in range(len(alternatives)-1):
-        vote = [alternatives[i]]
-        instance.append(vote)
-        vote = [alternatives[i], alternatives[-1]]
-        instance.append(vote)
-
+def generate_not_cei_instances(num_alt, num_votes):
+    instance = generate_cei_instances(num_alt, num_votes)
+    for j in range(num_alt - 1):
+        instance.preferences.append(((j,),))
+        instance.preferences.append(((j, num_alt - 1),))
     return instance
 
-# Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_CI_CEI_instances_T1(a):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
-    instance = []
 
-    # Add two alternatives around the diagonal as votes
-    for i in range(a-1):
-        instance.append([alternatives[i], alternatives[i+1]])
-
-    # Add vote on first and last alter
-    instance.append([alternatives[0], alternatives[-1]])
-
+def generate_not_cei_instances_tucker_1(num_alt):
+    instance = base_cat_instance(num_alt)
+    for i in range(num_alt - 1):
+        instance.preferences.append(((i, i + 1),))
+    instance.preferences.append(((0, num_alt - 1),))
     return instance
 
-# Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_CI_CEI_instances_T2(a):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
-    instance = []
 
-    # Add two alternatives around the diagonal as votes
-    for i in range(a-2):
-        instance.append([alternatives[i], alternatives[i+1]])
-    
+def generate_not_cei_instances_tucker_2(num_alt):
+    instance = base_cat_instance(num_alt)
+    for i in range(num_alt - 1):
+        instance.preferences.append(((i, i + 1),))
     # Append all alternatives except the first one
-    instance.append(alternatives[1:])
-
+    instance.preferences.append((tuple(range(1, num_alt)),))
     # Append all alternatives except the second to last
-    instance.append(alternatives[:-2] + alternatives[-1:])
-
+    instance.preferences.append((tuple(k for k in range(num_alt) if k != num_alt - 2),))
     return instance
 
-# Generate instance in the form of the Tucker 3 matrix
-def generate_NOT_CI_CEI_instances_T3(a):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
-    instance = []
 
-    # Add two alternatives around the diagonal as votes
-    for i in range(a-2):
-        instance.append([alternatives[i], alternatives[i+1]])
-    
+def generate_not_cei_instances_tucker_3(num_alt):
+    instance = base_cat_instance(num_alt)
+    for i in range(num_alt - 1):
+        instance.preferences.append(((i, i + 1),))
     # Append all alternatives except first and the second to last
-    instance.append(alternatives[1:-2] + alternatives[-1:])
-
+    instance.preferences.append((tuple(k for k in range(1, num_alt) if k != num_alt - 2),))
     return instance
 
-# Instance in the form of a Tucker 4 matrix
-instance_NOT_CI_CEI_T4 = [
-        ['A', 'B'],
-        ['C', 'D'],
-        ['E', 'F'],
-        ['B', 'D', 'F']
-    ]
 
-# Instance in the form of a Tucker 5 matrix
-instance_NOT_CI_CEI_T5 =[
-    ['A', 'B'],
-    ['A', 'B', 'C', 'D'],
-    ['C', 'D'],
-    ['A', 'D', 'E']
-]
-
-def generate_VI_instances(a, v):
-    # Generate 'v' voters
-    instance = [[] for _ in range(v)]
-
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
-
-    # For every alternative add them to voters that form an interval
-    for alt in alternatives:
-
-        # Choose left bound
-        left = random.randint(0, v-1)
-
-        # Choose right bound
-        right = random.randint(left, v)
-
-        # Append the alternative to all voters in those bounds to make sure is interval
-        for voter in range(left, right):
-            instance[voter].append(alt)
-
+def generate_not_cei_instances_tucker_4():
+    instance = base_cat_instance(6)
+    instance.preferences.append(((0, 1),))
+    instance.preferences.append(((2, 3),))
+    instance.preferences.append(((4, 5),))
+    instance.preferences.append(((1, 3, 5),))
     return instance
 
-def generate_VEI_instances(a, v):
-    # Generate 'v' voters
-    instance = [[] for _ in range(v)]
 
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
+def generate_not_cei_instances_tucker_5():
+    instance = base_cat_instance(5)
+    instance.preferences.append(((0, 1),))
+    instance.preferences.append(((0, 1, 2, 3),))
+    instance.preferences.append(((2, 3),))
+    instance.preferences.append(((0, 3, 4),))
+    return instance
 
-    # For every alternative add them to voters that form an interval
-    for alt in alternatives:
 
-        # Choose random to create a prefix (0) or a suffcix (1)
-        fix = random.randint(0, 1)
+def generate_vi_instances(num_alt, num_votes):
+    instance = base_cat_instance(num_alt)
+    votes = [set() for _ in range(num_votes)]
+    for alt in range(num_alt):
+        left_bound = random.randint(0, num_votes - 1)
+        right_bound = random.randint(left_bound, num_votes)
+        for voter in range(left_bound, right_bound):
+            votes[voter].add(alt)
+    for vote in votes:
+        instance.preferences.append((tuple(vote),))
+    return instance
 
-        # If prefix
-        if fix == 0:
 
-            # Make an interval from moest left voter till right bound
-            right = random.randint(0, v)
-
-            # Append alternative to all voters starting from first voter to make sure interval and prefix
-            for voter in range(0, right):
-                instance[voter].append(alt)
-
-        # If suffix
+def generate_vei_instances(num_alt, num_votes):
+    instance = base_cat_instance(num_alt)
+    votes = [set() for _ in range(num_votes)]
+    for alt in range(num_alt):
+        length = random.randint(0, num_votes)
+        if random.random() < 0.5:
+            for voter in range(0, length):
+                votes[voter].add(alt)
         else:
-
-            # Make an interval from left bound voter till last voter
-            left = random.randint(0, v)
-
-            # Append alternative to all voters starting from left bound voter to last voter make sure interval and prefix
-            for voter in range(left, v):
-                instance[voter].append(alt)
-
+            for voter in range(num_votes - length, num_votes):
+                votes[voter].add(alt)
+    for vote in votes:
+        instance.preferences.append((tuple(vote),))
     return instance
 
-# Generate instance in the form of the Tucker 1 matrix
-def generate_NOT_VI_VEI_instances_T1(a):
-    # Generate 'v' voters
-    instance = [[] for _ in range(a)]
 
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
+def generate_not_vi_instances_tucker_1(num_alt):
+    instance = base_cat_instance(num_alt)
+    votes = [set() for _ in range(num_alt)]
 
     # Add two alternatives around the diagonal to votes
-    for i in range(a-1):
-        instance[i].append(alternatives[i])
-        instance[i+1].append(alternatives[i])
-    
-    # Add last alternative to first vote 
-    instance[0].append(alternatives[-1])
+    for i in range(num_alt - 1):
+        votes[i].add(i)
+        votes[i + 1].add(i)
+    # Add last alternative to first vote
+    votes[0].add(num_alt - 1)
+    # Add last alternative to last vote
+    votes[-1].add(num_alt - 1)
 
-    # Add last alternatiev to last vote
-    instance[-1].append(alternatives[-1])
-
+    for vote in votes:
+        instance.preferences.append((tuple(vote),))
     return instance
 
-# Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_VI_VEI_instances_T2(a):
-    # Generate 'a' voters
-    instance = [[] for _ in range(a)]
 
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
+def generate_not_vi_instances_tucker_2(num_alt):
+    instance = base_cat_instance(num_alt)
+    votes = [set() for _ in range(num_alt)]
 
     # Add two alternatives around the diagonal to votes
-    for i in range(a-2):
-        instance[i].append(alternatives[i])
-        instance[i+1].append(alternatives[i])
+    for i in range(num_alt - 1):
+        votes[i].add(i)
+        votes[i + 1].add(i)
 
     # Add second to last alternative to all voters except first
-    for i in range(1, a):
-        instance[i].append(alternatives[-2])
+    for i in range(1, num_alt):
+        votes[i].add(num_alt - 2)
 
-    # Add last alternative to all voters except last (last voter still to be added in next step)
-    for i in range(a-2):
-        instance[i].append(alternatives[-1])
-    
-    # Add last voter with last alternative
-    instance[-1].append(alternatives[-1])
+    # Add last alternative to all voters except second to last
+    for i in range(num_alt - 2):
+        votes[i].add(num_alt - 1)
+    votes[-1].add(num_alt - 1)
 
-    # Add vote only on last two alternatives
-    instance.append(alternatives[-2:])
-
+    for vote in votes:
+        instance.preferences.append((tuple(vote),))
     return instance
 
-# Generate instance in the form of the Tucker 3 matrix
-def generate_NOT_VI_VEI_instances_T3(a):
-    # Generate 'a' voters
-    instance = [[] for _ in range(a)]
 
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
+def generate_not_vi_instances_tucker_3(num_alt):
+    instance = base_cat_instance(num_alt)
+    votes = [set() for _ in range(num_alt)]
 
     # Add two alternatives around the diagonal to votes
-    for i in range(a-1):
-        instance[i].append(alternatives[i])
-        instance[i+1].append(alternatives[i])
-
-    # Add second to second to last alternative to all voters except first
-    for i in range(1, a-2):
-        instance[i].append(alternatives[-1])
+    for i in range(num_alt - 1):
+        votes[i].add(i)
+        votes[i + 1].add(i)
+    # Add second to last alternative to all voters except first
+    for i in range(1, num_alt - 2):
+        votes[i].add(num_alt - 1)
 
     # Add a vote with only last alternative
-    instance.append(alternatives[-1:])
+    votes.append({num_alt - 1})
 
+    for vote in votes:
+        instance.preferences.append((tuple(vote),))
     return instance
 
-# Instance in the form of the Tucker 4 matrix
-instance_NOT_VI_VEI_T4 =[
-    ['A'],
-    ['A', 'D'],
-    ['B'],
-    ['B', 'D'],
-    ['C'],
-    ['C', 'D']
-]
 
-# Instance in the form of the Tucker 4 matrix
-instance_NOT_VI_VEI_T5 =[
-    ['A', 'B', 'D'],
-    ['A', 'B'],
-    ['B', 'C'],
-    ['B', 'C', 'D'],
-    ['D']
-]
+def generate_not_vi_instances_tucker_4():
+    instance = base_cat_instance(4)
+    instance.preferences.append(((0,),))
+    instance.preferences.append(((0, 3),))
+    instance.preferences.append(((1,),))
+    instance.preferences.append(((1, 3),))
+    instance.preferences.append(((2,),))
+    instance.preferences.append(((2, 3),))
+    return instance
 
-'''
-Uncomment to run the tests
-'''
-  
-# print("Testing positive examples CI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_CI_instances(a, v)
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == True
 
-# print("Testing negative examples CI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_NOT_CI_instances(a, v)
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
+def generate_not_vi_instances_tucker_5():
+    instance = base_cat_instance(4)
+    instance.preferences.append(((0, 1, 3),))
+    instance.preferences.append(((0, 1),))
+    instance.preferences.append(((1, 2),))
+    instance.preferences.append(((1, 2, 3),))
+    instance.preferences.append(((3,),))
+    return instance
 
-# print("Testing negative examples CI (Tucker 1)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T1(a)
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
 
-# print("Testing negative examples CI (Tucker 2)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T2(a)
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
+class TestInterval(unittest.TestCase):
 
-# print("Testing negative examples CI (Tucker 3)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
+    def test_is_ci(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_ci_instances(a, v)
+            with self.subTest(instance=instance):
+                res, ordering = is_candidate_interval(instance)
+                self.assertTrue(res)
+                self.assertEqual(len(set(ordering)), a)
 
-# print("Testing negative example CI (Tucker 4)")
-# for _ in trange(1):
-#     instance = instance_NOT_CI_CEI_T4
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
+    def test_is_not_ci(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_not_ci_instances(a, v)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative example CI (Tucker 5)")
-# for _ in trange(1):
-#     instance = instance_NOT_CI_CEI_T5
-#     res, res2 = is_candidate_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_1(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing positive examples CEI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_CEI_instances(a, v)
-#     res, _ = is_candidate_extremal_interval(instance)
-#     assert res == True
-    
-# print("Testing negative examples CEI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_NOT_CEI_instances(a, v)
-#     res, _ = is_candidate_extremal_interval(instance)
-#     assert res == False
-    
-# print("Testing negative examples CEI (Tucker 1)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T1(a)
-#     res, res2 = is_candidate_extremal_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_2(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative examples CEI (Tucker 2)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T2(a)
-#     res, res2 = is_candidate_extremal_interval(instance)
-#     assert res == False
-    
-# print("Testing negative examples CEI (Tucker 3)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
-#     res, res2 = is_candidate_extremal_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_3(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative example CEI (Tucker 4)")
-# for _ in trange(1):
-#     instance = instance_NOT_CI_CEI_T4
-#     res, res2 = is_candidate_extremal_interval(instance)
-#     assert res == False
+        instance = generate_not_cei_instances_tucker_4()
+        with self.subTest(instance=instance):
+            res, _ = is_candidate_interval(instance)
+            self.assertFalse(res)
 
-# print("Testing negative example CEI (Tucker 5)")
-# for _ in trange(1):
-#     instance = instance_NOT_CI_CEI_T5
-#     res, res2 = is_candidate_extremal_interval(instance)
-#     assert res == False
+        instance = generate_not_cei_instances_tucker_5()
+        with self.subTest(instance=instance):
+            res, _ = is_candidate_interval(instance)
+            self.assertFalse(res)
 
-# print("Testing positive examples VI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_VI_instances(a, v)
-#     res, _ = is_voter_interval(instance)
-#     assert res == True
+    def test_is_cei(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_cei_instances(a, v)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_extremal_interval(instance)
+                self.assertTrue(res)
 
-# print("Testing negative examples VI (Tucker 1)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T1(a)
-#     res, _ = is_voter_interval(instance)
-#     assert res == False
+    def test_is_not_cei(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_not_cei_instances(a, v)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_extremal_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative examples VI (Tucker 2)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T2(a)
-#     res, _ = is_voter_interval(instance)
-#     assert res == False
-    
-# print("Testing negative examples VI (Tucker 3)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T3(a)
-#     res, _ = is_voter_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_1(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_extremal_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative example VI (Tucker 4)")
-# for _ in trange(1):
-#     instance = instance_NOT_VI_VEI_T4
-#     res, _ = is_voter_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_2(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_extremal_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing negative example VI (Tucker 5)")
-# for _ in trange(1):
-#     instance = instance_NOT_VI_VEI_T5
-#     res, _ = is_voter_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_cei_instances_tucker_3(a)
+            with self.subTest(instance=instance):
+                res, _ = is_candidate_extremal_interval(instance)
+                self.assertFalse(res)
 
-# print("Testing postive examples VEI")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_VEI_instances(a, v)
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == True
+        instance = generate_not_cei_instances_tucker_4()
+        with self.subTest(instance=instance):
+            res, _ = is_candidate_extremal_interval(instance)
+            self.assertFalse(res)
 
-# print("Testing negative examples VEI (Tucker 1)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T1(a)
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == False
-    
-# print("Testing negative examples VEI (Tucker 2)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T2(a)
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == False
+        instance = generate_not_cei_instances_tucker_5()
+        with self.subTest(instance=instance):
+            res, _ = is_candidate_extremal_interval(instance)
+            self.assertFalse(res)
 
-# print("Testing negative examples VEI (Tucker 3)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T3(a)
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == False
+    def test_is_vi(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_vi_instances(a, v)
+            res, _ = is_voter_interval(instance)
+            self.assertTrue(res)
 
-# print("Testing negative example VEI (Tucker 4)")
-# for _ in trange(1):
-#     instance = instance_NOT_VI_VEI_T4
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == False
+    def test_is_not_vi(self):
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_1(a)
+            res, _ = is_voter_interval(instance)
+            self.assertFalse(res)
 
-# print("Testing negative example VEI (Tucker 5)")
-# for _ in trange(1):
-#     instance = instance_NOT_VI_VEI_T5
-#     res, _ = is_voter_extremal_interval(instance)
-#     assert res == False
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_2(a)
+            res, _ = is_voter_interval(instance)
+            self.assertFalse(res)
+
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_3(a)
+            res, _ = is_voter_interval(instance)
+            self.assertFalse(res)
+
+        instance = generate_not_vi_instances_tucker_4()
+        res, _ = is_voter_interval(instance)
+        self.assertFalse(res)
+
+        instance = generate_not_vi_instances_tucker_5()
+        res, _ = is_voter_interval(instance)
+        self.assertFalse(res)
+
+    def text_is_vei(self):
+        for _ in range(500):
+            a = random.randint(5, 50)
+            v = random.randint(5, 50)
+            instance = generate_vei_instances(a, v)
+            res, _ = is_voter_extremal_interval(instance)
+            self.assertTrue(res)
+
+    def text_is_not_vei(self):
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_1(a)
+            res, _ = is_voter_extremal_interval(instance)
+            self.assertFalse(res)
+
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_2(a)
+            res, _ = is_voter_extremal_interval(instance)
+            self.assertFalse(res)
+
+        for _ in range(500):
+            a = random.randint(5, 100)
+            instance = generate_not_vi_instances_tucker_3(a)
+            res, _ = is_voter_extremal_interval(instance)
+            self.assertFalse(res)
+
+        instance = generate_not_vi_instances_tucker_4()
+        res, _ = is_voter_extremal_interval(instance)
+        self.assertFalse(res)
+
+        instance = generate_not_vi_instances_tucker_5()
+        res, _ = is_voter_extremal_interval(instance)
+        self.assertFalse(res)
