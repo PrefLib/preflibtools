@@ -86,9 +86,8 @@ def _check_DUE(m, voter_vars, alt, r, instance, start_idx, end_idx):
                 m += voter - alt[j] >= r + epsilon - M * z
                 m += alt[j] - voter >= r + epsilon - M * (1 - z)
 
-    
-# Check Dichotomous Uniformly Euclidean
-def is_dichotomous_uniformly_euclidean(instance_input, time_limit=300):
+
+def is_dichotomous_uniformly_euclidean(instance, time_limit=300):
     num_voters = len(instance)
     alternatives = sorted(set().union(*instance))
     num_alt = len(alternatives)
