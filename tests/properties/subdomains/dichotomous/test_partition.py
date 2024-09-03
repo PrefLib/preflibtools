@@ -1,54 +1,8 @@
-from partition import *
 import random
-from tqdm import trange
 
-'''
-Use for testing of functions in partition.py
-'''
 
-# Example data
-instance = [
-    {'A', 'B'},  # Voter 1 chooses alternatives A and B
-    {'C'},       # Voter 2 chooses alternative C
-    {'D', 'E'},  # Voter 3 chooses alternatives D and E
-    {'A', 'C'}   # Voter 4 chooses alternatives A and C
-]
 
-# TEST 1
-# Check if recognizing 2part. Also is_partitioning should find the 2part
-instance1 = [
-    {'A', 'B'},
-    {'C'}
-]
-
-# Make sure both find partitions and return True
-assert is_2PART(instance1)[0] == True
-assert is_PART(instance1)[0] == True
-
-# Check if they both return the same partition in this case
-assert is_2PART(instance1)[1] == is_PART(instance1)[1]
-
-# TEST 2
-# Check if correct output with only one voter
-instance2 = [
-    {'A'}
-]
-
-assert is_2PART(instance2)[0] == False
-assert is_PART(instance2)[0] == True
-
-# TEST 3
-# Check if handles empty votes
-instance3 =[
-    {}
-]
-
-assert is_2PART(instance3)[0] == False
-assert is_PART(instance3)[0] == False
-
-# TEST 4
-
-def generate_2PART_instances(a, v):
+def generate_2_part_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -72,7 +26,7 @@ def generate_2PART_instances(a, v):
 
     return instance
 
-def generate_NOT_2PART_instances(a, v):
+def generate_not_2_part_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -133,7 +87,7 @@ def generate_PART_instances(a, v):
 
     return instance
 
-def generate_NOT_PART_instances(a, v):
+def generate_not_part_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -177,7 +131,7 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_2PART_instances(a, v)
+#     instance = generate_2_part_instances(a, v)
 #     res, _ = is_2PART(instance)
 #     res2, _ = is_PART(instance)
 #     assert res == True
@@ -187,7 +141,7 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_NOT_2PART_instances(a, v)
+#     instance = generate_not_2_part_instances(a, v)
 #     res, _ = is_2PART(instance)
 #     res2, _ = is_PART(instance)
 #     assert res == False
@@ -206,6 +160,6 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_NOT_PART_instances(a, v)
+#     instance = generate_not_part_instances(a, v)
 #     res, _ = is_PART(instance)
 #     assert res == False

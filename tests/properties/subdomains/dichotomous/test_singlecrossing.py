@@ -1,17 +1,18 @@
 import random
 from itertools import combinations
 
-def generate_WSC_instance(alt,voters):
+
+def generate_weakly_single_crossing_instance(num_alternatives, num_voters):
     # Make a list of all alternaitves
-    alternatives = [i for i in range(alt)]
+    alternatives = [i for i in range(num_alternatives)]
 
     # Find all possible combinations of alternative pairs
     all_comb = list(combinations(alternatives, 2))
     # Init the voters with emtpy votes
-    instance = [[] for _ in range(voters)]
+    instance = [[] for _ in range(num_voters)]
 
     # Group size for all even group sizes
-    group_size = voters // 3
+    group_size = num_voters // 3
 
     # Make the groups and the voters that belong in that group
     V1 = [v for v in range(group_size)]
@@ -39,7 +40,8 @@ def generate_WSC_instance(alt,voters):
 
     return instance
 
-def generate_NOT_WSC_instance(alt,voters):
+
+def generate_not_weakly_single_crossing_instance(alt, voters):
     # Make a list of all alternaitves
     alternatives = [i for i in range(alt)]
 
@@ -81,17 +83,14 @@ def generate_NOT_WSC_instance(alt,voters):
 
     return instance
 
-'''
-Uncomment to run the tests
-'''
 
 # print("Testing positive examples WSC")
 # for _ in trange(1000):
 #     a = random.randint(10, 20)
 #     alternatives = [i for i in range(a)]
 #     v = random.randint(5, len(list(combinations(alternatives, 2))))
-#     instance = generate_WSC_instance(a, v)
-#     res, _ = is_WSC(instance)
+#     instance = generate_weakly_single_crossing_instance(a, v)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == True
 
 # print("Testing negative examples WSC")
@@ -99,57 +98,57 @@ Uncomment to run the tests
 #     a = random.randint(10, 20)
 #     alternatives = [i for i in range(a)]
 #     v = random.randint(5, len(list(combinations(alternatives, 2))))
-#     instance = generate_WSC_instance(a, v)
-#     res, _ = is_WSC(instance)
+#     instance = generate_weakly_single_crossing_instance(a, v)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing positive examples WSC")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_2PART_instances(a, v)
-#     res, _ = is_WSC(instance)
+#     instance = generate_2_part_instances(a, v)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == True
 
 # print("Testing negative examples WSC (not CI)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_NOT_CI_instances(a, v)
-#     res, _ = is_WSC(instance)
+#     instance = generate_not_candidate_interval_instances(a, v)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing negative examples WSC (T1)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T1(a)
-#     res, _ = is_WSC(instance)
+#     instance = generate_not_candidate_interval_t1_instances(a)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing negative examples WSC (T2)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
-#     res, _ = is_WSC(instance)
+#     instance = generate_not_candidate_interval_t3_instances(a)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing negative examples WSC (T3)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
-#     res, _ = is_WSC(instance)
+#     instance = generate_not_candidate_interval_t3_instances(a)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing negative examples WSC (T4)")
 # for _ in trange(1):
 #     a = random.randint(5, 100)
 #     instance = instance_NOT_CI_CEI_T4
-#     res, _ = is_WSC(instance)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False
 
 # print("Testing negative examples WSC (T5)")
 # for _ in trange(1):
 #     a = random.randint(5, 100)
 #     instance = instance_NOT_CI_CEI_T5
-#     res, _ = is_WSC(instance)
+#     res, _ = is_weakly_single_crossing(instance)
 #     assert res == False

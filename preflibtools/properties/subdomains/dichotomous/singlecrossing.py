@@ -2,7 +2,7 @@ from interval import instance_to_matrix, solve_consecutive_ones
 from preflibtools.instances import CategoricalInstance
 
 
-def is_WSC(instance_input):
+def is_weakly_single_crossing(instance_input):
     if isinstance(instance_input, CategoricalInstance):
         # Convert categorical instance to usable format
         instance = []
@@ -14,7 +14,7 @@ def is_WSC(instance_input):
     else:
         instance = instance_input
 
-    # Get matrix and lables
+    # Get matrix and labels
     M, columns_labels = instance_to_matrix(instance, interval='wsc')
 
     # Solve C1 and get results of new order columns

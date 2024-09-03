@@ -1,7 +1,7 @@
 import random
 
 
-def generate_CI_instances(a, v):
+def generate_candidate_interval_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -22,7 +22,7 @@ def generate_CI_instances(a, v):
     
     return instance
 
-def generate_NOT_CI_instances(a, v):
+def generate_not_candidate_interval_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -50,7 +50,7 @@ def generate_NOT_CI_instances(a, v):
 
     return instance
 
-def generate_CEI_instances(a, v):
+def generate_candidate_extremal_interval_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -82,7 +82,7 @@ def generate_CEI_instances(a, v):
 
     return instance
 
-def generate_NOT_CEI_instances(a, v):
+def generate_not_candidate_extremal_interval_instances(a, v):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
 
@@ -122,7 +122,7 @@ def generate_NOT_CEI_instances(a, v):
     return instance
 
 # Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_CI_CEI_instances_T1(a):
+def generate_not_candidate_interval_t1_instances(a):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
     instance = []
@@ -137,7 +137,7 @@ def generate_NOT_CI_CEI_instances_T1(a):
     return instance
 
 # Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_CI_CEI_instances_T2(a):
+def generate_not_candidate_interval_t2_instances(a):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
     instance = []
@@ -155,7 +155,7 @@ def generate_NOT_CI_CEI_instances_T2(a):
     return instance
 
 # Generate instance in the form of the Tucker 3 matrix
-def generate_NOT_CI_CEI_instances_T3(a):
+def generate_not_candidate_interval_t3_instances(a):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
     instance = []
@@ -170,22 +170,24 @@ def generate_NOT_CI_CEI_instances_T3(a):
     return instance
 
 # Instance in the form of a Tucker 4 matrix
-instance_NOT_CI_CEI_T4 = [
-        ['A', 'B'],
-        ['C', 'D'],
-        ['E', 'F'],
-        ['B', 'D', 'F']
-    ]
+def generate_not_candidate_interval_t4_instances():
+    return [
+            ['A', 'B'],
+            ['C', 'D'],
+            ['E', 'F'],
+            ['B', 'D', 'F']
+        ]
 
 # Instance in the form of a Tucker 5 matrix
-instance_NOT_CI_CEI_T5 =[
+def generate_not_candidate_interval_t5_instances():
+    return [
     ['A', 'B'],
     ['A', 'B', 'C', 'D'],
     ['C', 'D'],
     ['A', 'D', 'E']
 ]
 
-def generate_VI_instances(a, v):
+def generate_voter_interval_instances(a, v):
     # Generate 'v' voters
     instance = [[] for _ in range(v)]
 
@@ -207,7 +209,7 @@ def generate_VI_instances(a, v):
 
     return instance
 
-def generate_VEI_instances(a, v):
+def generate_voter_extremal_interval_instances(a, v):
     # Generate 'v' voters
     instance = [[] for _ in range(v)]
 
@@ -243,7 +245,7 @@ def generate_VEI_instances(a, v):
     return instance
 
 # Generate instance in the form of the Tucker 1 matrix
-def generate_NOT_VI_VEI_instances_T1(a):
+def generate_not_voter_interval_t1_instances(a):
     # Generate 'v' voters
     instance = [[] for _ in range(a)]
 
@@ -264,7 +266,7 @@ def generate_NOT_VI_VEI_instances_T1(a):
     return instance
 
 # Generate instance in the form of the Tucker 2 matrix
-def generate_NOT_VI_VEI_instances_T2(a):
+def generate_not_voter_interval_t2_instances(a):
     # Generate 'a' voters
     instance = [[] for _ in range(a)]
 
@@ -293,7 +295,7 @@ def generate_NOT_VI_VEI_instances_T2(a):
     return instance
 
 # Generate instance in the form of the Tucker 3 matrix
-def generate_NOT_VI_VEI_instances_T3(a):
+def generate_not_voter_interval_t3_instances(a):
     # Generate 'a' voters
     instance = [[] for _ in range(a)]
 
@@ -341,7 +343,7 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_CI_instances(a, v)
+#     instance = generate_candidate_interval_instances(a, v)
 #     res, res2 = is_candidate_interval(instance)
 #     assert res == True
 
@@ -349,28 +351,28 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_NOT_CI_instances(a, v)
+#     instance = generate_not_candidate_interval_instances(a, v)
 #     res, res2 = is_candidate_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples CI (Tucker 1)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T1(a)
+#     instance = generate_not_candidate_interval_t1_instances(a)
 #     res, res2 = is_candidate_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples CI (Tucker 2)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T2(a)
+#     instance = generate_not_candidate_interval_t2_instances(a)
 #     res, res2 = is_candidate_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples CI (Tucker 3)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
+#     instance = generate_not_candidate_interval_t3_instances(a)
 #     res, res2 = is_candidate_interval(instance)
 #     assert res == False
 
@@ -390,7 +392,7 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_CEI_instances(a, v)
+#     instance = generate_candidate_extremal_interval_instances(a, v)
 #     res, _ = is_candidate_extremal_interval(instance)
 #     assert res == True
     
@@ -398,28 +400,28 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_NOT_CEI_instances(a, v)
+#     instance = generate_not_candidate_extremal_interval_instances(a, v)
 #     res, _ = is_candidate_extremal_interval(instance)
 #     assert res == False
     
 # print("Testing negative examples CEI (Tucker 1)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T1(a)
+#     instance = generate_not_candidate_interval_t1_instances(a)
 #     res, res2 = is_candidate_extremal_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples CEI (Tucker 2)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T2(a)
+#     instance = generate_not_candidate_interval_t2_instances(a)
 #     res, res2 = is_candidate_extremal_interval(instance)
 #     assert res == False
     
 # print("Testing negative examples CEI (Tucker 3)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_CI_CEI_instances_T3(a)
+#     instance = generate_not_candidate_interval_t3_instances(a)
 #     res, res2 = is_candidate_extremal_interval(instance)
 #     assert res == False
 
@@ -439,28 +441,28 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_VI_instances(a, v)
+#     instance = generate_voter_interval_instances(a, v)
 #     res, _ = is_voter_interval(instance)
 #     assert res == True
 
 # print("Testing negative examples VI (Tucker 1)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T1(a)
+#     instance = generate_not_voter_interval_t1_instances(a)
 #     res, _ = is_voter_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples VI (Tucker 2)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T2(a)
+#     instance = generate_not_voter_interval_t2_instances(a)
 #     res, _ = is_voter_interval(instance)
 #     assert res == False
     
 # print("Testing negative examples VI (Tucker 3)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T3(a)
+#     instance = generate_not_voter_interval_t3_instances(a)
 #     res, _ = is_voter_interval(instance)
 #     assert res == False
 
@@ -480,28 +482,28 @@ Uncomment to run the tests
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
 #     v = random.randint(5, 100)
-#     instance = generate_VEI_instances(a, v)
+#     instance = generate_voter_extremal_interval_instances(a, v)
 #     res, _ = is_voter_extremal_interval(instance)
 #     assert res == True
 
 # print("Testing negative examples VEI (Tucker 1)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T1(a)
+#     instance = generate_not_voter_interval_t1_instances(a)
 #     res, _ = is_voter_extremal_interval(instance)
 #     assert res == False
     
 # print("Testing negative examples VEI (Tucker 2)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T2(a)
+#     instance = generate_not_voter_interval_t2_instances(a)
 #     res, _ = is_voter_extremal_interval(instance)
 #     assert res == False
 
 # print("Testing negative examples VEI (Tucker 3)")
 # for _ in trange(1000):
 #     a = random.randint(5, 100)
-#     instance = generate_NOT_VI_VEI_instances_T3(a)
+#     instance = generate_not_voter_interval_t3_instances(a)
 #     res, _ = is_voter_extremal_interval(instance)
 #     assert res == False
 
