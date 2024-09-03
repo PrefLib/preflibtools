@@ -11,7 +11,7 @@ from itertools import combinations
 import numpy as np
 from mip import Model, xsum, BINARY, MINIMIZE, INTEGER, OptimizationStatus
 
-from preflibtools.properties.subdomains.pq_trees import isC1P
+from preflibtools.properties.subdomains.consecutive_ones import isC1P
 
 
 def is_single_peaked_axis(instance, axis):
