@@ -1,127 +1,72 @@
 import random
 
+from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
 
-def generate_candidate_interval_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+def generate_candidate_interval_instances(num_alternatives, num_voters):
+    alternatives = list(range(num_alternatives))
 
-    # Generate 'v' votes
-    for _ in range(v):
-        # Take a left bound
-        left = random.randint(0, a-1)
+    instance = initialise_categorical_instance(num_alternatives)
 
-        # Take a right bound
-        right = random.randint(left, a)
-
-        # Create a vote with the alternatives between the left and right bound to make sure it is a interval
-        vote = [alternatives[j] for j in range(left, right)]
-        instance.append(vote)
+    for _ in range(num_voters):
+        left = random.randint(0, num_alternatives - 1)
+        right = random.randint(left, num_alternatives)
+        instance.preferences.append([[alternatives[left:right]]])
     
     return instance
 
-def generate_not_candidate_interval_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+def generate_not_candidate_interval_instances(num_alternatives, num_voters):
+    alternatives = list(range(num_alternatives))
 
-    # Generate 'v' votes
-    for _ in range(v):
-        # Take a left bound
-        left = random.randint(0, a-1)
+    instance = initialise_categorical_instance(num_alternatives)
 
-        # Take a right bound
-        right = random.randint(left, a)
+    for _ in range(num_voters):
+        left = random.randint(0, num_alternatives - 1)
+        right = random.randint(left, num_alternatives)
+        instance.preferences.append([[alternatives[left:right]]])
 
-        # Create a vote with the alternatives between the left and right bound to make sure it is a interval
-        vote = [alternatives[j] for j in range(left, right)]
-        instance.append(vote)
-    
-    # Create a vote of ervery single alternative and vote with that alterntive with the last one to be sure no CI
-    for i in range(len(alternatives)-1):
-        vote = [alternatives[i]]
-        instance.append(vote)
-        vote = [alternatives[i], alternatives[-1]]
-        instance.append(vote)
+    for j in range(num_alternatives - 1):
+        instance.preferences.append([[[alternatives[j]]]])
+        instance.preferences.append([[[alternatives[j], alternatives[-1]]]])
 
     return instance
 
-def generate_candidate_extremal_interval_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+def generate_candidate_extremal_interval_instances(num_alternatives, num_voters):
+    alternatives = list(range(num_alternatives))
 
-    # Generate 'v' votes
-    for _ in range(v):
+    instance = initialise_categorical_instance(num_alternatives)
 
-        # Choose random to create a prefix (0) or a suffcix (1)
-        fix = random.randint(0,1)
-
-        # Take a random length for the vote
-        length = random.randint(0, a-1)
-
-        # If prefix
-        if fix == 0:
-
-            # Create a vote from the most left alternative to length, to make sure interval and prefix
-            vote = [alternatives[j] for j in range(0, length)]
-            instance.append(vote)
-        
-        # Else if suffix
+    for _ in range(num_voters):
+        cut = random.randint(1, num_alternatives - 1)
+        if random.random():
+            instance.preferences.append([[alternatives[0:cut]]])
         else:
-
-            # Create a vote from length to the last alternative, to make sure interval and suffix
-            vote = [alternatives[j] for j in range(length, a)]
-            instance.append(vote)
+            instance.preferences.append([[alternatives[cut:-1]]])
 
     return instance
 
-def generate_not_candidate_extremal_interval_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+def generate_not_candidate_extremal_interval_instances(num_alternatives, num_voters):
+    alternatives = list(range(num_alternatives))
 
-    # Generate 'v' votes
-    for _ in range(v):
+    instance = initialise_categorical_instance(num_alternatives)
 
-        # Choose random to create a prefix (0) or a suffcix (1)
-        fix = random.randint(0,1)
-
-        # Take a random length for the vote
-        length = random.randint(0, a-1)
-
-        # If prefix
-        if fix == 0:
-
-            # Create a vote from the most left alternative to length, to make sure interval and prefix
-            vote = [alternatives[j] for j in range(0, length)]
-            instance.append(vote)
-        
-        # Else if suffix
+    for _ in range(num_voters):
+        cut = random.randint(1, num_alternatives - 1)
+        if random.random():
+            instance.preferences.append([[alternatives[0:cut]]])
         else:
+            instance.preferences.append([[alternatives[cut:-1]]])
 
-            # Create a vote from length to the last alternative, to make sure interval and suffix
-            vote = [alternatives[j] for j in range(length, a)]
-            instance.append(vote)
-
-    # Create a vote of ervery single alternative and vote with that alterntive with the last one to be sure no CI
-    for i in range(len(alternatives)-1):
-        vote = [alternatives[i]]
-        instance.append(vote)
-        vote = [alternatives[i], alternatives[-1]]
-        instance.append(vote)
+    for j in range(num_alternatives - 1):
+        instance.preferences.append([[[alternatives[j]]]])
+        instance.preferences.append([[[alternatives[j], alternatives[-1]]]])
 
     return instance
 
-# Generate instance in the form of the Tucker 2 matrix
+
 def generate_not_candidate_interval_t1_instances(a):
     # Generate 'a' alternatives
     alternatives = [i+1 for i in range(a)]
@@ -187,7 +132,7 @@ def generate_not_candidate_interval_t5_instances():
     ['A', 'D', 'E']
 ]
 
-def generate_voter_interval_instances(a, v):
+def generate_voter_interval_instances(num_alternatives, num_voters):
     # Generate 'v' voters
     instance = [[] for _ in range(v)]
 
@@ -209,7 +154,7 @@ def generate_voter_interval_instances(a, v):
 
     return instance
 
-def generate_voter_extremal_interval_instances(a, v):
+def generate_voter_extremal_interval_instances(num_alternatives, num_voters):
     # Generate 'v' voters
     instance = [[] for _ in range(v)]
 

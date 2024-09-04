@@ -1,165 +1,60 @@
 import random
+from unittest import TestCase
+
+from preflibtools.properties.subdomains.dichotomous.partition import is_2_part, is_part
+from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
 
 
+def generate_part_instance(num_alternatives, num_votes, num_partitions=None):
+    alternatives = list(range(num_alternatives))
+    if num_partitions is None:
+        num_partitions = random.randint(2, num_alternatives - 1)
+    cuts = sorted(random.sample(range(1, num_alternatives - 1), k=num_partitions - 1))
 
-def generate_2_part_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
+    instance = initialise_categorical_instance(num_alternatives)
 
-    # Initiate the instance
-    instance = []
-
-    # Generate a random cut to cut the alternative list into 2 groups of at least length 1
-    cut = random.randint(1, a-1)
-
-    # Votes devided by two because for every v, two votes will be appended
-    v = v // 2
-
-    # Generate 'v' votes
-    for _ in range(v):
-
-        # Create a votes with the alternatives split in 2 groups
-        vote = [alternatives[j] for j in range(0, cut)]
-        instance.append(vote)
-        vote = [alternatives[j] for j in range(cut, a)]
-        instance.append(vote)
-
+    num_votes = max(1, num_votes // num_partitions)
+    for _ in range(num_votes):
+        previous_cut = 0
+        for cut in cuts:
+            instance.preferences.append([tuple(alternatives[previous_cut:cut])])
+            previous_cut = cut
     return instance
 
-def generate_not_2_part_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
-    # Generate a random cut to cut the alternative list into 2 groups of at least length 1
-    cut = random.randint(1, a-1)
-
-    # Votes devided by two because for every v, two votes will be appended
-    v = v // 2
-
-    # Generate 'v' votes
-    for _ in range(v):
-
-        # Create a votes with the alternatives split in 2 groups
-        vote = [alternatives[j] for j in range(0, cut)]
-        instance.append(vote)
-        vote = [alternatives[j] for j in range(cut, a)]
-        instance.append(vote)
-
-    # Add one wrong vote by adding a vote with two alternatives that are certainly not in same part
-    instance.append([alternatives[0], alternatives[-1]])
+def generate_not_part_instance(num_alternatives, num_votes, num_partitions=None):
+    instance = generate_part_instance(num_alternatives, num_votes - 1, num_partitions=num_partitions)
+    instance.preferences.append([(0, num_alternatives - 1)])
     return instance
 
-def generate_PART_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
 
-    # Initiate the instance
-    instance = []
+class TestDichotomousPartition(TestCase):
+    def test_positive_2_part(self):
+        for _ in range(1000):
+            num_alts = random.randint(5, 100)
+            num_votes = random.randint(5, 100)
+            instance = generate_part_instance(num_alts, num_votes, num_partitions=2)
+            self.assertTrue(is_2_part(instance)[0])
+            self.assertTrue(is_part(instance)[0])
 
-    # Determine randomly the number of partitions created, at least 2
-    partitions = random.randint(2, a)
+    def test_negative_2_part(self):
+        for _ in range(1000):
+            num_alts = random.randint(5, 100)
+            num_votes = random.randint(5, 100)
+            instance = generate_not_part_instance(num_alts, num_votes, num_partitions=2)
+            self.assertFalse(is_2_part(instance)[0])
+            self.assertFalse(is_part(instance)[0])
 
-    # Determine randomly the indices of where to partition
-    partition_indices = sorted(random.sample(range(1, a), partitions-1))
+    def test_positive_part(self):
+        for _ in range(1000):
+            num_alts = random.randint(5, 100)
+            num_votes = random.randint(5, 100)
+            instance = generate_part_instance(num_alts, num_votes)
+            self.assertTrue(is_part(instance)[0])
 
-    # Votes devided by paritions because for every v, num of partition votes will be appended
-    v = v // partitions 
-
-    for _ in range(v):
-        # Keep track of previous index for the next partition
-        prev_index = 0 
-
-        # Partition on all the indices
-        for partition_index in partition_indices:
-
-            # Create a vote of the partition
-            vote = [alternatives[j] for j in range(prev_index, partition_index)]
-            instance.append(vote)
-
-            # The now the previoud index will be the current one for the next partiton
-            prev_index = partition_index
-
-        # Add last partition as vote
-        vote = [alternatives[j] for j in range(prev_index, a)]
-        instance.append(vote)
-
-    return instance
-
-def generate_not_part_instances(a, v):
-    # Generate 'a' alternatives
-    alternatives = [i+1 for i in range(a)]
-
-    # Initiate the instance
-    instance = []
-
-    # Determine randomly the number of partitions created, at least 2
-    partitions = random.randint(2, a)
-
-    # Determine randomly the indices of where to partition
-    partition_indices = sorted(random.sample(range(1, a), partitions-1))
-
-    for _ in range(v):
-        # Keep track of previous index for the next partition
-        prev_index = 0 
-
-        # Partition on all the indices
-        for partition_index in partition_indices:
-
-            # Create a vote of the partition
-            vote = [alternatives[j] for j in range(prev_index, partition_index)]
-            instance.append(vote)
-
-            # The now the previoud index will be the current one for the next partiton
-            prev_index = partition_index
-
-        # Add last partition as vote
-        vote = [alternatives[j] for j in range(prev_index, a)]
-        instance.append(vote)
-
-    # Add one wrong vote by adding a vote with two alternatives that are certainly not in same part
-    instance.append([alternatives[0], alternatives[-1]])
-
-    return instance
-
-'''
-Uncomment to run the tests
-'''
-
-# print("Testing positive examples 2PART (for 2PART and PART)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_2_part_instances(a, v)
-#     res, _ = is_2PART(instance)
-#     res2, _ = is_PART(instance)
-#     assert res == True
-#     assert res2 == True
-
-# print("Testing negative examples 2PART")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_not_2_part_instances(a, v)
-#     res, _ = is_2PART(instance)
-#     res2, _ = is_PART(instance)
-#     assert res == False
-#     assert res2 == False
-
-
-# print("Testing positive examples PART")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_PART_instances(a, v)
-#     res, _ = is_PART(instance)
-#     assert res == True
-    
-# print("Testing negative examples PART")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_not_part_instances(a, v)
-#     res, _ = is_PART(instance)
-#     assert res == False
+    def test_negative_part(self):
+        for _ in range(1000):
+            num_alts = random.randint(5, 100)
+            num_votes = random.randint(5, 100)
+            instance = generate_not_part_instance(num_alts, num_votes)
+            self.assertFalse(is_part(instance)[0])

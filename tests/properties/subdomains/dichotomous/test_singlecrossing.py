@@ -1,122 +1,61 @@
 import random
 from itertools import combinations
+from unittest import TestCase
+
+from preflibtools.properties.subdomains.dichotomous.singlecrossing import is_weakly_single_crossing
+from tests.properties.subdomains.dichotomous.test_interval import \
+    generate_not_candidate_interval_instances
+from tests.properties.subdomains.dichotomous.test_partition import generate_part_instance
+from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
 
 
 def generate_weakly_single_crossing_instance(num_alternatives, num_voters):
-    # Make a list of all alternaitves
-    alternatives = [i for i in range(num_alternatives)]
+    alternatives = list(range(num_alternatives))
 
-    # Find all possible combinations of alternative pairs
-    all_comb = list(combinations(alternatives, 2))
-    # Init the voters with emtpy votes
-    instance = [[] for _ in range(num_voters)]
+    instance = initialise_categorical_instance(num_alternatives)
 
-    # Group size for all even group sizes
-    group_size = num_voters // 3
+    group_size = max(1, num_voters // 3)
 
-    # Make the groups and the voters that belong in that group
-    V1 = [v for v in range(group_size)]
-    V2 = [v for v in range(group_size, len(instance) - group_size)]
-    V3 = [v for v in range(len(instance) - group_size + 1, len(instance))]
+    instance.preferences = [[[]] for _ in range(group_size * 3)]
+    v1 = range(group_size)
+    v2 = range(group_size, len(instance.preferences) - group_size)
+    v3 = range(len(instance.preferences) - group_size + 1, len(instance.preferences))
 
-    # Foralll possible combinations add something to every group V1, V2, V3
-    for a, b in all_comb:
-
-        # Group V1 add aproval vote of a
-        for v in V1:
-            instance[v].append(a)
-
-        # Group V2 add aproval vote of b
-        for v in V2:
-            instance[v].append(b)
-
-        # Group V3 add either both or none depending on random choice
-        for v in V3:
-            choice = random.randint(0,1)
-            if choice == 1:
-                instance[v].append(a)
-                instance[v].append(b)
-            # Else disapprove vote of both so add nothing
-
+    for a, b in combinations(alternatives, 2):
+        for v in v1:
+            instance.preferences[v][0].append(a)
+        for v in v2:
+            instance.preferences[v][0].append(b)
+        for v in v3:
+            if random.random() < 0.5:
+                instance.preferences[v][0].append(a)
+                instance.preferences[v][0].append(b)
     return instance
 
 
-def generate_not_weakly_single_crossing_instance(alt, voters):
-    # Make a list of all alternaitves
-    alternatives = [i for i in range(alt)]
+class TestDichotomousWSC(TestCase):
+    def test_positive_wsc(self):
+        for _ in range(1000):
+            num_alternatives = random.randint(10, 20)
+            num_voters = random.randint(10, 20)
+            instance = generate_weakly_single_crossing_instance(num_alternatives, num_voters)
+            self.assertTrue(is_weakly_single_crossing(instance)[0])
 
-    # Find all possible combinations of alternative pairs
-    all_comb = list(combinations(alternatives, 2))
-    # Init the voters with emtpy votes
-    instance = [[] for _ in range(voters)]
-
-    # Group size for all even group sizes
-    group_size = voters // 3
-
-    # Make the groups and the voters that belong in that group
-    V1 = [v for v in range(group_size)]
-    V2 = [v for v in range(group_size, len(instance) - group_size)]
-    V3 = [v for v in range(len(instance) - group_size + 1, len(instance))]
-
-    # Foralll possible combinations add something to every group V1, V2, V3
-    for a, b in all_comb:
-
-        # Group V1 add aproval vote of a
-        for v in V1:
-            instance[v].append(a)
-
-        # Group V2 add aproval vote of b
-        for v in V2:
-            instance[v].append(b)
-
-        # Group V3 add either both or none depending on random choice
-        for v in V3:
-            choice = random.randint(0,1)
-            if choice == 1:
-                instance[v].append(a)
-                instance[v].append(b)
-            # Else disapprove vote of both so add nothing
-        
-        for a in alternatives:
-            instance.append([a])
-            break
-
-    return instance
+    def test_positive_wsc_2_part(self):
+        for _ in range(1000):
+            num_alternatives = random.randint(10, 20)
+            num_voters = random.randint(10, 20)
+            instance = generate_part_instance(num_alternatives, num_voters, num_partitions=2)
+            self.assertTrue(is_weakly_single_crossing(instance)[0])
 
 
-# print("Testing positive examples WSC")
-# for _ in trange(1000):
-#     a = random.randint(10, 20)
-#     alternatives = [i for i in range(a)]
-#     v = random.randint(5, len(list(combinations(alternatives, 2))))
-#     instance = generate_weakly_single_crossing_instance(a, v)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == True
+    def test_negative_wsc_ci(self):
+        for _ in range(1000):
+            num_alternatives = random.randint(10, 20)
+            num_voters = random.randint(10, 20)
+            instance = generate_not_candidate_interval_instances(num_alternatives, num_voters)
+            self.assertTrue(is_weakly_single_crossing(instance)[0])
 
-# print("Testing negative examples WSC")
-# for _ in trange(1000):
-#     a = random.randint(10, 20)
-#     alternatives = [i for i in range(a)]
-#     v = random.randint(5, len(list(combinations(alternatives, 2))))
-#     instance = generate_weakly_single_crossing_instance(a, v)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
-
-# print("Testing positive examples WSC")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_2_part_instances(a, v)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == True
-
-# print("Testing negative examples WSC (not CI)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     v = random.randint(5, 100)
-#     instance = generate_not_candidate_interval_instances(a, v)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
 
 # print("Testing negative examples WSC (T1)")
 # for _ in trange(1000):

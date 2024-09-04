@@ -1,89 +1,41 @@
-from preflibtools.instances import CategoricalInstance
+def is_part(instance):
+    """
+    Tests whether the given categorical instance is part of the partition subdomain.
 
-def is_2PART(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
+    :param instance: the instance
+    :type instance: CategoricalInstance
 
-    # Create list to save partitions
-    partition = []
-
-    # Pick a vote ffrom instance
-    for vote1 in instance:
-        # Get the the alternatives from vote
-        alternatives = sorted(list(vote1))
-
-        # Check for every alternative from vote if found in another vote
-        for alt in alternatives:
-            for vote2 in instance:
-                if alt in vote2:
-
-                    # If alternative found in another vote the rest of the vote must be the same
-                    if vote1 != vote2:
-                        return False, []
-        
-        # Check if same vote not already added
-        if vote1 not in partition:
-
-            # If passed this is a possible partition so add to list              
-            partition.append(vote1)
-
-    for part in partition:
-        if not part:
-            return False, []
-
-    # Must be 2 partitions to be 2PART
-    if len(partition) == 2:
-        return True, partition
-    else:
-        return False, []
+    :return: A tuple consisting of a boolean indicating if the instance is partition and a
+        partition of the candidates into sets (or None if the instance is not partition).
+    :rtype: tuple[bool, list[set] | None]
+    """
+    partitions = []
+    for ballot in instance.preferences:
+        alt_set = set(ballot[0])
+        new_set = True
+        for s in partitions:
+            if s == alt_set:
+                new_set = False
+                break
+            elif len(alt_set.intersection(s)) > 0:
+                return False, None
+        if new_set:
+            partitions.append(alt_set)
+    return True, partitions
 
 
+def is_2_part(instance):
+    """
+    Tests whether the given categorical instance is 2 partitions.
 
-def is_PART(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
+    :param instance: the instance
+    :type instance: CategoricalInstance
 
-    # Create list to save partitions
-    partition = []
-    # Pick a vote ffrom instance
-    for vote1 in instance:
-        # Get the the alternatives from vote
-        alternatives = sorted(list(vote1))
-
-        # Check for every alternative from vote if found in another vote
-        for alt in alternatives:
-            for vote2 in instance:
-                if alt in vote2:
-
-                    # If alternative found in another vote the rest of the vote must be the same
-                    if vote1 != vote2:
-                        return False, []
-                    
-        # Check if same vote not already added
-        if vote1 not in partition:
-
-            # If passed this is a possible partition so add to list              
-            partition.append(vote1)
-
-    
-    for part in partition:
-        if not part:
-            return False, []
-
-    return True, partition
+    :return: A tuple consisting of a boolean indicating if the instance is 2 partitions and a
+        partition of the candidates into two sets (or None if the instance is not 2 partitions).
+    :rtype: tuple[bool, list[set] | None]
+    """
+    part_res = is_part(instance)
+    if part_res[0] and len(part_res[1]) == 1:
+        return part_res
+    return False, None

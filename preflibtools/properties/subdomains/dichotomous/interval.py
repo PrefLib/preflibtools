@@ -34,8 +34,8 @@ def is_candidate_interval(instance):
     res, ordered_idx = solve_consecutive_ones(matrix)
     if res:
         alternative_names = list(instance.alternatives_name)
-        candidate_order = [alternative_names[i] for i in ordered_idx]
-        return True, candidate_order
+        candidates_order = [alternative_names[i] for i in ordered_idx]
+        return True, candidates_order
     return False, None
 
 

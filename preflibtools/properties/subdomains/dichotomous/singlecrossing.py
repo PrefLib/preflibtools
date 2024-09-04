@@ -1,32 +1,47 @@
-from interval import instance_to_matrix, solve_consecutive_ones
+from itertools import combinations
+
+import numpy as np
+
+from preflibtools.properties.subdomains.consecutive_ones import solve_consecutive_ones
 from preflibtools.instances import CategoricalInstance
 
 
-def is_weakly_single_crossing(instance_input):
-    if isinstance(instance_input, CategoricalInstance):
-        # Convert categorical instance to usable format
-        instance = []
-        for p in instance_input.preferences:
-            preferences = p
-            pref_set = set(preferences[0])
-            if len(pref_set) > 0:
-                instance.append(pref_set)
-    else:
-        instance = instance_input
+def instance_to_wsc_matrix(instance):
+    """
+    Transforms a categorical instance into a matrix as defined in the proof of Theorem 13 in
+    https://martin.lackner.xyz/publications/incompletesc-full.pdf.
+    """
+    alternatives = list(instance.alternatives_name)
+    all_pairs_alt = tuple(combinations(alternatives, 2))
+    matrix = np.zeros((2 * len(all_pairs_alt), len(instance.preferences)), dtype=int)
 
-    # Get matrix and labels
-    M, columns_labels = instance_to_matrix(instance, interval='wsc')
+    for ballot_idx, ballot in enumerate(instance.preferences):
+        pair_idx = 0
+        approved_alts = ballot[0]
+        for a, b in all_pairs_alt:
+            if a in approved_alts and b not in approved_alts:
+                matrix[pair_idx, ballot_idx] = 1
+            elif b in approved_alts and a not in approved_alts:
+                matrix[pair_idx + 1, ballot_idx] = 1
+            pair_idx += 2
+    return matrix
 
-    # Solve C1 and get results of new order columns
-    res, ordered_idx = solve_consecutive_ones(M)
 
-    if res is False:
-        return False, ([], [])
-    else:
-        # Get result of the order
-        order_result = [columns_labels[i] for i in ordered_idx]
+def is_weakly_single_crossing(instance):
+    """
+    Tests whether the given categorical instance is weakly single crossing.
 
-        # Convert result back to matrix based on column index
-        M_result = M[:, ordered_idx]
-    
-    return True, (order_result, M_result)
+    :param instance: the instance
+    :type instance: CategoricalInstance
+
+    :return: A tuple consisting of a boolean indicating if the instance is weakly single crossing
+        and an ordering of the ballots (or None if the instance is not weakly single crossing).
+    :rtype: tuple[bool, list[set] | None]
+    """
+
+    matrix = instance_to_wsc_matrix(instance)
+    res, ordered_idx = solve_consecutive_ones(matrix)
+
+    if res:
+        return True, ordered_idx
+    return False, None
