@@ -2,8 +2,17 @@ from preflibtools.properties.subdomains.dichotomous.interval import is_candidate
 
 
 def is_dichotomous_euclidean(instance):
-    res, (order, _) = is_candidate_interval(instance)
+    """
+    Tests whether the given categorical instance representing dichotomous preferences is Euclidean.
 
+    :param instance: the instance
+    :type instance: CategoricalInstance
+
+    :return: A tuple consisting of a boolean indicating if the instance is Euclidean, and the
+    positions of the voters and of the candidates (or None if the instance is not Euclidean).
+    :rtype: tuple[bool, list | None, list | None]
+    """
+    res, order  = is_candidate_interval(instance)
     if not res:
         return False, None
 
@@ -44,8 +53,3 @@ def is_dichotomous_euclidean(instance):
 
     # Return tuple of the voters with position and radius and tuple with the alternative postitions
     return True, (voter_position_radius, alternative_positions)
-
-
-def is_possibly_euclidean(instance):
-    res, _ = is_candidate_interval(instance)
-    return res, None
