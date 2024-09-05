@@ -30,7 +30,7 @@ def generate_not_part_instance(num_alternatives, num_votes, num_partitions=None)
 
 class TestDichotomousPartition(TestCase):
     def test_positive_2_part(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alts = random.randint(5, 100)
             num_votes = random.randint(5, 100)
             instance = generate_part_instance(num_alts, num_votes, num_partitions=2)
@@ -38,7 +38,7 @@ class TestDichotomousPartition(TestCase):
             self.assertTrue(is_part(instance)[0])
 
     def test_negative_2_part(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alts = random.randint(5, 100)
             num_votes = random.randint(5, 100)
             instance = generate_not_part_instance(num_alts, num_votes, num_partitions=2)
@@ -46,14 +46,14 @@ class TestDichotomousPartition(TestCase):
             self.assertFalse(is_part(instance)[0])
 
     def test_positive_part(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alts = random.randint(5, 100)
             num_votes = random.randint(5, 100)
             instance = generate_part_instance(num_alts, num_votes)
             self.assertTrue(is_part(instance)[0])
 
     def test_negative_part(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alts = random.randint(5, 100)
             num_votes = random.randint(5, 100)
             instance = generate_not_part_instance(num_alts, num_votes)

@@ -101,6 +101,22 @@ class CategoricalInstance(PrefLibInstance):
             self.num_alternatives = len(self.alternatives_name)
             self.recompute_cardinality_param()
 
+    def factorise_instance(self, reset_multiplicity=False):
+        """Factorises the instance, i.e., remove duplicated preferences and updates the
+        multiplicity dictionary accordingly.
+        """
+        if reset_multiplicity:
+            self.multiplicity = dict()
+        new_pref_list = []
+        for ballot in self.preferences:
+            if ballot not in self.multiplicity:
+                self.multiplicity[ballot] = 1
+                new_pref_list.append(ballot)
+            else:
+                self.multiplicity[ballot] += 1
+                if ballot not in new_pref_list:
+                    new_pref_list.append(ballot)
+
     def recompute_cardinality_param(self):
         """Recomputes the basic cardinality parameters based on the preferences list in the
         instance. Numbers that are recomputed are the number of voters and the number of unique

@@ -7,7 +7,7 @@ import urllib.request
 import re
 
 
-class PrefLibInstance():
+class PrefLibInstance:
     """This class provide a general template to implement specific classes representing PrefLib
     instances. It should mainly be used as an abstract class.
 

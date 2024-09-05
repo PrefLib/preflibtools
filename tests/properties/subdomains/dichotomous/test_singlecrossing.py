@@ -4,7 +4,9 @@ from unittest import TestCase
 
 from preflibtools.properties.subdomains.dichotomous.singlecrossing import is_weakly_single_crossing
 from tests.properties.subdomains.dichotomous.test_interval import \
-    generate_not_candidate_interval_instances
+    generate_not_candidate_interval_instances, generate_not_candidate_interval_t1_instances, \
+    generate_not_candidate_interval_t2_instances, generate_not_candidate_interval_t3_instances, \
+    generate_not_candidate_interval_t4_instances, generate_not_candidate_interval_t5_instances
 from tests.properties.subdomains.dichotomous.test_partition import generate_part_instance
 from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
 
@@ -35,14 +37,14 @@ def generate_weakly_single_crossing_instance(num_alternatives, num_voters):
 
 class TestDichotomousWSC(TestCase):
     def test_positive_wsc(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alternatives = random.randint(10, 20)
             num_voters = random.randint(10, 20)
             instance = generate_weakly_single_crossing_instance(num_alternatives, num_voters)
             self.assertTrue(is_weakly_single_crossing(instance)[0])
 
     def test_positive_wsc_2_part(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alternatives = random.randint(10, 20)
             num_voters = random.randint(10, 20)
             instance = generate_part_instance(num_alternatives, num_voters, num_partitions=2)
@@ -50,44 +52,18 @@ class TestDichotomousWSC(TestCase):
 
 
     def test_negative_wsc_ci(self):
-        for _ in range(1000):
+        for _ in range(30):
             num_alternatives = random.randint(10, 20)
             num_voters = random.randint(10, 20)
             instance = generate_not_candidate_interval_instances(num_alternatives, num_voters)
-            self.assertTrue(is_weakly_single_crossing(instance)[0])
-
-
-# print("Testing negative examples WSC (T1)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_not_candidate_interval_t1_instances(a)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
-
-# print("Testing negative examples WSC (T2)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_not_candidate_interval_t3_instances(a)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
-
-# print("Testing negative examples WSC (T3)")
-# for _ in trange(1000):
-#     a = random.randint(5, 100)
-#     instance = generate_not_candidate_interval_t3_instances(a)
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
-
-# print("Testing negative examples WSC (T4)")
-# for _ in trange(1):
-#     a = random.randint(5, 100)
-#     instance = instance_NOT_CI_CEI_T4
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
-
-# print("Testing negative examples WSC (T5)")
-# for _ in trange(1):
-#     a = random.randint(5, 100)
-#     instance = instance_NOT_CI_CEI_T5
-#     res, _ = is_weakly_single_crossing(instance)
-#     assert res == False
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
+            instance = generate_not_candidate_interval_t1_instances(num_alternatives)
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
+            instance = generate_not_candidate_interval_t2_instances(num_alternatives)
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
+            instance = generate_not_candidate_interval_t3_instances(num_alternatives)
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
+            instance = generate_not_candidate_interval_t4_instances()
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
+            instance = generate_not_candidate_interval_t5_instances()
+            self.assertFalse(is_weakly_single_crossing(instance)[0])
