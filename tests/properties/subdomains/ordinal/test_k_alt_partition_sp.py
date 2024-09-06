@@ -1,6 +1,6 @@
 import numpy as np
 
-from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_partition import k_alternative_partition_brut_force
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_partition import k_alternative_partition_brut_force
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 from preflibtools.instances import OrdinalInstance
 

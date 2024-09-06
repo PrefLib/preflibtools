@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
-from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import \
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import \
     is_single_peaked
 
-import numpy as np
 from itertools import combinations, product
 from collections import defaultdict
 
@@ -12,7 +11,8 @@ from collections import defaultdict
 #########################################################################################
 
 def two_axes_sp(instance):
-    """Tests whether the collection of orders of the given instance can be split into
+    """
+    Tests whether the collection of orders of the given instance can be split into
     two partitions such that each partition is itself a single-peaked instance. 
     In other words, whether the given instance is 2-axes single-peaked.
     This function implements an algorithm of Yang (2020).
@@ -21,7 +21,7 @@ def two_axes_sp(instance):
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
     
     :return: whether the instance is 2-axes single-peaked, if that is the case,
-    also provides the partitions as two lists of orders.
+        also provides the partitions as two lists of orders.
     :rtype: tuple(bool, list)
     """
 
@@ -179,7 +179,8 @@ def two_axes_sp(instance):
 
 
 def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
-    """A helper function for the 2-axes single-peaked function. Checks
+    """
+    A helper function for the 2-axes single-peaked function. Checks
     whether three votes contain a WD-structure.
 
     :param v0: first vote.
@@ -190,7 +191,7 @@ def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
     :type v2:
 
     :return: whether the three votes contain a WD-structure, if yes, also
-    provides the involved alternatives.
+        provides the involved alternatives.
     :rtype: tuple(bool, tuple)
     """
 
@@ -225,7 +226,8 @@ def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
 
 
 def is_alpha(v0: list[int], v1: list[int]):
-    """A helper function for the 2-axes single-peaked function.
+    """
+    A helper function for the 2-axes single-peaked function.
     Tests whether two votes contain an alpha-structure.
 
     :param v0: first vote.
@@ -269,7 +271,8 @@ def is_alpha(v0: list[int], v1: list[int]):
 
 
 def add_clause(votes, clause, vertices, edges, inv_edges):
-    """A helper function of the 2-axes single-peaked function.
+    """
+    A helper function of the 2-axes single-peaked function.
     Adds the given votes to the list of vertices and creates new edges
     for the implication graph and its inverse according to the provided
     disjunctive clause.
@@ -310,7 +313,8 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
 #########################################################################################
 
 def two_sat(vertices, edges, inv_edges):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Implements Kosaraju's algorithm to find the strongly connected
     components of the given graph. Topologically orders the strongly
     connected components and finds which vertices belong to which component. 

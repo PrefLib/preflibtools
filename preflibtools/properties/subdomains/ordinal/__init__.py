@@ -1,4 +1,4 @@
-from preflibtools.properties.subdomains.ordinal.single_peaked import (
+from preflibtools.properties.subdomains.ordinal.singlepeaked import (
     two_axes_sp,
     k_alt_partition_approx,
     k_alternative_partition_brut_force,

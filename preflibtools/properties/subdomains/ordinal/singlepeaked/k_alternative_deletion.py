@@ -4,7 +4,8 @@ from preflibtools.instances import OrdinalInstance
 
 
 def remove_alternatives(instance, violating_alternatives):
-    """Removes a set of single-peakedness violating alternatives from a given profile.
+    """
+    Removes a set of single-peakedness violating alternatives from a given profile.
 
     :param instance: Instance to remove the given alternatives from.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
@@ -12,7 +13,7 @@ def remove_alternatives(instance, violating_alternatives):
     :type violating_alternatives: list
 
     :return: A new profile containing the orders of the given profile without the given alternatives
-    removed.
+        removed.
     :rtype: preflibtools.instances.preflibinstance.OrdinalInstance
     """
     new_instance = OrdinalInstance()
@@ -28,7 +29,8 @@ def remove_alternatives(instance, violating_alternatives):
 #########################################################################################
 
 def k_alternative_deletion(instance):
-    """Generates the longest incomplete axis on which the given profile does
+    """
+    Generates the longest incomplete axis on which the given profile does
     not violate single-peakedness, thereby identifying the minimum number
     of alternatives that should be deleted in order for it to become single-peaked.
 
@@ -38,7 +40,7 @@ def k_alternative_deletion(instance):
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
 
     :return: The longest incomplete axis on which the given instance is single-peaked,
-    as well the alternatives missing from said axis that would need to be removed from the profile.
+        as well the alternatives missing from said axis that would need to be removed from the profile.
     :rtype: Tuple(list, list)
     """
     alternatives = list(instance.alternatives_name.keys())
@@ -49,7 +51,8 @@ def k_alternative_deletion(instance):
 
 
 def longest_single_peaked_axis(instance, alternatives):
-    """Generates the longest incomplete axis on which the given profile does
+    """
+    Generates the longest incomplete axis on which the given profile does
     not violate single-peakedness, thereby identifying the minimum number
     of alternatives that should be deleted in order for it to become single-peaked.
 
@@ -61,7 +64,7 @@ def longest_single_peaked_axis(instance, alternatives):
     :type alternatives: list
 
     :return: The longest incomplete axis on which the given instance is single-peaked,
-    as well the alternatives missing from said axis that would need to be removed from the profile.
+        as well the alternatives missing from said axis that would need to be removed from the profile.
     :rtype: Tuple(list, list)
     """
     m = len(alternatives)
@@ -130,7 +133,8 @@ def longest_single_peaked_axis(instance, alternatives):
 
 
 def get_L_sets(alternatives, unique_votes):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Generates the set of sets of alternatives, based on what their lowest rank
     is among all votes. See Erdélyi, Lackner, Pfandler (2017) for details.
 
@@ -140,7 +144,7 @@ def get_L_sets(alternatives, unique_votes):
     :type unique_votes: list(list)
 
     :return: A dictionary of sets, such that the i-th set contains the alternatives placed last
-    after i-1 last placed alternative removals.
+        after i-1 last placed alternative removals.
     :rtype: dict(set)
     """
     L = dict()
@@ -166,7 +170,8 @@ def get_L_sets(alternatives, unique_votes):
 
 
 def eligible_alternatives(i, m, Y, L, unique_votes):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Generates the set of sets of alternatives that are eligible to be placed at
     this step of the procedure. See Erdélyi, Lackner, Pfandler (2017) for details.
 
@@ -181,8 +186,7 @@ def eligible_alternatives(i, m, Y, L, unique_votes):
     :param unique_votes: The unique orders within the profile.
     :type unique_votes: list(list)
 
-    :return: set of pairs or singletons of alternatives eligable to be placed next on
-    the axis.
+    :return: set of pairs or singletons of alternatives eligable to be placed next on the axis.
     :rtype: set(set)
     """
     remaining_alternatives = L[i].copy()
@@ -196,7 +200,8 @@ def eligible_alternatives(i, m, Y, L, unique_votes):
 
 
 def last_check(unique_votes, previous_alternatives, alternatives):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Do not place a set of new alternatives if one of said alternatives is always ranked higher
     than the rest. Do not place a set of new alternatives if there is a vote that ranks one lower
     than the previously placed alternatives.
@@ -229,7 +234,8 @@ def last_check(unique_votes, previous_alternatives, alternatives):
 
 
 def place(axis, X, votes):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Places a set of alternatives on the given axis if that would not violate
     single-peakedness given the votes. See Erdélyi, Lackner, Pfandler (2017) for details.
 
@@ -252,7 +258,8 @@ def place(axis, X, votes):
 
 
 def case_2(axis, X, votes):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Case 2 of place function. See Erdélyi, Lackner, Pfandler (2017) for details.
 
     :param axis: axis to place the new alternatives on.
@@ -325,7 +332,8 @@ def case_2(axis, X, votes):
 
 
 def case_3(axis, X, votes):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Case 3 of place function. See Erdélyi, Lackner, Pfandler (2017) for details.
 
     :param axis: axis to place the new alternatives on.
@@ -379,7 +387,8 @@ def case_3(axis, X, votes):
 
 
 def check_case_4(b, x):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Case 4 of place function. See Erdélyi, Lackner, Pfandler (2017) for details.
 
     :param b: boundary of the current axis in the place function.
@@ -402,7 +411,8 @@ def check_case_4(b, x):
 
 
 def boundary(axis):
-    """A helper function for the k-alternative deletion algorithm.
+    """
+    A helper function for the k-alternative deletion algorithm.
     Given an incomplete axis, returns the boundary identifier.
     See Erdélyi, Lackner, Pfandler (2017) for details.
 
@@ -420,5 +430,3 @@ def boundary(axis):
     ids = [x - 2, x - 1, x + 1, x + 2]
 
     return tuple([tmp[i] for i in ids])
-
-#########################################################################################

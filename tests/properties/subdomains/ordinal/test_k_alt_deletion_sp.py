@@ -1,8 +1,8 @@
 import numpy as np
 
-from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_deletion import k_alternative_deletion, remove_alternatives
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import k_alternative_deletion, remove_alternatives
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
-from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked
 from preflibtools.instances import OrdinalInstance
 
 from prefsampling.ordinal import singlepeaked as sp_samplers
