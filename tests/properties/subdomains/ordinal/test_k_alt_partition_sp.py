@@ -1,6 +1,7 @@
 import numpy as np
 
-from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_partition import k_alternative_partition_brut_force
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_partition import \
+    k_alternative_partition_brut_force
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 from preflibtools.instances import OrdinalInstance
 
@@ -103,7 +104,6 @@ def generate_counter_example():
 
 class TestKAlternativesPartition(TestCase):
     def test_alt_partition_single_peaked(self):
-
         # test 1, sp profile
         params = {
             "num_voters": 400,
@@ -128,11 +128,10 @@ class TestKAlternativesPartition(TestCase):
         instance = OrdinalInstance()
         instance.append_vote_map(vote_map)
 
-
         partitions = k_alternative_partition_brut_force(instance, 7)
 
         assert len(partitions) == 5
-        
+
         # test 3, non-sp profile, 7 partitions 
         params = {
             "num_voters": 400,

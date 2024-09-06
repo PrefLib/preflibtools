@@ -1,6 +1,9 @@
+import random
+
 import numpy as np
 
-from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import k_alternative_deletion, remove_alternatives
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import k_alternative_deletion, \
+    remove_alternatives
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked
 from preflibtools.instances import OrdinalInstance
@@ -13,7 +16,7 @@ from unittest import TestCase
 def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed=None):
     """Generates a non-single-peaked profile that becomes single-peaked after
     k alternatives are deleted. This is done by generating a single-peaked profile and
-    adding extra orders such that there remain WD-structures untill k alternatives are removed.
+    adding extra orders such that there remain WD-structures until k alternatives are removed.
 
     :param num_voters: Number of orders to sample.
     :type num_voters: int
@@ -54,60 +57,27 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed=None):
 
     return votes
 
+
 class TestKAlternativeDeletion(TestCase):
     def test_alt_deletion_single_peaked(self):
+        for _ in range(30):
+            num_voters = random.randint(100, 500)
+            num_alternatives = random.randint(5, 12)
+            k = random.randint(0, num_alternatives - 2)
+            with self.subTest(num_voters=num_voters, num_alternatives=num_alternatives, k=k):
+                params = {
+                    "num_voters": num_voters,
+                    "num_alternatives": num_alternatives,
+                    "k": k,
+                    "seed": 1
+                }
+                vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
+                instance = OrdinalInstance()
+                instance.append_vote_map(vote_map)
 
-        # test 1, sp profile
-        params = {
-            "num_voters" : 500,
-            "num_alternatives" : 11,
-            "k": 0,
-            "seed" : 1
-        }
-        vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
-        instance = OrdinalInstance()
-        instance.append_vote_map(vote_map)
+                axis, candidates = k_alternative_deletion(instance)
+                sp_instance = remove_alternatives(instance, candidates)
 
-        axis, candidates = k_alternative_deletion(instance)
-        SP_instance = remove_alternatives(instance, candidates)
-
-        assert axis == [i for i in range(11)]
-        assert candidates == []
-        assert is_single_peaked(SP_instance)
-
-        # test 2, non-sp profile, remove 4 
-        params = {
-            "num_voters" : 500,
-            "num_alternatives" : 11,
-            "k" : 4,
-            "seed" : 10
-        }
-        vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
-        instance = OrdinalInstance()
-        instance.append_vote_map(vote_map)
-
-
-        axis, candidates = k_alternative_deletion(instance)
-        SP_instance = remove_alternatives(instance, candidates)
-
-        assert len(axis) == 7
-        assert len(candidates) == 4
-        assert is_single_peaked(SP_instance)
-
-        # test 3, non-sp profile, remove 7 
-        params = {
-            "num_voters" : 10000,
-            "num_alternatives" : 12,
-            "k" : 7,
-            "seed" : 5
-        }
-        vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
-        instance = OrdinalInstance()
-        instance.append_vote_map(vote_map)
-
-        axis, candidates = k_alternative_deletion(instance)
-        SP_instance = remove_alternatives(instance, candidates)
-
-        assert len(axis) == 5
-        assert len(candidates) == 7
-        assert is_single_peaked(SP_instance)
+                self.assertEqual(len(axis), num_alternatives - k)
+                self.assertEqual(len(candidates), k)
+                self.assertTrue(is_single_peaked(sp_instance))
