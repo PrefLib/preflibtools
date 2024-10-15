@@ -1,7 +1,7 @@
-from preflibtools.properties.subdomains.ordinal.single_peaked.k_axes import two_axes_sp
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_axes import two_axes_sp
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 
-from preflibtools.properties.subdomains.ordinal.single_peaked.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked
 from preflibtools.instances import OrdinalInstance
 
 from prefsampling.ordinal import k_axes_single_peaked

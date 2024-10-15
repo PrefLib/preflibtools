@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>preflibtools.properties.subdomains.dichotomous &mdash; Preflibtools</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="distances" href="../distance.html" />
+    <link rel="prev" title="preflibtools.properties.subdomains.ordinal" href="ordinal.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> preflibtools
+          </a>
+              <div class="version">
+                2.0.22
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../instances/index.html">preflibtools.instances</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">preflibtools.properties</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../basic.html">basic</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">preflibtools.properties.subdomains</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ordinal.html">preflibtools.properties.subdomains.ordinal</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">preflibtools.properties.subdomains.dichotomous</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../distance.html">distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../decorators.html">decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pairwisecomparisons.html">pairwisecomparisons</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../aggregation/index.html">preflibtools.aggregation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">preflibtools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Reference</a> &raquo;</li>
+          <li><a href="../index.html">preflibtools.properties</a> &raquo;</li>
+          <li><a href="index.html">preflibtools.properties.subdomains</a> &raquo;</li>
+      <li>preflibtools.properties.subdomains.dichotomous</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/reference/properties/subdomains/dichotomous.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="preflibtools-properties-subdomains-dichotomous">
+<span id="properties-subdomains-dichotomous-label"></span><h1>preflibtools.properties.subdomains.dichotomous<a class="headerlink" href="#preflibtools-properties-subdomains-dichotomous" title="Permalink to this heading"></a></h1>
+<p>Module for testing whether dichotomous instances are part of some subdomains.</p>
+<section id="module-preflibtools.properties.subdomains.dichotomous.partition">
+<span id="partition-subdomains"></span><h2>Partition Subdomains<a class="headerlink" href="#module-preflibtools.properties.subdomains.dichotomous.partition" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.partition.is_2_part">
+<span class="sig-name descname"><span class="pre">is_2_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.partition.is_2_part" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is 2 partitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is 2 partitions and a
+partition of the candidates into two sets (or None if the instance is not 2 partitions).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em>[<em>set</em>] | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.partition.is_part">
+<span class="sig-name descname"><span class="pre">is_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.partition.is_part" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is part of the partition subdomain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is partition and a
+partition of the candidates into sets (or None if the instance is not partition).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em>[<em>set</em>] | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-preflibtools.properties.subdomains.dichotomous.interval">
+<span id="interval-subdomains"></span><h2>Interval Subdomains<a class="headerlink" href="#module-preflibtools.properties.subdomains.dichotomous.interval" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.interval.instance_to_ci_matrix">
+<span class="sig-name descname"><span class="pre">instance_to_ci_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.interval.instance_to_ci_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Builds a matrix so that the instance is candidate interval if and only if the matrix has the
+consecutive ones property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance, only the first class is used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.interval.is_candidate_extremal_interval">
+<span class="sig-name descname"><span class="pre">is_candidate_extremal_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.interval.is_candidate_extremal_interval" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is candidate extremal interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is candidate extremal
+interval and the ordering of the candidates (or None if the instance is not
+candidate extremal interval).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em> | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.interval.is_candidate_interval">
+<span class="sig-name descname"><span class="pre">is_candidate_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.interval.is_candidate_interval" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is candidate interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is candidate interval and
+the ordering of the candidates (or None if the instance is not candidate interval).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em> | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.interval.is_voter_extremal_interval">
+<span class="sig-name descname"><span class="pre">is_voter_extremal_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.interval.is_voter_extremal_interval" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is voter extremal interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is voter extremal interval
+and the ordering of the voters (or None if the instance is not voter extremal interval).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em> | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.interval.is_voter_interval">
+<span class="sig-name descname"><span class="pre">is_voter_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.interval.is_voter_interval" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is voter interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is voter interval and
+the ordering of the voters (or None if the instance is not voter interval).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em> | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-preflibtools.properties.subdomains.dichotomous.euclidean">
+<span id="euclidean-subdomains"></span><h2>Euclidean Subdomains<a class="headerlink" href="#module-preflibtools.properties.subdomains.dichotomous.euclidean" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.euclidean.is_dichotomous_euclidean">
+<span class="sig-name descname"><span class="pre">is_dichotomous_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.euclidean.is_dichotomous_euclidean" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance representing dichotomous preferences is Euclidean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is Euclidean, a dictionary mapping voters to
+their position and radius, and a dictionnary mapping alternatives to their position (or None if the instance is
+not Euclidean).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em> | <em>None</em>, <em>list</em> | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-preflibtools.properties.subdomains.dichotomous.singlecrossing">
+<span id="single-crossing-subdomains"></span><h2>Single-Crossing Subdomains<a class="headerlink" href="#module-preflibtools.properties.subdomains.dichotomous.singlecrossing" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.properties.subdomains.dichotomous.singlecrossing.is_weakly_single_crossing">
+<span class="sig-name descname"><span class="pre">is_weakly_single_crossing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.subdomains.dichotomous.singlecrossing.is_weakly_single_crossing" title="Permalink to this definition"></a></dt>
+<dd><p>Tests whether the given categorical instance is weakly single crossing. Transforms a categorical instance into a
+matrix as defined in the proof of Theorem 13 in <a class="reference external" href="https://martin.lackner.xyz/publications/incompletesc-full.pdf">https://martin.lackner.xyz/publications/incompletesc-full.pdf</a> and
+checks whether the matrix has the consecutive ones property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../../instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><em>CategoricalInstance</em></a>) – the instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of a boolean indicating if the instance is weakly single crossing
+and an ordering of the ballots (or None if the instance is not weakly single crossing).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>tuple</em>[<em>bool</em>, <em>list</em>[<em>set</em>] | <em>None</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ordinal.html" class="btn btn-neutral float-left" title="preflibtools.properties.subdomains.ordinal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../distance.html" class="btn btn-neutral float-right" title="distances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Simon Rey.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

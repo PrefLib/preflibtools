@@ -10,11 +10,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=51b770b3"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="#" />
@@ -26,18 +26,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            preflibtools
+            <a href="index.html" class="icon icon-home"> preflibtools
           </a>
               <div class="version">
-                2.0.0
+                2.0.22
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -64,8 +60,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Index</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Index</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -102,19 +98,17 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.append_order">append_order() (OrdinalInstance method)</a>
+</li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.append_order_array">append_order_array() (OrdinalInstance method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.append_order_list">append_order_list() (OrdinalInstance method)</a>
 </li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.append_vote_map">append_vote_map() (OrdinalInstance method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.approval_winner">approval_winner() (in module preflibtools.aggregation.singlewinner)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.approx_SP_alternative_deletion_ILP">approx_SP_alternative_deletion_ILP() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.approx_SP_voter_deletion_ILP">approx_SP_voter_deletion_ILP() (in module preflibtools.properties.singlepeakedness)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -160,12 +154,14 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.fallback_voting_winner">fallback_voting_winner() (in module preflibtools.aggregation.singlewinner)</a>
+      <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance.factorise_instance">factorise_instance() (CategoricalInstance method)</a>
 </li>
-      <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.flatten_strict">flatten_strict() (OrdinalInstance method)</a>
+      <li><a href="reference/aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.fallback_voting_winner">fallback_voting_winner() (in module preflibtools.aggregation.singlewinner)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.flatten_strict">flatten_strict() (OrdinalInstance method)</a>
+</li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance.from_ordinal">from_ordinal() (CategoricalInstance class method)</a>
 </li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.full_profile">full_profile() (OrdinalInstance method)</a>
@@ -208,21 +204,41 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance.infer_type">infer_type() (OrdinalInstance method)</a>
 </li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.interval.instance_to_ci_matrix">instance_to_ci_matrix() (in module preflibtools.properties.subdomains.dichotomous.interval)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.partition.is_2_part">is_2_part() (in module preflibtools.properties.subdomains.dichotomous.partition)</a>
+</li>
       <li><a href="reference/properties/basic.html#preflibtools.properties.basic.is_approval">is_approval() (in module preflibtools.properties.basic)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.interval.is_candidate_extremal_interval">is_candidate_extremal_interval() (in module preflibtools.properties.subdomains.dichotomous.interval)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.interval.is_candidate_interval">is_candidate_interval() (in module preflibtools.properties.subdomains.dichotomous.interval)</a>
 </li>
       <li><a href="reference/properties/basic.html#preflibtools.properties.basic.is_complete">is_complete() (in module preflibtools.properties.basic)</a>
 </li>
-      <li><a href="reference/properties/singlecrossing.html#preflibtools.properties.singlecrossing.is_single_crossing">is_single_crossing() (in module preflibtools.properties.singlecrossing)</a>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.euclidean.is_dichotomous_euclidean">is_dichotomous_euclidean() (in module preflibtools.properties.subdomains.dichotomous.euclidean)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.partition.is_part">is_part() (in module preflibtools.properties.subdomains.dichotomous.partition)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.is_single_peaked">is_single_peaked() (in module preflibtools.properties.singlepeakedness)</a>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlecrossing.is_single_crossing">is_single_crossing() (in module preflibtools.properties.subdomains.ordinal.singlecrossing)</a>
 </li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.is_single_peaked_axis">is_single_peaked_axis() (in module preflibtools.properties.singlepeakedness)</a>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.is_single_peaked">is_single_peaked() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
 </li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.is_single_peaked_ILP">is_single_peaked_ILP() (in module preflibtools.properties.singlepeakedness)</a>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.is_single_peaked_axis">is_single_peaked_axis() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
+</li>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.is_single_peaked_ILP">is_single_peaked_ILP() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
+</li>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.is_single_peaked_pq_tree">is_single_peaked_pq_tree() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
 </li>
       <li><a href="reference/properties/basic.html#preflibtools.properties.basic.is_strict">is_strict() (in module preflibtools.properties.basic)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.interval.is_voter_extremal_interval">is_voter_extremal_interval() (in module preflibtools.properties.subdomains.dichotomous.interval)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.interval.is_voter_interval">is_voter_interval() (in module preflibtools.properties.subdomains.dichotomous.interval)</a>
+</li>
+      <li><a href="reference/properties/subdomains/dichotomous.html#preflibtools.properties.subdomains.dichotomous.singlecrossing.is_weakly_single_crossing">is_weakly_single_crossing() (in module preflibtools.properties.subdomains.dichotomous.singlecrossing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -230,10 +246,16 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.k_approval_winner">k_approval_winner() (in module preflibtools.aggregation.singlewinner)</a>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.k_alt_partition_approx">k_alt_partition_approx() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
+</li>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion">k_alternative_deletion() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_partition_brut_force">k_alternative_partition_brut_force() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
+</li>
+      <li><a href="reference/aggregation/singlewinner.html#preflibtools.aggregation.singlewinner.k_approval_winner">k_approval_winner() (in module preflibtools.aggregation.singlewinner)</a>
+</li>
       <li><a href="reference/properties/distance.html#preflibtools.properties.distances.kendall_tau_distance">kendall_tau_distance() (in module preflibtools.properties.distances)</a>
 </li>
   </ul></td>
@@ -286,9 +308,17 @@
 </li>
         <li><a href="reference/properties/pairwisecomparisons.html#module-preflibtools.properties.pairwisecomparisons">preflibtools.properties.pairwisecomparisons</a>
 </li>
-        <li><a href="reference/properties/singlecrossing.html#module-preflibtools.properties.singlecrossing">preflibtools.properties.singlecrossing</a>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.euclidean">preflibtools.properties.subdomains.dichotomous.euclidean</a>
 </li>
-        <li><a href="reference/properties/singlepeaked.html#module-preflibtools.properties.singlepeakedness">preflibtools.properties.singlepeakedness</a>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.interval">preflibtools.properties.subdomains.dichotomous.interval</a>
+</li>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.partition">preflibtools.properties.subdomains.dichotomous.partition</a>
+</li>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.singlecrossing">preflibtools.properties.subdomains.dichotomous.singlecrossing</a>
+</li>
+        <li><a href="reference/properties/subdomains/ordinal.html#module-preflibtools.properties.subdomains.ordinal.singlecrossing">preflibtools.properties.subdomains.ordinal.singlecrossing</a>
+</li>
+        <li><a href="reference/properties/subdomains/ordinal.html#module-preflibtools.properties.subdomains.ordinal.singlepeaked">preflibtools.properties.subdomains.ordinal.singlepeaked</a>
 </li>
       </ul></li>
   </ul></td>
@@ -380,8 +410,6 @@
         <li><a href="reference/aggregation/singlewinner.html#module-preflibtools.aggregation.singlewinner">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     preflibtools.instances.convert
 
@@ -396,6 +424,8 @@
         <li><a href="reference/instances/preflibinstance.html#module-preflibtools.instances.preflibinstance">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     preflibtools.instances.sampling
 
@@ -439,17 +469,45 @@
 </li>
       </ul></li>
       <li>
-    preflibtools.properties.singlecrossing
+    preflibtools.properties.subdomains.dichotomous.euclidean
 
       <ul>
-        <li><a href="reference/properties/singlecrossing.html#module-preflibtools.properties.singlecrossing">module</a>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.euclidean">module</a>
 </li>
       </ul></li>
       <li>
-    preflibtools.properties.singlepeakedness
+    preflibtools.properties.subdomains.dichotomous.interval
 
       <ul>
-        <li><a href="reference/properties/singlepeaked.html#module-preflibtools.properties.singlepeakedness">module</a>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.interval">module</a>
+</li>
+      </ul></li>
+      <li>
+    preflibtools.properties.subdomains.dichotomous.partition
+
+      <ul>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.partition">module</a>
+</li>
+      </ul></li>
+      <li>
+    preflibtools.properties.subdomains.dichotomous.singlecrossing
+
+      <ul>
+        <li><a href="reference/properties/subdomains/dichotomous.html#module-preflibtools.properties.subdomains.dichotomous.singlecrossing">module</a>
+</li>
+      </ul></li>
+      <li>
+    preflibtools.properties.subdomains.ordinal.singlecrossing
+
+      <ul>
+        <li><a href="reference/properties/subdomains/ordinal.html#module-preflibtools.properties.subdomains.ordinal.singlecrossing">module</a>
+</li>
+      </ul></li>
+      <li>
+    preflibtools.properties.subdomains.ordinal.singlepeaked
+
+      <ul>
+        <li><a href="reference/properties/subdomains/ordinal.html#module-preflibtools.properties.subdomains.ordinal.singlepeaked">module</a>
 </li>
       </ul></li>
       <li><a href="reference/instances/sampling.html#preflibtools.instances.sampling.prefsampling_ordinal_wrapper">prefsampling_ordinal_wrapper() (in module preflibtools.instances.sampling)</a>
@@ -484,25 +542,11 @@
 </li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.PrefLibInstance.set_file_name">set_file_name() (PrefLibInstance method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/properties/basic.html#preflibtools.properties.basic.smallest_ballot">smallest_ballot() (in module preflibtools.properties.basic)</a>
 </li>
       <li><a href="reference/properties/basic.html#preflibtools.properties.basic.smallest_indif">smallest_indif() (in module preflibtools.properties.basic)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_cons_ones_matrix">sp_cons_ones_matrix() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_alt_del_cstr">sp_ILP_cons_ones_alt_del_cstr() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_cstr">sp_ILP_cons_ones_cstr() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_cons_ones_vot_del_cstr">sp_ILP_cons_ones_vot_del_cstr() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_pos_cstr">sp_ILP_pos_cstr() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_total_cstr">sp_ILP_total_cstr() (in module preflibtools.properties.singlepeakedness)</a>
-</li>
-      <li><a href="reference/properties/singlepeaked.html#preflibtools.properties.singlepeakedness.sp_ILP_trans_cstr">sp_ILP_trans_cstr() (in module preflibtools.properties.singlepeakedness)</a>
 </li>
       <li><a href="reference/properties/distance.html#preflibtools.properties.distances.spearman_footrule_distance">spearman_footrule_distance() (in module preflibtools.properties.distances)</a>
 </li>
@@ -512,6 +556,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/properties/subdomains/ordinal.html#preflibtools.properties.subdomains.ordinal.singlepeaked.two_axes_sp">two_axes_sp() (in module preflibtools.properties.subdomains.ordinal.singlepeaked)</a>
+</li>
       <li><a href="reference/instances/preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance.type_validator">type_validator() (CategoricalInstance method)</a>
 
       <ul>

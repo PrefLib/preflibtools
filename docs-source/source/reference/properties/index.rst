@@ -7,8 +7,7 @@ This module provides different ways to deal with properties of an instance.
 
 .. toctree::
     basic
-    singlepeaked
-    singlecrossing
+    subdomains/index
     distance
     decorators
     pairwisecomparisons

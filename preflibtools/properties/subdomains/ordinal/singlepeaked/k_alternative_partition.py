@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-from preflibtools.properties.subdomains.ordinal.single_peaked.k_alternative_deletion import longest_single_peaked_axis, get_L_sets, place
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import longest_single_peaked_axis, \
+    get_L_sets, place
 
 import math
 
 
 def k_alt_partition_approx(instance):
-    """Approximates a profiles k-alternative partition single-peakedness
+    """
+    Approximates a profiles k-alternative partition single-peakedness
     by continuously creating the longest possible single-peaked axis among
     the remaining alternatives using the algorithm of Erdélyi, Lackner, Pfandler (2017).
 
@@ -25,13 +27,13 @@ def k_alt_partition_approx(instance):
         longest_axis, alternatives = longest_single_peaked_axis(instance, alternatives)
 
         axes.append(longest_axis)
-    
+
     return axes
 
-#########################################################################################
 
 def k_alternative_partition_brut_force(instance, k):
-    """Generates the lowest amount of partitions of the alternatives in a given
+    """
+    Generates the lowest amount of partitions of the alternatives in a given
     profile such that when restricted to each partition, the profile is single-peaked.
     This is done by brute-forcing all admissible partitions in a DFS fashion.
 
@@ -55,7 +57,7 @@ def k_alternative_partition_brut_force(instance, k):
     # Construct L sets
     L = get_L_sets(alternatives, unique_votes)
 
-    L_segmented = {i:singleton_pair_combinations(list(alts)) for i, alts in L.items()}
+    L_segmented = {i: singleton_pair_combinations(list(alts)) for i, alts in L.items()}
 
     partitions = dfs(0, [], None, m, k, L_segmented, unique_votes)
 
@@ -67,7 +69,8 @@ def k_alternative_partition_brut_force(instance, k):
 
 
 def dfs(i, axes, shortest, m, k, L, unique_votes):
-    """A helper function of the k-alternative partition algorithm.
+    """
+    A helper function of the k-alternative partition algorithm.
     Traverses the search-space recursively by gathering all possible ways
     the current incomplete axes may be extended, finding all extensions that remain
     single-peaked, passing the extended axes into the next function in a depth first search
@@ -90,14 +93,14 @@ def dfs(i, axes, shortest, m, k, L, unique_votes):
     :type unique_votes: list(list)
 
     :return: list of the lowest number of partitions that could be created from
-    the given axes.
+        the given axes.
     :rtype: list(list)
     """
 
     # All alternatives have been placed at step m
     if i == m:
         return axes
-    
+
     # Get all ways to split the alternatives to be placed at step i
     extensions = L[i + 1]
 
@@ -108,7 +111,7 @@ def dfs(i, axes, shortest, m, k, L, unique_votes):
             continue
 
         # Find all ways to extend the axes with the given partition of new alternatives
-        new_axes = extend(axes, extension, unique_votes, k)        
+        new_axes = extend(axes, extension, unique_votes, k)
 
         for ax in new_axes:
             # Ignore this partition if it is already longer than the shortest complete partition
@@ -119,12 +122,13 @@ def dfs(i, axes, shortest, m, k, L, unique_votes):
                 if completed_partitions is not None:
                     if shortest is None or len(shortest) > len(completed_partitions):
                         shortest = completed_partitions
-                        
+
     return shortest
 
 
 def extend(axes, extension, unique_votes, k):
-    """A helper function of the k-alternative partition algorithm.
+    """
+    A helper function of the k-alternative partition algorithm.
     Finds and returns all ways to place a set of singleton and pairs of alternatives
     unto a list of incomplete axes, such that single-peakedness is not violated.
 
@@ -160,7 +164,7 @@ def extend(axes, extension, unique_votes, k):
                         new_used_axes = used_axes + [new_axis]
 
                         new_queue.append([new_unused_axes, new_used_axes])
-                
+
                 # Also check if there is room to create a new incomplete axis with this extension
                 if len(unused_axes) + len(used_axes) < k:
                     new_axis, _ = place([None], alt, unique_votes)
@@ -169,7 +173,7 @@ def extend(axes, extension, unique_votes, k):
                         new_used_axes = used_axes + [new_axis]
 
                         new_queue.append([unused_axes, new_used_axes])
-            
+
         queue = new_queue
 
     # For each succesful extension, combine the used and unused axes
@@ -182,7 +186,8 @@ def extend(axes, extension, unique_votes, k):
 
 
 def singleton_pair_combinations(items):
-    """A helper function of the k-alternative partition algorithm.
+    """
+    A helper function of the k-alternative partition algorithm.
     Constructs all partitions into singletons and unordered pairs of a given
     set of items.
     """
@@ -206,13 +211,13 @@ def singleton_pair_combinations(items):
             tail_combis = singleton_pair_combinations(remaining_items)
 
             for combi in tail_combis:
-                combis.append( [pair] + combi )
-        
+                combis.append([pair] + combi)
+
         # Let it be a singleton and find all partitions into singletons and unordered pairs of the remaining items
         other_combis = singleton_pair_combinations(items)
 
         # compile all results partitions
         for combi in other_combis:
-            combis.append( [(head,)] + combi )
-    
+            combis.append([(head,)] + combi)
+
         return combis
