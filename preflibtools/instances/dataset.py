@@ -49,11 +49,11 @@ def read_info_file(info_file_path):
                                 tmp_split += split + ', '
                         else:
                             if split[0:3] == '"""':
-                                if ',' in split:
+                                if split[-3:] == '"""':
+                                    new_split_line.append(split[3:-3])
+                                else:
                                     tmp_split += split[3:] + ', '
                                     inside_quotes = True
-                                else:
-                                    new_split_line.append(split[3:-3])
                             else:
                                 new_split_line.append(split)
                     else:
