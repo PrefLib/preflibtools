@@ -41,6 +41,7 @@ def metadata(instance):
         ),
         error_list,
     )
+    return error_list
 
 
 def orders(instance):
