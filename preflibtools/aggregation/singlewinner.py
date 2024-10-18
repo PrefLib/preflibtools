@@ -3,6 +3,8 @@
 from preflibtools.properties import requires_approval, requires_preference_type
 from preflibtools.properties import borda_scores, copeland_scores
 
+from collections import defaultdict
+
 
 @requires_preference_type("soc", "toc", "soi", "toi")
 def plurality_winner(instance):
@@ -12,13 +14,10 @@ def plurality_winner(instance):
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = {}
+    scores = defaultdict(lambda: 0)
     for order, mult in instance.multiplicity.items():
         for a in order[0]:
-            if a not in scores:
-                scores[a] = mult
-            else:
-                scores[a] += mult
+            scores[a] += mult
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
 
@@ -31,13 +30,10 @@ def veto_winner(instance):
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = {a: 0 for a in instance.alternatives_name}
+    scores = defaultdict(lambda: 0)
     for order, mult in instance.multiplicity.items():
         for a in order[-1]:
-            if a not in scores:
-                scores[a] = mult
-            else:
-                scores[a] += mult
+            scores[a] += mult
     least_vetos = min(scores.values())
     return {a for a in scores if scores[a] == least_vetos}
 
@@ -53,14 +49,11 @@ def k_approval_winner(instance, k):
     :param k: The instance.
     :type k: int
     """
-    scores = {}
+    scores = defaultdict(lambda: 0)
     for order, mult in instance.multiplicity.items():
         for x in order[:k]:
             a = x[0]
-            if a not in scores:
-                scores[a] = mult
-            else:
-                scores[a] += mult
+            scores[a] += mult
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
 
@@ -112,13 +105,10 @@ def satisfaction_approval_winner(instance):
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = dict()
+    scores = defaultdict(lambda: 0)
     for order, mult in instance.multiplicity.items():
         for a in order[0]:
-            if a not in scores:
-                scores[a] = mult / len(order[0])
-            else:
-                scores[a] += mult / len(order[0])
+            scores[a] += mult / len(order[0])
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
 
@@ -130,19 +120,18 @@ def fallback_voting_winner(instance):
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = dict()
+    scores = defaultdict(lambda: 0)
     quota = (instance.num_voters // 2) + 1
     for order, mult in instance.multiplicity.items():
         scores[order[0][0]] = mult
     current_pos = 1
-    while max(scores.values()) < quota and current_pos < instance.num_alternatives:
+    current_max_value = -1
+    while current_max_value < quota and current_pos < instance.num_alternatives:
         for order, mult in instance.multiplicity.items():
             if len(order) > current_pos:
                 a = order[current_pos][0]
-                if a not in scores:
-                    scores[a] = mult
-                else:
-                    scores[a] += mult
+                scores[a] += mult
+                current_max_value = max(current_max_value, scores[a])
         current_pos += 1
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
@@ -155,21 +144,20 @@ def bucklin_voting_winner(instance):
     :param instance: The instance.
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
-    scores = dict()
+    scores = defaultdict(lambda: 0)
     quota = (instance.num_voters // 2) + 1
     for order in instance.orders:
         multiplicity = instance.multiplicity[order]
         scores[order[0][0]] = multiplicity
     current_pos = 1
-    while max(scores.values()) < quota:
+    current_max_value = -1
+    while current_max_value < quota:
         for order in instance.orders:
             multiplicity = instance.multiplicity[order]
             if len(order) > current_pos:
                 a = order[current_pos][0]
-                if a not in scores:
-                    scores[a] = multiplicity
-                else:
-                    scores[a] += multiplicity
+                scores[a] += multiplicity
+                current_max_value = max(current_max_value, scores[a])
         current_pos += 1
     best_score = max(scores.values())
     return {a for a in scores if scores[a] == best_score}
