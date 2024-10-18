@@ -55,10 +55,10 @@ class PrefLibInstance:
         """
         pass
 
-    def parse(self, lines, autocorrect=False):
+    def parse(self, lines, autocorrect=False, header_only=False):
         pass
 
-    def parse_lines(self, lines, autocorrect=False):
+    def parse_lines(self, lines, autocorrect=False, header_only=False):
         """Parses the lines provided as argument. The parser to be used is deducted from the instance's inner value of
         data_type.
 
@@ -67,17 +67,19 @@ class PrefLibInstance:
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
 
         if self.type_validator(self.data_type):
-            self.parse(lines, autocorrect=autocorrect)
+            self.parse(lines, autocorrect=autocorrect, header_only=header_only)
         else:
             raise TypeError(
                 f"File extension {self.data_type} is not valid for this type of PrefLib "
                 "instance. This file cannot be parsed."
             )
 
-    def parse_file(self, filepath, autocorrect=False):
+    def parse_file(self, filepath, autocorrect=False, header_only=False):
         """Parses the file whose path is provided as argument and populates the PreflibInstance object accordingly.
         The parser to be used is deduced from the file extension.
 
@@ -86,6 +88,8 @@ class PrefLibInstance:
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
 
         # Populating basic properties of the instance
@@ -98,9 +102,9 @@ class PrefLibInstance:
         lines = file.readlines()
         file.close()
 
-        self.parse_lines(lines, autocorrect=autocorrect)
+        self.parse_lines(lines, autocorrect=autocorrect, header_only=header_only)
 
-    def parse_str(self, string, data_type, file_name="", autocorrect=False):
+    def parse_str(self, string, data_type, file_name="", autocorrect=False, header_only=False):
         """Parses the string provided as argument and populates the PreflibInstance object accordingly.
         The parser to be used is deduced from the file extension passed as argument.
 
@@ -113,15 +117,17 @@ class PrefLibInstance:
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
 
         self.file_path = "parsed_from_string"
         self.file_name = file_name
         self.data_type = data_type
 
-        self.parse_lines(string.splitlines(), autocorrect=autocorrect)
+        self.parse_lines(string.splitlines(), autocorrect=autocorrect, header_only=header_only)
 
-    def parse_url(self, url, autocorrect=False):
+    def parse_url(self, url, autocorrect=False, header_only=False):
         """Parses the file located at the provided URL and populates the PreflibInstance object accordingly.
         The parser to be used (whether the file describes a graph or an order for instance) is deduced based
         on the file extension.
@@ -131,6 +137,8 @@ class PrefLibInstance:
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
 
         data = urllib.request.urlopen(url)
@@ -141,7 +149,7 @@ class PrefLibInstance:
         self.file_name = url.split("/")[-1].split(".")[0]
         self.data_type = url.split(".")[-1]
 
-        self.parse_lines(lines, autocorrect=autocorrect)
+        self.parse_lines(lines, autocorrect=autocorrect, header_only=header_only)
 
     def parse_metadata(self, line, autocorrect=False):
         """A helper function that parses metadata.

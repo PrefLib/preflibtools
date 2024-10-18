@@ -21,19 +21,19 @@ def get_parsed_instance(file_path, header_only=False):
     if extension in (".soc", ".soi", ".toc", ".toi"):
         if header_only:
             instance = OrdinalInstance()
-            instance.parse(file_path, header_only=True)
+            instance.parse_file(file_path, header_only=True)
             return instance
         return OrdinalInstance(file_path)
     elif extension == ".cat":
         if header_only:
             instance = CategoricalInstance()
-            instance.parse(file_path, header_only=True)
+            instance.parse_file(file_path, header_only=True)
             return instance
         return CategoricalInstance(file_path)
     elif extension == ".wmd":
         if header_only:
             instance = MatchingInstance()
-            instance.parse(file_path, header_only=True)
+            instance.parse_file(file_path, header_only=True)
             return instance
         return MatchingInstance(file_path)
     else:
