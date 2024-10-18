@@ -1,4 +1,5 @@
 import os.path
+from operator import le, eq
 
 
 def my_assert(condition, error, error_list):
@@ -7,6 +8,16 @@ def my_assert(condition, error, error_list):
     except AssertionError:
         print("ERROR: " + str(error))
         error_list.append(error)
+
+
+def handle_my_assert(left, right, error_msg, error_list, op=eq):
+    my_assert(
+        op(left, right),
+        error_msg.format(
+            left, right
+        ),
+        error_list,
+    )
 
 
 def metadata(instance):
@@ -18,28 +29,25 @@ def metadata(instance):
 
     error_list = []
 
-    my_assert(
-        instance.data_type == os.path.splitext(instance.file_name)[1][1:],
-        "Data type {} is not aligned with file extension {}".format(
-            instance.data_type, os.path.splitext(instance.file_name)[1][1:]
-        ),
-        error_list,
+    handle_my_assert(
+        instance.data_type,
+        os.path.splitext(instance.file_name)[1][1:],
+        "Data type {} is not aligned with file extension {}",
+        error_list
     )
 
-    my_assert(
-        instance.num_alternatives == len(instance.alternatives_name),
-        "Number of alternatives {} differs from number of alternative names {}".format(
-            instance.num_alternatives, len(instance.alternatives_name)
-        ),
-        error_list,
+    handle_my_assert(
+        instance.num_alternatives,
+        len(instance.alternatives_name),
+        "Number of alternatives {} differs from number of alternative names {}",
+        error_list
     )
 
-    my_assert(
-        len(set(instance.alternatives_name.values())) == instance.num_alternatives,
-        "Some alternatives have the same name: {} != {}".format(
-            len(set(instance.alternatives_name.values())), instance.num_alternatives
-        ),
-        error_list,
+    handle_my_assert(
+        len(set(instance.alternatives_name.values())),
+        instance.num_alternatives,
+        "Some alternatives have the same name: {} != {}",
+        error_list
     )
     return error_list
 
@@ -53,59 +61,54 @@ def orders(instance):
 
     error_list = []
 
-    my_assert(
-        len(instance.orders) == len(instance.multiplicity),
-        "len(orders) {} differs from len(order_multiplicity) {}".format(
-            len(instance.orders), len(instance.multiplicity)
-        ),
-        error_list,
+    handle_my_assert(
+        len(instance.orders),
+        len(instance.multiplicity),
+        "len(orders) {} differs from len(order_multiplicity) {}",
+        error_list
     )
 
-    my_assert(
-        instance.num_voters
-        == sum(multiplicity for multiplicity in instance.multiplicity.values()),
-        "Number of voters {} and number of orders seem different {}".format(
-            instance.num_voters,
-            sum(multiplicity for multiplicity in instance.multiplicity.values()),
-        ),
-        error_list,
+    multiplicity_sum = sum(instance.multiplicity.values())
+    handle_my_assert(
+        instance.num_voters,
+        multiplicity_sum,
+        "Number of voters {} and number of orders seem different {}",
+        error_list
     )
 
-    my_assert(
-        instance.num_unique_orders == len(instance.orders),
-        "Number of unique order {} differs from len(orders) {}".format(
-            instance.num_unique_orders, len(instance.orders)
-        ),
-        error_list,
+    handle_my_assert(
+        instance.num_unique_orders,
+        len(instance.orders),
+        "Number of unique order {} differs from len(orders) {}",
+        error_list
     )
 
     alternatives = set(
         alt for order in instance.orders for indif_class in order for alt in indif_class
     )
-    my_assert(
-        len(alternatives) <= instance.num_alternatives,
-        "More alternatives appear in the orders {} than in the header {}".format(
-            len(alternatives), instance.num_alternatives
-        ),
+
+    handle_my_assert(
+        len(alternatives),
+        instance.num_alternatives,
+        "More alternatives appear in the orders {} than in the header {}",
         error_list,
+        le
     )
 
     my_assert(0 not in alternatives, "0 appears as an alternative", error_list)
 
-    my_assert(
-        instance.data_type == instance.infer_type(),
-        "Data type {} is not the same as the one inferred {}".format(
-            instance.data_type, instance.infer_type()
-        ),
-        error_list,
+    handle_my_assert(
+        instance.data_type,
+        instance.infer_type(),
+        "Data type {} is not the same as the one inferred {}",
+        error_list
     )
 
-    my_assert(
-        len(set(instance.orders)) == len(instance.orders),
-        "Some orders appear several times: {} != {}".format(
-            len(set(instance.orders)), len(instance.orders)
-        ),
-        error_list,
+    handle_my_assert(
+        len(set(instance.orders)),
+        len(instance.orders),
+        "Some orders appear several times: {} != {}",
+        error_list
     )
 
     if len(set(instance.orders)) != len(instance.orders):
@@ -168,38 +171,33 @@ def categories(instance):
 
     error_list = []
 
-    my_assert(
-        len(instance.categories_name) == instance.num_categories,
-        "Number of category names {} differs from number of categories {}".format(
-            len(instance.categories_name), instance.num_categories
-        ),
+    handle_my_assert(
+        len(instance.categories_name),
+        instance.num_categories,
+        "Number of category names {} differs from number of categories {}",
+        error_list
+    )
+
+    handle_my_assert(
+        len(instance.preferences),
+        len(instance.multiplicity),
+        "len(preferences) {} differs from len(multiplicity) {}",
         error_list,
     )
 
-    my_assert(
-        len(instance.preferences) == len(instance.multiplicity),
-        "len(preferences) {} differs from len(multiplicity) {}".format(
-            len(instance.preferences), len(instance.multiplicity)
-        ),
-        error_list,
+    multiplicity_sum = sum(instance.multiplicity.values())
+    handle_my_assert(
+        instance.num_voters,
+        multiplicity_sum,
+        "Number of voters {} and number of preferences seem different {}",
+        error_list
     )
 
-    my_assert(
-        instance.num_voters
-        == sum(multiplicity for multiplicity in instance.multiplicity.values()),
-        "Number of voters {} and number of preferences seem different {}".format(
-            instance.num_voters,
-            sum(multiplicity for multiplicity in instance.multiplicity.values()),
-        ),
-        error_list,
-    )
-
-    my_assert(
-        instance.num_unique_preferences == len(instance.preferences),
-        "Number of unique preferences {} differs from len(preferences) {}".format(
-            instance.num_unique_preferences, len(instance.preferences)
-        ),
-        error_list,
+    handle_my_assert(
+        instance.num_unique_preferences,
+        len(instance.preferences),
+        "Number of unique preferences {} differs from len(preferences) {}",
+        error_list
     )
 
     alternatives = set(
@@ -208,22 +206,21 @@ def categories(instance):
         for indif_class in order
         for alt in indif_class
     )
-    my_assert(
-        len(alternatives) <= instance.num_alternatives,
-        "More alternatives appear in the preference {} than in the header {}".format(
-            len(alternatives), instance.num_alternatives
-        ),
+    handle_my_assert(
+        len(alternatives),
+        instance.num_alternatives,
+        "More alternatives appear in the preference {} than in the header {}",
         error_list,
+        le
     )
 
     my_assert(0 not in alternatives, "0 appears as an alternative", error_list)
 
-    my_assert(
-        len(set(instance.preferences)) == len(instance.preferences),
-        "Some preferences appear several times: {} != {}".format(
-            len(set(instance.preferences)), len(instance.preferences)
-        ),
-        error_list,
+    handle_my_assert(
+        len(set(instance.preferences)),
+        len(instance.preferences),
+        "Some preferences appear several times: {} != {}",
+        error_list
     )
 
     if len(set(instance.preferences)) != len(instance.preferences):
