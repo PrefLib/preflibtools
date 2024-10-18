@@ -31,6 +31,8 @@ def veto_winner(instance):
     :type instance: :class:`preflibtools.instances.preflibinstance.OrdinalInstance`
     """
     scores = defaultdict(lambda: 0)
+    for a in instance.alternatives_name:
+        scores[a] = 0
     for order, mult in instance.multiplicity.items():
         for a in order[-1]:
             scores[a] += mult
