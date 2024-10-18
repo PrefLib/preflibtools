@@ -101,7 +101,7 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
     def type_validator(self, data_type):
         return data_type == "wmd"
 
-    def parse(self, lines, autocorrect=False):
+    def parse(self, lines, autocorrect=False, header_only=False):
         """Parses the strings, assuming that the latter describes a graph.
 
         :param lines: A list of string, each string being one line of the instance to parse.
@@ -109,6 +109,8 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
         # The first few lines contain the metadata
         i = 0
@@ -122,6 +124,9 @@ class MatchingInstance(PrefLibInstance, WeightedDiGraph):
             else:
                 break
         self.num_voters = self.num_alternatives
+
+        if header_only:
+            return
 
         for line in lines[i:]:
             (vertex1, vertex2, weight) = line.strip().replace(" ", "").split(",")

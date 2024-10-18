@@ -28,7 +28,7 @@ class CategoricalInstance(PrefLibInstance):
     def type_validator(self, data_type):
         return data_type == "cat"
 
-    def parse(self, lines, autocorrect=False):
+    def parse(self, lines, autocorrect=False, header_only=False):
         """Parses the strings provided as argument, assuming that the latter describes categorical preferences.
 
         :param lines: A list of string, each string being one line of the instance to parse.
@@ -36,6 +36,8 @@ class CategoricalInstance(PrefLibInstance):
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
 
         """
 
@@ -68,6 +70,9 @@ class CategoricalInstance(PrefLibInstance):
                     self.parse_metadata(line, autocorrect=autocorrect)
             else:
                 break
+
+        if header_only:
+            return
 
         # The rest of the lines are about the preferences
         pref_pattern = re.compile(r"{[\d,]+?}|[\d,]+|{}")

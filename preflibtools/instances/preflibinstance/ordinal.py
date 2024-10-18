@@ -43,7 +43,7 @@ class OrdinalInstance(PrefLibInstance):
     def type_validator(self, data_type):
         return data_type in ["soc", "soi", "toc", "toi"]
 
-    def parse(self, lines, autocorrect=False):
+    def parse(self, lines, autocorrect=False, header_only=False):
         """Parses the strings provided as argument, assuming that the latter describes an order.
 
         :param lines: A list of string, each string being one line of the instance to parse.
@@ -51,6 +51,8 @@ class OrdinalInstance(PrefLibInstance):
         :param autocorrect: A boolean indicating whether we should try to automatically correct the potential errors
             in the file. Default is False.
         :type autocorrect: bool
+        :param header_only: A boolean indicating whether we should stop after having read the header. Default is False.
+        :type header_only: bool
         """
 
         # The first few lines contain the metadata
@@ -64,6 +66,9 @@ class OrdinalInstance(PrefLibInstance):
                     self.parse_metadata(line, autocorrect=autocorrect)
             else:
                 break
+
+        if header_only:
+            return
 
         # The rest of the lines are about the preferences
         order_pattern = re.compile(r"\{[\d,]+?\}|[\d,]+")
