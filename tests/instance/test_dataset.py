@@ -1,5 +1,6 @@
 from unittest import TestCase
 import tempfile
+import os
 
 from preflibtools.instances.dataset import read_info_file
 
@@ -7,8 +8,8 @@ from preflibtools.instances.dataset import read_info_file
 class TestDataset(TestCase):
 
     def test_read_info_file(self):
-
-        example_file_content = """
+        example_file_content = \
+        """
         Name: Boardgames Geek Ranking
 
         Abbreviation: boardgames
@@ -30,7 +31,7 @@ class TestDataset(TestCase):
         00041-00000001.soc, induced, 00041-00000001.soi, Alltime, Complete preferences extracted from the soi file, 2022-09-25
         """
 
-        with tempfile.NamedTemporaryFile(mode='w', delete=True) as temp_file:
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
             temp_file.write(example_file_content)
             temp_file_path = temp_file.name
 
@@ -64,6 +65,4 @@ class TestDataset(TestCase):
             assert second_file["description"] == "Complete preferences extracted from the soi file"
             assert second_file["publication_date"] == "2022-09-25"
 
-
-
-
+        os.remove(temp_file_path)
