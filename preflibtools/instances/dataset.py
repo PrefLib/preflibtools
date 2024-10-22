@@ -13,9 +13,10 @@ def read_info_file(info_file_path):
     infos = {'files': {}}
 
     with open(info_file_path, 'r') as file:
+        line_cnt = 0
         lines = file.readlines()
         for line in lines:
-            line = line.strip()
+            line_cnt += 1
             if not line:
                 continue
 
@@ -31,7 +32,7 @@ def read_info_file(info_file_path):
             if line.startswith('file_name, modification_type, relates_to, title, description, publication_date'):
                 break
 
-        for line in lines[len(infos) + 1:]:
+        for line in lines[line_cnt:]:
             line = line.strip()
             if line:
                 split_line = [part.strip() for part in line.split(',')]
@@ -56,7 +57,6 @@ def read_info_file(info_file_path):
                                 inside_quotes = True
                         else:
                             new_split_line.append(split)
-
                 new_file_info = {
                     'file_name': new_split_line[0],
                     'modification_type': new_split_line[1],
