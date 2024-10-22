@@ -148,18 +148,9 @@ def is_approval(instance):
     """
     if isinstance(instance, OrdinalInstance):
         m = max([len(order) for order in instance.orders])
-        if m == 1:
-            return True
-        elif m == 2:
-            return is_complete(instance)
-        else:
-            return False
+        return m == 1 or (m == 2 and is_complete(instance))
     elif isinstance(instance, CategoricalInstance):
-        if instance.num_categories == 1:
-            return True
-        if instance.num_categories == 2:
-            return is_complete(instance)
-        return False
+        return instance.num_categories == 1 or (instance.num_categories == 2 and is_complete(instance))
 
 
 @requires_preference_type("toc", "soc", "toi", "soi")

@@ -45,8 +45,7 @@ def kendall_tau_distance(order1, order2):
     norm = 0
     for j1 in range(len(order1)):
         for j2 in range(j1 + 1, len(order1)):
-            if order2.index(order1[j1]) > order2.index(order1[j2]):
-                res += 1
+            res += order2.index(order1[j1]) > order2.index(order1[j2])
             norm += 1
     return res / norm
 

@@ -8,16 +8,15 @@ from prefsampling.ordinal import mallows, urn, impartial, impartial_anonymous
 from prefsampling.core import mixture as sampling_mixture
 import numpy as np
 
+from collections import defaultdict
+
 
 def prefsampling_ordinal_wrapper(sampler, sampler_params):
     votes = sampler(**sampler_params)
-    vote_map = {}
+    vote_map = defaultdict(lambda: 0)
     for order in votes:
         order = tuple((a,) for a in order)
-        if order in vote_map:
-            vote_map[order] += 1
-        else:
-            vote_map[order] = 1
+        vote_map[order] += 1
     return vote_map
 
 
@@ -49,13 +48,14 @@ def generate_mallows(
     if len(mixture) != len(dispersions) or len(mixture) != len(references):
         raise ValueError("Parameters of Mallows' mixture do not have the same length.")
     # We normalize the mixture so that it sums up to 1
-    if sum(mixture) != 1:
-        mixture = [m / sum(mixture) for m in mixture]
+    mixture_sum = sum(mixture)
+    if mixture_sum != 1:
+        mixture = [m / mixture_sum for m in mixture]
 
     params = {
         "num_voters": num_voters,
         "num_candidates": num_alternatives,
-        "samplers": [mallows for _ in mixture],
+        "samplers": [mallows] * len(mixture),
         "weights": mixture,
         "sampler_parameters": [
             {
@@ -99,7 +99,7 @@ def generate_mallows_mix(num_voters, num_alternatives, num_references, norm_phi=
         phi = round(np.random.rand(), 5)
         dispersions.append(phi)
         mixture.append(np.random.randint(1, 101))
-    mixture = [float(i) / float(sum(mixture)) for i in mixture]
+    mixture = [i / sum(mixture) for i in mixture]
     return generate_mallows(
         num_voters, num_alternatives, mixture, dispersions, references, norm_phi
     )
