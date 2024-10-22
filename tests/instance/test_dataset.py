@@ -19,7 +19,7 @@ class TestDataset(TestCase):
         
         Publication Date: 2022-09-25
         
-        Description: <p>Simple describtion</p>
+        Description: <p>Simple description</p>
         
         Required Citations: Example required citations
         
@@ -37,7 +37,7 @@ class TestDataset(TestCase):
             results = read_info_file(temp_file_path)
 
             # check dataset metadata
-            assert results["description"] == "<p>Simple describtion</p>"
+            assert results["description"] == "<p>Simple description</p>"
             assert results["citations"] == "Example required citations"
             assert results["studies"] == "Some selected studies"
             assert results["series"] == "00041"
