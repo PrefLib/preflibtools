@@ -70,3 +70,32 @@ def read_info_file(info_file_path):
                 infos['files'][file_name] = {key: value.strip() for key, value in new_file_info.items()}
 
     return infos
+
+
+def file_description_line(file_dict, headers):
+    values = []
+    for h in headers:
+        value = str(file_dict[h])
+        if ',' in value:
+            value = f'"""{value}"""'
+        values.append(value)
+    return ', '.join(values)
+
+
+def write_info_file(file_path, info_dict):
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(f"Name: {info_dict['name']}\n\n")
+        f.write(f"Abbreviation: {info_dict['abb']}\n\n")
+        f.write(f"Tags: {', '.join(info_dict['tags'])}\n\n")
+        f.write(f"Series Number: {info_dict['series']}\n\n")
+        f.write(f"Publication Date: {info_dict['publication_date']}\n\n")
+        f.write(f"Description: {info_dict['description']}\n\n")
+        f.write(f"Required Citations: {info_dict['citations']}\n\n")
+        f.write(f"Selected Studies: {info_dict['studies']}\n\n")
+
+        if info_dict["files"]:
+            headers = ["file_name", "modification_type", "relates_to", "title", "description", "publication_date"]
+            f.write(', '.join(headers) + "\n")
+            for file_descr in sorted(info_dict["files"], key=lambda x: x["file_name"]):
+                f.write(file_description_line(file_descr, headers) + "\n")
+
