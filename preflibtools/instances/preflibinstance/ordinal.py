@@ -1,4 +1,5 @@
 import re
+import warnings
 from collections.abc import Iterable
 from copy import deepcopy
 from os import path
@@ -250,12 +251,12 @@ class OrdinalInstance(PrefLibInstance):
         class.
 
         :return: A list of tuples of preference order and multiplicity.
-        :rtype: list
+        :rtype: list[tuple[tuple[int], int]]
         """
         res = []
         for order in self.orders:
             if len(order) != self.num_alternatives:
-                print("WARNING: You are flattening a non-strict order.")
+                warnings.warn("You are flattening a non-strict order, information may be lost.")
             res.append(
                 (
                     tuple(indif_class[0] for indif_class in order),

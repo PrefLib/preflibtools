@@ -20,3 +20,11 @@ Single-Crossing Subdomains
    :members:
    :undoc-members:
    :show-inheritance:
+
+Euclidean Subdomains
+--------------------
+
+.. automodule:: preflibtools.properties.subdomains.ordinal.euclidean
+   :members:
+   :undoc-members:
+   :show-inheritance:

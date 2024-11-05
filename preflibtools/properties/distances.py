@@ -26,13 +26,15 @@ def distance_matrix(instance, distance_function):
     return res
 
 
-def kendall_tau_distance(order1, order2):
+def kendall_tau_distance(order1, order2, normalise=False):
     """Returns the Kendall's tau distance between two orders.
 
     :param order1: The first order.
     :type order1: tuple
     :param order2: The second order.
     :type order2: tuple
+    :param normalise: if True the result is normalised by the number of comparison done
+    :type normalise: bool
 
     :return: The Kendall's tau distance between the two orders.
     :rtype: int
@@ -47,8 +49,9 @@ def kendall_tau_distance(order1, order2):
         for j2 in range(j1 + 1, len(order1)):
             res += order2.index(order1[j1]) > order2.index(order1[j2])
             norm += 1
-    return res / norm
-
+    if normalise:
+        return res / norm
+    return res
 
 def spearman_footrule_distance(order1, order2):
     """Returns the Spearman's footrule distance between two orders.

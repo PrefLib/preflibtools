@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "preflibtools"
-version = "2.0.29"
+version = "2.0.30"
 description = "A set of tools to work with preference data from the PrefLib.org website."
 authors = [
   { name = "Simon Rey", email = "reysimon@orange.fr" },

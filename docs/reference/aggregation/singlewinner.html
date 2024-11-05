@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>single winner &mdash; Preflibtools</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=84576dd7"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -29,14 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> preflibtools
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            preflibtools
           </a>
-              <div class="version">
-                2.0.22
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -50,7 +51,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../instances/index.html">preflibtools.instances</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">preflibtools.aggregation</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">single winner</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">single winner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.approval_winner"><code class="docutils literal notranslate"><span class="pre">approval_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.borda_winner"><code class="docutils literal notranslate"><span class="pre">borda_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.bucklin_voting_winner"><code class="docutils literal notranslate"><span class="pre">bucklin_voting_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.copeland_winner"><code class="docutils literal notranslate"><span class="pre">copeland_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.fallback_voting_winner"><code class="docutils literal notranslate"><span class="pre">fallback_voting_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.k_approval_winner"><code class="docutils literal notranslate"><span class="pre">k_approval_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.plurality_winner"><code class="docutils literal notranslate"><span class="pre">plurality_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.satisfaction_approval_winner"><code class="docutils literal notranslate"><span class="pre">satisfaction_approval_winner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.aggregation.singlewinner.veto_winner"><code class="docutils literal notranslate"><span class="pre">veto_winner()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -71,10 +83,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Reference</a> &raquo;</li>
-          <li><a href="index.html">preflibtools.aggregation</a> &raquo;</li>
-      <li>single winner</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.aggregation</a></li>
+      <li class="breadcrumb-item active">single winner</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/aggregation/singlewinner.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,15 +97,15 @@
            <div itemprop="articleBody">
              
   <section id="module-preflibtools.aggregation.singlewinner">
-<span id="single-winner"></span><span id="instances-aggregation-singlewinner"></span><h1>single winner<a class="headerlink" href="#module-preflibtools.aggregation.singlewinner" title="Permalink to this heading"></a></h1>
+<span id="single-winner"></span><span id="instances-aggregation-singlewinner"></span><h1>single winner<a class="headerlink" href="#module-preflibtools.aggregation.singlewinner" title="Link to this heading"></a></h1>
 <p>This module contains single-winner voting rules.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.approval_winner">
-<span class="sig-name descname"><span class="pre">approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.approval_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.approval_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns the approval winners, i.e., the alternatives with the highest approval score (number
 of appearance in the first position).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -101,10 +113,10 @@ of appearance in the first position).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.borda_winner">
-<span class="sig-name descname"><span class="pre">borda_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.borda_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">borda_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.borda_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns all the alternatives with the highest total Borda score.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -112,10 +124,10 @@ of appearance in the first position).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.bucklin_voting_winner">
-<span class="sig-name descname"><span class="pre">bucklin_voting_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.bucklin_voting_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bucklin_voting_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.bucklin_voting_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns the Bucklin winners.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -123,10 +135,10 @@ of appearance in the first position).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.copeland_winner">
-<span class="sig-name descname"><span class="pre">copeland_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.copeland_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copeland_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.copeland_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns the Copeland winners, i.e., the alternatives that win the highest number of pairwise comparisons.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -134,10 +146,10 @@ of appearance in the first position).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.fallback_voting_winner">
-<span class="sig-name descname"><span class="pre">fallback_voting_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.fallback_voting_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fallback_voting_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.fallback_voting_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns the fallback voting winners.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -145,11 +157,11 @@ of appearance in the first position).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.k_approval_winner">
-<span class="sig-name descname"><span class="pre">k_approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.k_approval_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">k_approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.k_approval_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns all the alternatives with the highest approval score, i.e., that appear the highest number of time in
 the first k positions. Only applies to strict rankings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p></li>
 <li><p><strong>k</strong> (<em>int</em>) – The instance.</p></li>
@@ -160,11 +172,11 @@ the first k positions. Only applies to strict rankings.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.plurality_winner">
-<span class="sig-name descname"><span class="pre">plurality_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.plurality_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plurality_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.plurality_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns all the alternatives with the highest plurality score, i.e., that appear the highest number of times
 in first position.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -172,12 +184,12 @@ in first position.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.satisfaction_approval_winner">
-<span class="sig-name descname"><span class="pre">satisfaction_approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.satisfaction_approval_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">satisfaction_approval_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.satisfaction_approval_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns the satisfaction approval winners, i.e., the alternatives with the highest
 satisfaction approval score (sum of 1 divided by length of the first position, for all
 approvers).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>
@@ -185,11 +197,11 @@ approvers).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.aggregation.singlewinner.veto_winner">
-<span class="sig-name descname"><span class="pre">veto_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.veto_winner" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">veto_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.aggregation.singlewinner.veto_winner" title="Link to this definition"></a></dt>
 <dd><p>Returns all the alternatives with the smallest veto score, i.e., that appear the smallest number of times
 in the last indifference class.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../instances/preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance.</p>
 </dd>
 </dl>

@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pairwisecomparisons &mdash; Preflibtools</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=84576dd7"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -29,14 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> preflibtools
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            preflibtools
           </a>
-              <div class="version">
-                2.0.22
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,7 +54,13 @@
 <li class="toctree-l3"><a class="reference internal" href="subdomains/index.html">preflibtools.properties.subdomains</a></li>
 <li class="toctree-l3"><a class="reference internal" href="distance.html">distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decorators.html">decorators</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pairwisecomparisons</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pairwisecomparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.pairwisecomparisons.borda_scores"><code class="docutils literal notranslate"><span class="pre">borda_scores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.pairwisecomparisons.copeland_scores"><code class="docutils literal notranslate"><span class="pre">copeland_scores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.pairwisecomparisons.has_condorcet"><code class="docutils literal notranslate"><span class="pre">has_condorcet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.properties.pairwisecomparisons.pairwise_scores"><code class="docutils literal notranslate"><span class="pre">pairwise_scores()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../aggregation/index.html">preflibtools.aggregation</a></li>
@@ -75,10 +82,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Reference</a> &raquo;</li>
-          <li><a href="index.html">preflibtools.properties</a> &raquo;</li>
-      <li>pairwisecomparisons</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.properties</a></li>
+      <li class="breadcrumb-item active">pairwisecomparisons</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/properties/pairwisecomparisons.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,23 +96,23 @@
            <div itemprop="articleBody">
              
   <section id="module-preflibtools.properties.pairwisecomparisons">
-<span id="pairwisecomparisons"></span><span id="properties-pairwisecomparisons-label"></span><h1>pairwisecomparisons<a class="headerlink" href="#module-preflibtools.properties.pairwisecomparisons" title="Permalink to this heading"></a></h1>
+<span id="pairwisecomparisons"></span><span id="properties-pairwisecomparisons-label"></span><h1>pairwisecomparisons<a class="headerlink" href="#module-preflibtools.properties.pairwisecomparisons" title="Link to this heading"></a></h1>
 <p>This module describes several procedures to check for properties based on pairwise comparisons.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.pairwisecomparisons.borda_scores">
-<span class="sig-name descname"><span class="pre">borda_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.borda_scores" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">borda_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.borda_scores" title="Link to this definition"></a></dt>
 <dd><p>Computes the total Borda scores of all the alternatives of the instance. Within an indifference class, all
 alternatives are assigned the smallest score one alternative from the class would have gotten, had the order
 been strict. For instance, for the order ({a1}, {a2, a3}, {a4}), a1 gets score 3, a2 and a3 score 1 and a4
 score 0.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary mapping every instance to their Borda score.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
@@ -113,17 +120,17 @@ score 0.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.pairwisecomparisons.copeland_scores">
-<span class="sig-name descname"><span class="pre">copeland_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.copeland_scores" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copeland_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.copeland_scores" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of dictionaries mapping every alternative a to their Copeland score against every other
 alternative b (the number of voters preferring a over b minus the number of voters preferring b over a).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>
@@ -131,22 +138,22 @@ alternative b (the number of voters preferring a over b minus the number of vote
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.pairwisecomparisons.has_condorcet">
-<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weak_condorcet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.has_condorcet" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">has_condorcet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weak_condorcet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.has_condorcet" title="Link to this definition"></a></dt>
 <dd><p>Checks whether the instance has a Condorcet winner, using different procedures depending on the data type of
 the instance. An alternative is a Condorcet winner if it strictly beats every other alternative in a pairwise
 majority contest. An alternative is a weak Condorcet winner if it strictly beats or ties every other
 alternative in a pairwise majority contest.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p></li>
 <li><p><strong>weak_condorcet</strong> (<em>bool</em>) – Boolean indicating whether to consider weak-Condorcet winners or not.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A boolean indicating whether the instance has a Condorcet winner or not.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>bool</em></p>
 </dd>
 </dl>
@@ -154,17 +161,17 @@ alternative in a pairwise majority contest.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.properties.pairwisecomparisons.pairwise_scores">
-<span class="sig-name descname"><span class="pre">pairwise_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.pairwise_scores" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pairwise_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.properties.pairwisecomparisons.pairwise_scores" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of dictionaries mapping every alternative a to the number of times it beats
 every other alternative b (the number of voters preferring a over b).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<em>preflibtools.instances.preflibinstance.PreflibInstance</em>) – The instance.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary of dictionaries storing the scores.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>dict</em></p>
 </dd>
 </dl>

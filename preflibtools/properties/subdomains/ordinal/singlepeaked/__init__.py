@@ -2,6 +2,7 @@ from preflibtools.properties.subdomains.ordinal.singlepeaked.k_axes import two_a
 from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import k_alternative_deletion
 from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_partition import k_alt_partition_approx, k_alternative_partition_brut_force
 from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked, is_single_peaked_pq_tree, is_single_peaked_ILP, is_single_peaked_axis
+from preflibtools.properties.subdomains.ordinal.singlepeaked.single_peaked_tree import is_single_peaked_on_tree
 
 __all__ = [
     "two_axes_sp",
@@ -11,6 +12,7 @@ __all__ = [
     "is_single_peaked",
     "is_single_peaked_pq_tree",
     "is_single_peaked_ILP",
-    "is_single_peaked_axis"
+    "is_single_peaked_axis",
+    "is_single_peaked_on_tree"
 ]
 

@@ -1,13 +1,16 @@
+from prefsampling.ordinal import single_peaked_conitzer, single_peaked_walsh
+
 from preflibtools.instances.preflibinstance import OrdinalInstance
 
 from unittest import TestCase
 
+from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import \
     is_single_peaked_axis, is_single_peaked, is_single_peaked_pq_tree, is_single_peaked_ILP, \
     approx_SP_voter_deletion_ILP, approx_SP_alternative_deletion_ILP
 
 
-class TestAnalysis(TestCase):
+class TestSinglePeaked(TestCase):
     def test_single_peakedness(self):
         instance = OrdinalInstance()
         orders = [((0,), (1,), (2,)), ((2,), (0,), (1,))]
@@ -60,3 +63,18 @@ class TestAnalysis(TestCase):
         is_single_peaked_ILP(instance)
         approx_SP_voter_deletion_ILP(instance)
         approx_SP_alternative_deletion_ILP(instance)
+
+    def test_single_peakedness_prefsampling(self):
+        for seed in range(50):
+            for sampler in [single_peaked_conitzer, single_peaked_walsh]:
+                params = {
+                    "num_voters": 2000,
+                    "num_candidates": 30,
+                    "seed": seed
+                }
+                vote_map = prefsampling_ordinal_wrapper(sampler, params)
+                instance = OrdinalInstance()
+                instance.append_vote_map(vote_map)
+
+                is_sp, order = is_single_peaked(instance)
+                assert is_sp

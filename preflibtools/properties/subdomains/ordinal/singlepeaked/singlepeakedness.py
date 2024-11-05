@@ -297,6 +297,14 @@ def sp_cons_ones_matrix(instance, alt_map):
 
 
 def is_single_peaked_pq_tree(instance):
+    """Tests whether the instance describes a profile of single-peaked preferences using PQ trees.
+
+    :param instance: the instance to test for single-peakedness.
+    :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
+
+    :return: A Boolean indicating whether the instance is single-peaked or not
+    :rtype: bool
+    """
     if instance.data_type not in ("soc", "toc"):
         raise TypeError(
             "You are trying to test for single-peakedness on an instance of type "

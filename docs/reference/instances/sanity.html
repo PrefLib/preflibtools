@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>sanity &mdash; Preflibtools</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=84576dd7"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -29,14 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> preflibtools
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            preflibtools
           </a>
-              <div class="version">
-                2.0.22
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +52,15 @@
 <li class="toctree-l3"><a class="reference internal" href="preflibinstance.html">preflibinstance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sampling.html">sampling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="convert.html">convert</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">sanity</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sanity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.categories"><code class="docutils literal notranslate"><span class="pre">categories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.handle_my_assert"><code class="docutils literal notranslate"><span class="pre">handle_my_assert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.matching"><code class="docutils literal notranslate"><span class="pre">matching()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.metadata"><code class="docutils literal notranslate"><span class="pre">metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.my_assert"><code class="docutils literal notranslate"><span class="pre">my_assert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preflibtools.instances.sanity.orders"><code class="docutils literal notranslate"><span class="pre">orders()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../properties/index.html">preflibtools.properties</a></li>
@@ -74,10 +83,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Reference</a> &raquo;</li>
-          <li><a href="index.html">preflibtools.instances</a> &raquo;</li>
-      <li>sanity</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="index.html">preflibtools.instances</a></li>
+      <li class="breadcrumb-item active">sanity</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/reference/instances/sanity.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -88,24 +97,29 @@
            <div itemprop="articleBody">
              
   <section id="module-preflibtools.instances.sanity">
-<span id="sanity"></span><span id="instances-sanity-label"></span><h1>sanity<a class="headerlink" href="#module-preflibtools.instances.sanity" title="Permalink to this heading"></a></h1>
+<span id="sanity"></span><span id="instances-sanity-label"></span><h1>sanity<a class="headerlink" href="#module-preflibtools.instances.sanity" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sanity.categories">
-<span class="sig-name descname"><span class="pre">categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.categories" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.categories" title="Link to this definition"></a></dt>
 <dd><p>Checks that the preferences and categories are consistent.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="preflibinstance.html#preflibtools.instances.preflibinstance.CategoricalInstance" title="preflibtools.instances.preflibinstance.CategoricalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.CategoricalInstance</span></code></a>) – The instance to draw.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="preflibtools.instances.sanity.handle_my_assert">
+<span class="sig-name descname"><span class="pre">handle_my_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op=&lt;built-in</span> <span class="pre">function</span> <span class="pre">eq&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.handle_my_assert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sanity.matching">
-<span class="sig-name descname"><span class="pre">matching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.matching" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">matching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.matching" title="Link to this definition"></a></dt>
 <dd><p>Checks that the matching preferences are consistent.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="preflibinstance.html#preflibtools.instances.preflibinstance.MatchingInstance" title="preflibtools.instances.preflibinstance.MatchingInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.MatchingInstance</span></code></a>) – The instance to draw.</p>
 </dd>
 </dl>
@@ -113,10 +127,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sanity.metadata">
-<span class="sig-name descname"><span class="pre">metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.metadata" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.metadata" title="Link to this definition"></a></dt>
 <dd><p>Checks that the basic metadata are in line with the content of the instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="preflibinstance.html#preflibtools.instances.preflibinstance.PrefLibInstance" title="preflibtools.instances.preflibinstance.PrefLibInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.PrefLibInstance</span></code></a>) – The instance to test.</p>
 </dd>
 </dl>
@@ -124,15 +138,15 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sanity.my_assert">
-<span class="sig-name descname"><span class="pre">my_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.my_assert" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">my_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.my_assert" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="preflibtools.instances.sanity.orders">
-<span class="sig-name descname"><span class="pre">orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.orders" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preflibtools.instances.sanity.orders" title="Link to this definition"></a></dt>
 <dd><p>Checks that the orders are consistent.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="preflibinstance.html#preflibtools.instances.preflibinstance.OrdinalInstance" title="preflibtools.instances.preflibinstance.OrdinalInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">preflibtools.instances.preflibinstance.OrdinalInstance</span></code></a>) – The instance to draw.</p>
 </dd>
 </dl>
