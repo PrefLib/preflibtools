@@ -1,6 +1,8 @@
 """
 Euclidean domain for ordinal preferences.
 """
+from __future__ import annotations
+
 from preflibtools.instances import OrdinalInstance
 from preflibtools.properties.subdomains.ordinal.singlecrossing import is_single_crossing
 

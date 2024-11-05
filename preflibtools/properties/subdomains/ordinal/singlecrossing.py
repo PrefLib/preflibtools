@@ -1,5 +1,7 @@
 """ This module provides procedures to check if an instance describes preferences that are single-crossing.
 """
+from __future__ import annotations
+
 from collections import defaultdict
 
 from preflibtools.instances import OrdinalInstance
