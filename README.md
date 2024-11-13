@@ -33,3 +33,20 @@ pip3 install preflibtools
 ## Documentation
 
 The complete documentation is available [here](https://preflib.github.io/preflibtools/).
+
+## GitHub Workflow
+
+### Publishing on PyPI
+
+The pipeline between GitHub and PyPI is automatised. To push a new version do the following:
+- Update the `pyproject.toml` with the new version number.
+- Update the `pabutools/__init__.py` with the new version number.
+- On GitHub, create a new release tagged with the new version number (only admins can do that), on [this page](https://github.com/PrefLib/preflibtools/releases/new).
+- You're done, the new version of the package is automatically pushed to PyPI after the creation of a GitHub release.
+
+### Building the Docs
+
+If the docs-source has been updated but the `docs/` folder has not, you can build the docs via
+a GitHub action here: https://github.com/PrefLib/preflibtools/actions/workflows/docs.yml.
+Simply click "Run workflow" and the docs will be built and the built files will be pushed back to
+the server.

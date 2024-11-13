@@ -1,0 +1,43 @@
+name: Build and Push Docs
+
+on:
+  workflow_dispatch
+
+jobs:
+  build_docs_and_push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'  # Replace with the desired Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    - name: Build the documentation
+      run: |
+        cd docs-source
+        make githubclean  # Clean any old builds
+        make github       # Build docs
+
+    - name: Deploy docs to the repository
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
+        # Assuming the built docs are in the /docs directory
+        git add docs
+        git commit -m "Bot: Auto-Generation of the docs/ folder" 
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this token for auth
