@@ -19,12 +19,17 @@ class TestSingleCrossing(TestCase):
                 "num_candidates": 30,
                 "seed": seed
             }
+            print(seed)
             vote_map = prefsampling_ordinal_wrapper(single_crossing, params)
+            print(vote_map)
             instance = OrdinalInstance()
             instance.append_vote_map(vote_map)
+            print(instance)
 
             is_sc_conflict_sets = is_single_crossing_conflict_sets(instance)
             assert is_sc_conflict_sets
+            print(is_sc_conflict_sets)
 
             is_sc, sc_orders = is_single_crossing(instance)
             assert is_sc
+            print(is_sc)
