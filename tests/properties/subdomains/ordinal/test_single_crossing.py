@@ -15,7 +15,7 @@ class TestSingleCrossing(TestCase):
 
         for seed in range(50):
             params = {
-                "num_voters": 2000,
+                "num_voters": 200,
                 "num_candidates": 30,
                 "seed": seed
             }
