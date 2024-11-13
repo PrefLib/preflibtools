@@ -66,7 +66,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
     - name: Run tests with unittest and collect coverage
-      run: python -m coverage run --omit="*/test*,/usr/lib*" -m unittest
+      run: python -m coverage run --omit="*/test*,/usr/lib*" -m unittest -v
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
