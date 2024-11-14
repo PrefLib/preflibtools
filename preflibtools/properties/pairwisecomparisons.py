@@ -21,7 +21,7 @@ def pairwise_scores(instance):
         alt: {a: 0 for a in instance.alternatives_name if a != alt}
         for alt in instance.alternatives_name
     }
-    for multiplicity, order in instance.multiplicity.items():
+    for order, multiplicity in instance.multiplicity.items():
         alternatives_before = []
         for indif_class in order:
             # Every alternative appearing before are beating the ones in the current indifference class
@@ -47,14 +47,14 @@ def copeland_scores(instance):
         alt: {a: 0 for a in instance.alternatives_name if a != alt}
         for alt in instance.alternatives_name
     }
-    for order in instance.orders:
+    for order, multiplicity in instance.multiplicity.items():
         alternatives_before = []
         for indif_class in order:
             # Every alternative appearing before are beating the ones in the current indifference class
             for alt_beaten in indif_class:
                 for alt_winning in alternatives_before:
-                    scores[alt_winning][alt_beaten] += instance.multiplicity[order]
-                    scores[alt_beaten][alt_winning] -= instance.multiplicity[order]
+                    scores[alt_winning][alt_beaten] += multiplicity
+                    scores[alt_beaten][alt_winning] -= multiplicity
             alternatives_before += [alt for alt in indif_class]
     return scores
 
@@ -76,18 +76,19 @@ def has_condorcet(instance, weak_condorcet=False):
     """
 
     scores = defaultdict(lambda: defaultdict(lambda: 0))
-    for i, (multiplicity, order) in enumerate(instance.multiplicity.items()):
+    for i, (order, multiplicity) in enumerate(instance.multiplicity.items()):
         alternatives_before = []
         for indif_class in order:
             # Every alternative appearing before are beating the ones in the current indifference class
             for alt_winning in alternatives_before:
-                score_dict = scores[alt_winning]
+                score_dict_win = scores[alt_winning]
                 for alt_beaten in indif_class:
-                    score_dict[alt_beaten] += multiplicity
+                    score_dict_win[alt_beaten] += multiplicity
+                    scores[alt_beaten][alt_winning] -= multiplicity
             alternatives_before.extend(indif_class)
     if weak_condorcet:
-        return any(a for a, s in scores if min(s) >= 0)
-    return any(a for a, s in scores if min(s) > 0)
+        return any(min(s.values()) >= 0 for s in scores.values())
+    return any(min(s.values()) > 0 for s in scores.values())
 
 
 @requires_preference_type("toc", "soc")
