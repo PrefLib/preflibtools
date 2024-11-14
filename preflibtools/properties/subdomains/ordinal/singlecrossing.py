@@ -47,6 +47,9 @@ def is_single_crossing(instance: OrdinalInstance):
 
     orders = [o for o, m in instance.flatten_strict()]
 
+    if len(orders) <= 1:
+        return True, orders
+
     # v_1 and v_2 will always have different preferences due to multiplicity
     # being recorded in the instance
     v_1 = orders[0]
@@ -74,7 +77,6 @@ def is_single_crossing(instance: OrdinalInstance):
             scores[order] = -k_dist_1
         else:
             # instance is not single-crossing
-            print("Here not")
             return False, None
 
     # order voters by score

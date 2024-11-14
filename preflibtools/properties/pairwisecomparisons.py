@@ -21,14 +21,14 @@ def pairwise_scores(instance):
         alt: {a: 0 for a in instance.alternatives_name if a != alt}
         for alt in instance.alternatives_name
     }
-    for order in instance.orders:
+    for multiplicity, order in instance.multiplicity.items():
         alternatives_before = []
         for indif_class in order:
             # Every alternative appearing before are beating the ones in the current indifference class
             for alt_beaten in indif_class:
                 for alt_winning in alternatives_before:
-                    scores[alt_winning][alt_beaten] += instance.multiplicity[order]
-            alternatives_before += [alt for alt in indif_class]
+                    scores[alt_winning][alt_beaten] += multiplicity
+            alternatives_before.extend(indif_class)
     return scores
 
 
@@ -74,13 +74,20 @@ def has_condorcet(instance, weak_condorcet=False):
     :return: A boolean indicating whether the instance has a Condorcet winner or not.
     :rtype: bool
     """
-    scores = copeland_scores(instance)
-    for alt, scoreDict in scores.items():
-        if all(
-            score > 0 or (weak_condorcet and score >= 0) for score in scoreDict.values()
-        ):
-            return True
-    return False
+
+    scores = defaultdict(lambda: defaultdict(lambda: 0))
+    for i, (multiplicity, order) in enumerate(instance.multiplicity.items()):
+        alternatives_before = []
+        for indif_class in order:
+            # Every alternative appearing before are beating the ones in the current indifference class
+            for alt_winning in alternatives_before:
+                score_dict = scores[alt_winning]
+                for alt_beaten in indif_class:
+                    score_dict[alt_beaten] += multiplicity
+            alternatives_before.extend(indif_class)
+    if weak_condorcet:
+        return any(a for a, s in scores if min(s) >= 0)
+    return any(a for a, s in scores if min(s) > 0)
 
 
 @requires_preference_type("toc", "soc")

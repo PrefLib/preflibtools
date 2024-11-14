@@ -12,7 +12,7 @@ def read_info_file(info_file_path):
 
     infos = {'files': {}}
 
-    with open(info_file_path, 'r') as file:
+    with open(info_file_path, 'r', encoding="utf-8") as file:
         line_cnt = 0
         lines = file.readlines()
         for line in lines:
