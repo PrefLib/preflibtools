@@ -17,9 +17,13 @@ def remove_alternatives(instance, violating_alternatives):
     :rtype: preflibtools.instances.preflibinstance.OrdinalInstance
     """
     new_instance = OrdinalInstance()
-    new_instance.num_alternatives = instance.num_alternatives - len(violating_alternatives)
+    new_instance.num_alternatives = instance.num_alternatives - len(
+        violating_alternatives
+    )
     for order, m in instance.multiplicity.items():
-        new_order = tuple((a,) for c in order for a in c if a not in violating_alternatives)
+        new_order = tuple(
+            (a,) for c in order for a in c if a not in violating_alternatives
+        )
         new_instance.orders.append(new_order)
         new_instance.multiplicity[new_order] = m
     new_instance.data_type = "soc"
@@ -27,6 +31,7 @@ def remove_alternatives(instance, violating_alternatives):
 
 
 #########################################################################################
+
 
 def k_alternative_deletion(instance):
     """
@@ -45,7 +50,9 @@ def k_alternative_deletion(instance):
     """
     alternatives = list(instance.alternatives_name.keys())
 
-    longest_axis, remove_alternatives = longest_single_peaked_axis(instance, alternatives)
+    longest_axis, remove_alternatives = longest_single_peaked_axis(
+        instance, alternatives
+    )
 
     return longest_axis, remove_alternatives
 
@@ -75,11 +82,7 @@ def longest_single_peaked_axis(instance, alternatives):
     L = get_L_sets(alternatives, unique_votes)
 
     # Construct S dict
-    S = {
-        0: {
-            ((None, None, None, None), frozenset()): [None]
-        }
-    }
+    S = {0: {((None, None, None, None), frozenset()): [None]}}
 
     # Keep track of axes that can't be extended (case 3 of place function)
     locked_axis = [None]
@@ -156,7 +159,9 @@ def get_L_sets(alternatives, unique_votes):
 
     for j in range(1, m + 1):
         for i in range(len(votes_copy)):
-            new_order = [a for a in votes_copy[i] if a not in previous_last and a in alternatives]
+            new_order = [
+                a for a in votes_copy[i] if a not in previous_last and a in alternatives
+            ]
 
             if len(new_order) > 0:
                 last.add(new_order[-1])
@@ -194,8 +199,12 @@ def eligible_alternatives(i, m, Y, L, unique_votes):
     for pos in range(i, m):
         remaining_alternatives.update(L[pos])
 
-    X = {frozenset([x_1, x_2]) for x_1 in L[i] for x_2 in remaining_alternatives if
-         last_check(unique_votes, Y, [x_1, x_2])}
+    X = {
+        frozenset([x_1, x_2])
+        for x_1 in L[i]
+        for x_2 in remaining_alternatives
+        if last_check(unique_votes, Y, [x_1, x_2])
+    }
     return X
 
 
@@ -279,8 +288,7 @@ def case_2(axis, X, votes):
     flag_c1, flag_d1 = False, False
     flag_c2, flag_d2 = False, False
 
-    if (bound[1] is not None
-            or bound[2] is not None):
+    if bound[1] is not None or bound[2] is not None:
 
         for vote in votes:
             id_x1 = vote.index(x1)
@@ -289,8 +297,7 @@ def case_2(axis, X, votes):
             b = [vote.index(b_i) if b_i is not None else None for b_i in bound]
 
             if b[1] is not None and b[2] is not None:
-                if ((b[1] < id_x1 and b[2] < id_x1)
-                        or (b[1] < id_x2 and b[2] < id_x2)):
+                if (b[1] < id_x1 and b[2] < id_x1) or (b[1] < id_x2 and b[2] < id_x2):
                     return axis, False
 
             if b[0] is not None or b[3] is not None:
@@ -311,14 +318,16 @@ def case_2(axis, X, votes):
                 if b[1] < id_x2 and id_x1 < id_x2:
                     flag_d2 = True
 
-            if ((flag_c1 and flag_d1)
-                    or (flag_c2 and flag_d2)
-                    or (flag_c1 and flag_c2)
-                    or (flag_d1 and flag_d2)):
+            if (
+                (flag_c1 and flag_d1)
+                or (flag_c2 and flag_d2)
+                or (flag_c1 and flag_c2)
+                or (flag_d1 and flag_d2)
+            ):
                 return axis, False
 
     id_none = axis.index(None)
-    first_half, second_half = axis[:id_none], axis[id_none + 1:]
+    first_half, second_half = axis[:id_none], axis[id_none + 1 :]
 
     if flag_c2 or flag_d1:
         first_half.append(x2)
@@ -345,7 +354,7 @@ def case_3(axis, X, votes):
 
     :return: The resulting axis and whether more alternatives can be placed on this
     new axis (if it remains single-peaked).
-    :rtype: tuple(list, bool)   
+    :rtype: tuple(list, bool)
     """
     x = list(X)[0]
 
@@ -353,8 +362,7 @@ def case_3(axis, X, votes):
 
     flag_c, flag_d = False, False
 
-    if (bound[1] is not None
-            or bound[2] is not None):
+    if bound[1] is not None or bound[2] is not None:
 
         for vote in votes:
             id_x = vote.index(x)

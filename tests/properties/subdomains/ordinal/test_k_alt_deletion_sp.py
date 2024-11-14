@@ -2,10 +2,14 @@ import random
 
 import numpy as np
 
-from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import k_alternative_deletion, \
-    remove_alternatives
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import (
+    k_alternative_deletion,
+    remove_alternatives,
+)
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
-from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import (
+    is_single_peaked,
+)
 from preflibtools.instances import OrdinalInstance
 
 from prefsampling.ordinal import singlepeaked as sp_samplers
@@ -36,13 +40,13 @@ def generate_k_alt_nearly_sp(num_voters, num_alternatives, k, seed=None):
         )
 
     if k > num_alternatives:
-        raise ValueError(
-            "Cannot remove more alternatives than total."
-        )
+        raise ValueError("Cannot remove more alternatives than total.")
 
     rng = np.random.default_rng(seed)
 
-    votes = sp_samplers.single_peaked_walsh(num_voters - (2 + k), num_alternatives, seed=seed)
+    votes = sp_samplers.single_peaked_walsh(
+        num_voters - (2 + k), num_alternatives, seed=seed
+    )
     axis = [i for i in range(num_alternatives)]
 
     votes.append(axis)
@@ -64,14 +68,18 @@ class TestKAlternativeDeletion(TestCase):
             num_voters = random.randint(100, 500)
             num_alternatives = random.randint(5, 12)
             k = random.randint(0, num_alternatives - 2)
-            with self.subTest(num_voters=num_voters, num_alternatives=num_alternatives, k=k):
+            with self.subTest(
+                num_voters=num_voters, num_alternatives=num_alternatives, k=k
+            ):
                 params = {
                     "num_voters": num_voters,
                     "num_alternatives": num_alternatives,
                     "k": k,
-                    "seed": 1
+                    "seed": 1,
                 }
-                vote_map = prefsampling_ordinal_wrapper(generate_k_alt_nearly_sp, params)
+                vote_map = prefsampling_ordinal_wrapper(
+                    generate_k_alt_nearly_sp, params
+                )
                 instance = OrdinalInstance()
                 instance.append_vote_map(vote_map)
 

@@ -1,5 +1,6 @@
 """ This module provides procedures to check if an instance describes preferences that are single-crossing.
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -87,7 +88,7 @@ def is_single_crossing(instance: OrdinalInstance):
     if n < m:
         voters_order = sorted(orders, key=lambda x: scores[x])
     elif n >= m:
-        array = [[] for _ in range(-m**2, m**2 + 1)]
+        array = [[] for _ in range(-(m**2), m**2 + 1)]
         for order in orders:
             array[int(scores[order] + m**2)].append(order)
         # line 6: XOR on all the elements of B_arr

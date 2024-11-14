@@ -28,7 +28,9 @@ def get_parsed_instance(file_path, autocorrect=False, header_only=False):
     elif extension == ".wmd":
         instance = MatchingInstance()
     else:
-        raise TypeError(f"The file extension {extension} corresponds to no known file extension "
-                        f"of PrefLib data file.")
+        raise TypeError(
+            f"The file extension {extension} corresponds to no known file extension "
+            f"of PrefLib data file."
+        )
     instance.parse_file(file_path, autocorrect=autocorrect, header_only=header_only)
     return instance

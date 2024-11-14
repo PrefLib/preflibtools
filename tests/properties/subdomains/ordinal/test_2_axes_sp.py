@@ -1,7 +1,9 @@
 from preflibtools.properties.subdomains.ordinal.singlepeaked.k_axes import two_axes_sp
 from preflibtools.instances.sampling import prefsampling_ordinal_wrapper
 
-from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import is_single_peaked
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import (
+    is_single_peaked,
+)
 from preflibtools.instances import OrdinalInstance
 
 from prefsampling.ordinal import k_axes_single_peaked
@@ -13,12 +15,13 @@ class TestKAxesSinglePeaked(TestCase):
     def test_2_axes_single_peaked(self):
         # test 1, sp profile
         params = {
-            "num_voters" : 200,
-            "num_candidates" : 11,
+            "num_voters": 200,
+            "num_candidates": 11,
             "k": 1,
             "axes_weights": 0.5,
-            "seed": 1
+            "seed": 1,
         }
+
     #     vote_map = prefsampling_ordinal_wrapper(k_axes_single_peaked, params)
     #     instance = OrdinalInstance()
     #     instance.append_vote_map(vote_map)

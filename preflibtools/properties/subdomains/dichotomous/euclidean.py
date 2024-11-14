@@ -1,4 +1,6 @@
-from preflibtools.properties.subdomains.dichotomous.interval import is_candidate_interval
+from preflibtools.properties.subdomains.dichotomous.interval import (
+    is_candidate_interval,
+)
 
 
 def is_dichotomous_euclidean(instance):

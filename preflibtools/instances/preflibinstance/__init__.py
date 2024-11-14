@@ -9,5 +9,5 @@ __all__ = [
     "get_parsed_instance",
     "CategoricalInstance",
     "MatchingInstance",
-    "OrdinalInstance"
+    "OrdinalInstance",
 ]

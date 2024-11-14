@@ -83,7 +83,7 @@ class WeightedDiGraph(object):
 
 
 class MatchingInstance(PrefLibInstance, WeightedDiGraph):
-    """This is the class representing a PrefLib instance for matching preferences. It basically 
+    """This is the class representing a PrefLib instance for matching preferences. It basically
     contains the data and information written within a PrefLib file.
 
     """

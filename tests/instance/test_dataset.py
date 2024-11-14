@@ -7,8 +7,7 @@ from preflibtools.instances.dataset import read_info_file
 class TestDataset(TestCase):
 
     def test_read_info_file(self):
-        example_file_content = \
-"""
+        example_file_content = """
 Name: Boardgames Geek Ranking
 
 Abbreviation: boardgames
@@ -30,9 +29,9 @@ file_name, modification_type, relates_to, title, description, publication_date
 00041-00000001.soc, induced, 00041-00000001.soi, Alltime, Complete preferences extracted from the soi file, 2022-09-25
 """
 
-        file_name = 'info_file.txt'
+        file_name = "info_file.txt"
 
-        with open(file_name, 'w') as file:
+        with open(file_name, "w") as file:
             file.write(example_file_content)
 
         results = read_info_file(file_name)
@@ -62,7 +61,10 @@ file_name, modification_type, relates_to, title, description, publication_date
         assert second_file["modification_type"] == "induced"
         assert second_file["relates_to"] == "00041-00000001.soi"
         assert second_file["title"] == "Alltime"
-        assert second_file["description"] == "Complete preferences extracted from the soi file"
+        assert (
+            second_file["description"]
+            == "Complete preferences extracted from the soi file"
+        )
         assert second_file["publication_date"] == "2022-09-25"
 
         os.remove(file_name)

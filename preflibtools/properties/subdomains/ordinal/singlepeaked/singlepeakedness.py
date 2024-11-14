@@ -91,7 +91,7 @@ def is_single_peaked(instance):
     axis = None
     right_axis, left_axis = [], []
     x_i, x_j = None, None
-    to_append_left = [] # Candidates that will be appended to the left at the end
+    to_append_left = []  # Candidates that will be appended to the left at the end
 
     # generates list of preferences without the weight while flattening the orders
     list_of_preferences = [
@@ -154,8 +154,10 @@ def is_single_peaked(instance):
                         elif index_x < index_x_i and index_x < index_x_j:  # Case 3.(b)
                             pass
                         else:  # Case 3.(a) is impossible
-                            raise ValueError("We should never have ended up here with a single "
-                                             "candidate ranked last.")
+                            raise ValueError(
+                                "We should never have ended up here with a single "
+                                "candidate ranked last."
+                            )
 
                     # add x in leftmost or rightmost axis according to case if axis is compatible
                     if not end_flag:
@@ -202,11 +204,13 @@ def is_single_peaked(instance):
                         placed_candidates = set(left_axis)
                         placed_candidates.update(right_axis)
                         placed_candidates.update(to_append_left)
-                        axis = [c for c in list_of_preferences[i] if c not in placed_candidates]
+                        axis = [
+                            c
+                            for c in list_of_preferences[i]
+                            if c not in placed_candidates
+                        ]
                         axis = to_append_left + left_axis + axis + right_axis
-                        is_SP = is_single_peaked_axis(
-                            instance, axis
-                        )
+                        is_SP = is_single_peaked_axis(instance, axis)
                         end_flag = True
                         break
 
@@ -214,24 +218,34 @@ def is_single_peaked(instance):
                         placed_candidates = set(left_axis)
                         placed_candidates.update(right_axis)
                         placed_candidates.update(to_append_left)
-                        axis = [c for c in list_of_preferences[i] if c not in placed_candidates]
+                        axis = [
+                            c
+                            for c in list_of_preferences[i]
+                            if c not in placed_candidates
+                        ]
                         axis.reverse()
                         axis = to_append_left + left_axis + axis + right_axis
-                        is_SP = is_single_peaked_axis(
-                            instance, axis
-                        )
+                        is_SP = is_single_peaked_axis(instance, axis)
                         end_flag = True
                         break
 
                     elif index_x_i > index_x > index_x_j > index_y:  # Case 2.(c)
-                        if forced_position.get(x, "") == "right" or forced_position.get(y, "") == "left":
+                        if (
+                            forced_position.get(x, "") == "right"
+                            or forced_position.get(y, "") == "left"
+                        ):
                             end_flag = True
                             is_SP = False  # contradiction
                             break
                         forced_position[x] = "left"
                         forced_position[y] = "right"
-                    elif index_x_j > index_x > index_x_i > index_y:  # Case 2.(c) Inverse
-                        if forced_position.get(x, "") == "left" or forced_position.get(y, "") == "right":
+                    elif (
+                        index_x_j > index_x > index_x_i > index_y
+                    ):  # Case 2.(c) Inverse
+                        if (
+                            forced_position.get(x, "") == "left"
+                            or forced_position.get(y, "") == "right"
+                        ):
                             end_flag = True
                             is_SP = False  # contradiction
                             break
@@ -240,8 +254,10 @@ def is_single_peaked(instance):
                     elif index_x < index_x_i and index_x < index_x_j:  # Case 2.(b)
                         pass
                     else:
-                        raise ValueError("We should never have ended up here with two "
-                                         "candidates ranked last.")
+                        raise ValueError(
+                            "We should never have ended up here with two "
+                            "candidates ranked last."
+                        )
 
                 if not end_flag:
                     if x not in forced_position:
@@ -249,9 +265,13 @@ def is_single_peaked(instance):
                             forced_position[x] = "left"
                             forced_position[y] = "right"
                         else:
-                            forced_position[x] = "left" if forced_position[y] == "right" else "right"
+                            forced_position[x] = (
+                                "left" if forced_position[y] == "right" else "right"
+                            )
                     if y not in forced_position:
-                        forced_position[y] = "left" if forced_position[x] == "right" else "right"
+                        forced_position[y] = (
+                            "left" if forced_position[x] == "right" else "right"
+                        )
 
                     if forced_position[x] == "left":
                         left_axis.append(x)
@@ -435,11 +455,11 @@ def sp_ILP_cons_ones_cstr(model, left_of_vars, instance, alt_map):
             for k in zeros:
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j] <= 1,
-                    name=f"SP_row{row_index}_{i}_{j}_{k}"
+                    name=f"SP_row{row_index}_{i}_{j}_{k}",
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i] <= 1,
-                    name=f"SP_row{row_index}_{j}_{i}_{k}"
+                    name=f"SP_row{row_index}_{j}_{i}_{k}",
                 )
 
 
@@ -478,12 +498,12 @@ def sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance, alt
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j]
                     <= 1 + voter_vars[voter_index],
-                    name=f"SP_row{row_index}_{i}_{j}_{k}"
+                    name=f"SP_row{row_index}_{i}_{j}_{k}",
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i]
                     <= 1 + voter_vars[voter_index],
-                    name=f"SP_row{row_index}_{j}_{i}_{k}"
+                    name=f"SP_row{row_index}_{j}_{i}_{k}",
                 )
 
 
@@ -518,12 +538,12 @@ def sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance, alt_m
                 model.add_constr(
                     left_of_vars[i][k] + left_of_vars[k][j]
                     <= 1 + alt_vars[i] + alt_vars[j] + alt_vars[k],
-                    name=f"SP_row{row_index}_{i}_{j}_{k}"
+                    name=f"SP_row{row_index}_{i}_{j}_{k}",
                 )
                 model.add_constr(
                     left_of_vars[j][k] + left_of_vars[k][i]
                     <= 1 + alt_vars[j] + alt_vars[i] + alt_vars[k],
-                    name=f"SP_row{row_index}_{j}_{i}_{k}"
+                    name=f"SP_row{row_index}_{j}_{i}_{k}",
                 )
 
 
@@ -686,7 +706,9 @@ def approx_SP_voter_deletion_ILP(instance, weighted=False):
     print("Transitivity done")
     sp_ILP_total_cstr(model, left_of_vars, instance)
     print("Totality done")
-    sp_ILP_cons_ones_vot_del_cstr(model, left_of_vars, voter_vars, instance, alternatives_to_index)
+    sp_ILP_cons_ones_vot_del_cstr(
+        model, left_of_vars, voter_vars, instance, alternatives_to_index
+    )
     print("Consecutive ones done")
     sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance)
     print("Position done")
@@ -797,7 +819,9 @@ def approx_SP_alternative_deletion_ILP(instance):
     index_to_alternatives = list(instance.alternatives_name)
     sp_ILP_trans_cstr(model, left_of_vars, instance)
     sp_ILP_total_cstr(model, left_of_vars, instance)
-    sp_ILP_cons_ones_alt_del_cstr(model, left_of_vars, alt_vars, instance, alternatives_to_index)
+    sp_ILP_cons_ones_alt_del_cstr(
+        model, left_of_vars, alt_vars, instance, alternatives_to_index
+    )
     sp_ILP_pos_cstr(model, left_of_vars, pos_vars, instance)
 
     model.start = [(a, 1) for a in alt_vars[:-2]]

@@ -1,9 +1,15 @@
 import random
 from unittest import TestCase
 
-from preflibtools.properties.subdomains.dichotomous.interval import is_candidate_interval, \
-    is_candidate_extremal_interval, is_voter_interval, is_voter_extremal_interval
-from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
+from preflibtools.properties.subdomains.dichotomous.interval import (
+    is_candidate_interval,
+    is_candidate_extremal_interval,
+    is_voter_interval,
+    is_voter_extremal_interval,
+)
+from tests.properties.subdomains.dichotomous.utils import (
+    initialise_categorical_instance,
+)
 
 
 def generate_candidate_interval_instances(num_alternatives, num_voters):
@@ -44,7 +50,9 @@ def generate_candidate_extremal_interval_instances(num_alternatives, num_voters)
 
 
 def generate_not_candidate_extremal_interval_instances(num_alternatives, num_voters):
-    instance = generate_candidate_extremal_interval_instances(num_alternatives, num_voters)
+    instance = generate_candidate_extremal_interval_instances(
+        num_alternatives, num_voters
+    )
     alternatives = list(range(num_alternatives))
     for j in range(num_alternatives - 1):
         instance.preferences.append(((alternatives[j],),))
@@ -214,14 +222,18 @@ class TestDichotomousInterval(TestCase):
         for _ in range(30):
             num_alternatives = random.randint(5, 20)
             num_voters = random.randint(5, 20)
-            instance = generate_candidate_interval_instances(num_alternatives, num_voters)
+            instance = generate_candidate_interval_instances(
+                num_alternatives, num_voters
+            )
             self.assertTrue(is_candidate_interval(instance)[0])
 
     def test_negative_ci(self):
         for _ in range(30):
             num_alternatives = random.randint(5, 20)
             num_voters = random.randint(5, 20)
-            instance = generate_not_candidate_interval_instances(num_alternatives, num_voters)
+            instance = generate_not_candidate_interval_instances(
+                num_alternatives, num_voters
+            )
             self.assertFalse(is_candidate_interval(instance)[0])
             self.assertFalse(is_candidate_extremal_interval(instance)[0])
 
@@ -255,20 +267,24 @@ class TestDichotomousInterval(TestCase):
         instance = generate_not_candidate_interval_t5_instances()
         self.assertFalse(is_candidate_interval(instance)[0])
         self.assertFalse(is_candidate_extremal_interval(instance)[0])
-    
+
     def test_positive_cei(self):
         for _ in range(30):
             num_alternatives = random.randint(5, 20)
             num_voters = random.randint(5, 20)
-            instance = generate_candidate_extremal_interval_instances(num_alternatives, num_voters)
+            instance = generate_candidate_extremal_interval_instances(
+                num_alternatives, num_voters
+            )
             self.assertTrue(is_candidate_extremal_interval(instance)[0])
             self.assertTrue(is_candidate_interval(instance)[0])
-    
+
     def test_negative_cei(self):
         for _ in range(30):
             num_alternatives = random.randint(5, 20)
             num_voters = random.randint(5, 20)
-            instance = generate_not_candidate_extremal_interval_instances(num_alternatives, num_voters)
+            instance = generate_not_candidate_extremal_interval_instances(
+                num_alternatives, num_voters
+            )
             self.assertFalse(is_candidate_extremal_interval(instance)[0])
 
     def test_positive_vi(self):
@@ -314,6 +330,8 @@ class TestDichotomousInterval(TestCase):
         for _ in range(30):
             num_alternatives = random.randint(5, 100)
             num_voters = random.randint(5, 100)
-            instance = generate_voter_extremal_interval_instances(num_alternatives, num_voters)
+            instance = generate_voter_extremal_interval_instances(
+                num_alternatives, num_voters
+            )
             self.assertTrue(is_voter_extremal_interval(instance)[0])
             self.assertTrue(is_voter_interval(instance)[0])

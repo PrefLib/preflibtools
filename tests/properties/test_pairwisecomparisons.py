@@ -1,5 +1,10 @@
 from preflibtools.instances.preflibinstance import OrdinalInstance
-from preflibtools.properties import has_condorcet, pairwise_scores, copeland_scores, borda_scores
+from preflibtools.properties import (
+    has_condorcet,
+    pairwise_scores,
+    copeland_scores,
+    borda_scores,
+)
 
 from unittest import TestCase
 

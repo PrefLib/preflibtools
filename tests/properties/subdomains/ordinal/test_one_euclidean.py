@@ -18,7 +18,7 @@ class TestOrdinalEuclidean(TestCase):
                 "num_candidates": 30,
                 "num_dimensions": 1,
                 "voters_positions": EuclideanSpace.UNIFORM_SPHERE,
-                "candidates_positions": EuclideanSpace.GAUSSIAN_CUBE
+                "candidates_positions": EuclideanSpace.GAUSSIAN_CUBE,
             }
             vote_map = prefsampling_ordinal_wrapper(euclidean, params)
             instance = OrdinalInstance()

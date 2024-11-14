@@ -4,6 +4,7 @@ from collections.abc import Collection
 
 from preflibtools.instances import OrdinalInstance
 
+
 def get_bottom_alts(instance: list):
     """Get the set of last ranked alternatives in the instance.
 
@@ -33,6 +34,7 @@ def restrict_preferences(profile: list[tuple], alternatives_set: Collection):
         preferences.append(pref)
     return preferences
 
+
 def get_B(profile: list[tuple], alt_set: Collection, alternative: int):
     # B_vals = []
     B_a = set()
@@ -53,11 +55,12 @@ def get_B(profile: list[tuple], alt_set: Collection, alternative: int):
             # get all alternatives before a
             # B_vals.append(i[:i.index(alternative)])
             if len(B_a) == 0:
-                B_a = set(i[:i.index(alternative)])
+                B_a = set(i[: i.index(alternative)])
             else:
-                B_a = B_a.intersection(set(i[:i.index(alternative)]))
+                B_a = B_a.intersection(set(i[: i.index(alternative)]))
 
     return B_a
+
 
 def is_single_peaked_on_tree(instance: OrdinalInstance):
     """Function to detect whether or not the instance is single-peaked on a
@@ -103,4 +106,3 @@ def is_single_peaked_on_tree(instance: OrdinalInstance):
         tree.append((a, b))
 
     return True, tree
-

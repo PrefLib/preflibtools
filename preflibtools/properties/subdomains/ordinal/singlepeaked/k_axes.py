@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
-from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import \
-    is_single_peaked
+from preflibtools.properties.subdomains.ordinal.singlepeaked.singlepeakedness import (
+    is_single_peaked,
+)
 
 from itertools import combinations, product
 from collections import defaultdict
@@ -10,16 +11,17 @@ from collections import defaultdict
 
 #########################################################################################
 
+
 def two_axes_sp(instance):
     """
     Tests whether the collection of orders of the given instance can be split into
-    two partitions such that each partition is itself a single-peaked instance. 
+    two partitions such that each partition is itself a single-peaked instance.
     In other words, whether the given instance is 2-axes single-peaked.
     This function implements an algorithm of Yang (2020).
 
     :param instance: the instance to test for 2-axes single-peakedness.
     :type instance: preflibtools.instances.preflibinstance.OrdinalInstance
-    
+
     :return: whether the instance is 2-axes single-peaked, if that is the case,
         also provides the partitions as two lists of orders.
     :rtype: tuple(bool, list)
@@ -98,10 +100,7 @@ def two_axes_sp(instance):
 
         clauses = {a: (-1, -1), b: (1, 1)}
 
-        assigned_to = {
-            a: defaultdict(lambda: False),
-            b: defaultdict(lambda: False)
-        }
+        assigned_to = {a: defaultdict(lambda: False), b: defaultdict(lambda: False)}
 
         previous_vote = None
         for c_vote, c_vote_p in combinations(partitions[c], 2):
@@ -114,13 +113,21 @@ def two_axes_sp(instance):
                     # Check WD between c, c' and x
                     is_wd, _ = is_worst_restricted(c_vote, c_vote_p, x_vote)
                     if is_wd:
-                        add_clause((c_vote, c_vote_p), clause_vals, vertices, edges, inv_edges)
+                        add_clause(
+                            (c_vote, c_vote_p), clause_vals, vertices, edges, inv_edges
+                        )
 
                     if previous_vote != c_vote and not assigned_to[y][c_vote]:
 
                         # Check alpha between c, x
                         if is_alpha(c_vote, x_vote):
-                            add_clause((c_vote, c_vote), clause_vals, vertices, edges, inv_edges)
+                            add_clause(
+                                (c_vote, c_vote),
+                                clause_vals,
+                                vertices,
+                                edges,
+                                inv_edges,
+                            )
 
                             # c can't be in partition x
                             assigned_to[y][c_vote] = True
@@ -134,8 +141,13 @@ def two_axes_sp(instance):
 
                             is_wd, _ = is_worst_restricted(c_vote, x_vote, x_vote_p)
                             if is_wd:
-                                add_clause((c_vote, c_vote), clause_vals, vertices, edges,
-                                           inv_edges)
+                                add_clause(
+                                    (c_vote, c_vote),
+                                    clause_vals,
+                                    vertices,
+                                    edges,
+                                    inv_edges,
+                                )
 
                                 # c can't be in partition x
                                 assigned_to[y][c_vote] = True
@@ -201,19 +213,23 @@ def is_worst_restricted(v0: list[int], v1: list[int], v2: list[int]):
         id_a0, id_a1 = v0.index(a), v1.index(a)
 
         must_have_bc = v0[:id_a0]
-        b_candidates = v1[id_a1 + 1:]
+        b_candidates = v1[id_a1 + 1 :]
         for b in reversed(b_candidates):
             if b not in must_have_bc:
                 continue
 
-            id_b1, id_b2, = v1.index(b), v2.index(b)
+            (
+                id_b1,
+                id_b2,
+            ) = v1.index(
+                b
+            ), v2.index(b)
 
             must_have_c = v1[:id_b1]
 
-            c_candidates = v2[id_b2 + 1:]
+            c_candidates = v2[id_b2 + 1 :]
             for c in reversed(c_candidates):
-                if (c not in must_have_c
-                        or c not in must_have_bc):
+                if c not in must_have_c or c not in must_have_bc:
                     continue
 
                 id_c2 = v2.index(c)
@@ -254,8 +270,8 @@ def is_alpha(v0: list[int], v1: list[int]):
         id_b_0 = v0.index(b)
         id_b_1 = v1.index(b)
 
-        a_0, c_0 = v0[:id_b_0], v0[id_b_0 + 1:]
-        a_1, c_1 = v1[:id_b_1], v1[id_b_1 + 1:]
+        a_0, c_0 = v0[:id_b_0], v0[id_b_0 + 1 :]
+        a_1, c_1 = v1[:id_b_1], v1[id_b_1 + 1 :]
 
         a_candidates = [a for a in a_0 if a in c_1]
         c_candidates = [c for c in c_0 if c in a_1]
@@ -312,12 +328,13 @@ def add_clause(votes, clause, vertices, edges, inv_edges):
 
 #########################################################################################
 
+
 def two_sat(vertices, edges, inv_edges):
     """
     A helper function for the k-alternative deletion algorithm.
     Implements Kosaraju's algorithm to find the strongly connected
     components of the given graph. Topologically orders the strongly
-    connected components and finds which vertices belong to which component. 
+    connected components and finds which vertices belong to which component.
 
     :return: dictionary pairing vertices with the topologically ordered
     strongly connected component it belongs to.

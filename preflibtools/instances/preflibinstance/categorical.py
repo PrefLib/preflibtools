@@ -326,4 +326,3 @@ class CategoricalInstance(PrefLibInstance):
         return "Categorical-Instance: {} <{},{}>".format(
             self.file_name, self.num_voters, self.num_alternatives
         )
-

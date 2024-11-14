@@ -2,6 +2,7 @@
 Note that this has been updated to use the samplers provided in the
 `prefsampling  <https://github.com/COMSOC-Community/prefsampling>`_ package.
 """
+
 import math
 
 from prefsampling.ordinal import mallows, urn, impartial, impartial_anonymous

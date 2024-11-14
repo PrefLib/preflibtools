@@ -6,7 +6,7 @@ from preflibtools.properties.subdomains.ordinal.singlepeaked import (
     is_single_peaked,
     is_single_peaked_pq_tree,
     is_single_peaked_ILP,
-    is_single_peaked_axis
+    is_single_peaked_axis,
 )
 from preflibtools.properties.subdomains.ordinal.singlecrossing import is_single_crossing
 
@@ -19,5 +19,5 @@ __all__ = [
     "is_single_peaked",
     "is_single_peaked_pq_tree",
     "is_single_peaked_ILP",
-    "is_single_peaked_axis"
+    "is_single_peaked_axis",
 ]

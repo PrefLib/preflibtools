@@ -1,5 +1,6 @@
 """ This module describes several procedures to check for basic procedures of PrefLib instances.
 """
+
 from preflibtools.instances import OrdinalInstance, CategoricalInstance
 from preflibtools.properties.decorators import requires_preference_type
 
@@ -150,7 +151,9 @@ def is_approval(instance):
         m = max([len(order) for order in instance.orders])
         return m == 1 or (m == 2 and is_complete(instance))
     elif isinstance(instance, CategoricalInstance):
-        return instance.num_categories == 1 or (instance.num_categories == 2 and is_complete(instance))
+        return instance.num_categories == 1 or (
+            instance.num_categories == 2 and is_complete(instance)
+        )
 
 
 @requires_preference_type("toc", "soc", "toi", "soi")

@@ -1,6 +1,7 @@
 """
 Euclidean domain for ordinal preferences.
 """
+
 from __future__ import annotations
 
 from preflibtools.instances import OrdinalInstance
@@ -11,7 +12,7 @@ import itertools
 from mip import Model, CONTINUOUS, minimize, xsum, OptimizationStatus
 
 
-def _append_to_axis(axis: list, a: int, b:int):
+def _append_to_axis(axis: list, a: int, b: int):
     """Adds alternatives a and b to the axis in such a way that a is to the
     left of b.
 
@@ -49,7 +50,7 @@ def _restrict_preferences(instance: OrdinalInstance, C_set_plus: set):
     flattened = instance.flatten_strict()
 
     preferences = []
-    for (pref, _) in flattened:
+    for pref, _ in flattened:
         pref = [c for c in pref if c in C_set_plus]
         preferences.append(pref)
 
@@ -69,8 +70,11 @@ def _one_euclidean_solve_lp(preferences: list, axis: list):
         voters and the alternatives if the LP is feasible, None otherwise.
     """
     # create pairs (a, b) such that a is to the left of b in the axis
-    pairs = [(a, b) for a, b in itertools.combinations(axis, 2)
-             if axis.index(a) < axis.index(b)]
+    pairs = [
+        (a, b)
+        for a, b in itertools.combinations(axis, 2)
+        if axis.index(a) < axis.index(b)
+    ]
 
     n = len(preferences)
     m = len(axis)
@@ -79,9 +83,12 @@ def _one_euclidean_solve_lp(preferences: list, axis: list):
 
     # add variables for the voters and alternatives
     all_vars = [model.add_var(var_type=CONTINUOUS, name=f"voter_{i}") for i in range(n)]
-    all_vars += [model.add_var(var_type=CONTINUOUS, name=f"alternative_{axis[i]}") for i in range(m)]
+    all_vars += [
+        model.add_var(var_type=CONTINUOUS, name=f"alternative_{axis[i]}")
+        for i in range(m)
+    ]
 
-    #TODO: var for axis.index(pair[0]) etc.
+    # TODO: var for axis.index(pair[0]) etc.
 
     for pair in pairs:
         # add axis constraints
@@ -90,17 +97,33 @@ def _one_euclidean_solve_lp(preferences: list, axis: list):
         # print("n + axis.index(pair[0]) - 1: ", n + axis.index(pair[0]) - 1)
         # print("n + axis.index(pair[1]) - 1: ", n + axis.index(pair[1]) - 1)
         # print("vars[n + axis.index(pair[1]) - 1]: ", vars[n + axis.index(pair[1]) - 1])
-        model += all_vars[n + axis.index(pair[0])] + 1 <= all_vars[n + axis.index(pair[1])]
+        model += (
+            all_vars[n + axis.index(pair[0])] + 1 <= all_vars[n + axis.index(pair[1])]
+        )
         # add voter constraints
         for i in range(n):
             # if voter prefers a to b
             if preferences[i].index(pair[0]) < preferences[i].index(pair[1]):
                 # model += vars[i] + 1 <= (vars[n + pair[0] - 1] + vars[n + pair[1] - 1]) / 2
-                model += all_vars[i] + 1 <= (all_vars[n + axis.index(pair[0])] + all_vars[n + axis.index(pair[1])]) / 2
+                model += (
+                    all_vars[i] + 1
+                    <= (
+                        all_vars[n + axis.index(pair[0])]
+                        + all_vars[n + axis.index(pair[1])]
+                    )
+                    / 2
+                )
             else:
                 # model += vars[i] >= (vars[n + pair[1] - 1] + vars[n + pair[0] - 1]) / 2 + 1
-                model += all_vars[i] >= (all_vars[n + axis.index(pair[1])] + all_vars[n + axis.index(pair[0])]) / 2 + 1
-
+                model += (
+                    all_vars[i]
+                    >= (
+                        all_vars[n + axis.index(pair[1])]
+                        + all_vars[n + axis.index(pair[0])]
+                    )
+                    / 2
+                    + 1
+                )
 
     model.objective = minimize(xsum(all_vars))
 
@@ -161,7 +184,6 @@ def _one_euclidean_gen_sets(v_1: list, C_set_plus: set, C_set_minus: set):
                         f[ind] = set()
                     f[ind].add(a)
 
-
         if tmp is not None:
             C_set_minus.remove(tmp)
             if not ind in g:
@@ -212,9 +234,9 @@ def is_one_euclidean(instance: OrdinalInstance):
         #   - green: if c in C_L (2)
         #   - grey: else (3)
         for c in C_set:
-            if ((v_1.index(c) < v_1.index(c_plus)
-                and v_n.index(c) < v_n.index(c_minus))
-                or (c in {c_minus, c_plus})):
+            if (
+                v_1.index(c) < v_1.index(c_plus) and v_n.index(c) < v_n.index(c_minus)
+            ) or (c in {c_minus, c_plus}):
                 # put c in C_M
                 gamma[c] = 0
             else:
@@ -224,8 +246,7 @@ def is_one_euclidean(instance: OrdinalInstance):
         # walk through the alternatives in pairs
         # TODO: check if the order of the pairs is important
         for a, b in itertools.permutations(C_set, 2):
-            if (v_1.index(a) < v_1.index(b)
-                and v_n.index(b) < v_n.index(a)):
+            if v_1.index(a) < v_1.index(b) and v_n.index(b) < v_n.index(a):
                 if gamma[a] == 1 or gamma[b] == 2:
                     # Colouring stage cannot be completed
                     return False, None
@@ -245,20 +266,23 @@ def is_one_euclidean(instance: OrdinalInstance):
         # walk through the alternatives in C_set_plus in pairs
         for a, b in itertools.combinations(C_set_plus, 2):
             # print(a, b)
-            if ((gamma[a] == 2 and gamma[b] == 0)
+            if (
+                (gamma[a] == 2 and gamma[b] == 0)
                 or (gamma[a] == 0 and gamma[b] == 1)
-                or (gamma[a] == 2 and gamma[b] == 1)):
+                or (gamma[a] == 2 and gamma[b] == 1)
+            ):
                 # axis = _append_to_axis(axis, a, b)
                 axis_dict[a] += 1
 
-            elif ((gamma[b] == 2 and gamma[a] == 0)
+            elif (
+                (gamma[b] == 2 and gamma[a] == 0)
                 or (gamma[b] == 0 and gamma[a] == 1)
-                or (gamma[b] == 2 and gamma[a] == 1)):
+                or (gamma[b] == 2 and gamma[a] == 1)
+            ):
                 # axis = _append_to_axis(axis, b, a)
                 axis_dict[b] += 1
 
-            elif ((gamma[a] == 0 and gamma[b] == 0)
-                or (gamma[a] == 1 and gamma[b] == 1)):
+            elif (gamma[a] == 0 and gamma[b] == 0) or (gamma[a] == 1 and gamma[b] == 1):
 
                 a_indx = v_1.index(a)
                 b_indx = v_1.index(b)
@@ -283,7 +307,12 @@ def is_one_euclidean(instance: OrdinalInstance):
                     axis_dict[a] += 1
 
         # base axis on value of axis_dict
-        axis = [k for k, v in sorted(axis_dict.items(), key=lambda item: item[1], reverse=True)]
+        axis = [
+            k
+            for k, v in sorted(
+                axis_dict.items(), key=lambda item: item[1], reverse=True
+            )
+        ]
 
         # restrict the preferences of the voters to elements in C_set_plus
         preferences = _restrict_preferences(instance, C_set_plus)
@@ -304,7 +333,6 @@ def is_one_euclidean(instance: OrdinalInstance):
 
             # union V and F1
             tmp = voters + [alternatives[i] for i in f[0]]
-
 
             # TODO: check if index or value is needed
             x_l = min(tmp)
@@ -335,16 +363,17 @@ def is_one_euclidean(instance: OrdinalInstance):
                     g[0].add(tmp)
                     y[tmp + n - 1] = x_r + 6 * delta + (i / m) * delta
 
-
             for i in range(1, k):
                 for c in f[i]:
                     if alternatives[c] < x_l:
-                        y[c + n - 1] = alternatives[c] - ((i + 1)**2) * delta
+                        y[c + n - 1] = alternatives[c] - ((i + 1) ** 2) * delta
                     if alternatives[c] > x_r:
-                        y[c + n - 1] = alternatives[c] + ((i + 1)**2) * delta
+                        y[c + n - 1] = alternatives[c] + ((i + 1) ** 2) * delta
 
                 for l in range(len(g[i])):
-                    y[g[i].pop() + n - 1] = x_r + ((i + 1)**2) * delta + 2 * delta + l / m * delta
+                    y[g[i].pop() + n - 1] = (
+                        x_r + ((i + 1) ** 2) * delta + 2 * delta + l / m * delta
+                    )
 
             return True, y
 

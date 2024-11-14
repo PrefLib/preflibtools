@@ -53,6 +53,7 @@ def kendall_tau_distance(order1, order2, normalise=False):
         return res / norm
     return res
 
+
 def spearman_footrule_distance(order1, order2):
     """Returns the Spearman's footrule distance between two orders.
 

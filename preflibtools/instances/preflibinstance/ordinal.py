@@ -256,7 +256,9 @@ class OrdinalInstance(PrefLibInstance):
         res = []
         for order in self.orders:
             if len(order) != self.num_alternatives:
-                warnings.warn("You are flattening a non-strict order, information may be lost.")
+                warnings.warn(
+                    "You are flattening a non-strict order, information may be lost."
+                )
             res.append(
                 (
                     tuple(indif_class[0] for indif_class in order),
@@ -485,4 +487,3 @@ class OrdinalInstance(PrefLibInstance):
         return "Ordinal-Instance: {} <{},{}>".format(
             self.file_name, self.num_voters, self.num_alternatives
         )
-

@@ -84,7 +84,7 @@ class TestAnalysis(TestCase):
         assert is_approval(instance) is True
         instance.num_categories = 2
         instance.num_alternatives = 4
-        instance.alternatives_name = {0: 0, 1:1, 2:2, 3:3}
+        instance.alternatives_name = {0: 0, 1: 1, 2: 2, 3: 3}
         instance.preferences.append(((0, 1), (2, 3)))
         assert is_approval(instance) is True
         instance.preferences.append(((0, 1), (3,)))

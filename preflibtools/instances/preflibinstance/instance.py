@@ -1,5 +1,6 @@
 """ This module describes the main class to deal with PrefLib instances..
 """
+
 import os.path
 from os import path
 
@@ -104,7 +105,9 @@ class PrefLibInstance:
 
         self.parse_lines(lines, autocorrect=autocorrect, header_only=header_only)
 
-    def parse_str(self, string, data_type, file_name="", autocorrect=False, header_only=False):
+    def parse_str(
+        self, string, data_type, file_name="", autocorrect=False, header_only=False
+    ):
         """Parses the string provided as argument and populates the PreflibInstance object accordingly.
         The parser to be used is deduced from the file extension passed as argument.
 
@@ -125,7 +128,9 @@ class PrefLibInstance:
         self.file_name = file_name
         self.data_type = data_type
 
-        self.parse_lines(string.splitlines(), autocorrect=autocorrect, header_only=header_only)
+        self.parse_lines(
+            string.splitlines(), autocorrect=autocorrect, header_only=header_only
+        )
 
     def parse_url(self, url, autocorrect=False, header_only=False):
         """Parses the file located at the provided URL and populates the PreflibInstance object accordingly.

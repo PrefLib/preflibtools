@@ -2,7 +2,9 @@ import random
 from unittest import TestCase
 
 from preflibtools.properties.subdomains.dichotomous.partition import is_2_part, is_part
-from tests.properties.subdomains.dichotomous.utils import initialise_categorical_instance
+from tests.properties.subdomains.dichotomous.utils import (
+    initialise_categorical_instance,
+)
 
 
 def generate_part_instance(num_alternatives, num_votes, num_partitions=None):
@@ -23,7 +25,9 @@ def generate_part_instance(num_alternatives, num_votes, num_partitions=None):
 
 
 def generate_not_part_instance(num_alternatives, num_votes, num_partitions=None):
-    instance = generate_part_instance(num_alternatives, num_votes - 1, num_partitions=num_partitions)
+    instance = generate_part_instance(
+        num_alternatives, num_votes - 1, num_partitions=num_partitions
+    )
     instance.preferences.append([(0, num_alternatives - 1)])
     return instance
 

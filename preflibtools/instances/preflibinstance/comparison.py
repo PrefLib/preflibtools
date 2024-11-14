@@ -6,4 +6,3 @@ class ComparisonInstance(PrefLibInstance):
 
     def __init__(self):
         PrefLibInstance.__init__(self)
-

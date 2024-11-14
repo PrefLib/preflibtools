@@ -57,7 +57,9 @@ def is_candidate_extremal_interval(instance):
     res, ordered_idx = solve_consecutive_ones(final_matrix)
     if res:
         alternative_names = list(instance.alternatives_name)
-        candidate_order = [alternative_names[i] for i in ordered_idx[:len(alternative_names)]]
+        candidate_order = [
+            alternative_names[i] for i in ordered_idx[: len(alternative_names)]
+        ]
         return True, candidate_order
     return False, None
 

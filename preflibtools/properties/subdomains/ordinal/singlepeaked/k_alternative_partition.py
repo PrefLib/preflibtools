@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import longest_single_peaked_axis, \
-    get_L_sets, place
+from preflibtools.properties.subdomains.ordinal.singlepeaked.k_alternative_deletion import (
+    longest_single_peaked_axis,
+    get_L_sets,
+    place,
+)
 
 import math
 
@@ -43,7 +46,7 @@ def k_alternative_partition_brut_force(instance, k):
     :type k: int
 
     :return: A list containing single-peaked axes representing the optimal partitions
-    :rtype: list(list)  
+    :rtype: list(list)
     """
 
     alternatives = list(instance.alternatives_name.keys())
@@ -86,7 +89,7 @@ def dfs(i, axes, shortest, m, k, L, unique_votes):
     :type m: int
     :param k: bound on the number of partitions
     :type k: int
-    :param L: dict containing all ways to add the alternatives 
+    :param L: dict containing all ways to add the alternatives
     to be placed at step i unto the axes.
     :type L: dict
     :param unique_votes: The unique orders within the profile.

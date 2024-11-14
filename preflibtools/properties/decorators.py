@@ -20,9 +20,12 @@ def requires_preference_type(*dtype):
                 raise PreferenceIncompatibleError(
                     f"The function {func.__name__} requires instances with one of the following "
                     f"type: {','.join(dtype)}. The current instance has type {instance.data_type}, "
-                    f"which is not allowed.")
+                    f"which is not allowed."
+                )
             return func(instance, *args, **kwargs)
+
         return wrapper
+
     return decorator_fn
 
 
