@@ -40,7 +40,7 @@ class TestSoiInstances(TestCase):
 
     def test_read_from_url(self):
         instance = OrdinalInstance()
-        instance.parse_url("https://www.preflib.org/static/data/apa/00028-00000007.soi")
+        instance.parse_url("https://raw.githubusercontent.com/PrefLib/PrefLib-Data/main/datasets/00028%20-%20apa/00028-00000007.soi")
 
     def test_autocorrect(self):
         instance = OrdinalInstance()

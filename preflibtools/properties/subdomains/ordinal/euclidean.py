@@ -4,12 +4,12 @@ Euclidean domain for ordinal preferences.
 
 from __future__ import annotations
 
+from pulp import LpVariable, LpMinimize, LpProblem, lpSum, PULP_CBC_CMD, LpStatusOptimal, LpStatusNotSolved, value
+
 from preflibtools.instances import OrdinalInstance
 from preflibtools.properties.subdomains.ordinal.singlecrossing import is_single_crossing
 
 import itertools
-
-from mip import Model, CONTINUOUS, minimize, xsum, OptimizationStatus
 
 
 def _append_to_axis(axis: list, a: int, b: int):
@@ -59,7 +59,7 @@ def _restrict_preferences(instance: OrdinalInstance, C_set_plus: set):
 
 def _one_euclidean_solve_lp(preferences: list, axis: list):
     """Attempts to solve the linear program for the 1-Euclidean domain,
-    given the preferences and the axis. Makes use of the MIP library.
+    given the preferences and the axis. Makes use of the PuLP library.
 
     Args:
         preferences (list): the preferences of the voters
@@ -79,69 +79,57 @@ def _one_euclidean_solve_lp(preferences: list, axis: list):
     n = len(preferences)
     m = len(axis)
 
-    model = Model()
+    model = LpProblem("1Euclidean-Model", LpMinimize)
 
-    # add variables for the voters and alternatives
-    all_vars = [model.add_var(var_type=CONTINUOUS, name=f"voter_{i}") for i in range(n)]
-    all_vars += [
-        model.add_var(var_type=CONTINUOUS, name=f"alternative_{axis[i]}")
-        for i in range(m)
-    ]
+    # Variables: voter positions (continuous)
+    voter_vars = [LpVariable(f"voter_{i}", cat="Continuous") for i in range(n)]
 
-    # TODO: var for axis.index(pair[0]) etc.
+    # Variables: alternative positions (continuous), ordered by axis
+    alt_vars = {
+        alt_id: LpVariable(f"alternative_{alt_id}", cat="Continuous")
+        for alt_id in axis
+    }
+
+    # Bounding the vars
+    model += alt_vars[axis[0]] == 0
+    for v in alt_vars.values():
+        model += v >= 0
+        model += v <= max(n, m) + 2
+    for v in voter_vars:
+        model += v >= 0
+        model += v <= max(n, m) + 2
 
     for pair in pairs:
-        # add axis constraints
-        # print("pair:", pair)
-        # model += vars[n + pair[0] - 1] + 1 <= vars[n + pair[1] - 1]
-        # print("n + axis.index(pair[0]) - 1: ", n + axis.index(pair[0]) - 1)
-        # print("n + axis.index(pair[1]) - 1: ", n + axis.index(pair[1]) - 1)
-        # print("vars[n + axis.index(pair[1]) - 1]: ", vars[n + axis.index(pair[1]) - 1])
-        model += (
-            all_vars[n + axis.index(pair[0])] + 1 <= all_vars[n + axis.index(pair[1])]
-        )
+        a, b = pair
+        # Constraint: alt_vars[a] + 1 <= alt_vars[b]
+        model += alt_vars[a] + 1 <= alt_vars[b]
+
         # add voter constraints
         for i in range(n):
-            # if voter prefers a to b
-            if preferences[i].index(pair[0]) < preferences[i].index(pair[1]):
-                # model += vars[i] + 1 <= (vars[n + pair[0] - 1] + vars[n + pair[1] - 1]) / 2
+            voter_pref = preferences[i]
+            if voter_pref.index(a) < voter_pref.index(b):
+                # voter i prefers a to b
                 model += (
-                    all_vars[i] + 1
-                    <= (
-                        all_vars[n + axis.index(pair[0])]
-                        + all_vars[n + axis.index(pair[1])]
-                    )
-                    / 2
+                        voter_vars[i] + 1
+                        <= (alt_vars[a] + alt_vars[b]) / 2
                 )
             else:
-                # model += vars[i] >= (vars[n + pair[1] - 1] + vars[n + pair[0] - 1]) / 2 + 1
+                # voter i prefers b to a
                 model += (
-                    all_vars[i]
-                    >= (
-                        all_vars[n + axis.index(pair[1])]
-                        + all_vars[n + axis.index(pair[0])]
-                    )
-                    / 2
-                    + 1
+                        voter_vars[i]
+                        >= (alt_vars[a] + alt_vars[b]) / 2 + 1
                 )
 
-    model.objective = minimize(xsum(all_vars))
+    # Objective: minimize sum of all variables (voter + alt positions)
+    model += lpSum(voter_vars + list(alt_vars.values()))
 
-    # suppress log
-    model.verbose = 0
+    # Solve the model
+    model.solve(PULP_CBC_CMD(msg=False))
 
-    status = model.optimize()
-
-    if status == OptimizationStatus.OPTIMAL or status == OptimizationStatus.FEASIBLE:
-        alternatives = dict()
-        for i in range(m):
-            alternatives[axis[i]] = all_vars[n + i].x
-
-        voters = []
-        for i in range(n):
-            voters.append(all_vars[i].x)
-
-        return status, voters, alternatives
+    if model.status in [LpStatusOptimal, LpStatusNotSolved]:
+        alternatives = {alt_id: value(var) for alt_id, var in alt_vars.items()}
+        voters = [value(var) for var in voter_vars]
+        return model.status, voters, alternatives
 
     return None, None, None
 
@@ -341,7 +329,7 @@ def is_one_euclidean(instance: OrdinalInstance):
             tmp = voters + [alternatives[i] for i in C_set_plus]
 
             # TODO: see previous comment, delta currently as value
-            delta = max([abs(x - y) for x, y in itertools.permutations(tmp, 2)])
+            delta = max([abs(x - y) for x, y in itertools.permutations(tmp, 2)], default=0)
 
             y = dict()
             # add mapping of voters

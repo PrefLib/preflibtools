@@ -54,7 +54,7 @@ class TestCatInstance(TestCase):
     def test_read_from_url(self):
         instance = CategoricalInstance()
         instance.parse_url(
-            "https://www.preflib.org/static/data/aamas/00037-00000001.cat"
+            "https://raw.githubusercontent.com/PrefLib/PrefLib-Data/main/datasets/00037%20-%20aamas/00037-00000001.cat"
         )
 
     def test_read_autocorrect(self):

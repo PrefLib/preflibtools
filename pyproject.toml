@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "preflibtools"
-version = "2.0.32"
+version = "2.0.33"
 description = "A set of tools to work with preference data from the PrefLib.org website."
 authors = [
   { name = "Simon Rey", email = "reysimon@orange.fr" },
@@ -21,11 +21,12 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 requires-python = ">=3.7"
 dependencies = [
     "numpy",
-    "mip",
+    "pulp",
     "prefsampling>=0.1.7"
 ]
 

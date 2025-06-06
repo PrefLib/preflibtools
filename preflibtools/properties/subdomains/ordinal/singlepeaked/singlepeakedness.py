@@ -9,7 +9,6 @@ import time
 from itertools import combinations
 
 import numpy as np
-from mip import Model, xsum, BINARY, MINIMIZE, INTEGER, OptimizationStatus
 
 from preflibtools.properties.subdomains.consecutive_ones import isC1P
 
@@ -567,6 +566,15 @@ def is_single_peaked_ILP(instance):
     :rtype: Tuple(bool, str, list)
     """
 
+    try:
+        from mip import Model, MINIMIZE, BINARY, INTEGER, OptimizationStatus
+    except ImportError:
+        raise ImportError(
+            "The Single-Peaked ILP functions needs the python-mip package. This is no longer listed as a requirement "
+            "as we are slowly moving to PuLP for Python 3.13 compatibility. If you are using Python < 3.13, install "
+            "manually the python-mip package. If you are using Python 3.13, please help us translate this file to PuLP."
+        )
+
     if instance.data_type not in ("toc", "soc"):
         raise TypeError(
             "You are trying to test for single-peakedness on an instance of type "
@@ -667,6 +675,15 @@ def approx_SP_voter_deletion_ILP(instance, weighted=False):
             "You are trying to test for single-peakedness on an instance of type "
             + str(instance.data_type)
             + ", this is not possible. Only toc and soc are allowed here."
+        )
+
+    try:
+        from mip import Model, MINIMIZE, BINARY, INTEGER, OptimizationStatus, xsum
+    except ImportError:
+        raise ImportError(
+            "The Single-Peaked ILP functions needs the python-mip package. This is no longer listed as a requirement "
+            "as we are slowly moving to PuLP for Python 3.13 compatibility. If you are using Python < 3.13, install "
+            "manually the python-mip package. If you are using Python 3.13, please help us translate this file to PuLP."
         )
 
     model = Model(sense=MINIMIZE)
@@ -782,6 +799,15 @@ def approx_SP_alternative_deletion_ILP(instance):
             "You are trying to test for single-peakedness on an instance of type "
             + str(instance.data_type)
             + ", this is not possible. Only toc and soc are allowed here."
+        )
+
+    try:
+        from mip import Model, MINIMIZE, BINARY, INTEGER, OptimizationStatus, xsum
+    except ImportError:
+        raise ImportError(
+            "The Single-Peaked ILP functions needs the python-mip package. This is no longer listed as a requirement "
+            "as we are slowly moving to PuLP for Python 3.13 compatibility. If you are using Python < 3.13, install "
+            "manually the python-mip package. If you are using Python 3.13, please help us translate this file to PuLP."
         )
 
     model = Model(sense=MINIMIZE)
