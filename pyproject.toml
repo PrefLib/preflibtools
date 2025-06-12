@@ -7,7 +7,7 @@ name = "preflibtools"
 version = "2.0.33"
 description = "A set of tools to work with preference data from the PrefLib.org website."
 authors = [
-  { name = "Simon Rey", email = "reysimon@orange.fr" },
+  { name = "Simon Rey", email = "simon.j.rey@proton.me" },
 ]
 license = { file = "LICENSE.md" }
 readme = "README.md"
